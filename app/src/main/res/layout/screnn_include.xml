@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/screnn_rl"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <example.com.fan.view.SmartScrollView
+        android:id="@+id/scroll"
+        android:layout_width="wrap_content"
+        android:layout_height="200dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginTop="60dp"
+        android:layout_marginBottom="75dp"
+        android:layout_marginRight="5dp"
+        android:fadingEdge="none"
+        android:fillViewport="true"
+        android:paddingBottom="10dp"
+        android:paddingTop="10dp"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:id="@+id/bullet_ll"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:gravity="center|right"
+            android:orientation="vertical"></LinearLayout>
+
+    </example.com.fan.view.SmartScrollView>
+</RelativeLayout>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/grid_ll"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+    <RelativeLayout
+        android:id="@+id/item_rl"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/name_tv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="王萌萌"
+            android:textColor="@color/gray7"
+            android:textSize="12dp" />
+
+    </RelativeLayout>
+
+    <TextView
+        style="@style/line_styles_ove_h"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="9dp"
+        android:layout_marginTop="9dp" />
+
+    <TextView
+        style="@style/line_styles_ove_w"
+        android:layout_alignParentBottom="true" />
+
+</RelativeLayout>

@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal"
+        android:paddingBottom="7dp"
+        android:paddingTop="7dp">
+
+        <TextView
+            android:id="@+id/cancel_tv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="3"
+            android:gravity="center"
+            android:text="取消"
+            android:textColor="@color/gray3"
+            android:textSize="13dp" />
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <EditText
+                android:id="@+id/search_edit"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/edit_corners_bk"
+                android:hint="搜索 | 模特名/期数/标签"
+                android:padding="10dp"
+                android:textColorHint="@color/gray3"
+                android:textSize="11dp" />
+
+            <ImageView
+                android:id="@+id/clear_img"
+                android:layout_width="30dp"
+                android:layout_height="18dp"
+                android:layout_gravity="center|right"
+                android:src="@mipmap/clear_img2" />
+        </FrameLayout>
+
+
+        <ImageView
+            android:id="@+id/search_img"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="3"
+            android:padding="6dp"
+            android:src="@mipmap/search_img1" />
+
+    </LinearLayout>
+
+    <View style="@style/line_styles_ove_w"></View>
+
+    <LinearLayout
+        android:id="@+id/tab_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <ListView
+            android:id="@+id/listView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone"></ListView>
+
+        <ImageView
+            android:id="@+id/no_data"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/nodata_img"
+            android:visibility="gone"></ImageView>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@color/content7"
+                android:paddingLeft="15dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="MODEL"
+                    android:textColor="@color/gray8"
+                    android:textSize="50dp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="5dp"
+                    android:gravity="bottom|left"
+                    android:text="热门模特"
+                    android:textColor="@color/content2"
+                    android:textSize="13dp" />
+            </FrameLayout>
+
+
+            <example.com.fan.view.GrapeGridview
+                android:id="@+id/model_grid"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:numColumns="4"
+                android:paddingLeft="5dp"
+                android:paddingRight="15dp"
+                android:scrollbars="none"></example.com.fan.view.GrapeGridview>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@color/content7"
+                android:paddingLeft="15dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="TAG"
+                    android:textColor="@color/gray8"
+                    android:textSize="50dp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="5dp"
+                    android:gravity="bottom|left"
+                    android:text="热门标签"
+                    android:textColor="@color/content2"
+                    android:textSize="13dp" />
+            </FrameLayout>
+
+            <example.com.fan.view.GrapeGridview
+                android:id="@+id/tag_grid"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:numColumns="4"
+                android:paddingLeft="5dp"
+                android:paddingRight="15dp"
+                android:scrollbars="none"></example.com.fan.view.GrapeGridview>
+        </LinearLayout>
+
+    </LinearLayout>
+</LinearLayout>

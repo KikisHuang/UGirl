@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_rl"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity.MainActivity">
+
+    <include
+        android:id="@+id/title"
+        layout="@layout/title_layout"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"></include>
+
+    <LinearLayout
+        android:id="@+id/main_ll"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/bottom_menu"
+        android:layout_below="@+id/title"
+        android:orientation="vertical"></LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/bottom_menu"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:background="@color/white"
+        android:padding="3dp"
+        android:orientation="horizontal">
+        <!--
+                <TextView
+                    android:id="@+id/page_img"
+                    style="@style/bottomMenu"
+                    android:text="@string/page" />-->
+
+        <include
+            android:id="@+id/page_img"
+            layout="@layout/bottom_icon_include"></include>
+
+        <include
+            android:id="@+id/two_img"
+            layout="@layout/bottom_icon_include"></include>
+
+        <include
+            android:id="@+id/three_img"
+            layout="@layout/bottom_icon_include"></include>
+
+        <include
+            android:id="@+id/four_img"
+            layout="@layout/bottom_icon_include"></include>
+
+        <include
+            android:id="@+id/five_img"
+            layout="@layout/bottom_icon_include"></include>
+    </LinearLayout>
+</RelativeLayout>

@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <include layout="@layout/title_layout"></include>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:orientation="horizontal">
+
+                <FrameLayout
+                    android:id="@+id/qq_server_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="70dp"
+                    android:layout_weight="1">
+
+                    <ImageView
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_gravity="center|top"
+                        android:src="@mipmap/men_server_icon" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center|bottom"
+                        android:text="@string/qq_server"
+                        android:textColor="@color/content4"
+                        android:textSize="10dp" />
+                </FrameLayout>
+                <FrameLayout
+                    android:id="@+id/wx_server_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="70dp"
+                    android:layout_weight="1">
+
+                    <ImageView
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_gravity="center|top"
+                        android:src="@mipmap/wechat_server" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center|bottom"
+                        android:text="@string/wx_server"
+                        android:textColor="@color/content4"
+                        android:textSize="10dp" />
+                </FrameLayout>
+
+                <FrameLayout
+                    android:id="@+id/skill_server_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="70dp"
+                    android:layout_weight="1">
+
+                    <ImageView
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_gravity="center|top"
+                        android:layout_marginTop="3dp"
+                        android:src="@mipmap/man_server_icon" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center|bottom"
+                        android:text="@string/skill_server"
+                        android:textColor="@color/content4"
+                        android:textSize="10dp" />
+                </FrameLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/call_ll"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="@string/server_details"
+                    android:textColor="@color/black"
+                    android:textSize="12dp" />
+            </LinearLayout>
+
+            <TextView
+                style="@style/line_styles_10"
+                android:layout_marginTop="7dp" />
+
+            <include
+                android:id="@+id/download_why"
+                layout="@layout/setting_layout_include"></include>
+
+            <include
+                android:id="@+id/msg_why"
+                layout="@layout/setting_layout_include"></include>
+
+            <include
+                android:id="@+id/content_why"
+                layout="@layout/setting_layout_include"></include>
+
+            <include
+                android:id="@+id/search_why"
+                layout="@layout/setting_layout_include"></include>
+
+            <include
+                android:id="@+id/collect_why"
+                layout="@layout/setting_layout_include"></include>
+
+            <include
+                android:id="@+id/comment_why"
+                layout="@layout/setting_layout_include"></include>
+
+            <include
+                android:id="@+id/pay_why"
+                layout="@layout/setting_layout_include"></include>
+
+            <include
+                android:id="@+id/updata_why"
+                layout="@layout/setting_layout_include"></include>
+
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

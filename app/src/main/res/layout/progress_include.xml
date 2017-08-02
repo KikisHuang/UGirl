@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/progress_ll"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/goal_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="12dp"
+        android:text="目标:1000000FB"
+        android:textColor="@color/black" />
+
+    <ProgressBar
+        android:id="@+id/progressbar"
+        style="@style/StyleProgressBarMini"
+        android:layout_width="match_parent"
+        android:layout_height="7dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="12dp"
+        android:background="@drawable/shape_progressbar_bg"
+        android:max="100"
+        android:progress="50"></ProgressBar>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="8dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/details_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:lineSpacingExtra="5dp"
+            android:text="11小时\n剩余"
+            android:textColor="@color/content1"
+            android:textSize="@dimen/size38" />
+
+        <TextView
+            android:id="@+id/got_money"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:lineSpacingExtra="5dp"
+            android:text="360356FB\n已筹集"
+            android:textColor="@color/content1"
+            android:textSize="@dimen/size38" />
+
+        <TextView
+            android:id="@+id/reach_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:lineSpacingExtra="5dp"
+            android:text="25%\n达成"
+            android:textColor="@color/content1"
+            android:textSize="@dimen/size38" />
+    </LinearLayout>
+
+
+    <TextView
+        android:id="@+id/support_num"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="5dp"
+        android:text="0人支持"
+        android:textColor="@color/content1"
+        android:textSize="@dimen/size36" />
+
+    <LinearLayout
+        android:id="@+id/support_ll"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="3dp"
+        android:orientation="horizontal">
+        <ImageView
+            android:id="@+id/img1"
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:layout_weight="1"
+            android:layout_marginRight="7dp"
+            android:visibility="gone"
+            />
+        <ImageView
+            android:id="@+id/img2"
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:layout_weight="1"
+            android:layout_marginRight="7dp"
+            android:visibility="gone"
+
+            />
+        <ImageView
+            android:id="@+id/img3"
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:layout_weight="1"
+            android:layout_marginRight="7dp"
+            android:visibility="gone"
+
+            />
+        <ImageView
+            android:id="@+id/img4"
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:layout_weight="1"
+            android:layout_marginRight="7dp"
+            android:visibility="gone"
+
+            />
+        <ImageView
+            android:id="@+id/img5"
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:layout_weight="1"
+            android:layout_marginRight="7dp"
+            android:visibility="gone"
+
+            />
+        <ImageView
+            android:id="@+id/img6"
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:layout_weight="1"
+            android:layout_marginRight="7dp"
+            android:visibility="gone"
+
+            />
+        <ImageView
+            android:id="@+id/img7"
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:layout_weight="1"
+            android:layout_marginRight="7dp"
+            android:visibility="gone"
+
+            />
+        <ImageView
+            android:id="@+id/img8"
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:layout_weight="1"
+            android:layout_marginRight="7dp"
+            android:visibility="gone"
+
+            />
+        <ImageView
+            android:id="@+id/img9"
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:layout_weight="1"
+            android:layout_marginRight="7dp"
+            android:src="@mipmap/more_img"
+            />
+
+    </LinearLayout>
+
+</LinearLayout>

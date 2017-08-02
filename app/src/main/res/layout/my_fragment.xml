@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/title_rl"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/white">
+
+        <TextView
+            android:id="@+id/title_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="个人中心"
+            android:textColor="@color/black"
+            android:textSize="18dp" />
+
+    </RelativeLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_alignParentBottom="true"
+        android:background="@color/gray0" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:orientation="vertical">
+
+            <include layout="@layout/my_top_include"></include>
+
+            <TextView
+                android:id="@+id/acoount_line"
+                style="@style/line_styles_5"
+                android:layout_marginTop="7dp" />
+
+            <LinearLayout
+                android:id="@+id/account_number_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="13dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/attention_tv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="5\n关注"
+                    android:textColor="@color/gray1"
+                    android:textSize="15dp" />
+
+                <TextView
+                    android:id="@+id/account_tv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="232\n我的账户"
+                    android:textColor="@color/gray1"
+                    android:textSize="15dp" />
+
+                <TextView
+                    android:id="@+id/rank_tv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="1\n等级"
+                    android:textColor="@color/gray1"
+                    android:textSize="15dp" />
+
+            </LinearLayout>
+
+            <TextView
+                style="@style/line_styles_5"
+                android:layout_marginTop="13dp" />
+
+            <ImageView
+                android:id="@+id/ad_img"
+                android:layout_width="match_parent"
+                android:layout_height="110dp"
+                android:layout_marginBottom="2dp"
+                android:layout_marginTop="2dp"
+                android:scaleType="fitXY"></ImageView>
+
+            <TextView style="@style/line_styles_5" />
+
+            <include layout="@layout/my_include_layout"></include>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

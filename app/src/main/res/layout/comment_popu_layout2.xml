@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@null"
+    android:orientation="vertical">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="90dp"
+        android:background="@color/gray0"
+        android:orientation="vertical"
+        android:paddingBottom="7dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1.4"
+            android:gravity="center|left"
+            android:paddingLeft="10dp"
+            android:text="互动"
+            android:textColor="@color/gray3"
+            android:textSize="13dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/white"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="3.1"
+                android:padding="10dp"
+                android:src="@mipmap/test_icon" />
+
+            <HorizontalScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:scrollbars="none">
+
+                <LinearLayout
+                    android:id="@+id/icon_ll"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"></LinearLayout>
+
+            </HorizontalScrollView>
+
+            <TextView
+                android:id="@+id/collect_num"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="2.8"
+                android:gravity="center"
+                android:text="最近收藏"
+                android:textSize="10dp" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <ListView
+        android:id="@+id/listView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:background="@color/white"></ListView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="53dp"
+        android:background="@color/white"
+        android:padding="7dp">
+
+        <TextView
+            android:id="@+id/msg_edt"
+            style="@style/textview_relief"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/edit_corners_bk"
+            android:gravity="center|left"
+            android:hint="评论吧..."
+            android:paddingLeft="5dp"
+            android:textSize="14dp" />
+    </LinearLayout>
+
+</LinearLayout>

@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/ranking_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="8dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/actions_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="6月1号巴厘岛小型旅拍"
+            android:textColor="@color/black"
+            android:textSize="15dp" />
+
+        <TextView
+            android:id="@+id/actions_time"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="2017年 03/31-04/25"
+            android:textColor="@color/gray1"
+            android:textSize="12dp" />
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/home_layout2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginTop="8dp"
+            app:cardBackgroundColor="@color/white"
+            app:cardCornerRadius="5dp"
+            app:cardElevation="3dp">
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="200dp">
+
+                <ImageView
+                    android:id="@+id/goods_img"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop"
+                     />
+
+                <TextView
+                    android:id="@+id/tag_tv"
+                    android:layout_width="50dp"
+                    android:layout_height="18dp"
+                    android:background="@mipmap/underway_tag_img"
+                    android:gravity="center"
+                    android:text="进行中"
+                    android:textColor="@color/white"
+                    android:textSize="11dp" />
+            </FrameLayout>
+
+        </android.support.v7.widget.CardView>
+
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:id="@+id/icon_ll"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+            </LinearLayout>
+        </HorizontalScrollView>
+    </LinearLayout>
+
+    <TextView
+        style="@style/line_styles_10"
+        android:layout_marginTop="5dp" />
+</LinearLayout>

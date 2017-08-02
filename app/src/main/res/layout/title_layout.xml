@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/main_title_layout"
+    android:layout_width="match_parent"
+    android:layout_height="50dp"
+    android:background="@null">
+
+    <RelativeLayout
+        android:id="@+id/title_rl"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/white">
+
+        <ImageView
+            android:id="@+id/back_img"
+            android:layout_width="40dp"
+            android:layout_height="50dp"
+            android:padding="3dp"
+            android:src="@mipmap/cherry_return" />
+
+<!--        <ImageView
+            android:id="@+id/silide_img"
+            android:layout_width="18dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="7dp"
+            android:src="@mipmap/slide_img" />-->
+            <com.balysv.materialmenu.MaterialMenuView
+                android:id="@+id/material_menu_button"
+                android:layout_width="18dp"
+                android:layout_height="match_parent"
+                app:mm_strokeWidth="2"
+                android:layout_centerVertical="true"
+                app:mm_color="@color/content6"
+                android:layout_marginLeft="7dp"
+                app:mm_transformDuration="1500"
+                app:mm_scale="1"/>
+
+        <TextView
+            android:id="@+id/title_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="标题"
+            android:textColor="@color/black"
+            android:textSize="18dp"
+            android:visibility="gone" />
+
+        <ImageView
+            android:id="@+id/title_img"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_gravity="center"
+            android:padding="12dp"
+            android:src="@mipmap/page_logo"
+            android:textColor="@color/black"
+            android:textSize="18dp" />
+
+        <ImageView
+            android:id="@+id/search_img"
+            android:layout_width="30dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:layout_gravity="right"
+            android:layout_marginRight="7dp"
+            android:padding="3dp"
+            android:src="@mipmap/search_img1" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/title_ll"
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:background="@color/white"
+        android:orientation="vertical"
+        android:padding="2dp"
+        android:visibility="gone">
+
+        <TextView
+            android:id="@+id/title_tv2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="标题"
+            android:textColor="@color/black"
+            android:textSize="11dp"
+            android:visibility="gone" />
+
+        <ImageView
+            android:id="@+id/title_img2"
+            android:layout_width="50dp"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
+            android:layout_gravity="center"
+            android:src="@mipmap/page_logo" />
+
+    </RelativeLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_alignParentBottom="true"
+        android:background="@color/gray0" />
+
+</RelativeLayout>

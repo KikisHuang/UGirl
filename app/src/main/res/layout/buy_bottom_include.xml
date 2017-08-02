@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/buy_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="13dp"
+            android:text="Cake首本实体写真（限量售卖中）"
+            android:textColor="@color/black"
+            android:textSize="16dp" />
+
+        <TextView
+            android:id="@+id/buy_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="7dp"
+            android:text="由于viewpager的预加载机制,在viewpager里面的fragment 其生命周期会发生混乱而且onHiddenChanged不起作用"
+            android:textColor="@color/gray3"
+            android:textSize="13dp" />
+
+        <View
+            style="@style/line_styles_ove_w"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="10dp"></View>
+
+        <LinearLayout
+            android:id="@+id/option_ll"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
+                android:gravity="center"
+                android:text="规格"
+                android:textColor="@color/gray3"
+                android:textSize="13dp"
+                android:visibility="gone"
+                />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="12dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
+                android:gravity="center"
+                android:text="数量"
+                android:textColor="@color/gray3"
+                android:textSize="13dp" />
+
+            <TextView
+                android:id="@+id/buy_num"
+                android:layout_width="40dp"
+                android:layout_height="20dp"
+                android:layout_marginRight="15dp"
+                android:background="@drawable/numb_corner"
+                android:gravity="center"
+                android:text="1"
+                android:textColor="@color/cherry1"
+                android:textSize="11dp" />
+
+            <ImageView
+                android:id="@+id/reduce_tv"
+                android:layout_width="35dp"
+                android:layout_height="15dp"
+                android:layout_gravity="center"
+                android:layout_marginRight="10dp"
+                android:src="@mipmap/reduce_img" />
+
+            <ImageView
+                android:id="@+id/add_tv"
+                android:layout_width="35dp"
+                android:layout_height="15dp"
+                android:layout_gravity="center"
+                android:layout_marginRight="10dp"
+                android:src="@mipmap/add_img" />
+
+        </LinearLayout>
+
+        <TextView
+            style="@style/line_styles_10"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="10dp" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="商品详情"
+                android:textColor="@color/black"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:textSize="13dp"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="继续滑动查看"
+                android:textColor="@color/gray1"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
+                android:textSize="13dp"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:textColor="@color/gray1"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:textSize="13dp"
+                />
+
+        </RelativeLayout>
+    </LinearLayout>
+</LinearLayout>
