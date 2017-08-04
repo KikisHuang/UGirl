@@ -16,8 +16,8 @@ android {
         applicationId "example.com.fan"
         minSdkVersion 17
         targetSdkVersion 25
-        versionCode 12
-        versionName "1.1.1"
+        versionCode 13
+        versionName "1.1.2"
         ndk {
             //选择要添加的对应cpu类型的.so库（不需要的删除即可）。
             abiFilters 'armeabi', 'armeabi-v7a', 'armeabi-v8a', 'x86', 'x86_64', 'mips', 'mips64'
@@ -85,8 +85,69 @@ android {
         ceshi2 {
             manifestPlaceholders = [UMENG_CHANNEL_VALUE: "80d756003b97"]
         }
+        //应用宝微下载渠道;
         wuyi {
             manifestPlaceholders = [UMENG_CHANNEL_VALUE: "d7ac947753cd"]
+        }
+        yyb1 {
+            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "87a1dc8d4203"]
+        }
+        yyb2 {
+            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "3bcc588ae737"]
+        }
+        yyb3 {
+            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "e5cde943b8d1"]
+        }
+        yyb4 {
+            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "6b62d2bbfdb4"]
+        }
+        yyb5 {
+            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "1947e9922bd8"]
+        }
+        yyb6 {
+            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "a66b7f908977"]
+        }
+        yyb7 {
+            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "b1bd280dd99c"]
+        }
+        yyb8 {
+            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "2e1c4385ef88"]
+        }
+        yyb9 {
+            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "a101a6c12122"]
+        }
+        yyb10 {
+            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "110641cf1274"]
+        }
+        yyb11 {
+            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "30c1061248f9"]
+        }
+        yyb12 {
+            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "71564dbac7d1"]
+        }
+        yyb13 {
+            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "b6b167ebeaec"]
+        }
+        yyb14 {
+            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "d07cfa31ef6a"]
+        }
+        yyb15 {
+            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "a46cacbf7013"]
+        }
+        yyb16 {
+            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "0a56bdfa4718"]
+        }
+        yyb17 {
+            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "f9de6b99bae9"]
+        }
+        yyb18 {
+            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "0cf6196c3ecb"]
+        }
+        yyb19 {
+            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "ebd9a5bd746f"]
+        }
+        yyb20 {
+            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "deec96e362f4"]
         }
     }
 

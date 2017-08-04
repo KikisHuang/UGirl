@@ -333,7 +333,7 @@
                 android:resource="@xml/file_paths" />
         </provider>
         <!-- 内存泄露检测工具-->
-         <service
+         <!--<service
              android:name="com.squareup.leakcanary.internal.HeapAnalyzerService"
              android:enabled="false"
              android:process=":leakcanary" />
@@ -353,7 +353,7 @@
 
                  <category android:name="android.intent.category.LAUNCHER" />
              </intent-filter>
-         </activity>
+         </activity>-->
 
 
     </application>

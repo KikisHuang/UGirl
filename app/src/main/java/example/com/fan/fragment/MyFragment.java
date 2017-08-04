@@ -69,7 +69,6 @@ public class MyFragment extends BaseFragment implements View.OnClickListener, Ch
     private LinearLayout unlogin_ll, account_number_layout, compile_layout;
     public static MyFragment fragment;
     private List<UserInfoBean> info;
-    private PopupWindow pay;
 
     @Override
     protected int initContentView() {
@@ -235,7 +234,7 @@ public class MyFragment extends BaseFragment implements View.OnClickListener, Ch
                             }
                         }
                     });
-            }
+        }
         /**
          * 更新vip状态;
          */
@@ -274,6 +273,7 @@ public class MyFragment extends BaseFragment implements View.OnClickListener, Ch
 
         login_rl = (RelativeLayout) view.findViewById(R.id.login_rl);
         unlogin_ll = (LinearLayout) view.findViewById(R.id.unlogin_ll);
+
     }
 
     @Override
@@ -326,11 +326,12 @@ public class MyFragment extends BaseFragment implements View.OnClickListener, Ch
                     if (MyAppcation.VipFlag)
                         goVipPage(getActivity());
                     else {
-                        PayPopupWindow p = new PayPopupWindow(getActivity());
                         View contentView = LayoutInflater.from(getActivity()).inflate(R.layout.pay_pp_layout, null);
                         int width = DeviceUtils.getWindowWidth(getActivity()) * 8 / 10;
                         int h = (int) (DeviceUtils.getWindowHeight(getActivity()) * 6 / 10);
-                        pay = new PopupWindow(contentView, width, h);
+                        PopupWindow pay = new PopupWindow(contentView, width, h);
+
+                        PayPopupWindow p = new PayPopupWindow(getActivity().getApplicationContext());
                         p.ScreenPopupWindow(LayoutInflater.from(getActivity()).inflate(R.layout.my_fragment, null), pay, 1, contentView);
                     }
                 } else

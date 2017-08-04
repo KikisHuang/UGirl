@@ -54,11 +54,13 @@ public class PayActivity extends InitActivity {
     private LinearLayout top_ll, bottom_ll;
     private TextView balance_tv;
     private int[] colors = {getRouColors(R.color.private_random_color1), getRouColors(R.color.private_random_color2), getRouColors(R.color.private_random_color3)};
+    private AliWechatPopupWindow aw;
 
     @Override
     protected void click() {
 
     }
+
     private void getData() {
         /**
          * 获取个人信息;
@@ -107,6 +109,7 @@ public class PayActivity extends InitActivity {
                         public void onError(Call call, Exception e, int id) {
                             ToastUtil.toast2_bottom(PayActivity.this, "网络不顺畅...");
                         }
+
                         @Override
                         public void onResponse(String response, int id) {
                             try {
@@ -182,8 +185,8 @@ public class PayActivity extends InitActivity {
         price.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AliWechatPopupWindow aw = new AliWechatPopupWindow(PayActivity.this, new String[]{MzFinal.ALIPAYVIP, MzFinal.WXPAYVIP});
-                aw.ScreenPopupWindow(view, PayActivity.this, pb.getId());
+                if (aw != null)
+                    aw.ScreenPopupWindow(view, pb.getId());
             }
         });
         details.setOnClickListener(new View.OnClickListener() {
@@ -246,9 +249,10 @@ public class PayActivity extends InitActivity {
     }
 
     @Override
-    protected  void init() {
+    protected void init() {
         setContentView(R.layout.pay_activity_layout);
         TitleUtils.setTitles(this, "充值");
+        aw = new AliWechatPopupWindow(PayActivity.this, new String[]{MzFinal.ALIPAYVIP, MzFinal.WXPAYVIP});
         dlist = new ArrayList<>();
         top_ll = f(R.id.top_ll);
         balance_tv = f(R.id.balance_tv);
@@ -263,8 +267,8 @@ public class PayActivity extends InitActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        aw = null;
         OkHttpUtils.getInstance().cancelTag(this);
-        MyAppcation.getRefWatcher(this).watch(this);
     }
 
     private void ShowofHideDetail(TextView tv, LinearLayout ll) {

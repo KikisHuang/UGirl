@@ -25,21 +25,31 @@ public class PayPopupWindow {
     private static TextView pay_tv, vip_tv, collect_tv, close_tv, introduce_tv;
     private Context context;
     private View view;
+    private View v;
     private String id = "";
     private String price = "";
+    private AliWechatPopupWindow aw;
+    private PopupWindow popupWindow;
+    private int tag;
+
     public PayPopupWindow(Context context) {
         this.context = context;
     }
-    public PayPopupWindow(Context context, String price,String id) {
+
+    public PayPopupWindow(Context context, String price, String id) {
         this.price = price;
         this.context = context;
-        this.id =id;
+        this.id = id;
+        this.aw = new AliWechatPopupWindow(context, new String[]{MzFinal.ALIPAYPHOTO, MzFinal.WXPAYPHOTO});
     }
 
-    public void ScreenPopupWindow(View view, PopupWindow popupWindow, int tag, View contentView) {
-        this.view = view;
-        init(contentView, tag);
-        click(popupWindow);
+    public void ScreenPopupWindow(View vv, PopupWindow p, int tag, View contentView) {
+        this.popupWindow = p;
+        this.view = contentView;
+        this.v = vv;
+        this.tag = tag;
+        init();
+        click();
         popupWindow.setFocusable(true);
         popupWindow.setOutsideTouchable(true);
         // 如果不设置PopupWindow的背景，无论是点击外部区域还是Back键都无法dismiss弹框
@@ -48,19 +58,23 @@ public class PayPopupWindow {
         popupWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
             @Override
             public void onDismiss() {
-
+                popupWindow.dismiss();
+                popupWindow = null;
+                aw = null;
+                view = null;
+                v = null;
+                context = null;
             }
         });
         // 设置好参数之后再show
-        popupWindow.showAtLocation(view, Gravity.CENTER, 0, 0);
+        popupWindow.showAtLocation(v, Gravity.CENTER, 0, 0);
     }
 
-    private void click(final PopupWindow popupWindow) {
+    private void click() {
         pay_tv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AliWechatPopupWindow aw = new AliWechatPopupWindow(context, new String[]{MzFinal.ALIPAYPHOTO, MzFinal.WXPAYPHOTO});
-                aw.ScreenPopupWindow(view, context, id);
+                aw.ScreenPopupWindow(v, id);
                 popupWindow.dismiss();
             }
         });
@@ -87,13 +101,13 @@ public class PayPopupWindow {
         });
     }
 
-    private void init(View f, int tag) {
+    private void init() {
 
-        pay_tv = (TextView) f.findViewById(R.id.pay_tv);
-        vip_tv = (TextView) f.findViewById(R.id.vip_tv);
-        collect_tv = (TextView) f.findViewById(R.id.collect_tv);
-        introduce_tv = (TextView) f.findViewById(R.id.introduce_tv);
-        close_tv = (TextView) f.findViewById(R.id.close_tv);
+        pay_tv = (TextView) view.findViewById(R.id.pay_tv);
+        vip_tv = (TextView) view.findViewById(R.id.vip_tv);
+        collect_tv = (TextView) view.findViewById(R.id.collect_tv);
+        introduce_tv = (TextView) view.findViewById(R.id.introduce_tv);
+        close_tv = (TextView) view.findViewById(R.id.close_tv);
         if (tag == 1) {
             pay_tv.setVisibility(View.GONE);
             collect_tv.setVisibility(View.GONE);
@@ -104,7 +118,6 @@ public class PayPopupWindow {
             else
                 introduce_tv.setText(getRouString(R.string.pay_introduce2));
         }
-
     }
 
 }
