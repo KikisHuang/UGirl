@@ -121,7 +121,7 @@ public class MyFragment extends BaseFragment implements View.OnClickListener, Ch
                                     ad_img.setOnClickListener(new View.OnClickListener() {
                                         @Override
                                         public void onClick(View v) {
-                                            goBannerPage(getActivity().getApplication(), rb.getType(), rb.getHttpUrl(), rb.getValue());
+                                            goBannerPage(getActivity(), rb.getType(), rb.getHttpUrl(), rb.getValue());
                                         }
                                     });
                                 }

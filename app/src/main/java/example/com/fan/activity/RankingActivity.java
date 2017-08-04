@@ -13,6 +13,7 @@ import example.com.fan.fragment.son.RankingFragment;
 import example.com.fan.utils.TitleUtils;
 import example.com.fan.view.CustomViewPager;
 
+import static example.com.fan.utils.StringUtil.cleanNull;
 import static example.com.fan.utils.SynUtils.getRouString;
 import static example.com.fan.utils.SynUtils.setIndicator;
 
@@ -86,20 +87,23 @@ public class RankingActivity extends InitActivity {
     }
 
     private void getTag() {
-        String a = getIntent().getStringExtra("Rangking_Tag");
-        if (a == null || a.isEmpty())
+        try {
+            String a = getIntent().getStringExtra("Rangking_Tag");
+            if (cleanNull(a))
+                finish();
+
+            tag = Integer.valueOf(a);
+            String[] str = {getRouString(R.string.ranking1), getRouString(R.string.ranking2), getRouString(R.string.ranking3), getRouString(R.string.ranking4), getRouString(R.string.ranking5)};
+
+            for (int i = 0; i < str.length; i++) {
+                list.add(str[i]);
+                mTab.addTab(mTab.newTab().setText(str[i]));
+                title.add(str[i]);
+            }
+        } catch (NullPointerException e) {
             finish();
-        tag = Integer.valueOf(a);
-        String[] str = {getRouString(R.string.ranking1), getRouString(R.string.ranking2), getRouString(R.string.ranking3), getRouString(R.string.ranking4), getRouString(R.string.ranking5)};
-
-        for (int i = 0; i < str.length; i++) {
-            list.add(str[i]);
-            mTab.addTab(mTab.newTab().setText(str[i]));
-            title.add(str[i]);
-
         }
     }
-
 
     @Override
     protected void init() {
@@ -115,11 +119,11 @@ public class RankingActivity extends InitActivity {
 
         rk_viewPager = f(R.id.viewPager);
         rk_viewPager.setOffscreenPageLimit(5);
+        getTag();
     }
 
     @Override
     protected void initData() {
-        getTag();
         setNavi();
         setPager();
     }

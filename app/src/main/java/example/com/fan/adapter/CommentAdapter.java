@@ -31,7 +31,7 @@ public class CommentAdapter extends BaseAdapter {
 
     public CommentAdapter(Context context, List<CommentBean> blist) {
         this.blist = blist;
-        this.context = context.getApplicationContext();
+        this.context = context;
         this.inflater = LayoutInflater.from(context);
     }
 
@@ -54,10 +54,10 @@ public class CommentAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
 
         View root = convertView;
-        if (root == null) {
+        if (root == null)
             root = inflater.inflate(R.layout.comment_item, null);
 
-        }
+
         ImageView icon_img = OverallViewHolder.ViewHolder.get(root, R.id.icon_img);
         TextView name_tv = OverallViewHolder.ViewHolder.get(root, R.id.name_tv);
         TextView comment_tv = OverallViewHolder.ViewHolder.get(root, R.id.comment_tv);

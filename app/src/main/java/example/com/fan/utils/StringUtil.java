@@ -19,11 +19,11 @@ public class StringUtil {
         return str.trim();
     }
 
-    public static String cleanNull(String str) {
+    public static boolean cleanNull(String str) {
         if (str == null || str.length() == 0 || "".equals(str.trim()) || str.equals("null")) {
-            return "";
+            return true;
         }
-        return str;
+        return false;
     }
 
     public static boolean isEmpty(String str) {

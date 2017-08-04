@@ -42,11 +42,11 @@ import static example.com.fan.utils.SynUtils.getTAG;
 public class CommentFragment extends BaseFragment implements editeListener {
     private static final String TAG = getTAG(CommentFragment.class);
 
-    private static TextView collect_num, msg_edt;
-    private static LinearLayout icon_ll;
-    private static ListView listView;
-    private static CommentAdapter adapte;
-    public String id = "";
+    private TextView collect_num, msg_edt;
+    private LinearLayout icon_ll;
+    private ListView listView;
+    private CommentAdapter adapte;
+    private String id = "";
     private editeListener elistener;
     private List<CommentBean> commentlist;
     private List<CollectBean> collectlist;
@@ -143,7 +143,7 @@ public class CommentFragment extends BaseFragment implements editeListener {
                                 if (adapte != null) {
                                     adapte.notifyDataSetChanged();
                                 }
-                                adapte = new CommentAdapter(getActivity(), commentlist);
+                                adapte = new CommentAdapter(getActivity().getApplicationContext(), commentlist);
                                 listView.setAdapter(adapte);
 
                             } else
@@ -157,7 +157,7 @@ public class CommentFragment extends BaseFragment implements editeListener {
 
     private void getcolletIcon() {
 
-        for (CollectBean cb: collectlist) {
+        for (CollectBean cb : collectlist) {
             LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(DeviceUtils.dip2px(getActivity(), 28), DeviceUtils.dip2px(getActivity(), 28));
             lp.gravity = Gravity.CENTER;
             lp.setMargins(0, 0, 15, 0);

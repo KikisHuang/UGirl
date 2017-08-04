@@ -435,8 +435,8 @@ public class PageFragment extends BaseFragment implements View.OnClickListener, 
             Log.i(TAG, "Error ==" + e);
         }
     }
-
-    public void click() {
+    @Override
+    protected void click() {
         ranking_img0.setOnClickListener(this);
         ranking_img1.setOnClickListener(this);
         ranking_img2.setOnClickListener(this);
@@ -453,8 +453,8 @@ public class PageFragment extends BaseFragment implements View.OnClickListener, 
         super.onDestroy();
         ListenerManager.getInstance().unRegisterListener(this);
     }
-
-    public void init() {
+    @Override
+    protected void init() {
         polistener = this;
         onDownTouchListener(0, "");
         mImageViewList = new ArrayList<>();
@@ -488,7 +488,7 @@ public class PageFragment extends BaseFragment implements View.OnClickListener, 
     }
 
     @Override
-    public void initData() {
+    protected void initData() {
         handInit();
         getData();
         scrollListener();

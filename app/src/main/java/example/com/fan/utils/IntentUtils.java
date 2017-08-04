@@ -53,7 +53,7 @@ public class IntentUtils {
      * @param main_info_id
      */
     public static void goMainPage(Context context, String main_type, String main_info_id) {
-        Intent intent = new Intent(context.getApplicationContext(), MainActivity.class);
+        Intent intent = new Intent(context, MainActivity.class);
         intent.putExtra("main_type", main_type);
         intent.putExtra("main_info_id", main_info_id);
         intent.setAction("main_action");
@@ -69,7 +69,7 @@ public class IntentUtils {
      */
     public static void goPhotoPage(Context context, String id, int i) {
 
-        Intent intent = new Intent(context.getApplicationContext(), PhotoActivity.class);
+        Intent intent = new Intent(context, PhotoActivity.class);
         intent.putExtra("photo_position", i + "");
         intent.putExtra("photo_id", id);
         context.startActivity(intent);
@@ -83,7 +83,7 @@ public class IntentUtils {
      */
     public static void goHomePage(Context context, String id) {
 
-        Intent intent = new Intent(context.getApplicationContext(), HomePageActivity.class);
+        Intent intent = new Intent(context, HomePageActivity.class);
         intent.putExtra("user_id", id);
         context.startActivity(intent);
     }
@@ -97,7 +97,7 @@ public class IntentUtils {
      */
     public static void goCrowdPage(Context context, String title, String id) {
 
-        Intent intent = new Intent(context.getApplicationContext(), CrowdActivity.class);
+        Intent intent = new Intent(context, CrowdActivity.class);
         intent.putExtra("crowd_name", title);
         intent.putExtra("crowd_id", id);
         Log.i(TAG, "crowd id ======" + id);
@@ -112,7 +112,7 @@ public class IntentUtils {
      */
     public static void goBuyGoodsPage(Context context, String id) {
 
-        Intent intent = new Intent(context.getApplicationContext(), BuygoodsActivity.class);
+        Intent intent = new Intent(context, BuygoodsActivity.class);
         intent.putExtra("buy_good_id", id);
         context.startActivity(intent);
     }
@@ -125,7 +125,7 @@ public class IntentUtils {
      */
     public static void goBuyCrowdPage(Context context, String id) {
 
-        Intent intent = new Intent(context.getApplicationContext(), BuyCrowdActivity.class);
+        Intent intent = new Intent(context, BuyCrowdActivity.class);
         intent.putExtra("b_id", id);
         context.startActivity(intent);
     }
@@ -144,7 +144,7 @@ public class IntentUtils {
      */
     public static void goOrderPage(Context context, String buy_num, String buy_name, String moeny, String tag, String path, String info, String id) {
 
-        Intent intent = new Intent(context.getApplicationContext(), OrderActivity.class);
+        Intent intent = new Intent(context, OrderActivity.class);
         intent.putExtra("buy_num", buy_num);
         intent.putExtra("buy_money", moeny);
         intent.putExtra("buy_name", buy_name);
@@ -162,7 +162,7 @@ public class IntentUtils {
      */
     public static void goHostModelPage(Context context) {
 
-        Intent intent = new Intent(context.getApplicationContext(), HostModelActivity.class);
+        Intent intent = new Intent(context, HostModelActivity.class);
         context.startActivity(intent);
     }
 
@@ -173,7 +173,7 @@ public class IntentUtils {
      */
     public static void goVipPage(Context context) {
 
-        Intent intent = new Intent(context.getApplicationContext(), VipActivity.class);
+        Intent intent = new Intent(context, VipActivity.class);
         context.startActivity(intent);
     }
 
@@ -184,7 +184,7 @@ public class IntentUtils {
      */
     public static void goNewestPage(Context context) {
 
-        Intent intent = new Intent(context.getApplicationContext(), NewestActivity.class);
+        Intent intent = new Intent(context, NewestActivity.class);
         context.startActivity(intent);
     }
 
@@ -195,7 +195,7 @@ public class IntentUtils {
      */
     public static void goLoginPage(Context context) {
 
-        Intent intent = new Intent(context.getApplicationContext(), LoginActivity.class);
+        Intent intent = new Intent(context, LoginActivity.class);
         context.startActivity(intent);
     }
 
@@ -207,7 +207,7 @@ public class IntentUtils {
      */
     public static void goChoicenessPage(Context context, String pos) {
 
-        Intent intent = new Intent(context.getApplicationContext(), ChoicenessActivity.class);
+        Intent intent = new Intent(context, ChoicenessActivity.class);
         intent.putExtra("page_position", "" + pos);
         context.startActivity(intent);
     }
@@ -219,7 +219,7 @@ public class IntentUtils {
      */
     public static void goAttentionPage(Context context) {
 
-        Intent intent = new Intent(context.getApplicationContext(), AttentionActivity.class);
+        Intent intent = new Intent(context, AttentionActivity.class);
         context.startActivity(intent);
     }
 
@@ -230,7 +230,7 @@ public class IntentUtils {
      */
     public static void goPayPage(Context context) {
 
-        Intent intent = new Intent(context.getApplicationContext(), PayActivity.class);
+        Intent intent = new Intent(context, PayActivity.class);
         context.startActivity(intent);
     }
 
@@ -240,7 +240,7 @@ public class IntentUtils {
      * @param context 上下文;
      */
     public static void goPersonInfoPage(Context context, String icon, String name, String sex, String wx) {
-        Intent intent = new Intent(context.getApplicationContext(), PersonalInfoActivity.class);
+        Intent intent = new Intent(context, PersonalInfoActivity.class);
         intent.putExtra("person_name", name);
         intent.putExtra("person_icon", icon);
         intent.putExtra("person_sex", sex);
@@ -255,7 +255,7 @@ public class IntentUtils {
      *                requestCode 186
      */
     public static void goUploadPhotoPage(Context context, String tag) {
-        Intent intent = new Intent(context.getApplicationContext(), UploadPhotoActivity.class);
+        Intent intent = new Intent(context, UploadPhotoActivity.class);
         intent.putExtra("photo_flag", tag);
         ((Activity) context).startActivity(intent);
     }
@@ -267,7 +267,7 @@ public class IntentUtils {
      *                requestCode 186
      */
     public static void goRegisterPage(Context context) {
-        Intent intent = new Intent(context.getApplicationContext(), RegisterActivity.class);
+        Intent intent = new Intent(context, RegisterActivity.class);
         ((Activity) context).startActivity(intent);
     }
 
@@ -278,7 +278,7 @@ public class IntentUtils {
      *                requestCode 186
      */
     public static void goOverPayPage(Context context) {
-        Intent intent = new Intent(context.getApplicationContext(), OverPayActivity.class);
+        Intent intent = new Intent(context, OverPayActivity.class);
         ((Activity) context).startActivity(intent);
     }
 
@@ -289,7 +289,7 @@ public class IntentUtils {
      *                requestCode 186
      */
     public static void goMyCollectPage(Context context) {
-        Intent intent = new Intent(context.getApplicationContext(), MyCollectActivity.class);
+        Intent intent = new Intent(context, MyCollectActivity.class);
         ((Activity) context).startActivity(intent);
     }
 
@@ -304,12 +304,12 @@ public class IntentUtils {
         Intent intent = new Intent();
         switch (flag) {
             case 4:
-                intent.setClass(context.getApplicationContext(), PlayerVideoActivity.class);
+                intent.setClass(context, PlayerVideoActivity.class);
                 intent.putExtra("play_id", id);
                 ((Activity) context).startActivity(intent);
                 break;
             case 5:
-                intent.setClass(context.getApplicationContext(), PlayerActivity.class);
+                intent.setClass(context, PlayerActivity.class);
                 intent.putExtra("play_id", id);
                 ((Activity) context).startActivity(intent);
                 break;
@@ -324,7 +324,7 @@ public class IntentUtils {
      * @param tag
      */
     public static void goVideoOfVrPage(Context context, String tag) {
-        Intent intent = new Intent(context.getApplicationContext(), VideoAndVrSonActivity.class);
+        Intent intent = new Intent(context, VideoAndVrSonActivity.class);
         intent.putExtra("VideoVR_tag", tag);
         ((Activity) context).startActivity(intent);
     }
@@ -335,7 +335,7 @@ public class IntentUtils {
      * @param context 上下文;
      */
     public static void goSettingPage(Context context) {
-        Intent intent = new Intent(context.getApplicationContext(), SettingActivity.class);
+        Intent intent = new Intent(context, SettingActivity.class);
         ((Activity) context).startActivity(intent);
     }
 
@@ -345,7 +345,7 @@ public class IntentUtils {
      * @param context 上下文;
      */
     public static void goMyOrderPage(Context context) {
-        Intent intent = new Intent(context.getApplicationContext(), MyOrderActivity.class);
+        Intent intent = new Intent(context, MyOrderActivity.class);
         ((Activity) context).startActivity(intent);
     }
 
@@ -356,7 +356,7 @@ public class IntentUtils {
      * @param mb      实体类
      */
     public static void goMyOrderDetailsPage(Context context, MyOrderBean mb) {
-        Intent intent = new Intent(context.getApplicationContext(), MyOrderDetailsActivity.class);
+        Intent intent = new Intent(context, MyOrderDetailsActivity.class);
         Bundle bundle = new Bundle();
         bundle.putSerializable("MyOrderBean", mb);
         intent.putExtras(bundle);
@@ -369,7 +369,7 @@ public class IntentUtils {
      * @param context 上下文;
      */
     public static void goTaskPage(Context context) {
-        Intent intent = new Intent(context.getApplicationContext(), TaskActivity.class);
+        Intent intent = new Intent(context, TaskActivity.class);
         ((Activity) context).startActivity(intent);
     }
 
@@ -379,7 +379,7 @@ public class IntentUtils {
      * @param context 上下文;
      */
     public static void goUnReadPage(Context context) {
-        Intent intent = new Intent(context.getApplicationContext(), UnReadActivity.class);
+        Intent intent = new Intent(context, UnReadActivity.class);
         ((Activity) context).startActivity(intent);
     }
 
@@ -389,7 +389,7 @@ public class IntentUtils {
      * @param context 上下文;
      */
     public static void goOutsidePage(Context context, String url, String title) {
-        Intent intent = new Intent(context.getApplicationContext(), OutSideActivity.class);
+        Intent intent = new Intent(context, OutSideActivity.class);
         intent.putExtra("outside_url", url);
         intent.putExtra("outside_title", title);
         ((Activity) context).startActivity(intent);
@@ -401,7 +401,7 @@ public class IntentUtils {
      * @param context 上下文;
      */
     public static void goProjectIncomePage(Context context, String id) {
-        Intent intent = new Intent(context.getApplicationContext(), ProjectIncomeActivity.class);
+        Intent intent = new Intent(context, ProjectIncomeActivity.class);
         intent.putExtra("Target_id", id);
         ((Activity) context).startActivity(intent);
     }
@@ -412,7 +412,7 @@ public class IntentUtils {
      * @param context 上下文;
      */
     public static void goHelpPage(Context context) {
-        Intent intent = new Intent(context.getApplicationContext(), HelpActivity.class);
+        Intent intent = new Intent(context, HelpActivity.class);
         ((Activity) context).startActivity(intent);
     }
 }

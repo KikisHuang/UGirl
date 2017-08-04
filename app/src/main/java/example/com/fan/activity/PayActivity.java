@@ -264,6 +264,7 @@ public class PayActivity extends InitActivity {
     protected void onDestroy() {
         super.onDestroy();
         OkHttpUtils.getInstance().cancelTag(this);
+        MyAppcation.getRefWatcher(this).watch(this);
     }
 
     private void ShowofHideDetail(TextView tv, LinearLayout ll) {
