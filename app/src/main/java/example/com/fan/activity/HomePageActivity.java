@@ -92,19 +92,15 @@ public class HomePageActivity extends BaseActivity implements ItemClickListener,
         //设置头部的图片;
         ImageView img = listView.getHeaderView();
         img.setScaleType(ImageView.ScaleType.CENTER_CROP);
-//        listView.getHeaderView().setImageResource(R.drawable.test2);
         try {
             Glide.with(getApplicationContext()).load(getImgPath(cover)).into(img);
         } catch (Exception e) {
             Log.i(TAG, "Glide You cannot start a load for a destroyed activity");
         }
         //高度;
-//        listView.setmHeaderHeight(DensityUtil.dip2px(HomePageActivity.this, 300));
         listView.setmHeaderHeight(DeviceUtils.getWindowHeight(this) * 5 / 10);
 
         //设置头部的的布局;
-//        View mHeaderView = getLayoutInflater()
-//                .inflate(R.layout.home_page_top, null);
         listView.getHeaderContainer().addView(top);
         listView.setHeaderView();
         listView.setAdapter(adapter);

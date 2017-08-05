@@ -150,7 +150,7 @@ public class BuygoodsActivity extends InitActivity implements View.OnClickListen
 
     private void setGoodsDetails() {
 //        bottom_details_layout
-        for (McOfficialSellImgUrls str :detailist) {
+        for (McOfficialSellImgUrls str : detailist) {
             LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
             lp.topMargin = DeviceUtils.dip2px(this, 5);
             lp.bottomMargin = DeviceUtils.dip2px(this, 10);
@@ -161,6 +161,7 @@ public class BuygoodsActivity extends InitActivity implements View.OnClickListen
             im.setMinScale(1.0F);
             im.setZoomEnabled(false);
             sublist.add(im);
+            //将放大功能关闭;
             im.setOnTouchListener(new View.OnTouchListener() {
                 @Override
                 public boolean onTouch(View v, MotionEvent event) {
@@ -269,6 +270,7 @@ public class BuygoodsActivity extends InitActivity implements View.OnClickListen
         });
         startPlay(handler, mViewPager, 3);
     }
+
     @Override
     protected void click() {
         share_img.setOnClickListener(this);
@@ -277,6 +279,7 @@ public class BuygoodsActivity extends InitActivity implements View.OnClickListen
         add_tv.setOnClickListener(this);
         buy_bt.setOnClickListener(this);
     }
+
     @Override
     protected void init() {
         setContentView(R.layout.buy_goods_activity_layout);
@@ -366,9 +369,9 @@ public class BuygoodsActivity extends InitActivity implements View.OnClickListen
             handler = null;
             polistener = null;
             top_scroll.removeAllViews();
-            top_scroll=null;
+            top_scroll = null;
             bottom_scroll.removeAllViews();
-            bottom_scroll=null;
+            bottom_scroll = null;
         }
         /**
          * SubsamplingScaleImageView recycle;

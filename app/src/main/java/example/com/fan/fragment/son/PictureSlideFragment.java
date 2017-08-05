@@ -186,6 +186,7 @@ public class PictureSlideFragment extends BaseFragment {
             Log.i(TAG, "Glide You cannot start a load for a destroyed activity");
         }
     }
+
     @Override
     protected void click() {
     }
@@ -198,6 +199,7 @@ public class PictureSlideFragment extends BaseFragment {
         photoViewAttacher.cleanup();
         photoViewAttacher = null;
     }
+
     @Override
     protected void init() {
         imageView = (PhotoView) view.findViewById(R.id.iv_main_pic);
@@ -243,6 +245,19 @@ public class PictureSlideFragment extends BaseFragment {
                 return false;
             }
         });
+
+    }
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        try {
+            if (!isVisibleToUser)
+                if (photoViewAttacher != null)
+                    photoViewAttacher.setScale(photoViewAttacher.getMinimumScale(), 0, 0, true);
+        } catch (Exception e) {
+
+        }
     }
 
     @Override

@@ -117,7 +117,7 @@ public class PrivatePhotoAdapter extends RecyclerView.Adapter<PrivatePhotoAdapte
 
         holder.home_layout2.setCardBackgroundColor(context.getResources().getColor(MzFinal.privatePhotoColors[b]));
 
-        holder.icon_name.setText(mDataset.get(position).getUser_name());
+        holder.icon_name.setText(mDataset.get(position).getName());
         holder.share_img.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

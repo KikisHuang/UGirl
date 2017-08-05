@@ -49,7 +49,7 @@
             android:gravity="center|left"
             android:paddingLeft="50dp"
             android:paddingRight="50dp"
-            android:textColor="@color/gray3"
+            android:textColor="@color/content6"
             android:textSize="11dp" />
 
     </LinearLayout>

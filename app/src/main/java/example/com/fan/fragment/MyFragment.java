@@ -331,7 +331,7 @@ public class MyFragment extends BaseFragment implements View.OnClickListener, Ch
                         int h = (int) (DeviceUtils.getWindowHeight(getActivity()) * 6 / 10);
                         PopupWindow pay = new PopupWindow(contentView, width, h);
 
-                        PayPopupWindow p = new PayPopupWindow(getActivity().getApplicationContext());
+                        PayPopupWindow p = new PayPopupWindow(getActivity());
                         p.ScreenPopupWindow(LayoutInflater.from(getActivity()).inflate(R.layout.my_fragment, null), pay, 1, contentView);
                     }
                 } else

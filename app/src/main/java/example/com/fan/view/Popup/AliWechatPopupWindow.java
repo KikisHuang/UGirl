@@ -40,7 +40,7 @@ public class AliWechatPopupWindow implements View.OnClickListener {
         if (popupWindow == null) {
             this.id = id;
             // 一个自定义的布局，作为显示的内容
-            view = LayoutInflater.from(context.getApplicationContext()).inflate(R.layout.aliwechat_popu_layout, null);
+            view = LayoutInflater.from(context).inflate(R.layout.aliwechat_popu_layout, null);
             popupWindow = new PopupWindow(view, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
 
             init();
@@ -95,10 +95,10 @@ public class AliWechatPopupWindow implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.ali_ll:
-                PayNow(context.getApplicationContext(), id, url[0], 0, 1);
+                PayNow(context, id, url[0], 0, 1);
                 break;
             case R.id.wechat_ll:
-                PayNow(context.getApplicationContext(), id, url[1], 1, 1);
+                PayNow(context, id, url[1], 1, 1);
                 break;
         }
     }

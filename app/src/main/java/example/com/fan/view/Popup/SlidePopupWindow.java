@@ -51,7 +51,7 @@ import static example.com.fan.utils.SynUtils.getTAG;
  * Page页面侧边菜单Popupwindos实现;
  */
 public class SlidePopupWindow implements View.OnClickListener {
-    private static final String TAG =  getTAG(SlidePopupWindow.class);
+    private static final String TAG = getTAG(SlidePopupWindow.class);
     private static TextView silide_tv1, silide_tv3, silide_tv5, silide_tv6, silide_tv7, user_name;
     private static ImageView user_icon;
     private static LinearLayout login_ll, layout_1, layout_3, layout_5, layout_6, layout_7;
@@ -85,7 +85,7 @@ public class SlidePopupWindow implements View.OnClickListener {
                     mContext = null;
                     popupWindow.dismiss();
                     popupWindow = null;
-                    if(MainActivity.materialMenuView!=null)
+                    if (MainActivity.materialMenuView != null)
                         MainActivity.materialMenuView.animateIconState(MaterialMenuDrawable.IconState.BURGER);
                 }
             });
@@ -203,10 +203,7 @@ public class SlidePopupWindow implements View.OnClickListener {
                 overpay();
                 break;
             case R.id.layout_5:
-                if (!MyAppcation.myInvitationCode.isEmpty()) {
-                    SharePopupWindow sp = new SharePopupWindow(mContext, MyAppcation.myInvitationCode);
-                    sp.ScreenPopupWindow(LayoutInflater.from(mContext).inflate(R.layout.activity_main, null));
-                }
+                share();
                 break;
             case R.id.layout_6:
                 help();
@@ -214,9 +211,20 @@ public class SlidePopupWindow implements View.OnClickListener {
             case R.id.layout_7:
                 setting();
                 break;
-
-
         }
+    }
+
+    /**
+     * 分享
+     */
+    private void share() {
+        if (LoginStatusQuery()) {
+            if (!MyAppcation.myInvitationCode.isEmpty()) {
+                SharePopupWindow sp = new SharePopupWindow(mContext, MyAppcation.myInvitationCode);
+                sp.ScreenPopupWindow(LayoutInflater.from(mContext).inflate(R.layout.activity_main, null));
+            }
+        } else
+            Login(mContext);
     }
 
     /**
