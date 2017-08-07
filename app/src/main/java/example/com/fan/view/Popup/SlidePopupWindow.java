@@ -40,6 +40,7 @@ import static example.com.fan.utils.IntentUtils.goPersonInfoPage;
 import static example.com.fan.utils.IntentUtils.goSettingPage;
 import static example.com.fan.utils.JsonUtils.getCode;
 import static example.com.fan.utils.JsonUtils.getJsonOb;
+import static example.com.fan.utils.StringUtil.cleanNull;
 import static example.com.fan.utils.SynUtils.Login;
 import static example.com.fan.utils.SynUtils.LoginStatusQuery;
 import static example.com.fan.utils.SynUtils.getSex;
@@ -102,7 +103,6 @@ public class SlidePopupWindow implements View.OnClickListener {
 
     private static void getData(final Context mContext) {
 
-
         if (SPreferences.getUserToken() == null || SPreferences.getUserToken().equals("")) {
             user_name.setText("立即登录");
         } else {
@@ -130,6 +130,8 @@ public class SlidePopupWindow implements View.OnClickListener {
                                     JSONObject ob = getJsonOb(response);
                                     UserInfoBean ub = new Gson().fromJson(String.valueOf(ob), UserInfoBean.class);
                                     info = ub;
+                                    MyAppcation.UserIcon = ub.getHeadImgUrl();
+                                    MyAppcation.myInvitationCode = ub.getMyInvitationCode();
                                     try {
                                         if (ub.getHeadImgUrl() == null)
                                             Glide.with(mContext.getApplicationContext()).load(R.mipmap.test_icon).override(350, 350).bitmapTransform(new CropCircleTransformation(mContext.getApplicationContext())).into(user_icon);
@@ -219,7 +221,7 @@ public class SlidePopupWindow implements View.OnClickListener {
      */
     private void share() {
         if (LoginStatusQuery()) {
-            if (!MyAppcation.myInvitationCode.isEmpty()) {
+            if (!cleanNull(MyAppcation.myInvitationCode)) {
                 SharePopupWindow sp = new SharePopupWindow(mContext, MyAppcation.myInvitationCode);
                 sp.ScreenPopupWindow(LayoutInflater.from(mContext).inflate(R.layout.activity_main, null));
             }

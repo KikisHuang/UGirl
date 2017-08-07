@@ -12,6 +12,7 @@ import com.zhy.http.okhttp.log.LoggerInterceptor;
 
 import java.util.concurrent.TimeUnit;
 
+import example.com.fan.base.sign.CrashHandler;
 import example.com.fan.base.sign.save.SPreferences;
 import example.com.fan.utils.MzFinal;
 import okhttp3.OkHttpClient;
@@ -46,8 +47,8 @@ public class MyAppcation extends Application {
         /**
          * 全局异常捕获方法;
          */
-//        CrashHandler crashHandler = CrashHandler.getInstance();
-//        crashHandler.init(getApplicationContext());
+        CrashHandler crashHandler = CrashHandler.getInstance();
+        crashHandler.init(getApplicationContext());
 
         OkHttpInit();
         CHANNEL = AnalyticsConfig.getChannel(getApplicationContext());
@@ -60,8 +61,8 @@ public class MyAppcation extends Application {
              * 参数二: key;
              */
             PlatformConfig.setWeixin(MzFinal.WECHATPAY, "4bcde8ce9e646833395aae492d93bbc8");
-            /*PlatformConfig.setSinaWeibo("172922517", "048166c79d54b2c4ce3e76ba5d30097a");*/
             PlatformConfig.setQQZone(MzFinal.QQLOGIN, "63e5c4ab1c476fa9204c8504fa2338bd");
+            /*PlatformConfig.setSinaWeibo("172922517", "048166c79d54b2c4ce3e76ba5d30097a");*/
 
         }
     }

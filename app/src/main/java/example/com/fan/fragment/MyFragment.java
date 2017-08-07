@@ -50,6 +50,7 @@ import static example.com.fan.utils.IntentUtils.goVipPage;
 import static example.com.fan.utils.JsonUtils.getCode;
 import static example.com.fan.utils.JsonUtils.getJsonAr;
 import static example.com.fan.utils.JsonUtils.getJsonOb;
+import static example.com.fan.utils.StringUtil.cleanNull;
 import static example.com.fan.utils.SynUtils.Login;
 import static example.com.fan.utils.SynUtils.LoginStatusQuery;
 import static example.com.fan.utils.SynUtils.getSex;
@@ -218,7 +219,8 @@ public class MyFragment extends BaseFragment implements View.OnClickListener, Ch
                                     info.add(ub);
                                     setTextColor1(account_tv, info.get(0).getBalance() + MzFinal.br, "我的账户", "#FF4D87");
                                     setTextColor1(rank_tv, info.get(0).getCommentLevel() + MzFinal.br, "等级", "#000000");
-
+                                    MyAppcation.UserIcon = ub.getHeadImgUrl();
+                                    MyAppcation.myInvitationCode = ub.getMyInvitationCode();
                                     if (info.get(0).getHeadImgUrl() == null)
                                         Glide.with(getActivity().getApplicationContext()).load(R.mipmap.test_icon).bitmapTransform(new CropCircleTransformation(getActivity())).into(user_icon);
                                     else
@@ -365,12 +367,15 @@ public class MyFragment extends BaseFragment implements View.OnClickListener, Ch
                 if (LoginStatusQuery()) {
                     //任务页面;
                     //goTaskPage(getActivity());
-                    //分享popup;
-                    if (!MyAppcation.myInvitationCode.isEmpty()) {
-                        SharePopupWindow sp = new SharePopupWindow(getActivity(), MyAppcation.myInvitationCode);
-                        sp.ScreenPopupWindow(LayoutInflater.from(getActivity()).inflate(R.layout.my_fragment, null));
-                    }
+                    try {
+                        //分享popup;
+                        if (!cleanNull(MyAppcation.myInvitationCode)) {
+                            SharePopupWindow sp = new SharePopupWindow(getActivity(), MyAppcation.myInvitationCode);
+                            sp.ScreenPopupWindow(LayoutInflater.from(getActivity()).inflate(R.layout.my_fragment, null));
+                        }
+                    } catch (Exception e) {
 
+                    }
                 } else
                     Login(getActivity());
                 break;
