@@ -35,7 +35,6 @@ public class AliWechatPopupWindow implements View.OnClickListener {
         this.url = url;
     }
 
-    //附近的人地区筛选;
     public void ScreenPopupWindow(View v, String id) {
         if (popupWindow == null) {
             this.id = id;
@@ -57,11 +56,8 @@ public class AliWechatPopupWindow implements View.OnClickListener {
                 @Override
                 public void onDismiss() {
                     backgroundAlpha(1.0f, context);
-                    view = null;
                     popupWindow.dismiss();
                     popupWindow = null;
-                    context = null;
-
                 }
             });
             // 设置好参数之后再show

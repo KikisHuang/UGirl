@@ -706,7 +706,6 @@ public class PageFragment extends BaseFragment implements View.OnClickListener, 
                         public void onError(Call call, Exception e, int id) {
                             ToastUtil.toast2_bottom(getActivity(), "网络不顺畅...");
                         }
-
                         @Override
                         public void onResponse(String response, int id) {
                             try {

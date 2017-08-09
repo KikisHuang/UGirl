@@ -36,6 +36,7 @@
             android:layout_centerInParent="true"
             android:gravity="center"
             android:text="1/40"
+            android:textColor="@color/content4"
             android:textSize="12dp" />
 
         <ImageView

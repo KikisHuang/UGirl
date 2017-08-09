@@ -15,6 +15,7 @@ import example.com.fan.view.OutSideWebViewClient;
 
 import static example.com.fan.utils.SynUtils.getRouString;
 import static example.com.fan.utils.TitleUtils.setTitles;
+import static example.com.fan.view.dialog.CustomProgress.Show;
 
 /**
  * Created by lian on 2017/7/8.
@@ -46,7 +47,7 @@ public class OutSideActivity extends InitActivity {
 
 
     @Override
-    protected  void init() {
+    protected void init() {
         setContentView(R.layout.ouside_activity_layout);
         setTitles(this, getIntent().getStringExtra("outside_title"));
         webView = f(R.id.webView);
@@ -69,6 +70,7 @@ public class OutSideActivity extends InitActivity {
             } else {
 
                 synCookies(this, url);
+                Show(this, "加载中", true, null);
                 webView.loadUrl(url);
                 webView.setVisibility(View.VISIBLE);
                 //覆盖WebView默认使用第三方或系统默认浏览器打开网页的行为，使网页用WebView打开

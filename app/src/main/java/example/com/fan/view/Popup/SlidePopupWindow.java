@@ -57,7 +57,7 @@ public class SlidePopupWindow implements View.OnClickListener {
     private static ImageView user_icon;
     private static LinearLayout login_ll, layout_1, layout_3, layout_5, layout_6, layout_7;
     private static PopupWindow popupWindow;
-    private static UserInfoBean info;
+    private static UserInfoBean info = null;
     private Context mContext;
 
     public SlidePopupWindow(Context context) {
@@ -83,7 +83,6 @@ public class SlidePopupWindow implements View.OnClickListener {
                 @Override
                 public void onDismiss() {
                     backgroundAlpha(1f, mContext);
-                    mContext = null;
                     popupWindow.dismiss();
                     popupWindow = null;
                     if (MainActivity.materialMenuView != null)
@@ -110,7 +109,6 @@ public class SlidePopupWindow implements View.OnClickListener {
             /**
              * 获取个人信息;
              */
-
             OkHttpUtils
                     .get()
                     .url(MzFinal.URl + MzFinal.GETMYDETAILS)
@@ -277,10 +275,12 @@ public class SlidePopupWindow implements View.OnClickListener {
                 popupWindow.dismiss();
 
         } else {
-            goPersonInfoPage(mContext, info.getHeadImgUrl(), info.getName(), String.valueOf(getSex(info.getSex())), info.getWx());
-            backgroundAlpha(1f, mContext);
-            if (popupWindow.isShowing())
-                popupWindow.dismiss();
+            if(info!=null){
+                goPersonInfoPage(mContext, info.getHeadImgUrl(), info.getName(), String.valueOf(getSex(info.getSex())), info.getWx());
+                backgroundAlpha(1f, mContext);
+                if (popupWindow.isShowing())
+                    popupWindow.dismiss();
+            }
         }
     }
 }

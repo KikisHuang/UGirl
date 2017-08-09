@@ -131,7 +131,7 @@ public class PlayerVideoActivity extends AppCompatActivity implements View.OnCli
         video_icon = (ImageView) top.findViewById(R.id.video_icon);
 
         attention_tv = (TextView) top.findViewById(R.id.attention_tv);
-        this.getSupportActionBar().hide();
+//        this.getSupportActionBar().hide();
     }
 
     private void receive() {

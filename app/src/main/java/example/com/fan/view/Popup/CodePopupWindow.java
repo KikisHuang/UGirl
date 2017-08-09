@@ -63,7 +63,6 @@ public class CodePopupWindow {
             @Override
             public void onDismiss() {
                 backgroundAlpha(1.0f, mContext);
-                mContext = null;
                 popupWindow.dismiss();
                 popupWindow = null;
             }

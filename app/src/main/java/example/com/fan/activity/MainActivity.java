@@ -290,6 +290,15 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
         findViewById(R.id.back_img).setVisibility(View.INVISIBLE);
         main_rl = f(R.id.main_rl);
         getWelcomeAction();
+        //测试用JPushAlias;
+/*
+        JPushInterface.setAlias(this, "testAlias", new TagAliasCallback() {
+            @Override
+            public void gotResult(int i, String s, Set<String> set) {
+
+                Log.i(TAG, "Alias code ====" + i);
+            }
+        });*/
     }
 
     @Override
@@ -301,6 +310,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
         initFragment();
         addAction();
     }
+
     @Override
     public void onClick(View view) {
         ft = getSupportFragmentManager().beginTransaction();

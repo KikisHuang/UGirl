@@ -687,10 +687,15 @@ public class PhotoActivity extends InitActivity implements View.OnClickListener,
         super.onDestroy();
         OkHttpUtils.getInstance().cancelTag(this);
 //        MyAppcation.getRefWatcher(this).watch(this);
+
+        try {
             fragment_ll.removeAllViews();
             Log.i(TAG, "remove fragment");
             commentFragment = null;
-        clearView();
+            clearView();
+        } catch (Exception e) {
+
+        }
     }
 
     private void clearView() {

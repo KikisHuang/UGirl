@@ -46,7 +46,6 @@ public class ServerPopupWindow implements VersionCheckListener {
         final PopupWindow popupWindow = new PopupWindow(contentView, ViewGroup.LayoutParams.MATCH_PARENT, h);
         getVersionInfo(mContext.getApplicationContext(), this);
         init(contentView);
-        click(mContext);
         backgroundAlpha(0.7f, mContext);
         popupWindow.setFocusable(true);
         popupWindow.setOutsideTouchable(true);
@@ -110,6 +109,7 @@ public class ServerPopupWindow implements VersionCheckListener {
     public void onVersion(VersionBean vb) {
         wx = vb.getKfWx();
         wx_number.setText("客服微信号：" + wx);
+        click(mContext);
     }
 
     @Override

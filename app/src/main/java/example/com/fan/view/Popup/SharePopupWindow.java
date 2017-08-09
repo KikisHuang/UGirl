@@ -77,6 +77,7 @@ public class SharePopupWindow implements ShareListener, View.OnClickListener {
                 if (bitmap != null)
                     bitmap.recycle();
                 popupWindow.dismiss();
+                popupWindow = null;
             }
         });
 

@@ -45,6 +45,7 @@ public class DownLoadUtils {
                 switch (msg.what) {
                     case 1:
                         SettingRate(msg.arg1);
+                        Log.i(TAG,"进度 ======="+msg.arg1);
                         break;
                     case 3:
 //                        ToastUtil.toast2_bottom(context, "下载完成!");
@@ -93,7 +94,7 @@ public class DownLoadUtils {
                     public void inProgress(float progress, long total, int id) {
                         Log.i(TAG, "进度 ==" + progress);
                         Message msg = new Message();
-                        msg.arg1 = (int) progress * 100;
+                        msg.arg1 = (int) (progress * 100);
                         msg.what = 1;
                         handler.sendMessage(msg);
                     }
@@ -136,10 +137,11 @@ public class DownLoadUtils {
             //provider authorities
             Uri apkUri = FileProvider.getUriForFile(context, context.getPackageName() + ".fileprovider", file);
             //Granting Temporary Permissions to a URI
-            intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+            intent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION|Intent.FLAG_ACTIVITY_NEW_TASK);
             intent.setDataAndType(apkUri, "application/vnd.android.package-archive");
         } else {
             intent.setDataAndType(Uri.fromFile(file), "application/vnd.android.package-archive");
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         }
 
         context.startActivity(intent);

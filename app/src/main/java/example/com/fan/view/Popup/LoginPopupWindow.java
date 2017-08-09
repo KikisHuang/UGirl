@@ -103,7 +103,6 @@ public class LoginPopupWindow implements View.OnClickListener, AccreditListener 
                         sflag = false;
                     }
                     listener = null;
-                    context = null;
                     popupWindow.dismiss();
                     popupWindow = null;
                 }

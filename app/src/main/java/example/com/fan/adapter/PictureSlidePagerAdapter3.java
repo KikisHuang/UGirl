@@ -14,12 +14,10 @@ import example.com.fan.fragment.son.PrivateFragment2;
  */
 public class PictureSlidePagerAdapter3 extends FragmentStatePagerAdapter {
     private List<PhotoType> list;
-    private List<String> title;
 
-    public PictureSlidePagerAdapter3(FragmentManager fm, List<PhotoType> strings, List<String> flist) {
+    public PictureSlidePagerAdapter3(FragmentManager fm, List<PhotoType> strings) {
         super(fm);
         this.list = strings;
-        this.title = flist;
     }
 
     @Override
@@ -34,6 +32,6 @@ public class PictureSlidePagerAdapter3 extends FragmentStatePagerAdapter {
     //去除页面切换时的滑动翻页效果
     @Override
     public CharSequence getPageTitle(int position) {
-        return title.get(position);
+        return list.get(position).getTypeName();
     }
 }

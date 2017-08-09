@@ -54,8 +54,12 @@ public class PageTopTask extends TimerTask {
                 if (flag == 3)
                     if (BuygoodsActivity.polistener != null)
                         BuygoodsActivity.polistener.onIncrease();
+                try {
+                if (handler != null)
+                    handler.sendEmptyMessage(1);
+                }catch (Exception e){
 
-                handler.sendEmptyMessage(1);
+                }
             }
         } else
             cancel();
@@ -63,10 +67,11 @@ public class PageTopTask extends TimerTask {
 
     /**
      * 关闭方法（防止内存泄露）;
+     *
      * @param task
      */
     public void Close(PageTopTask task) {
-        if(handler!=null){
+        if (handler != null) {
             handler.removeCallbacks(task);
             handler = null;
         }

@@ -29,14 +29,14 @@ import example.com.fan.utils.SynUtils;
 public class JpushReceiver extends BroadcastReceiver {
     private static final String TAG = "JpushReceiver";
     private int type = -10;
-    private String infoId;
+    private String infoId = "";
 
     @Override
     public void onReceive(Context context, Intent intent) {
         Bundle bundle = intent.getExtras();
         try {
 //        Log.d(TAG, "[MyReceiver] onReceive - " + intent.getAction() + ", extras: " + printBundle(bundle));
-        }catch (Exception e){
+        } catch (Exception e) {
 
         }
         if (JPushInterface.ACTION_REGISTRATION_ID.equals(intent.getAction())) {
@@ -69,40 +69,45 @@ public class JpushReceiver extends BroadcastReceiver {
                 infoId = jtb.getInfoId();
                 Log.d(TAG, "尤女郎自定义类型 ==" + type + " 尤女郎自定义ID==" + infoId);
             } catch (JSONException e) {
-                e.printStackTrace();
+
             }
-            Intent main = new Intent();
-            //判断app进程是否存活
-            switch (SynUtils.getAppSatus(context, "example.com.fan")) {
-                case 1:
-                    Log.i(TAG, "应用在前台运行,直接启动页面");
-                    if (MainActivity.listener != null && type != 10 && !infoId.isEmpty())
-                        MainActivity.listener.onRefresh(type, infoId);
-                    break;
-                case 2:
-                    //打开自定义的Activity
-                    Log.i(TAG, "应用在前后台运行,启动页面");
-                    main.setClass(context, MainActivity.class);
+            if (infoId.isEmpty()) {
+                Intent in = new Intent(context, MainActivity.class);
+                in.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                context.startActivity(in);
+            } else {
+                Intent main = new Intent();
+                //判断app进程是否存活
+                switch (SynUtils.getAppSatus(context, "example.com.fan")) {
+                    case 1:
+                        Log.i(TAG, "应用在前台运行,直接启动页面");
+                        if (MainActivity.listener != null && type != 10 && !infoId.isEmpty())
+                            MainActivity.listener.onRefresh(type, infoId);
+                        break;
+                    case 2:
+                        //打开自定义的Activity
+                        Log.i(TAG, "应用在前后台运行,启动页面");
+                        main.setClass(context, MainActivity.class);
 //                    main.putExtras(bundle);
-                    main.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    context.startActivity(main);
-                    if (MainActivity.listener != null && type != 10 && !infoId.isEmpty())
-                        MainActivity.listener.onRefresh(type, infoId);
+                        main.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        context.startActivity(main);
+                        if (MainActivity.listener != null && type != 10 && !infoId.isEmpty())
+                            MainActivity.listener.onRefresh(type, infoId);
 
-                    break;
-                case 3:
-                    Log.i(TAG, "应用未运行,启动页面");
-                    //打开自定义的Activity
-                    main.setClass(context, WelcomeActivity.class);
+                        break;
+                    case 3:
+                        Log.i(TAG, "应用未运行,启动页面");
+                        //打开自定义的Activity
+                        main.setClass(context, WelcomeActivity.class);
 //                    main.putExtras(bundle);
-                    main.putExtra("wlecome_type", type+"");
-                    main.putExtra("wlecome_info_id", infoId);
-                    main.setAction("wlecome_action");
-                    main.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    context.startActivity(main);
+                        main.putExtra("wlecome_type", type + "");
+                        main.putExtra("wlecome_info_id", infoId);
+                        main.setAction("wlecome_action");
+                        main.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        context.startActivity(main);
 
-                    break;
-
+                        break;
+                }
             }
 
         } else if (JPushInterface.ACTION_RICHPUSH_CALLBACK.equals(intent.getAction())) {

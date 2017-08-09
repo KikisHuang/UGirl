@@ -36,7 +36,6 @@ public class PrivateFragment extends BaseFragment implements OverallRefreshListe
     private TabLayout mTab;
     private List<PhotoType> list;
     private PictureSlidePagerAdapter3 page_adapter;
-    private List<String> title;
 
     @Override
     protected int initContentView() {
@@ -45,11 +44,10 @@ public class PrivateFragment extends BaseFragment implements OverallRefreshListe
 
     private void setPager() {
 
-        page_adapter = new PictureSlidePagerAdapter3(getChildFragmentManager(), list, title);
-        mTab.setupWithViewPager(pr_viewPager);
+        page_adapter = new PictureSlidePagerAdapter3(getChildFragmentManager(), list);
 
         pr_viewPager.setAdapter(page_adapter);
-
+        mTab.setupWithViewPager(pr_viewPager);
         pr_viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -120,7 +118,6 @@ public class PrivateFragment extends BaseFragment implements OverallRefreshListe
         //初始化标题;
         onDownTouchListener(1, getResources().getString(R.string.private_photo));
         list = new ArrayList<>();
-        title = new ArrayList<>();
         mTab = (TabLayout) view.findViewById(R.id.tab_layout);
 
         mTab.setTabMode(TabLayout.MODE_SCROLLABLE);
@@ -129,7 +126,7 @@ public class PrivateFragment extends BaseFragment implements OverallRefreshListe
         ListenerManager.getInstance().registerListtener(this);
 
         pr_viewPager = (CustomViewPager) view.findViewById(R.id.viewPager);
-        pr_viewPager.setOffscreenPageLimit(1);
+
     }
 
     @Override
@@ -138,7 +135,6 @@ public class PrivateFragment extends BaseFragment implements OverallRefreshListe
     }
 
     private void createView(String str) {
-        title.add(str);
         mTab.addTab(mTab.newTab().setText(str));
     }
 
