@@ -91,7 +91,7 @@ public class OrderActivity extends InitActivity implements View.OnClickListener,
          */
         OkHttpUtils
                 .get()
-                .url(MzFinal.URl + MzFinal.GETMYORDERBYPAGE)
+                .url(MzFinal.URl + MzFinal.GETMYDETAILS)
                 .addParams(MzFinal.KEY, SPreferences.getUserToken())
                 .tag(this)
                 .build()

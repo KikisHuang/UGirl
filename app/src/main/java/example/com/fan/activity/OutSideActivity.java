@@ -15,6 +15,7 @@ import example.com.fan.view.OutSideWebViewClient;
 
 import static example.com.fan.utils.SynUtils.getRouString;
 import static example.com.fan.utils.TitleUtils.setTitles;
+import static example.com.fan.view.dialog.CustomProgress.Cancle;
 import static example.com.fan.view.dialog.CustomProgress.Show;
 
 /**
@@ -80,6 +81,7 @@ public class OutSideActivity extends InitActivity {
             }
         } catch (Exception e) {
             ToastUtil.toast2_bottom(OutSideActivity.this, "非常抱歉,该页面发生了异常!");
+            Cancle();
             finish();
         }
     }

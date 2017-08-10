@@ -64,6 +64,7 @@
             android:name=".activity.MainActivity"
             android:screenOrientation="portrait"
             android:launchMode="singleTask"
+            android:theme="@style/Theme.NoBackgroundAndTitleMain"
             >
 
         </activity>

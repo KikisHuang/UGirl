@@ -172,7 +172,6 @@ public class SettingActivity extends InitActivity implements View.OnClickListene
                                     LoadingCancle();
                                 }
                             } catch (Exception e) {
-
                             }
                         }
                     });

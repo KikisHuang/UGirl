@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+
+    <!-- 辅助、内容、标签、关键字  -->
+    <color name="content1">#999999</color>
+    <!-- 主要文字、评论  -->
+    <color name="content2">#202020</color>
+    <!-- 次要文字1  -->
+    <color name="content3">#cccccc</color>
+    <!-- 次要文字2  -->
+    <color name="content4">#666666</color>
+    <!-- 底部点亮文字、专辑、框  -->
+    <color name="content5">#e576b9</color>
+    <!-- 导航分类 -->
+    <color name="content6">#a6a6a6</color>
+    <!-- 部分底色 -->
+    <color name="content7">#f6f6f6</color>
+    <!-- 部分底色 -->
+    <color name="content8">#FDFDFD</color>
+    <color name="content9">#ededed</color>
+    <color name="content10">#9d9d9d</color>
+
+
+    <!-- 白色渐变 -->
+    <color name="white1">#11FFFFFF</color>
+    <color name="white2">#22FFFFFF</color>
+    <color name="white3">#33FFFFFF</color>
+    <color name="white4">#44FFFFFF</color>
+    <color name="white5">#55FFFFFF</color>
+    <color name="white6">#66FFFFFF</color>
+    <color name="white7">#77FFFFFF</color>
+    <color name="white8">#88FFFFFF</color>
+    <color name="white9">#99FFFFFF</color>
+    <color name="white">#fefefe</color>
+    <color name="whitefc">#FCFCFC</color>
+    <!-- 黑色渐变 -->
+    <color name="black1">#11000000</color>
+    <color name="black2">#22000000</color>
+    <color name="black3">#33000000</color>
+    <color name="black4">#44000000</color>
+    <color name="black5">#55000000</color>
+    <color name="black6">#66000000</color>
+    <color name="black7">#77000000</color>
+    <color name="black8">#88000000</color>
+    <color name="black9">#99000000</color>
+    <color name="black11">#484858</color>
+    <color name="black13">#343434</color>
+
+    <color name="black">#202020</color>
+    <color name="black0">#000000</color>
+
+    <color name="blackg">#6E6E6E</color>
+
+    <color name="blackk">#202020</color>
+
+    <color name="black12">#595959</color>
+    <color name="black14">#F8F8F8</color>
+
+    <color name="indexcolor">#FC838F</color>
+
+
+    <color name="lightblue">#E2F6FF</color>
+    <color name="blue1">#b0bdcd</color>
+    <color name="blue2">#6490fe</color>
+    <color name="blue3">#1AA9EB</color>
+    <color name="blue4">#214263</color>
+    <color name="blue5">#0066cc</color>
+    <color name="blue6">#00B8EE</color>
+    <color name="blue_gps">#00a0e6</color>
+    <color name="blue_white1">#F5F6F7</color>
+
+    <color name="line10">#F5F5F5</color>
+    <color name="linef9">#F9F9F9</color>
+
+    <color name="gray">#f3f3f3</color>
+    <color name="gray0">#EDEDED</color>
+    <color name="gray00">#EAEAEA</color>
+    <color name="gray1">#B4B4B4</color>
+    <color name="gray2">#e8e8e8</color>
+    <color name="gray3">#838383</color>
+    <color name="gray4">#787878</color>
+    <color name="gray5">#d9d9d9</color>
+    <color name="gray6">#f2f2f2</color>
+    <color name="gray7">#C6C6C6</color>
+    <color name="gray8">#EBEBEB</color>
+    <color name="gray9">#F7F7F7</color>
+    <color name="gray99">#999999</color>
+
+
+    <color name="bottom_color">#ff3a94</color>
+    <color name="bottom_color_un">#929292</color>
+
+
+    <color name="green1">#84A400</color>
+    <color name="green2">#A7CA00</color>
+    <color name="green3">#6C891A</color>
+    <color name="green4">#00BB00</color>
+    <color name="green5">#48B267</color>
+    <color name="green6">#4EA45D</color>
+    <color name="green7">#78DEAB</color>
+    <color name="orange1">#ff6c23</color>
+    <color name="orange2">#ff3300</color>
+    <color name="orange3">#f34f19</color>
+    <color name="orange4">#fe8800</color>
+    <color name="orange5">#e76536</color>
+    <color name="orange6">#ed7806</color>
+    <color name="orange7">#f1a66b</color>
+    <color name="orange8">#ede6ca</color>
+    <color name="orange9">#EBAC41</color>
+    <color name="red1">#eb030d</color>
+    <color name="red2">#c62f34</color>
+    <color name="yellow1">#ffff01</color>
+    <color name="transparenthalf">#e0000000</color>
+    <color name="menu_txt">#027164</color>
+
+    <color name="gray000">#9c9ca4</color>
+
+
+    <color name="ranking_one">#FFF4E0</color>
+    <color name="ranking_two">#E8F9FF</color>
+    <color name="ranking_three">#F2E2FF</color>
+
+
+    <color name="e1_color">#e1e1e1</color>
+    <color name="pd_color">#312e41</color>
+
+    <color name="home_bottom">#f44bad</color>
+    <color name="cherry">#fc4094</color>
+    <color name="cherry1">#fc4094</color>
+    <color name="cherry2">#ec83c8</color>
+    <color name="home_bottom1">#666666</color>
+    <color name="theme_color">#fee262</color>
+    <color name="btn_red">#fc6676</color>
+    <color name="btn_gray">#e0e0e0</color>
+    <color name="bg">#fafafa</color>
+    <color name="bg2">#f3f3fd</color>
+    <color name="uncolor">#9709F7</color>
+    <color name="line_bg">#e5e5e5</color>
+    <color name="txt_top">#2f3336</color>
+    <color name="txt_nomal">#999999</color>
+    <color name="txt_small">#d1d1d1</color>
+    <color name="pop_line">#F2F4FC</color>
+
+    <color name="member_txt">#333333</color>
+    <color name="gray_txt">#aaaaaa</color>
+    <color name="gray_33">#333333</color>
+    <color name="gray_99">#999999</color>
+    <color name="gray_f2">#f2f2f2</color>
+
+
+    <color name="private_random_color1">#ABDEE1</color>
+    <color name="private_random_color2">#E8DFB4</color>
+    <color name="private_random_color3">#D8B3E7</color>
+
+    <color name="alertdialog_line">#f0f0f0</color>
+    <color name="actionsheet_blue">#037BFF</color>
+    <color name="actionsheet_red">#FD4A2E</color>
+    <color name="actionsheet_gray">#8F8F8F</color>
+</resources>
