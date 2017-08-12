@@ -63,7 +63,6 @@ public class PayPopupWindow {
                 aw = null;
                 view = null;
                 v = null;
-                context = null;
             }
         });
         // 设置好参数之后再show
@@ -73,7 +72,7 @@ public class PayPopupWindow {
     private void click() {
         pay_tv.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(View vs) {
                 aw.ScreenPopupWindow(v, id);
                 popupWindow.dismiss();
             }

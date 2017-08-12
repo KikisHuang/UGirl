@@ -93,7 +93,7 @@ public class HomePageActivity extends BaseActivity implements ItemClickListener,
         ImageView img = listView.getHeaderView();
         img.setScaleType(ImageView.ScaleType.CENTER_CROP);
         try {
-            Glide.with(getApplicationContext()).load(getImgPath(cover)).into(img);
+            Glide.with(getApplicationContext()).load(getImgPath(cover)).override(1296, 1080).into(img);
         } catch (Exception e) {
             Log.i(TAG, "Glide You cannot start a load for a destroyed activity");
         }
@@ -175,7 +175,6 @@ public class HomePageActivity extends BaseActivity implements ItemClickListener,
                         } catch (Exception e) {
 
                         }
-                        Headerinit();
                     }
                 });
         /**
@@ -201,17 +200,18 @@ public class HomePageActivity extends BaseActivity implements ItemClickListener,
                         try {
                             int code = getCode(response);
                             if (code == 1) {
+                                rlist.clear();
                                 JSONArray ar = getJsonAr(response);
                                 for (int i = 0; i < ar.length(); i++) {
                                     ModelBean mb = new Gson().fromJson(String.valueOf(ar.getJSONObject(i)), ModelBean.class);
                                     rlist.add(mb);
                                 }
-                                adapter = new FindAdapter(HomePageActivity.this, rlist, listener, tlistener, slistener,true);
-
+                                adapter = new FindAdapter(HomePageActivity.this, rlist, listener, tlistener, slistener, true);
+                                Headerinit();
                             } else
                                 ToastUtil.ToastErrorMsg(HomePageActivity.this, response, code);
                         } catch (Exception e) {
-
+                            Log.i(TAG, "" + e);
                         }
                     }
                 });
@@ -321,10 +321,9 @@ public class HomePageActivity extends BaseActivity implements ItemClickListener,
     protected void onDestroy() {
         super.onDestroy();
         OkHttpUtils.getInstance().cancelTag(this);
-        if (tlistener != null)
-            tlistener = null;
-        if (listener != null)
-            listener = null;
+        tlistener = null;
+        listener = null;
+        slistener = null;
     }
 
     @Override

@@ -16,12 +16,10 @@ import example.com.fan.fragment.son.PictureSlideFragment;
 public class PhotoPagerAdapter extends FragmentStatePagerAdapter {
     private List<MirrorBean> urlList;
     private String id;
-    private boolean isPay;
 
-    public PhotoPagerAdapter(FragmentManager fm, List<MirrorBean> urlList, String id, boolean isPay) {
+    public PhotoPagerAdapter(FragmentManager fm, List<MirrorBean> urlList, String id) {
         super(fm);
         this.urlList = urlList;
-        this.isPay = isPay;
         this.id = id;
     }
 
@@ -29,7 +27,7 @@ public class PhotoPagerAdapter extends FragmentStatePagerAdapter {
     public Fragment getItem(int position) {
 
         List<mcPublishImgUrls> list = urlList.get(0).getMcPublishImgUrls();
-        return PictureSlideFragment.newInstance(list.get(position).getPath(), list.get(position).getBasePath(), list.get(position).getNeedMoney(), id, isPay);//返回展示不同网络图片的PictureSlideFragment
+        return PictureSlideFragment.newInstance(list.get(position).getPath(), list.get(position).getBasePath(), list.get(position).getNeedMoney(), id);//返回展示不同网络图片的PictureSlideFragment
     }
 
     @Override

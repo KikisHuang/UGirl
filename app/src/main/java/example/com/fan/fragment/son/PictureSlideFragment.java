@@ -20,6 +20,7 @@ import example.com.fan.R;
 import example.com.fan.activity.PhotoActivity;
 import example.com.fan.base.sign.save.SPreferences;
 import example.com.fan.fragment.BaseFragment;
+import example.com.fan.mylistener.PayRefreshListener;
 import example.com.fan.utils.MzFinal;
 import example.com.fan.utils.ToastUtil;
 import okhttp3.Call;
@@ -34,7 +35,7 @@ import static example.com.fan.utils.SynUtils.getTAG;
 /**
  * Created by lian on 2017/5/5.
  */
-public class PictureSlideFragment extends BaseFragment {
+public class PictureSlideFragment extends BaseFragment implements PayRefreshListener {
     private static final String TAG = getTAG(PictureSlideFragment.class);
     private String url;
     private PhotoView imageView;
@@ -43,6 +44,7 @@ public class PictureSlideFragment extends BaseFragment {
     private String id = "";
     private ImageView load_img;
     private GestureDetector.OnDoubleTapListener gest;
+    public static PayRefreshListener PayListener;
 
     /**
      * 动态创建Fragment,防止OOM;
@@ -51,14 +53,14 @@ public class PictureSlideFragment extends BaseFragment {
      * @param base      OSS路径
      * @param needMoney 收费标识符
      * @param id        专辑id
-     * @param isPay     已购该专辑买标识符
      * @return
      */
-    public static PictureSlideFragment newInstance(String path, String base, boolean needMoney, String id, boolean isPay) {
+    public static PictureSlideFragment newInstance(String path, String base, boolean needMoney, String id) {
 
-        if (!isPay && needMoney && !MyAppcation.VipFlag)
+        if (!MzFinal.isPay && needMoney && !MyAppcation.VipFlag) {
             if (PhotoActivity.tlistener != null)
                 PhotoActivity.tlistener.CloseOfOpenTouch(false);
+        }
 
         PictureSlideFragment f = new PictureSlideFragment();
         Bundle args = new Bundle();
@@ -93,6 +95,7 @@ public class PictureSlideFragment extends BaseFragment {
     }
 
     private void getData() {
+
         load_img.setVisibility(View.VISIBLE);
         Glide.with(getActivity().getApplicationContext()).load(R.drawable.loading_gif).asGif().diskCacheStrategy(DiskCacheStrategy.SOURCE).into(load_img);
         /**
@@ -196,6 +199,7 @@ public class PictureSlideFragment extends BaseFragment {
         super.onDestroy();
         OkHttpUtils.getInstance().cancelTag(this);
         gest = null;
+        PayListener = null;
         photoViewAttacher.cleanup();
         photoViewAttacher = null;
     }
@@ -205,7 +209,7 @@ public class PictureSlideFragment extends BaseFragment {
         imageView = (PhotoView) view.findViewById(R.id.iv_main_pic);
         load_img = (ImageView) view.findViewById(R.id.load_img);
         photoViewAttacher = new PhotoViewAttacher(imageView);
-
+        PayListener = this;
         photoViewAttacher.setOnDoubleTapListener(gest = new GestureDetector.OnDoubleTapListener() {
             @Override
             public boolean onSingleTapConfirmed(MotionEvent e) {
@@ -252,9 +256,10 @@ public class PictureSlideFragment extends BaseFragment {
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
         try {
-            if (!isVisibleToUser)
+            if (!isVisibleToUser) {
                 if (photoViewAttacher != null)
                     photoViewAttacher.setScale(photoViewAttacher.getMinimumScale(), 0, 0, true);
+            }
         } catch (Exception e) {
 
         }
@@ -262,6 +267,11 @@ public class PictureSlideFragment extends BaseFragment {
 
     @Override
     protected void initData() {
+        getData();
+    }
+
+    @Override
+    public void onPayRefresh() {
         getData();
     }
 }

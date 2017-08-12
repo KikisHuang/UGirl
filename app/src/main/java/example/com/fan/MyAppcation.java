@@ -12,6 +12,7 @@ import com.zhy.http.okhttp.log.LoggerInterceptor;
 
 import java.util.concurrent.TimeUnit;
 
+import example.com.fan.base.sign.CrashHandler;
 import example.com.fan.base.sign.save.SPreferences;
 import example.com.fan.utils.MzFinal;
 import okhttp3.OkHttpClient;
@@ -46,8 +47,8 @@ public class MyAppcation extends Application {
         /**
          * 全局异常捕获方法;
          */
-//      CrashHandler crashHandler = CrashHandler.getInstance();
-//      crashHandler.init(getApplicationContext());
+      CrashHandler crashHandler = CrashHandler.getInstance();
+      crashHandler.init(getApplicationContext());
 
         OkHttpInit();
         CHANNEL = AnalyticsConfig.getChannel(getApplicationContext());

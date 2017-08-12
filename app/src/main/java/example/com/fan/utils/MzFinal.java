@@ -12,9 +12,7 @@ public class MzFinal {
 //    public static final String URl = "http://192.168.1.200:8888/mcFnsInterface/";
 //    public static final String URl = "http://192.168.1.224:8080/mcFnsInterface/";
 //    public static final String URl = "http://101.37.86.15:8080/mcFnsInterface/";
-      public static final String URl = "http://fns.mozu123.com:8080/mcFnsInterface/";
-
-
+    public static final String URl = "http://fns.mozu123.com:8080/mcFnsInterface/";
 
 
     /**
@@ -32,6 +30,10 @@ public class MzFinal {
 
     public static final String br = "<br />";
 
+    /**
+     * 专辑购买标识符;
+     */
+    public static boolean isPay = false;
     //占位图;
     public static String[] images = {"http://img2.duitang.com/uploads/item/201202/10/20120210134806_xJJSw.jpg",
     };

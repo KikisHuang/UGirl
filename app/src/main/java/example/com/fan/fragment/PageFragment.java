@@ -298,6 +298,7 @@ public class PageFragment extends BaseFragment implements View.OnClickListener, 
                                 for (int i = 0; i < ar.length(); i++) {
                                     GalleryBean gb = new GalleryBean();
                                     JSONObject ob = ar.getJSONObject(i);
+
                                     gb.setTypeName(ob.optString("typeName"));
                                     gb.setId(ob.optInt("id"));
 
@@ -321,7 +322,7 @@ public class PageFragment extends BaseFragment implements View.OnClickListener, 
                             } else
                                 ToastUtil.ToastErrorMsg(getActivity(), response, code);
                         } catch (Exception e) {
-
+                            Log.i(TAG, "ERROR ===" + e);
                         }
                     }
                 });
@@ -435,6 +436,7 @@ public class PageFragment extends BaseFragment implements View.OnClickListener, 
             Log.i(TAG, "Error ==" + e);
         }
     }
+
     @Override
     protected void click() {
         ranking_img0.setOnClickListener(this);
@@ -453,6 +455,7 @@ public class PageFragment extends BaseFragment implements View.OnClickListener, 
         super.onDestroy();
         ListenerManager.getInstance().unRegisterListener(this);
     }
+
     @Override
     protected void init() {
         polistener = this;
@@ -537,6 +540,7 @@ public class PageFragment extends BaseFragment implements View.OnClickListener, 
         LayoutInflater inflater = getActivity().getLayoutInflater();
         bottomList = homeViewPageUtils.getbottomImg(blist, getActivity().getApplicationContext(), inflater);
     }
+
     private void setBottomPager() {
         /**
          * 画廊viewPager;
@@ -551,6 +555,7 @@ public class PageFragment extends BaseFragment implements View.OnClickListener, 
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 
             }
+
             @Override
             public void onPageScrollStateChanged(int state) {
                 //当state为SCROLL_STATE_IDLE即没有滑动的状态时切换页面
@@ -706,6 +711,7 @@ public class PageFragment extends BaseFragment implements View.OnClickListener, 
                         public void onError(Call call, Exception e, int id) {
                             ToastUtil.toast2_bottom(getActivity(), "网络不顺畅...");
                         }
+
                         @Override
                         public void onResponse(String response, int id) {
                             try {

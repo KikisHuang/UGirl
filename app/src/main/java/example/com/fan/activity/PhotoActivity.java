@@ -99,7 +99,7 @@ public class PhotoActivity extends InitActivity implements View.OnClickListener,
     //vip标识符;
     private PopupWindow pay;
     private Thread comThread;
-    private boolean isPay = false;
+
     /**
      * 回调方法;
      */
@@ -109,7 +109,6 @@ public class PhotoActivity extends InitActivity implements View.OnClickListener,
     public static CollectListener clistener;
 
     private List<View> CommentView;
-
 
     /**
      * 添加弹幕数据;
@@ -320,7 +319,7 @@ public class PhotoActivity extends InitActivity implements View.OnClickListener,
      * ViewPager初始化设置;
      */
     private void setPage() {
-        viewPager.setAdapter(new PhotoPagerAdapter(getSupportFragmentManager(), urlList, id, isPay));
+        viewPager.setAdapter(new PhotoPagerAdapter(getSupportFragmentManager(), urlList, id));
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -391,6 +390,7 @@ public class PhotoActivity extends InitActivity implements View.OnClickListener,
         photo_top_rl.setVisibility(View.GONE);
         screnn_img.setVisibility(View.GONE);
         viewPager.setOffscreenPageLimit(1);
+        MzFinal.isPay = false;
     }
 
     @Override
@@ -449,7 +449,7 @@ public class PhotoActivity extends InitActivity implements View.OnClickListener,
 
                                 lead_tv.setText(mb.getInfo());
 
-                                isPay = urlList.get(0).getIsPay();
+                                MzFinal.isPay = urlList.get(0).getIsPay();
                                 comment_num.setText(KswitchWay(urlList.get(0).getCommentCount()));
                                 collect_num.setText(KswitchWay(urlList.get(0).getCollectionCount()));
                                 admire_num.setText(KswitchWay(urlList.get(0).getLikesCount()));

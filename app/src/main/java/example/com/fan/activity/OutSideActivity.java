@@ -39,6 +39,7 @@ public class OutSideActivity extends InitActivity {
         WebSettings webSettings = webView.getSettings();
         webSettings.setJavaScriptEnabled(true);
         webSettings.setJavaScriptCanOpenWindowsAutomatically(true);
+        webSettings.setDomStorageEnabled(true);
 //        webSettings.setBuiltInZoomControls(true);// support zoom
         webSettings.setUseWideViewPort(true);// 这个很关键
         webSettings.setLoadWithOverviewMode(true);

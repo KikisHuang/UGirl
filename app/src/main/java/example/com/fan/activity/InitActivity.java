@@ -1,14 +1,15 @@
 package example.com.fan.activity;
 
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 
 import com.umeng.analytics.MobclickAgent;
 
+import example.com.fan.fragment.son.PictureSlideFragment;
 import example.com.fan.utils.GlideCacheUtil;
+import example.com.fan.utils.MzFinal;
 import example.com.fan.utils.pay.ali.alipayTool;
-import me.imid.swipebacklayout.lib.SwipeBackLayout;
-import me.imid.swipebacklayout.lib.app.SwipeBackActivity;
 
 import static example.com.fan.utils.SynUtils.getTAG;
 import static example.com.fan.utils.SynUtils.getUserVip;
@@ -17,20 +18,18 @@ import static example.com.fan.utils.SynUtils.getUserVip;
  * Created by lian on 2017/6/6.
  * 自定义初始化方法Activity;
  */
-public abstract class InitActivity extends SwipeBackActivity implements alipayTool.alipayResult {
+public abstract class InitActivity extends FragmentActivity implements alipayTool.alipayResult {
     private static final String TAG = getTAG(InitActivity.class);
-    private SwipeBackLayout mSwipeBackLayout;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mSwipeBackLayout = getSwipeBackLayout();
-        //设置滑动方向，可设置EDGE_LEFT, EDGE_RIGHT, EDGE_ALL, EDGE_BOTTOM
-        mSwipeBackLayout.setEdgeTrackingEnabled(SwipeBackLayout.EDGE_LEFT);
         init();
         click();
         initData();
         System.gc();
     }
+
     /**
      * 添加监听事件
      */
@@ -81,15 +80,19 @@ public abstract class InitActivity extends SwipeBackActivity implements alipayTo
 
     @Override
     public void result(int result) {
-        getUserVip(getApplicationContext());
+        try {
+            if (PictureSlideFragment.PayListener != null && PhotoActivity.tlistener != null) {
+                MzFinal.isPay = true;
+                PictureSlideFragment.PayListener.onPayRefresh();
+            }
+            getUserVip(getApplicationContext());
+        } catch (Exception e) {
+            Log.i(TAG, "Error ==== " + e);
+        }
     }
 
     @Override
     public void failure() {
-    }
-    @Override
-    public void onBackPressed() {
-        scrollToFinishActivity();//左滑退出activity
     }
 
 }

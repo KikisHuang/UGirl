@@ -328,8 +328,7 @@ public class alipayTool {
                             }
 
                             // 其他值就可以判断为支付失败，包括用户主动取消支付，或者系统返回的错误
-                            Toast.makeText(maActivity, "支付失败",
-                                    Toast.LENGTH_SHORT).show();
+                            Toast.makeText(maActivity, "支付失败",Toast.LENGTH_SHORT).show();
 
                         }
                     }

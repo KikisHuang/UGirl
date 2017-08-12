@@ -3,6 +3,7 @@ package example.com.fan.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.KeyEvent;
 
 import com.umeng.analytics.MobclickAgent;
@@ -12,13 +13,17 @@ import com.umeng.socialize.bean.SHARE_MEDIA;
 import example.com.fan.R;
 import example.com.fan.utils.ToastUtil;
 
+import static example.com.fan.utils.SynUtils.getTAG;
+
 /**
  * Created by lian on 2017/5/3.
  */
 public class BaseActivity extends InitActivity {
+    private static final String TAG = getTAG(BaseActivity.class);
     protected long timeDValue = 0; // 计算时间差值，判断是否需要退出
     public static UMShareAPI mShareAPI;
     public static SHARE_MEDIA platform;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,8 +67,10 @@ public class BaseActivity extends InitActivity {
         }
         return super.onKeyDown(keyCode, event);
     }
+
     /**
      * 微信登录回调方法;
+     *
      * @param requestCode
      * @param resultCode
      * @param data
@@ -71,8 +78,15 @@ public class BaseActivity extends InitActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        mShareAPI.onActivityResult(requestCode, resultCode, data);
+        try {
+            if (mShareAPI == null)
+                mShareAPI = UMShareAPI.get(this);
+            mShareAPI.onActivityResult(requestCode, resultCode, data);
+        } catch (Exception e) {
+            Log.i(TAG, "Error" + e);
+        }
     }
+
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         //super.onSaveInstanceState(outState);

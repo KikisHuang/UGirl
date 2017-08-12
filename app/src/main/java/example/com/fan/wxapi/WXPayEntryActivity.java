@@ -11,6 +11,8 @@ import com.tencent.mm.sdk.openapi.IWXAPI;
 import com.tencent.mm.sdk.openapi.IWXAPIEventHandler;
 import com.tencent.mm.sdk.openapi.WXAPIFactory;
 
+import example.com.fan.activity.PhotoActivity;
+import example.com.fan.fragment.son.PictureSlideFragment;
 import example.com.fan.utils.MzFinal;
 import example.com.fan.utils.ToastUtil;
 
@@ -43,7 +45,15 @@ public class WXPayEntryActivity extends Activity implements IWXAPIEventHandler {
         switch (resp.errCode) {
             case 0:
                 ToastUtil.toast2_bottom(this, "支付成功");
-                getUserVip(getApplicationContext());
+                try {
+                    if (PictureSlideFragment.PayListener != null && PhotoActivity.tlistener != null) {
+                        MzFinal.isPay = true;
+                        PictureSlideFragment.PayListener.onPayRefresh();
+                    }
+                    getUserVip(getApplicationContext());
+                } catch (Exception e) {
+                    Log.i(TAG, "Error ==== " + e);
+                }
                 break;
             case -1:
                 ToastUtil.toast2_bottom(this, "支付失败");

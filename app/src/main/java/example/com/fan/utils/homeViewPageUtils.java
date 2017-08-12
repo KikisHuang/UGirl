@@ -568,7 +568,7 @@ public class homeViewPageUtils {
     private static void setBitmap(String str, ImageView img, Context context) {
         Glide.with(context)
                 .load(str)
-                .centerCrop()
+                .override(320,320)
                 .into(img);
     }
 
@@ -590,8 +590,7 @@ public class homeViewPageUtils {
         } else {
             Glide.with(context)
                     .load(str)
-                    .override(580,580)
-                    .centerCrop()
+                    .override(300,300)
                     .into(img);
         }
     }

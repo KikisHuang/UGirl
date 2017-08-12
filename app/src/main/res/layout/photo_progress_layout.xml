@@ -41,5 +41,6 @@
             android:background="@drawable/shape_progressbar_bg"
             android:max="100"
             android:progress="0"></ProgressBar>
+
     </FrameLayout>
 </LinearLayout>
