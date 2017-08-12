@@ -15,9 +15,9 @@ android {
     defaultConfig {
         applicationId "example.com.fan"
         minSdkVersion 17
-        targetSdkVersion 25
-        versionCode 23
-        versionName "1.2.2"
+        targetSdkVersion 24
+        versionCode 24
+        versionName "1.2.3"
         ndk {
             //选择要添加的对应cpu类型的.so库（不需要的删除即可）。
             abiFilters 'armeabi', 'armeabi-v7a', 'armeabi-v8a', 'x86', 'x86_64', 'mips', 'mips64'
@@ -73,7 +73,7 @@ android {
 
 
         //自定渠道;
-        aaa1 {
+   /*     aaa1 {
             manifestPlaceholders = [UMENG_CHANNEL_VALUE: "3ceafb99478c"]
         }
         aaa2 {
@@ -84,9 +84,9 @@ android {
         }
         ceshi2 {
             manifestPlaceholders = [UMENG_CHANNEL_VALUE: "80d756003b97"]
-        }
+        }*/
         //应用宝微下载渠道;
-        wuyi {
+     /*   wuyi {
             manifestPlaceholders = [UMENG_CHANNEL_VALUE: "d7ac947753cd"]
         }
         yyb1 {
@@ -148,7 +148,7 @@ android {
         }
         yyb20 {
             manifestPlaceholders = [UMENG_CHANNEL_VALUE: "deec96e362f4"]
-        }
+        }*/
     }
 
     sourceSets {

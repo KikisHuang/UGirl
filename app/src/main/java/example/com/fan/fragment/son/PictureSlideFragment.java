@@ -257,8 +257,8 @@ public class PictureSlideFragment extends BaseFragment implements PayRefreshList
         super.setUserVisibleHint(isVisibleToUser);
         try {
             if (!isVisibleToUser) {
-                if (photoViewAttacher != null)
-                    photoViewAttacher.setScale(photoViewAttacher.getMinimumScale(), 0, 0, true);
+//                if (photoViewAttacher != null)
+//                    photoViewAttacher.setScale(photoViewAttacher.getMinimumScale(), 0, 0, true);
             }
         } catch (Exception e) {
 
