@@ -58,6 +58,10 @@ public class AliWechatPopupWindow implements View.OnClickListener {
                     backgroundAlpha(1.0f, context);
                     popupWindow.dismiss();
                     popupWindow = null;
+                    ali_ll = null;
+                    wechat_ll = null;
+                    view = null;
+
                 }
             });
             // 设置好参数之后再show
@@ -92,9 +96,11 @@ public class AliWechatPopupWindow implements View.OnClickListener {
         switch (v.getId()) {
             case R.id.ali_ll:
                 PayNow(context, id, url[0], 0, 1);
+                popupWindow.dismiss();
                 break;
             case R.id.wechat_ll:
                 PayNow(context, id, url[1], 1, 1);
+                popupWindow.dismiss();
                 break;
         }
     }

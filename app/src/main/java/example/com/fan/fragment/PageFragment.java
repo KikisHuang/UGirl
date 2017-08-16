@@ -1,10 +1,14 @@
 package example.com.fan.fragment;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Handler;
 import android.os.Message;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.Gravity;
@@ -146,10 +150,33 @@ public class PageFragment extends BaseFragment implements View.OnClickListener, 
     }
 
     /**
+     * 申请6.0权限
      * 最新版本检查;
      */
     private void CheckVersion() {
-        getVersionInfo(getActivity().getApplicationContext(), this);
+        if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.READ_EXTERNAL_STORAGE)
+                != PackageManager.PERMISSION_GRANTED ||
+                ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_NETWORK_STATE)
+                        != PackageManager.PERMISSION_GRANTED ||
+                ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                        != PackageManager.PERMISSION_GRANTED ||
+                ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.RECORD_AUDIO)
+                        != PackageManager.PERMISSION_GRANTED ||
+                ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.READ_PHONE_STATE)
+                        != PackageManager.PERMISSION_GRANTED ||
+                ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.CAMERA)
+                        != PackageManager.PERMISSION_GRANTED) {
+            //申请WRITE_EXTERNAL_STORAGE权限
+            ActivityCompat.requestPermissions(getActivity(), new String[]{
+                            Manifest.permission.CAMERA,
+                            Manifest.permission.ACCESS_NETWORK_STATE,
+                            Manifest.permission.READ_PHONE_STATE,
+                            Manifest.permission.RECORD_AUDIO,
+                            Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                            Manifest.permission.READ_EXTERNAL_STORAGE},
+                    100);//自定义的code
+            getVersionInfo(getActivity().getApplicationContext(), this);
+        }
     }
 
     /**
@@ -371,17 +398,17 @@ public class PageFragment extends BaseFragment implements View.OnClickListener, 
                 switch (i) {
                     case 0:
                         im = ranking_img0;
-                        Glide.with(getActivity().getApplicationContext()).load(rklist.get(i).getHeadImgUrl()).centerCrop().bitmapTransform(new CropCircleTransformation(getActivity())).crossFade(300).override(500, 500).into(im);
+                        Glide.with(getActivity().getApplicationContext()).load(rklist.get(i).getHeadImgUrl()).centerCrop().bitmapTransform(new CropCircleTransformation(getActivity())).crossFade(300).into(im);
 
                         break;
                     case 1:
                         im = ranking_img1;
-                        Glide.with(getActivity().getApplicationContext()).load(rklist.get(i).getHeadImgUrl()).centerCrop().bitmapTransform(new CropCircleTransformation(getActivity())).crossFade(300).override(500, 500).into(im);
+                        Glide.with(getActivity().getApplicationContext()).load(rklist.get(i).getHeadImgUrl()).centerCrop().bitmapTransform(new CropCircleTransformation(getActivity())).crossFade(300).into(im);
 
                         break;
                     case 2:
                         im = ranking_img2;
-                        Glide.with(getActivity().getApplicationContext()).load(rklist.get(i).getHeadImgUrl()).centerCrop().bitmapTransform(new CropCircleTransformation(getActivity())).crossFade(300).override(500, 500).into(im);
+                        Glide.with(getActivity().getApplicationContext()).load(rklist.get(i).getHeadImgUrl()).centerCrop().bitmapTransform(new CropCircleTransformation(getActivity())).crossFade(300).into(im);
 
                         break;
                 }
@@ -696,7 +723,6 @@ public class PageFragment extends BaseFragment implements View.OnClickListener, 
         int old = SynUtils.getVersionCode(getActivity().getApplicationContext());
 
         if (vb.getAndroidVersion() > old) {
-            LoadingShow(getActivity(), false, getRouString(R.string.VersonUp));
             /**
              * 获取apk数据;
              */
@@ -717,6 +743,7 @@ public class PageFragment extends BaseFragment implements View.OnClickListener, 
                             try {
                                 int code = getCode(response);
                                 if (code == 1) {
+                                    LoadingShow(getActivity(), false, getRouString(R.string.VersonUp));
                                     final String url = getJsonSring(response);
                                     if (!url.isEmpty()) {
                                         /**
@@ -741,10 +768,9 @@ public class PageFragment extends BaseFragment implements View.OnClickListener, 
                                         }
                                     } else
                                         Log.i(TAG, "没有获取到新版本下载路径");
-                                } else {
+                                } else
                                     ToastUtil.ToastErrorMsg(getActivity(), response, code);
-                                    LoadingCancle();
-                                }
+
                             } catch (Exception e) {
 
                             }

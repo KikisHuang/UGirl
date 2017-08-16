@@ -151,7 +151,7 @@ public class homeViewPageUtils {
 
             if (i == 0) {   //判断当i=0为该处的ImageView设置最后一张图片作为背景
 
-                Glide.with(context.getApplicationContext()).load(images.get(images.size() - 1).getPath()).override(1920, 1080).crossFade(300).into(imageView);
+                Glide.with(context.getApplicationContext()).load(images.get(images.size() - 1).getPath()).crossFade(300).into(imageView);
 
                 pb.setPath(images.get(images.size() - 1).getPath());
                 pb.setId(images.get(images.size() - 1).getId());
@@ -161,7 +161,7 @@ public class homeViewPageUtils {
                 mImageViewList.add(pb);
             } else if (i == images.size() + 1) {
 
-                Glide.with(context.getApplicationContext()).load(images.get(0).getPath()).crossFade(300).override(1920, 1080).into(imageView);
+                Glide.with(context.getApplicationContext()).load(images.get(0).getPath()).crossFade(300).into(imageView);
 
                 pb.setPath(images.get(0).getPath());
                 pb.setId(images.get(0).getId());
@@ -171,7 +171,7 @@ public class homeViewPageUtils {
                 mImageViewList.add(pb);
             } else {  //其他情况则为ImageView设置images[i-1]的图片作为背景
 //                imageView = setImg(context);
-                Glide.with(context.getApplicationContext()).load(images.get(i - 1).getPath()).crossFade(300).override(1920, 1080).into(imageView);
+                Glide.with(context.getApplicationContext()).load(images.get(i - 1).getPath()).crossFade(300).into(imageView);
 
                 pb.setPath(images.get(i - 1).getPath());
                 pb.setId(images.get(i - 1).getId());

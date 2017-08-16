@@ -703,7 +703,7 @@ public class PhotoActivity extends InitActivity implements View.OnClickListener,
         clistener = null;
         slistener = null;
         tlistener = null;
-        System.gc();
+        pay = null;
     }
 
     /**

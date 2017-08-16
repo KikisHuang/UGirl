@@ -26,7 +26,7 @@ public class ChangeAddressPopupWindow {
     private static final String TAG = getTAG(ChangeAddressPopupWindow.class);
     private static EditText address_tv, wx_tv,phone_tv;
     private static TextView submit_info;
-
+    private static PopupWindow popupWindow;
 
     //附近的人地区筛选;
     public static void ScreenPopupWindow(final Context mContext, String wx, String phone, String address, AddressListener listener) {
@@ -34,7 +34,7 @@ public class ChangeAddressPopupWindow {
         View contentView = LayoutInflater.from(mContext).inflate(R.layout.address_popu_layout, null);
         int h = (int) (DeviceUtils.getWindowHeight(mContext) * 4.5 / 10);
         int w = (int) (DeviceUtils.getWindowWidth(mContext) * 9 / 10);
-        final PopupWindow popupWindow = new PopupWindow(contentView, w, ViewGroup.LayoutParams.WRAP_CONTENT);
+         popupWindow = new PopupWindow(contentView, w, ViewGroup.LayoutParams.WRAP_CONTENT);
         backgroundAlpha(0.4f, mContext);
         init(contentView);
         setInfo(wx, phone, address);
@@ -47,6 +47,11 @@ public class ChangeAddressPopupWindow {
             public void onDismiss() {
                 backgroundAlpha(1f, mContext);
                 popupWindow.dismiss();
+                popupWindow = null;
+                address_tv = null;
+                wx_tv = null;
+                phone_tv = null;
+                submit_info = null;
             }
         });
         popupWindow.showAtLocation(LayoutInflater.from(mContext).inflate(R.layout.order_activity_layout, null), Gravity.CENTER, 0, 0);

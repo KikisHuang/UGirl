@@ -53,7 +53,7 @@ import static example.com.fan.utils.SynUtils.getTAG;
  */
 public class SlidePopupWindow implements View.OnClickListener {
     private static final String TAG = getTAG(SlidePopupWindow.class);
-    private static TextView silide_tv1, silide_tv3, silide_tv5, silide_tv6, silide_tv7, user_name;
+    private static TextView user_name;
     private static ImageView user_icon;
     private static LinearLayout login_ll, layout_1, layout_3, layout_5, layout_6, layout_7;
     private static PopupWindow popupWindow;
@@ -85,6 +85,15 @@ public class SlidePopupWindow implements View.OnClickListener {
                     backgroundAlpha(1f, mContext);
                     popupWindow.dismiss();
                     popupWindow = null;
+                    info = null;
+                    user_name = null;
+                    user_icon = null;
+                    login_ll = null;
+                    layout_1 = null;
+                    layout_3 = null;
+                    layout_5 = null;
+                    layout_6 = null;
+                    layout_7 = null;
                     if (MainActivity.materialMenuView != null)
                         MainActivity.materialMenuView.animateIconState(MaterialMenuDrawable.IconState.BURGER);
                 }
@@ -163,11 +172,6 @@ public class SlidePopupWindow implements View.OnClickListener {
 
     private static void init(View contentView) {
         login_ll = (LinearLayout) contentView.findViewById(R.id.login_ll);
-        silide_tv1 = (TextView) contentView.findViewById(R.id.silide_tv1);
-        silide_tv3 = (TextView) contentView.findViewById(R.id.silide_tv3);
-        silide_tv5 = (TextView) contentView.findViewById(R.id.silide_tv5);
-        silide_tv6 = (TextView) contentView.findViewById(R.id.silide_tv6);
-        silide_tv7 = (TextView) contentView.findViewById(R.id.silide_tv7);
         user_icon = (ImageView) contentView.findViewById(R.id.user_icon);
         user_name = (TextView) contentView.findViewById(R.id.user_name);
 
@@ -194,7 +198,8 @@ public class SlidePopupWindow implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.login_ll:
-                login();
+                if (info != null)
+                    login();
                 break;
             case R.id.layout_1:
                 pay();
@@ -275,7 +280,7 @@ public class SlidePopupWindow implements View.OnClickListener {
                 popupWindow.dismiss();
 
         } else {
-            if(info!=null){
+            if (info != null) {
                 goPersonInfoPage(mContext, info.getHeadImgUrl(), info.getName(), String.valueOf(getSex(info.getSex())), info.getWx());
                 backgroundAlpha(1f, mContext);
                 if (popupWindow.isShowing())

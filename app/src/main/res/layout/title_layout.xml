@@ -44,7 +44,8 @@
             android:text="标题"
             android:textColor="@color/black"
             android:textSize="18dp"
-            android:visibility="gone" />
+            android:visibility="gone"
+             />
 
         <ImageView
             android:id="@+id/title_img"
@@ -52,8 +53,7 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:layout_gravity="center"
-            android:padding="12dp"
-            android:src="@mipmap/page_logo"
+            android:src="@mipmap/page_logo2"
             android:textColor="@color/black"
             android:textSize="18dp" />
 
@@ -68,7 +68,7 @@
             android:src="@mipmap/search_img1" />
     </RelativeLayout>
 
-    <RelativeLayout
+  <!--  <RelativeLayout
         android:id="@+id/title_ll"
         android:layout_width="match_parent"
         android:layout_height="20dp"
@@ -95,7 +95,7 @@
             android:layout_gravity="center"
             android:src="@mipmap/page_logo" />
 
-    </RelativeLayout>
+    </RelativeLayout>-->
 
     <TextView
         android:layout_width="match_parent"

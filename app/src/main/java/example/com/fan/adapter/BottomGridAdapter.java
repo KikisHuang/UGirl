@@ -78,7 +78,7 @@ public class BottomGridAdapter extends BaseAdapter {
             }
         });
         try {
-            Glide.with(context).load(getImgPath(blist.get(position).getCoverPath())).override(500,700).fitCenter().into(grid_img);
+            Glide.with(context).load(getImgPath(blist.get(position).getCoverPath())).fitCenter().into(grid_img);
         } catch (Exception e) {
             Log.i(TAG, "Glide You cannot start a load for a destroyed activity");
         }

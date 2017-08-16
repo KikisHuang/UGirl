@@ -1,18 +1,13 @@
 package example.com.fan.activity;
 
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentStatePagerAdapter;
-import android.support.v4.view.ViewPager;
+import android.animation.ValueAnimator;
+import android.util.Log;
 import android.view.View;
-
-import com.ogaclejapan.smarttablayout.SmartTabLayout;
-
-import java.util.ArrayList;
+import android.widget.Button;
+import android.widget.TextView;
 
 import example.com.fan.R;
-import example.com.fan.bean.TestBean;
-import example.com.fan.fragment.TestFragment;
+import example.com.fan.utils.DeviceUtils;
 
 import static example.com.fan.utils.SynUtils.getTAG;
 
@@ -22,61 +17,56 @@ import static example.com.fan.utils.SynUtils.getTAG;
  */
 public class TestActivity extends InitActivity implements View.OnClickListener {
     private static final String TAG = getTAG(TestActivity.class);
-    ViewPager viewpager;
-    SmartTabLayout viewPagerTab;
-    ArrayList<TestBean> cb;
+    private TextView tv;
+    private Button button;
+    private boolean flag = true;
+    //属性动画对象
+    ValueAnimator va;
 
     @Override
     protected void click() {
+        button.setOnClickListener(this);
     }
 
     @Override
     protected void init() {
         setContentView(R.layout.test_layout);
-        viewpager = f(R.id.viewpager);
-        viewPagerTab = f(R.id.viewpagertab);
+        tv = f(R.id.test_tv);
+        button = f(R.id.button);
     }
 
     @Override
     protected void initData() {
-        initSmartTabInfos();
-        initSmartTablayoutAndViewPager();
     }
-    protected  void initSmartTabInfos(){
-        //初始化Adapter需要使用的数据,标题,创建的Fragment对象,传递的参数
-        cb = new ArrayList<TestBean>();
-        // Fragment fragment = Fragment.instantiate(mContext, NewsPagerFragment.class.getName());
-        cb.add(new TestBean("最新动弹", new TestFragment()));
-        cb.add(new TestBean("热门",new TestFragment()));
-        cb.add(new TestBean("我的动弹1", new TestFragment()));
-    }
-    private void initSmartTablayoutAndViewPager() {
 
-        viewpager.setAdapter(new MyPagerAdapter(this.getSupportFragmentManager()));
-        viewPagerTab.setViewPager(viewpager);
-    }
     @Override
     public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.button:
+                if (tv.getLayoutParams().height == 150)
+                    //隐藏view，高度从height变为0
+                    va = ValueAnimator.ofInt(DeviceUtils.dip2px(this, 50), DeviceUtils.dip2px(this, 25));
+                else
+                    va = ValueAnimator.ofInt(DeviceUtils.dip2px(this, 25), DeviceUtils.dip2px(this, 50));
+
+                flag = !flag;
+                Log.i(TAG, "flag ===" + tv.getLayoutParams().height);
+
+                va.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+                    @Override
+                    public void onAnimationUpdate(ValueAnimator valueAnimator) {
+                        //获取当前的height值
+                        int h = (Integer) valueAnimator.getAnimatedValue();
+                        //动态更新view的高度
+                        tv.getLayoutParams().height = h;
+                        tv.requestLayout();
+                    }
+                });
+                va.setDuration(800);
+                //开始动画
+                va.start();
+                break;
+
+        }
     }
-    class MyPagerAdapter extends FragmentStatePagerAdapter {
-        public MyPagerAdapter(FragmentManager fm){
-            super(fm);
-        }
-
-        @Override
-        public Fragment getItem(int position) {
-            return cb.get(position).mClazz;
-        }
-
-        @Override
-        public int getCount() {
-            return cb.size();
-        }
-
-        @Override
-        public CharSequence getPageTitle(int position) {
-            return cb.get(position).mTitle;
-        }
-    }
-
 }

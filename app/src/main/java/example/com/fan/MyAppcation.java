@@ -1,8 +1,11 @@
 package example.com.fan;
 
 import android.app.Application;
+import android.content.Context;
 import android.util.Log;
 
+import com.squareup.leakcanary.LeakCanary;
+import com.squareup.leakcanary.RefWatcher;
 import com.umeng.analytics.AnalyticsConfig;
 import com.umeng.socialize.PlatformConfig;
 import com.zhy.http.okhttp.OkHttpUtils;
@@ -12,7 +15,6 @@ import com.zhy.http.okhttp.log.LoggerInterceptor;
 
 import java.util.concurrent.TimeUnit;
 
-import example.com.fan.base.sign.CrashHandler;
 import example.com.fan.base.sign.save.SPreferences;
 import example.com.fan.utils.MzFinal;
 import okhttp3.OkHttpClient;
@@ -33,22 +35,24 @@ public class MyAppcation extends Application {
     /**
      * 内存泄露检测;
      */
- /*   private RefWatcher refWatcher;
+
+    private RefWatcher refWatcher;
 
     public static RefWatcher getRefWatcher(Context context) {
         MyAppcation application = (MyAppcation) context
                 .getApplicationContext();
         return application.refWatcher;
-    }*/
+    }
+
     @Override
     public void onCreate() {
         super.onCreate();
-//        refWatcher = LeakCanary.install(this);
+        refWatcher = LeakCanary.install(this);
         /**
          * 全局异常捕获方法;
          */
-      CrashHandler crashHandler = CrashHandler.getInstance();
-      crashHandler.init(getApplicationContext());
+//      CrashHandler crashHandler = CrashHandler.getInstance();
+//      crashHandler.init(getApplicationContext());
 
         OkHttpInit();
         CHANNEL = AnalyticsConfig.getChannel(getApplicationContext());

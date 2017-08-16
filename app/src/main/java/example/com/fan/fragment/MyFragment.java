@@ -117,7 +117,7 @@ public class MyFragment extends BaseFragment implements View.OnClickListener, Ch
                                 JSONArray ar = getJsonAr(response);
                                 if (ar.length() > 0) {
                                     final PageTopBean rb = new Gson().fromJson(String.valueOf(ar.getJSONObject(0)), PageTopBean.class);
-                                    Glide.with(getActivity()).load(rb.getImgUrl()).override(650, 152).into(ad_img);
+                                    Glide.with(getActivity()).load(rb.getImgUrl()).into(ad_img);
                                     ad_img.setOnClickListener(new View.OnClickListener() {
                                         @Override
                                         public void onClick(View v) {

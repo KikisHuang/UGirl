@@ -135,7 +135,7 @@ public class OrderActivity extends InitActivity implements View.OnClickListener,
 
         report_content.setText(info);
         try {
-            Glide.with(this).load(getIntent().getStringExtra("buy_cover")).override(300, 300).into(cover_img);
+            Glide.with(this).load(getIntent().getStringExtra("buy_cover")).into(cover_img);
         } catch (Exception e) {
             Log.i(TAG, "Glide You cannot start a load for a destroyed activity");
         }

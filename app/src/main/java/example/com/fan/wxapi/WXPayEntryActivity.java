@@ -11,6 +11,7 @@ import com.tencent.mm.sdk.openapi.IWXAPI;
 import com.tencent.mm.sdk.openapi.IWXAPIEventHandler;
 import com.tencent.mm.sdk.openapi.WXAPIFactory;
 
+import example.com.fan.activity.PayActivity;
 import example.com.fan.activity.PhotoActivity;
 import example.com.fan.fragment.son.PictureSlideFragment;
 import example.com.fan.utils.MzFinal;
@@ -50,6 +51,9 @@ public class WXPayEntryActivity extends Activity implements IWXAPIEventHandler {
                         MzFinal.isPay = true;
                         PictureSlideFragment.PayListener.onPayRefresh();
                     }
+                    if(PayActivity.paylistener!=null)
+                        PayActivity.paylistener.onPayRefresh();
+
                     getUserVip(getApplicationContext());
                 } catch (Exception e) {
                     Log.i(TAG, "Error ==== " + e);

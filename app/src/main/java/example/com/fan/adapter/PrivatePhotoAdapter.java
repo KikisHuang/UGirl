@@ -128,7 +128,6 @@ public class PrivatePhotoAdapter extends RecyclerView.Adapter<PrivatePhotoAdapte
             Glide.with(context)
                     .load(mDataset.get(position).getCoverPath())
                     .crossFade(200)
-                    .override(500,700)
                     .into(holder.home_icon2);
 
             Glide.with(context)

@@ -207,7 +207,7 @@ public class PlayerActivity extends InitActivity implements UVPlayerCallBack, Pl
                                 try {
                                     Glide.with(getApplicationContext()).load(vb.getCoverPath()).bitmapTransform(new BlurTransformation(PlayerActivity.this, 25)).crossFade(200).into(cover_img);
                                     Glide.with(getApplicationContext()).load(vb.getJoinUser().getHeadImgUrl()).centerCrop().override(250, 250).bitmapTransform(new BlurTransformation(PlayerActivity.this, 25)).crossFade(200).into(cover_img);
-                                    Glide.with(getApplicationContext()).load(vb.getCoverPath()).centerCrop().override(350, 350).crossFade(200).into(panorama_img);
+                                    Glide.with(getApplicationContext()).load(vb.getCoverPath()).override(350, 350).crossFade(200).into(panorama_img);
                                     Glide.with(getApplicationContext()).load(vb.getCoverPath()).centerCrop().override(350, 350).crossFade(200).into(glasses_img1);
                                     Glide.with(getApplicationContext()).load(vb.getCoverPath()).centerCrop().override(350, 350).crossFade(200).into(glasses_img2);
                                 } catch (Exception e) {

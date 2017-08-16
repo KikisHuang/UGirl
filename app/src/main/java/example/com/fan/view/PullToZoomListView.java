@@ -17,10 +17,11 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.ListView;
 
-import example.com.fan.utils.DeviceUtils;
-
 import static example.com.fan.utils.SynUtils.getTAG;
 
+/**
+ * 阻尼效果listview;
+ */
 public class PullToZoomListView extends ListView
 	implements AbsListView.OnScrollListener {
 
@@ -55,10 +56,10 @@ public class PullToZoomListView extends ListView
      */
     public void setmHeaderHeight(int mHeaderHeight) {
 	this.mHeaderHeight = mHeaderHeight;
-	LayoutParams lp = new LayoutParams(DeviceUtils
-		.dip2px(mContext, LayoutParams.FILL_PARENT),
+	LayoutParams lp = new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
 		mHeaderHeight);
 	getHeaderContainer().setLayoutParams(lp);
+
     }
 
     private ImageView mHeaderImage;

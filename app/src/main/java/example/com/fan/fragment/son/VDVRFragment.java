@@ -29,7 +29,6 @@ import static example.com.fan.utils.IntentUtils.goPlayerPage;
 import static example.com.fan.utils.JsonUtils.getCode;
 import static example.com.fan.utils.JsonUtils.getJsonAr;
 import static example.com.fan.utils.ShareUtils.ShareApp;
-import static example.com.fan.utils.SynUtils.getRouString;
 import static example.com.fan.utils.SynUtils.getTAG;
 
 /**
@@ -79,7 +78,7 @@ public class VDVRFragment extends BaseFragment implements SpringListener, ItemCl
 
     @Override
     public void IsonRefresh() {
-        this.onDownTouchListener(1, getRouString(R.string.find_find));
+//        this.onDownTouchListener(1, getRouString(R.string.find_find));
         size = 20;
         switch (tag) {
             case 0:

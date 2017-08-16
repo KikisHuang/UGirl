@@ -3,7 +3,6 @@ package example.com.fan.utils;
 import android.app.Activity;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -12,6 +11,7 @@ import com.balysv.materialmenu.MaterialMenuView;
 
 import example.com.fan.R;
 
+import static example.com.fan.utils.AnimationUtil.TitleAnima;
 import static example.com.fan.utils.SynUtils.getTAG;
 
 /**
@@ -145,47 +145,59 @@ public class TitleUtils {
      * @param ac
      */
     public static void ChangeTitleLayout(final Activity ac, boolean flag, int tag, String name) {
-        RelativeLayout title_rl = (RelativeLayout) ac.findViewById(R.id.title_rl);
-        RelativeLayout title_ll = (RelativeLayout) ac.findViewById(R.id.title_ll);
+//        RelativeLayout title_rl = (RelativeLayout) ac.findViewById(R.id.title_rl);
+//        RelativeLayout title_ll = (RelativeLayout) ac.findViewById(R.id.title_ll);
         RelativeLayout title = (RelativeLayout) ac.findViewById(R.id.title);
-        ImageView img = (ImageView) ac.findViewById(R.id.title_img2);
+//        ImageView img = (ImageView) ac.findViewById(R.id.title_img2);
         ImageView mimg = (ImageView) ac.findViewById(R.id.title_img);
-        TextView tv = (TextView) ac.findViewById(R.id.title_tv2);
+        MaterialMenuView slide = (MaterialMenuView) ac.findViewById(R.id.material_menu_button);
+        ImageView search = (ImageView) ac.findViewById(R.id.search_img);
+//        TextView tv = (TextView) ac.findViewById(R.id.title_tv2);
         TextView mtv = (TextView) ac.findViewById(R.id.title_tv);
 
         int dp = 0;
         if (flag) {
-            title_ll.setVisibility(View.VISIBLE);
-            title_rl.setVisibility(View.GONE);
-            dp = DeviceUtils.dip2px(ac, 20);
-
+//            title_ll.setVisibility(View.VISIBLE);
+//            title_rl.setVisibility(View.GONE);
+//            dp = DeviceUtils.dip2px(ac, 20);
+            TitleAnima(ac,title,flag,mtv,slide,search);
             if (tag == 0) {
-                img.setVisibility(View.VISIBLE);
-                tv.setVisibility(View.GONE);
+                mimg.setVisibility(View.VISIBLE);
+                mtv.setVisibility(View.GONE);
+//                slide.setVisibility(View.GONE);
+//                search.setVisibility(View.GONE);
             }
 
             if (tag == 1) {
-                tv.setVisibility(View.VISIBLE);
-                img.setVisibility(View.GONE);
-                tv.setText(name);
+                mtv.setVisibility(View.VISIBLE);
+                mimg.setVisibility(View.GONE);
+//                slide.setVisibility(View.GONE);
+//                search.setVisibility(View.GONE);
+                mtv.setText(name);
             }
-        } else {
-            title_ll.setVisibility(View.GONE);
-            title_rl.setVisibility(View.VISIBLE);
-            dp = DeviceUtils.dip2px(ac, 50);
 
+        } else {
+//            title_ll.setVisibility(View.GONE);
+//            title_rl.setVisibility(View.VISIBLE);
+//            dp = DeviceUtils.dip2px(ac, 50);
+            TitleAnima(ac,title,flag,mtv,slide,search);
             if (tag == 0) {
                 mimg.setVisibility(View.VISIBLE);
+//                slide.setVisibility(View.VISIBLE);
+//                search.setVisibility(View.VISIBLE);
                 mtv.setVisibility(View.GONE);
             }
 
             if (tag == 1) {
-                tv.setVisibility(View.VISIBLE);
+                mtv.setVisibility(View.VISIBLE);
                 mimg.setVisibility(View.GONE);
+//                slide.setVisibility(View.VISIBLE);
+//                search.setVisibility(View.VISIBLE);
                 mtv.setText(name);
             }
         }
-        RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, dp);
-        title.setLayoutParams(lp);
+//        RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+//        title.setLayoutParams(lp);
     }
+
 }

@@ -63,6 +63,11 @@ public class PayPopupWindow {
                 aw = null;
                 view = null;
                 v = null;
+                pay_tv = null;
+                vip_tv = null;
+                collect_tv = null;
+                introduce_tv = null;
+                close_tv = null;
             }
         });
         // 设置好参数之后再show

@@ -1,20 +1,16 @@
 package example.com.fan.activity;
 
-import android.Manifest;
 import android.animation.ObjectAnimator;
 import android.app.job.JobInfo;
 import android.app.job.JobScheduler;
 import android.content.ComponentName;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
 import android.net.wifi.WifiManager;
 import android.os.Build;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -244,7 +240,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
         ilist = new ArrayList<>();
         listener = this;
 //        SPreferences.saveUserToken("5e9a!TgpaVOIKNMCf8bteiR/Ro4KywYGLTO4PGbWebzPA1I7yW2LRWDie3Gf/MGlpDMGbQQt1VQW/GSU!s0y");
-        CheckPermission();
+
         imglist.add(page_img = f(R.id.page_img));
         imglist.add(two_img = f(R.id.two_img));
         imglist.add(three_img = f(R.id.three_img));
@@ -305,34 +301,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
         });*/
     }
 
-    /**
-     * 申请6.0权限
-     */
-    private void CheckPermission() {
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE)
-                != PackageManager.PERMISSION_GRANTED ||
-                ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_NETWORK_STATE)
-                != PackageManager.PERMISSION_GRANTED ||
-                ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                        != PackageManager.PERMISSION_GRANTED ||
-                ContextCompat.checkSelfPermission(this, Manifest.permission.RECORD_AUDIO)
-                        != PackageManager.PERMISSION_GRANTED ||
-                ContextCompat.checkSelfPermission(this, Manifest.permission.READ_PHONE_STATE)
-                        != PackageManager.PERMISSION_GRANTED ||
-                ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
-                        != PackageManager.PERMISSION_GRANTED) {
-            //申请WRITE_EXTERNAL_STORAGE权限
-            ActivityCompat.requestPermissions(this, new String[]{
-                            Manifest.permission.CAMERA,
-                            Manifest.permission.ACCESS_NETWORK_STATE,
-                            Manifest.permission.READ_PHONE_STATE,
-                            Manifest.permission.RECORD_AUDIO,
-                            Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                            Manifest.permission.READ_EXTERNAL_STORAGE},
-                    100);//自定义的code
-        }
-    }
-
     @Override
     public void initData() {
         getUserInfo();
@@ -365,6 +333,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
                 one();
                 title.setVisibility(View.VISIBLE);
                 TitleUtils.ChangeTitleLayout(this, false, 0, "");
+                BaseFragment.UpTouch = true;
                 break;
             case R.id.two_img:
                 setSelected(two_img);

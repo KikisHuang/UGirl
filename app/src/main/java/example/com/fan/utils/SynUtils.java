@@ -382,6 +382,7 @@ public class SynUtils {
         }
         return false;
     }
+
     /**
      * 获取包名.类名 通用方法;
      *
@@ -648,5 +649,4 @@ public class SynUtils {
             child.invalidate();
         }
     }
-
 }

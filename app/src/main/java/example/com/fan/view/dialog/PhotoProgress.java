@@ -10,8 +10,10 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import example.com.fan.R;
+import example.com.fan.utils.MzFinal;
 
 import static example.com.fan.utils.SynUtils.getTAG;
+import static example.com.fan.utils.TextViewColorUtils.setTextColor2;
 
 /**
  * Created by lian on 2017/6/19.
@@ -44,7 +46,7 @@ public class PhotoProgress extends Dialog {
             dialog.setContentView(R.layout.photo_progress_layout);
             pb = (ProgressBar) dialog.findViewById(R.id.progressbar);
             TextView msg_tv = (TextView) dialog.findViewById(R.id.msg_tv);
-            msg_tv.setText(msg);
+            setTextColor2(msg_tv, msg + MzFinal.br, "   升级包大小：8.5M", "#FF4D87");
 
             pb.setVisibility(View.VISIBLE);
 

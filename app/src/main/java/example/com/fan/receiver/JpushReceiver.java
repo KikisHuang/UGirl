@@ -76,37 +76,41 @@ public class JpushReceiver extends BroadcastReceiver {
                 in.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 context.startActivity(in);
             } else {
-                Intent main = new Intent();
-                //判断app进程是否存活
-                switch (SynUtils.getAppSatus(context, "example.com.fan")) {
-                    case 1:
-                        Log.i(TAG, "应用在前台运行,直接启动页面");
-                        if (MainActivity.listener != null && type != 10 && !infoId.isEmpty())
-                            MainActivity.listener.onRefresh(type, infoId);
-                        break;
-                    case 2:
-                        //打开自定义的Activity
-                        Log.i(TAG, "应用在前后台运行,启动页面");
-                        main.setClass(context, MainActivity.class);
+                try {
+                    Intent main = new Intent();
+                    //判断app进程是否存活
+                    switch (SynUtils.getAppSatus(context, "example.com.fan")) {
+                        case 1:
+                            Log.i(TAG, "应用在前台运行,直接启动页面");
+                            if (MainActivity.listener != null && type != 10 && !infoId.isEmpty())
+                                MainActivity.listener.onRefresh(type, infoId);
+                            break;
+                        case 2:
+                            //打开自定义的Activity
+                            Log.i(TAG, "应用在前后台运行,启动页面");
+                            main.setClass(context, MainActivity.class);
 //                    main.putExtras(bundle);
-                        main.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                        context.startActivity(main);
-                        if (MainActivity.listener != null && type != 10 && !infoId.isEmpty())
-                            MainActivity.listener.onRefresh(type, infoId);
+                            main.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                            context.startActivity(main);
+                            if (MainActivity.listener != null && type != 10 && !infoId.isEmpty())
+                                MainActivity.listener.onRefresh(type, infoId);
 
-                        break;
-                    case 3:
-                        Log.i(TAG, "应用未运行,启动页面");
-                        //打开自定义的Activity
-                        main.setClass(context, WelcomeActivity.class);
+                            break;
+                        case 3:
+                            Log.i(TAG, "应用未运行,启动页面");
+                            //打开自定义的Activity
+                            main.setClass(context, WelcomeActivity.class);
 //                    main.putExtras(bundle);
-                        main.putExtra("wlecome_type", type + "");
-                        main.putExtra("wlecome_info_id", infoId);
-                        main.setAction("wlecome_action");
-                        main.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                        context.startActivity(main);
+                            main.putExtra("wlecome_type", type + "");
+                            main.putExtra("wlecome_info_id", infoId);
+                            main.setAction("wlecome_action");
+                            main.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                            context.startActivity(main);
 
-                        break;
+                            break;
+                    }
+                } catch (Exception e) {
+                Log.i(TAG,"ERROR ==="+e);
                 }
             }
 

@@ -51,7 +51,7 @@
     </service>
 
     <application
-        android:name=".MyAppcation"
+        android:name="example.com.fan.MyAppcation"
         android:allowBackup="true"
         android:icon="@mipmap/logo"
         android:label="@string/app_name"
@@ -61,7 +61,7 @@
 
         <!-- 主页面 -->
         <activity
-            android:name=".activity.MainActivity"
+            android:name="example.com.fan.activity.MainActivity"
             android:screenOrientation="portrait"
             android:launchMode="singleTask"
             >
@@ -69,7 +69,7 @@
         </activity>
         <!-- 欢迎页面 -->
         <activity
-            android:name=".activity.WelcomeActivity"
+            android:name="example.com.fan.activity.WelcomeActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -79,51 +79,51 @@
         </activity>
         <!-- 排行榜页面 -->
         <activity
-            android:name=".activity.RankingActivity"
+            android:name="example.com.fan.activity.RankingActivity"
             android:screenOrientation="portrait"></activity>
         <!-- 关注页面 -->
         <activity
-            android:name=".activity.AttentionActivity"
+            android:name="example.com.fan.activity.AttentionActivity"
             android:screenOrientation="portrait"></activity>
         <!-- 会员充值页面 -->
         <activity
-            android:name=".activity.PayActivity"
+            android:name="example.com.fan.activity.PayActivity"
             android:screenOrientation="portrait"></activity>
         <!-- 照片裁剪页面 -->
         <activity
-            android:name=".activity.IconCutActivity"
+            android:name="example.com.fan.activity.IconCutActivity"
             android:screenOrientation="portrait"></activity>
         <!-- 热门模特页面 -->
         <activity
-            android:name=".activity.HostModelActivity"
+            android:name="example.com.fan.activity.HostModelActivity"
             android:screenOrientation="portrait"></activity>
         <!-- 个人信息修改页面 -->
         <activity
-            android:name=".activity.PersonalInfoActivity"
+            android:name="example.com.fan.activity.PersonalInfoActivity"
             android:screenOrientation="portrait">
 
         </activity>
         <!-- Vip页面 -->
         <activity
-            android:name=".activity.VipActivity"
+            android:name="example.com.fan.activity.VipActivity"
             android:screenOrientation="portrait">
 
         </activity>
         <!-- 登录页面 -->
         <activity
-            android:name=".activity.LoginActivity"
+            android:name="example.com.fan.activity.LoginActivity"
             android:screenOrientation="portrait"></activity>
         <!-- 精选图集页面 -->
         <activity
-            android:name=".activity.ChoicenessActivity"
+            android:name="example.com.fan.activity.ChoicenessActivity"
             android:screenOrientation="portrait"></activity>
         <!-- 个人主页 -->
         <activity
-            android:name=".activity.HomePageActivity"
+            android:name="example.com.fan.activity.HomePageActivity"
             android:screenOrientation="portrait"></activity>
         <!-- 众筹页面 -->
         <activity
-            android:name=".activity.CrowdActivity"
+            android:name="example.com.fan.activity.CrowdActivity"
             android:screenOrientation="portrait"></activity>
         <!-- 最新页面 -->
         <activity
@@ -131,19 +131,19 @@
             android:screenOrientation="portrait"></activity>
         <!-- 商品众筹页面 -->
         <activity
-            android:name=".activity.BuyCrowdActivity"
+            android:name="example.com.fan.activity.BuyCrowdActivity"
             android:screenOrientation="portrait">
 
         </activity>
         <!-- 上传照片页面 -->
         <activity
-            android:name=".activity.UploadPhotoActivity"
+            android:name="example.com.fan.activity.UploadPhotoActivity"
             android:screenOrientation="portrait">
 
         </activity>
         <!-- 测试页面 -->
         <activity
-            android:name=".activity.TestActivity"
+            android:name="example.com.fan.activity.TestActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
@@ -151,101 +151,99 @@
         </activity>
         <!-- 商品详情页面 -->
         <activity
-            android:name=".activity.BuygoodsActivity"
+            android:name="example.com.fan.activity.BuygoodsActivity"
             android:screenOrientation="portrait"></activity>
         <!-- 众筹项目汇报页面 -->
         <activity
-            android:name=".activity.ProjectIncomeActivity"
+            android:name="example.com.fan.activity.ProjectIncomeActivity"
             android:screenOrientation="portrait"></activity>
 
         <!-- 我的收藏页面 -->
         <activity
-            android:name=".activity.MyCollectActivity"
+            android:name="example.com.fan.activity.MyCollectActivity"
             android:screenOrientation="portrait">
 
         </activity>
         <!-- 订单页面 -->
         <activity
-            android:name=".activity.OrderActivity"
+            android:name="example.com.fan.activity.OrderActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan|stateHidden">
 
         </activity>
         <!-- 任务页面 -->
         <activity
-            android:name=".activity.TaskActivity"
+            android:name="example.com.fan.activity.TaskActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan|stateHidden"></activity>
         <!-- 帮助页面 -->
         <activity
-            android:name=".activity.HelpActivity"
+            android:name="example.com.fan.activity.HelpActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan|stateHidden"></activity>
         <!-- 未读页面 -->
         <activity
-            android:name=".activity.UnReadActivity"
+            android:name="example.com.fan.activity.UnReadActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan|stateHidden"></activity>
         <!-- 设置页面 -->
         <activity
-            android:name=".activity.SettingActivity"
+            android:name="example.com.fan.activity.SettingActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan|stateHidden">
 
         </activity>
         <!-- 查询页面 -->
         <activity
-            android:name=".activity.SearchActivity"
+            android:name="example.com.fan.activity.SearchActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan|stateHidden"></activity>
         <!-- 图片查看器页面 -->
         <activity
-            android:name=".activity.PhotoActivity"
+            android:name="example.com.fan.activity.PhotoActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan|stateHidden" />
         <!-- 注册页面 -->
         <activity
-            android:name=".activity.RegisterActivity"
+            android:name="example.com.fan.activity.RegisterActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan|stateHidden">
 
         </activity>
         <!-- 已购买页面 -->
         <activity
-            android:name=".activity.OverPayActivity"
+            android:name="example.com.fan.activity.OverPayActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan|stateHidden"></activity>
         <!-- 我的订单页面 -->
         <activity
-            android:name=".activity.MyOrderActivity"
+            android:name="example.com.fan.activity.MyOrderActivity"
             android:screenOrientation="portrait"></activity>
         <!-- 我的订单详情页面 -->
         <activity
-            android:name=".activity.MyOrderDetailsActivity"
+            android:name="example.com.fan.activity.MyOrderDetailsActivity"
             android:screenOrientation="portrait"></activity>
 
         <!-- 视频VR子页面 -->
         <activity
-            android:name=".activity.VideoAndVrSonActivity"
+            android:name="example.com.fan.activity.VideoAndVrSonActivity"
             android:screenOrientation="portrait"></activity>
         <!-- 外链页面 -->
         <activity
-            android:name=".activity.OutSideActivity"
+            android:name="example.com.fan.activity.OutSideActivity"
             android:screenOrientation="portrait">
-
-
         </activity>
 
         <!--  微信-->
         <activity
-            android:name=".wxapi.WXEntryActivity"
+            android:name="example.com.fan.wxapi.WXEntryActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:exported="true"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
         <!--  微信支付-->
         <activity
-            android:name=".wxapi.WXPayEntryActivity"
+            android:name="example.com.fan.wxapi.WXPayEntryActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:exported="true"
             android:screenOrientation="portrait"
@@ -266,7 +264,7 @@
 
         <!--  VR播放器页面-->
         <activity
-            android:name=".activity.PlayerActivity"
+            android:name="example.com.fan.activity.PlayerActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"></activity>
@@ -275,6 +273,7 @@
             android:name=".activity.PlayerVideoActivity"
             android:configChanges="orientation|screenSize|smallestScreenSize|keyboard|keyboardHidden|navigation"
             android:launchMode="singleTop"
+            android:hardwareAccelerated="true"
             android:theme="@style/Theme.AppCompat.NoActionBar"
             android:windowSoftInputMode="stateAlwaysHidden" />
 
@@ -316,7 +315,7 @@
                 </receiver>-->
         <!-- 进程守护-->
         <service
-            android:name=".server.MyJobService"
+            android:name="example.com.fan.server.MyJobService"
             android:permission="android.permission.BIND_JOB_SERVICE" />
         <meta-data
             android:name="example.com.fan.utils.MyGlideModule"
@@ -332,7 +331,7 @@
                 android:resource="@xml/file_paths" />
         </provider>
         <!-- 内存泄露检测工具-->
-         <!--<service
+         <service
              android:name="com.squareup.leakcanary.internal.HeapAnalyzerService"
              android:enabled="false"
              android:process=":leakcanary" />
@@ -352,7 +351,7 @@
 
                  <category android:name="android.intent.category.LAUNCHER" />
              </intent-filter>
-         </activity>-->
+         </activity>
     </application>
 
 </manifest>

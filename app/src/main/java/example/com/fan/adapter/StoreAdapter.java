@@ -92,7 +92,7 @@ public class StoreAdapter extends BaseAdapter {
             root.setTag(holder);
         }
         if (root == null && tag == 1) {
-
+            holder = new ViewHolder();
             root = inflater.inflate(R.layout.actions_item, null);
 
             holder.goods_img = (ImageView) root.findViewById(R.id.goods_img);

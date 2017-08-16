@@ -302,7 +302,7 @@ public class StoreFragment2 extends BaseFragment implements SpringListener, Crow
             num.setTextColor(context.getResources().getColor(R.color.cherry1));
 
             num.setText(KswitchWay(Double.parseDouble(data.get(i).getSumMoney())));
-            num.setTextSize(DeviceUtils.dip2px(context, 4));
+            num.setTextSize((int) this.getResources().getDimension(R.dimen.size12));
             lp3.gravity = Gravity.CENTER;
             num.setLayoutParams(lp3);
 
@@ -478,10 +478,10 @@ public class StoreFragment2 extends BaseFragment implements SpringListener, Crow
             Log.i(TAG, "tag ==" + tag);
             switch (tag) {
                 case 0:
-                    if (LoginStatusQuery()) {
-
-                    } else
-                        Login(getActivity());
+//                    if (LoginStatusQuery()) {
+//
+//                    } else
+//                        Login(getActivity());
                     break;
                 case 1:
                     if (LoginStatusQuery())

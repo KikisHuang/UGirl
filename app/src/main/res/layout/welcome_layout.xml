@@ -46,7 +46,7 @@
             android:layout_gravity="center"
             android:layout_marginTop="10dp"
             android:text="@string/welcome_msg"
-            android:textColor="#838383"
+            android:textColor="@color/white"
             android:textSize="12dp" />
 
     </LinearLayout>

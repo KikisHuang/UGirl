@@ -27,7 +27,6 @@ import okhttp3.Call;
 import uk.co.senab.photoview.PhotoView;
 import uk.co.senab.photoview.PhotoViewAttacher;
 
-import static example.com.fan.utils.DeviceUtils.getRatio;
 import static example.com.fan.utils.JsonUtils.getCode;
 import static example.com.fan.utils.JsonUtils.getJsonSring;
 import static example.com.fan.utils.SynUtils.getTAG;
@@ -153,16 +152,28 @@ public class PictureSlideFragment extends BaseFragment implements PayRefreshList
 
     private void ReadImg(String url) {
         try {
-            int w = getRatio(getActivity(), true);
-            int h = getRatio(getActivity(), false);
-            Log.i(TAG, "根据屏幕宽度显示的分辨率==== w =" + w + " h =" + h);
-            if (w > 1080 && h > 1920) {
+//            int w = getRatio(getActivity(), true);
+//            int h = getRatio(getActivity(), false);
+//            Log.i(TAG, "根据屏幕宽度显示的分辨率==== w =" + w + " h =" + h);
+//            if (w > 1080 && h > 1920) {
+//                Glide.with(getActivity().getApplicationContext())
+//                        .load(url)
+//                        .crossFade(200)
+//                        .error(R.drawable.load_fail_img)
+//                        .centerCrop()
+//                        .into(new GlideDrawableImageViewTarget(imageView) {
+//                            @Override
+//                            public void onResourceReady(GlideDrawable resource, GlideAnimation<? super GlideDrawable> animation) {
+//                                super.onResourceReady(resource, animation);
+//                                load_img.setVisibility(View.GONE);
+//                            }
+//                        });
+//            } else {
                 Glide.with(getActivity().getApplicationContext())
                         .load(url)
                         .crossFade(200)
                         .error(R.drawable.load_fail_img)
-                        .override(1080, 1920)
-                        .fitCenter()
+                        .centerCrop()
                         .into(new GlideDrawableImageViewTarget(imageView) {
                             @Override
                             public void onResourceReady(GlideDrawable resource, GlideAnimation<? super GlideDrawable> animation) {
@@ -170,21 +181,7 @@ public class PictureSlideFragment extends BaseFragment implements PayRefreshList
                                 load_img.setVisibility(View.GONE);
                             }
                         });
-            } else {
-                Glide.with(getActivity().getApplicationContext())
-                        .load(url)
-                        .crossFade(200)
-                        .error(R.drawable.load_fail_img)
-                        .override(w, h)
-                        .fitCenter()
-                        .into(new GlideDrawableImageViewTarget(imageView) {
-                            @Override
-                            public void onResourceReady(GlideDrawable resource, GlideAnimation<? super GlideDrawable> animation) {
-                                super.onResourceReady(resource, animation);
-                                load_img.setVisibility(View.GONE);
-                            }
-                        });
-            }
+//            }
         } catch (Exception e) {
             Log.i(TAG, "Glide You cannot start a load for a destroyed activity");
         }
@@ -210,6 +207,7 @@ public class PictureSlideFragment extends BaseFragment implements PayRefreshList
         load_img = (ImageView) view.findViewById(R.id.load_img);
         photoViewAttacher = new PhotoViewAttacher(imageView);
         PayListener = this;
+
         photoViewAttacher.setOnDoubleTapListener(gest = new GestureDetector.OnDoubleTapListener() {
             @Override
             public boolean onSingleTapConfirmed(MotionEvent e) {

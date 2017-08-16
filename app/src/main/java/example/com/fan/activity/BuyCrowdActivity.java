@@ -83,7 +83,7 @@ public class BuyCrowdActivity extends InitActivity implements View.OnClickListen
     private void setData(CrowDetailsBean cb) {
         targetId = cb.getMcCrowdFundingTargets().get(0).getTargetId();
         try {
-            Glide.with(getApplicationContext()).load(cb.getMcCrowdFundingImgUrls().get(0).getPath()).override(1920, 1080).crossFade(200).into(cover_img);
+            Glide.with(getApplicationContext()).load(cb.getMcCrowdFundingImgUrls().get(0).getPath()).crossFade(200).into(cover_img);
         } catch (Exception e) {
             Log.i(TAG, "Glide You cannot start a load for a destroyed activity");
         }
@@ -113,7 +113,7 @@ public class BuyCrowdActivity extends InitActivity implements View.OnClickListen
                 ImageView im = new ImageView(this);
                 im.setScaleType(ImageView.ScaleType.FIT_XY);
                 try {
-                    Glide.with(getApplicationContext()).load(cb.getMcCrowdFundingContentImgUrls().get(i).getPath()).override(800, 1080).crossFade(200).into(im);
+                    Glide.with(getApplicationContext()).load(cb.getMcCrowdFundingContentImgUrls().get(i).getPath()).crossFade(200).into(im);
                 } catch (Exception e) {
                     Log.i(TAG, "Glide You cannot start a load for a destroyed activity");
                 }
@@ -125,7 +125,7 @@ public class BuyCrowdActivity extends InitActivity implements View.OnClickListen
             ImageView im = new ImageView(this);
             im.setScaleType(ImageView.ScaleType.FIT_CENTER);
             try {
-                Glide.with(getApplicationContext()).load(R.drawable.nodata_img).override(800, 1080).crossFade(200).into(im);
+                Glide.with(getApplicationContext()).load(R.drawable.nodata_img).crossFade(200).into(im);
             } catch (Exception e) {
                 Log.i(TAG, "Glide You cannot start a load for a destroyed activity");
             }

@@ -34,6 +34,7 @@ public class ServerPopupWindow implements VersionCheckListener {
     private static TextView wx_number;
     private Context mContext;
     private String wx = "";
+    private PopupWindow popupWindow;
 
     public ServerPopupWindow(Context mContext) {
         this.mContext = mContext;
@@ -43,7 +44,7 @@ public class ServerPopupWindow implements VersionCheckListener {
         // 一个自定义的布局，作为显示的内容
         View contentView = LayoutInflater.from(mContext).inflate(R.layout.server_popu_layout, null);
         int h = (int) (DeviceUtils.getWindowHeight(mContext) * 4.7 / 10);
-        final PopupWindow popupWindow = new PopupWindow(contentView, ViewGroup.LayoutParams.MATCH_PARENT, h);
+        popupWindow = new PopupWindow(contentView, ViewGroup.LayoutParams.MATCH_PARENT, h);
         getVersionInfo(mContext.getApplicationContext(), this);
         init(contentView);
         backgroundAlpha(0.7f, mContext);
@@ -55,6 +56,9 @@ public class ServerPopupWindow implements VersionCheckListener {
             public void onDismiss() {
                 backgroundAlpha(1.0f, mContext);
                 popupWindow.dismiss();
+                popupWindow = null;
+                wx_number = null;
+                wx_bt = null;
             }
         });
 

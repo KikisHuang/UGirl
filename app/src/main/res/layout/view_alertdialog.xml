@@ -22,7 +22,7 @@
             android:layout_marginTop="15dp"
             android:gravity="center"
             android:textColor="@color/cherry1"
-            android:textSize="18sp"
+            android:textSize="17dp"
             android:textStyle="bold" />
 
         <TextView

@@ -34,4 +34,11 @@ public class TextViewColorUtils {
         String str = "<font color='" + color + "'>" + cstr + " <small>" + ostr + "</small></font>";
         tv.setText(Html.fromHtml(str));
     }
+
+    public static void setTextColor2(TextView tv, String cstr, String ostr, String color) {
+
+        String str = cstr + "<font color='" + color + "'>" + " <small>" + ostr + "</small></font>";
+        tv.setText(Html.fromHtml(str));
+    }
+
 }

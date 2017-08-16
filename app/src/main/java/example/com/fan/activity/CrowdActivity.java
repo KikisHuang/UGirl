@@ -235,7 +235,7 @@ public class CrowdActivity extends InitActivity implements homepageListener, Ite
             }
             TextView name = new TextView(context);
             name.setTextColor(context.getResources().getColor(R.color.black12));
-            name.setTextSize(DeviceUtils.dip2px(context, 6));
+            name.setTextSize((int) this.getResources().getDimension(R.dimen.size13));
             name.setText(cb.getMcCrowdFundingTargets().get(i).getName());
             name.setMaxEms(5);
             name.setSingleLine(true);
@@ -249,7 +249,7 @@ public class CrowdActivity extends InitActivity implements homepageListener, Ite
             num.setTextColor(context.getResources().getColor(R.color.cherry1));
 
             num.setText(KswitchWay(Double.parseDouble(cb.getMcCrowdFundingTargets().get(i).getSumMoney())));
-            num.setTextSize(DeviceUtils.dip2px(context, 4));
+            num.setTextSize((int) this.getResources().getDimension(R.dimen.size12));
             lp3.gravity = Gravity.CENTER;
             num.setLayoutParams(lp3);
 

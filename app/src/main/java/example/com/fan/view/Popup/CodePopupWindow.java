@@ -65,6 +65,9 @@ public class CodePopupWindow {
                 backgroundAlpha(1.0f, mContext);
                 popupWindow.dismiss();
                 popupWindow = null;
+                code_img = null;
+                info = null;
+
             }
         });
 

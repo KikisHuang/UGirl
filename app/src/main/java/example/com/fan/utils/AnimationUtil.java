@@ -4,8 +4,11 @@ import android.animation.Animator;
 import android.animation.Keyframe;
 import android.animation.ObjectAnimator;
 import android.animation.PropertyValuesHolder;
+import android.animation.ValueAnimator;
 import android.annotation.TargetApi;
+import android.content.Context;
 import android.os.Build;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewAnimationUtils;
 import android.view.animation.AccelerateInterpolator;
@@ -14,7 +17,11 @@ import android.view.animation.Animation;
 import android.view.animation.RotateAnimation;
 import android.view.animation.ScaleAnimation;
 import android.view.animation.TranslateAnimation;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
+
+import com.balysv.materialmenu.MaterialMenuView;
 
 import example.com.fan.activity.WelcomeActivity;
 
@@ -143,9 +150,10 @@ public class AnimationUtil {
 
     /**
      * 闪烁动画
+     *
      * @param view
      */
-    public static void TwinkleAnima(View view){
+    public static void TwinkleAnima(View view) {
         //闪烁
         AlphaAnimation alphaAnimation1 = new AlphaAnimation(0.1f, 1.0f);
         alphaAnimation1.setDuration(200);
@@ -154,13 +162,16 @@ public class AnimationUtil {
         view.startAnimation(alphaAnimation1);
 //        alphaAnimation1.setRepeatMode(Animation.REVERSE);
     }
+
     /**
      * 抖动动画
+     *
      * @param view
      */
     public static ObjectAnimator ShakeAnima(View view) {
-      return tada(view,1f);
+        return tada(view, 1f);
     }
+
     public static ObjectAnimator tada(View view, float shakeFactor) {
 
         PropertyValuesHolder pvhScaleX = PropertyValuesHolder.ofKeyframe(View.SCALE_X,
@@ -206,7 +217,9 @@ public class AnimationUtil {
         );
 
         return ObjectAnimator.ofPropertyValuesHolder(view, pvhScaleX, pvhScaleY, pvhRotate).
-                setDuration(350);  }
+                setDuration(350);
+    }
+
     /**
      * 圆形转场动画;
      * 从view中心放大;
@@ -257,6 +270,100 @@ public class AnimationUtil {
 
             }
         });
+
+    }
+
+    /**
+     * 页面标题缩放、放大动画;
+     */
+    public static int size = 0;
+
+    public static void TitleAnima(final Context context, final RelativeLayout layout, boolean flag, final TextView mtv, MaterialMenuView slide, ImageView search) {
+        ValueAnimator va = null;
+        Log.i(TAG, "flag ===" + layout.getLayoutParams().height);
+        if (flag && layout.getLayoutParams().height == 150) {
+            size = 4;
+            //隐藏view，高度从50变为25
+            va = ValueAnimator.ofInt(DeviceUtils.dip2px(context, 50), DeviceUtils.dip2px(context, 25));
+            slide.setVisibility(View.GONE);
+            search.setVisibility(View.GONE);
+            va.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+                @Override
+                public void onAnimationUpdate(ValueAnimator valueAnimator) {
+                    //获取当前的height值
+                    int h = (Integer) valueAnimator.getAnimatedValue();
+                    //动态更新view的高度
+                    layout.getLayoutParams().height = h;
+                    layout.requestLayout();
+                    switch (size) {
+                        case 4:
+//                            mtv.setTextSize(DeviceUtils.dip2px(context,18));
+                            size--;
+                            break;
+                        case 3:
+                            mtv.setTextSize(17);
+                            size--;
+                            break;
+                        case 2:
+                            mtv.setTextSize(16);
+                            size--;
+                            break;
+                        case 1:
+                            mtv.setTextSize(15);
+                            size--;
+                            break;
+                        case 0:
+                            mtv.setTextSize(14);
+                            break;
+                    }
+                }
+            });
+
+            va.setDuration(200);
+            //开始动画
+            va.start();
+        }
+        if (!flag && layout.getLayoutParams().height == 75) {
+            size = 0;
+            va = ValueAnimator.ofInt(DeviceUtils.dip2px(context, 25), DeviceUtils.dip2px(context, 50));
+            slide.setVisibility(View.VISIBLE);
+            search.setVisibility(View.VISIBLE);
+
+            va.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+                @Override
+                public void onAnimationUpdate(ValueAnimator valueAnimator) {
+                    //获取当前的height值
+                    int h = (Integer) valueAnimator.getAnimatedValue();
+                    //动态更新view的高度
+                    layout.getLayoutParams().height = h;
+                    layout.requestLayout();
+                    switch (size) {
+                        case 4:
+                            mtv.setTextSize(18);
+                            break;
+                        case 3:
+                            mtv.setTextSize(17);
+                            size++;
+                            break;
+                        case 2:
+                            mtv.setTextSize(16);
+                            size++;
+                            break;
+                        case 1:
+                            mtv.setTextSize(15);
+                            size++;
+                            break;
+                        case 0:
+//                            mtv.setTextSize(DeviceUtils.dip2px(context,14));
+                            size++;
+                            break;
+                    }
+                }
+            });
+            va.setDuration(200);
+            //开始动画
+            va.start();
+        }
 
     }
 }

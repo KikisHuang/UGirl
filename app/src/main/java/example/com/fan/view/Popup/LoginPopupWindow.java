@@ -102,9 +102,25 @@ public class LoginPopupWindow implements View.OnClickListener, AccreditListener 
                         handler = null;
                         sflag = false;
                     }
-                    listener = null;
                     popupWindow.dismiss();
+                    listener = null;
                     popupWindow = null;
+                    pass_ed = null;
+                    user_ed = null;
+                    userid_ll = null;
+                    userpass_ll = null;
+                    wechat_login = null;
+                    qq_login = null;
+                    clear_img = null;
+                    user_icon = null;
+                    pass_icon = null;
+                    qq_login = null;
+                    login_bt = null;
+                    code_tv = null;
+                    register_tv = null;
+                    login_tag = null;
+                    mShareAPI = null;
+                    platform = null;
                 }
             });
             // 设置好参数之后再show
