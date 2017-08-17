@@ -53,7 +53,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:background="@color/content7"
+                android:background="@color/content9"
                 android:gravity="center"
                 android:textColor="@color/white"
                 android:textSize="13sp" />

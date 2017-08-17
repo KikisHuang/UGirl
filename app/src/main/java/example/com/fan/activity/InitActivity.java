@@ -6,7 +6,6 @@ import android.util.Log;
 
 import com.umeng.analytics.MobclickAgent;
 
-import example.com.fan.MyAppcation;
 import example.com.fan.fragment.son.PictureSlideFragment;
 import example.com.fan.utils.GlideCacheUtil;
 import example.com.fan.utils.MzFinal;
@@ -75,7 +74,7 @@ public abstract class InitActivity extends FragmentActivity implements alipayToo
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        MyAppcation.getRefWatcher(this).watch(this);
+//        MyAppcation.getRefWatcher(this).watch(this);
         System.gc();
     }
 

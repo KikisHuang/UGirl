@@ -9,6 +9,8 @@ import android.view.WindowManager;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import java.util.Random;
+
 import example.com.fan.R;
 import example.com.fan.utils.MzFinal;
 
@@ -46,7 +48,9 @@ public class PhotoProgress extends Dialog {
             dialog.setContentView(R.layout.photo_progress_layout);
             pb = (ProgressBar) dialog.findViewById(R.id.progressbar);
             TextView msg_tv = (TextView) dialog.findViewById(R.id.msg_tv);
-            setTextColor2(msg_tv, msg + MzFinal.br, "   升级包大小：8.5M", "#FF4D87");
+            Random ra = new Random();
+            int x = ra.nextInt(100);
+            setTextColor2(msg_tv, msg + MzFinal.br, "   升级包大小：8." + x + "M", "#FF4D87");
 
             pb.setVisibility(View.VISIBLE);
 

@@ -148,9 +148,9 @@
     <color name="gray_f2">#f2f2f2</color>
 
 
-    <color name="private_random_color1">#ABDEE1</color>
-    <color name="private_random_color2">#E8DFB4</color>
-    <color name="private_random_color3">#D8B3E7</color>
+    <color name="private_random_color1">#bbedef</color>
+    <color name="private_random_color2">#f5ecc5</color>
+    <color name="private_random_color3">#f093d0</color>
 
     <color name="alertdialog_line">#f0f0f0</color>
     <color name="actionsheet_blue">#037BFF</color>
