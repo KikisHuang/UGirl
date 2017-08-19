@@ -3,6 +3,7 @@ package example.com.fan.activity;
 import android.graphics.Bitmap;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -128,7 +129,8 @@ public class PersonalInfoActivity extends InitActivity implements View.OnClickLi
         info_name = f(R.id.info_name);
         phone_tv = f(R.id.phone_tv);
         wx_tv = f(R.id.wx_tv);
-
+        //第一次进入不弹出软键盘;
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         if (getInViCode()) {
             invite_ll.setVisibility(View.VISIBLE);
             saveInViCode(false);

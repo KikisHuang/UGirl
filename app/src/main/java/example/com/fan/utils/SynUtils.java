@@ -205,15 +205,6 @@ public class SynUtils {
     }
 
     /**
-     * 图片路径防空白方法;
-     *
-     * @return
-     */
-    public static String getImgPath(String str) {
-        return str.equals("") ? MzFinal.images[0] : str;
-    }
-
-    /**
      * 全局获取用户vip方法;
      *
      * @return

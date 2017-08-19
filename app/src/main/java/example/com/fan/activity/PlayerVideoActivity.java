@@ -69,7 +69,7 @@ public class PlayerVideoActivity extends AppCompatActivity implements View.OnCli
     private JCVideoPlayerStandard mJcVideoPlayerStandard;
     private ListView listView;
     //顶部评论;
-    private TextView comment_ed,share_num;
+    private TextView comment_ed, share_num;
     private FrameLayout collect_fl, admire_fl, share_fl;
     private String id;
     private PlayerCommentAdapter adapter;
@@ -423,9 +423,9 @@ public class PlayerVideoActivity extends AppCompatActivity implements View.OnCli
         OkHttpUtils.getInstance().cancelTag(this);
         elistener = null;
         JCVideoPlayer.clearSavedProgress(this, Path);
-        if (mJcVideoPlayerStandard != null)
+        if (mJcVideoPlayerStandard != null) {
             mJcVideoPlayerStandard.removeAllViews();
-
+        }
     }
 
     @Override

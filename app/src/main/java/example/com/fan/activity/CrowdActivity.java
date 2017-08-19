@@ -44,7 +44,6 @@ import static example.com.fan.utils.JsonUtils.getCode;
 import static example.com.fan.utils.JsonUtils.getJsonAr;
 import static example.com.fan.utils.JsonUtils.getJsonOb;
 import static example.com.fan.utils.SynUtils.KswitchWay;
-import static example.com.fan.utils.SynUtils.getImgPath;
 import static example.com.fan.utils.SynUtils.getTAG;
 
 /**
@@ -182,7 +181,7 @@ public class CrowdActivity extends InitActivity implements homepageListener, Ite
         actions_content.setText(cb.getSubInfo());
         try {
             if (cb.getMcCrowdFundingImgUrls().size() > 0)
-                Glide.with(getApplicationContext()).load(getImgPath(cb.getMcCrowdFundingImgUrls().get(0).getPath())).into(top_ad_img);
+                Glide.with(getApplicationContext()).load(cb.getMcCrowdFundingImgUrls().get(0).getPath()).into(top_ad_img);
 
         } catch (Exception e) {
             Log.i(TAG, "Glide You cannot start a load for a destroyed activity");

@@ -33,14 +33,13 @@ public class MyAppcation extends Application {
     /**
      * 内存泄露检测;
      */
-/*
-    private RefWatcher refWatcher;
-
-    public static RefWatcher getRefWatcher(Context context) {
-        MyAppcation application = (MyAppcation) context
-                .getApplicationContext();
-        return application.refWatcher;
-    }*/
+//    private RefWatcher refWatcher;
+//
+//    public static RefWatcher getRefWatcher(Context context) {
+//        MyAppcation application = (MyAppcation) context
+//                .getApplicationContext();
+//        return application.refWatcher;
+//    }
 
     @Override
     public void onCreate() {

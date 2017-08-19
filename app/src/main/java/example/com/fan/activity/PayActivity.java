@@ -56,7 +56,6 @@ public class PayActivity extends InitActivity implements PayRefreshListener {
     private List<PayDetailBean> dlist;
     private LinearLayout top_ll, bottom_ll;
     private TextView balance_tv;
-    private int[] colors = {getRouColors(R.color.private_random_color1), getRouColors(R.color.private_random_color2), getRouColors(R.color.private_random_color3)};
     private AliWechatPopupWindow aw;
     public static PayRefreshListener paylistener;
     private List<UserInfoBean> info;
@@ -91,7 +90,6 @@ public class PayActivity extends InitActivity implements PayRefreshListener {
                                 UserInfoBean ub = new Gson().fromJson(String.valueOf(ob), UserInfoBean.class);
                                 info.add(ub);
                                 balance_tv.setText(ub.getBalance() + "元");
-//                                MyAppcation.VipFlag = ub.getVipFlag();
                             } else
                                 ToastUtil.ToastErrorMsg(PayActivity.this, response, code);
                         } catch (JSONException e) {
@@ -172,8 +170,8 @@ public class PayActivity extends InitActivity implements PayRefreshListener {
 
         CardView ca = (CardView) view.findViewById(R.id.card_view);
         Random ra = new Random();
-        int a = ra.nextInt(colors.length);
-        ca.setCardBackgroundColor(colors[a]);
+        int a = ra.nextInt(MzFinal.privatePhotoColors.length);
+        ca.setCardBackgroundColor(MzFinal.privatePhotoColors[a]);
 
 
         title.setText(pb.getName());
@@ -307,7 +305,7 @@ public class PayActivity extends InitActivity implements PayRefreshListener {
     @Override
     public void onPayRefresh() {
 
-        new AlertDialog(PayActivity.this).builder().setTitle("提示").setCancelable(true).setMsg("为了保证赠送的礼品能成功的送到您的手上,请去完善资料。").setNegativeButton("前往", new View.OnClickListener() {
+        new AlertDialog(PayActivity.this).builder().setTitle("提示").setCancelable(true).setMsg("为了保证赠送的礼品能成功的送到您的手上,请去完善资料。").setPositiveButton("前往", new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (info.size() > 0)

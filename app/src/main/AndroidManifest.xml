@@ -148,6 +148,7 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
             >
+
         </activity>
         <!-- 商品详情页面 -->
         <activity

@@ -29,10 +29,10 @@ import example.com.fan.mylistener.ItemClickListener;
 import example.com.fan.mylistener.ShareRequestListener;
 import example.com.fan.mylistener.TwoParamaListener;
 import example.com.fan.utils.DeviceUtils;
+import example.com.fan.utils.GlideCircleTransform;
 import example.com.fan.utils.MzFinal;
 import example.com.fan.utils.ToastUtil;
 import example.com.fan.view.PullToZoomListView;
-import jp.wasabeef.glide.transformations.CropCircleTransformation;
 import okhttp3.Call;
 
 import static example.com.fan.utils.IntentUtils.goPhotoPage;
@@ -44,7 +44,7 @@ import static example.com.fan.utils.JsonUtils.getJsonOb;
 import static example.com.fan.utils.ShareUtils.ShareApp;
 import static example.com.fan.utils.SynUtils.Login;
 import static example.com.fan.utils.SynUtils.LoginStatusQuery;
-import static example.com.fan.utils.SynUtils.getImgPath;
+import static example.com.fan.utils.SynUtils.getRouColors;
 import static example.com.fan.utils.SynUtils.getRouString;
 import static example.com.fan.utils.SynUtils.getTAG;
 
@@ -93,7 +93,7 @@ public class HomePageActivity extends BaseActivity implements ItemClickListener,
         ImageView img = listView.getHeaderView();
         img.setScaleType(ImageView.ScaleType.CENTER_CROP);
         try {
-            Glide.with(getApplicationContext()).load(getImgPath(cover)).override(1296, 1080).into(img);
+            Glide.with(getApplicationContext()).load(cover).override(1296, 1080).into(img);
         } catch (Exception e) {
             Log.i(TAG, "Glide You cannot start a load for a destroyed activity");
         }
@@ -165,18 +165,23 @@ public class HomePageActivity extends BaseActivity implements ItemClickListener,
                                     attention_tv.setText(getRouString(R.string.unattention));
                                 else
                                     attention_tv.setText(getRouString(R.string.attention) + "Ta");
+
                                 try {
-                                    Glide.with(getApplicationContext()).load(mib.getMcUser().getHeadImgUrl()).bitmapTransform(new CropCircleTransformation(HomePageActivity.this)).crossFade(200).into(home_page_icon);
+                                    Glide.with(getApplicationContext()).load(mib.getMcUser().getHeadImgUrl()).transform(new GlideCircleTransform(HomePageActivity.this, 1, getRouColors(R.color.white))).crossFade(200).into(home_page_icon);
                                 } catch (Exception e) {
                                     Log.i(TAG, "Glide You cannot start a load for a destroyed activity");
                                 }
                             } else
                                 ToastUtil.ToastErrorMsg(HomePageActivity.this, response, code);
+                            getDetails();
                         } catch (Exception e) {
 
                         }
                     }
                 });
+    }
+
+    private void getDetails() {
         /**
          * 模特所属的私照或视频详情数据;
          */
@@ -215,7 +220,6 @@ public class HomePageActivity extends BaseActivity implements ItemClickListener,
                         }
                     }
                 });
-
     }
 
     protected void init() {

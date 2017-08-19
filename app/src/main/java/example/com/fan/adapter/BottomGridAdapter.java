@@ -21,7 +21,6 @@ import example.com.fan.utils.DeviceUtils;
 import example.com.fan.utils.GlideCacheUtil;
 import example.com.fan.utils.OverallViewHolder;
 
-import static example.com.fan.utils.SynUtils.getImgPath;
 import static example.com.fan.utils.SynUtils.getTAG;
 
 /**
@@ -78,7 +77,7 @@ public class BottomGridAdapter extends BaseAdapter {
             }
         });
         try {
-            Glide.with(context).load(getImgPath(blist.get(position).getCoverPath())).fitCenter().into(grid_img);
+            Glide.with(context).load(blist.get(position).getCoverPath()).fitCenter().into(grid_img);
         } catch (Exception e) {
             Log.i(TAG, "Glide You cannot start a load for a destroyed activity");
         }

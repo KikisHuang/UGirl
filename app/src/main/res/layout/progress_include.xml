@@ -44,7 +44,7 @@
             android:lineSpacingExtra="5dp"
             android:text="11小时\n剩余"
             android:textColor="@color/content1"
-            android:textSize="@dimen/size38" />
+            android:textSize="12dp" />
 
         <TextView
             android:id="@+id/got_money"
@@ -55,7 +55,7 @@
             android:lineSpacingExtra="5dp"
             android:text="360356FB\n已筹集"
             android:textColor="@color/content1"
-            android:textSize="@dimen/size38" />
+            android:textSize="12dp" />
 
         <TextView
             android:id="@+id/reach_tv"
@@ -66,7 +66,7 @@
             android:lineSpacingExtra="5dp"
             android:text="25%\n达成"
             android:textColor="@color/content1"
-            android:textSize="@dimen/size38" />
+            android:textSize="12dp" />
     </LinearLayout>
 
 
@@ -74,11 +74,11 @@
         android:id="@+id/support_num"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="5dp"
+        android:layout_marginLeft="12dp"
+        android:layout_marginTop="10dp"
         android:text="0人支持"
         android:textColor="@color/content1"
-        android:textSize="@dimen/size36" />
+        android:textSize="12dp" />
 
     <LinearLayout
         android:id="@+id/support_ll"

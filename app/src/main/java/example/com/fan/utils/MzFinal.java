@@ -12,8 +12,8 @@ public class MzFinal {
 //  public static final String URl = "http://192.168.1.200:8888/mcFnsInterface/";
 //  public static final String URl = "http://192.168.1.224:8080/mcFnsInterface/";
 //  public static final String URl = "http://101.37.86.15:8080/mcFnsInterface/";
-    public static final String URl = "http://fns.mozu123.com:8080/mcFnsInterface/";
-//  public static final String URl = "http://fnsandroid.mozu123.com/mcFnsInterface/";
+//    public static final String URl = "http://fns.mozu123.com:8080/mcFnsInterface/";
+  public static final String URl = "http://fnsandroid.mozu123.com/mcFnsInterface/";
 
     /**
      * 全局广告触摸时间变量;
@@ -66,7 +66,6 @@ public class MzFinal {
     public static final int AUCTION = 3;  // 拍卖
     public static final int VIDEO = 4; // 视频
     public static final int VRVIDEO = 5;  // VR视频
-
 
     /**
      * 微信支付AppID;

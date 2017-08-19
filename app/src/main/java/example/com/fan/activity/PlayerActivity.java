@@ -601,7 +601,7 @@ public class PlayerActivity extends InitActivity implements UVPlayerCallBack, Pl
      * 释放播放器资源;
      */
     public void releasePlayer() {
-        if (mMediaplayer != null) {
+        if(mMediaplayer!=null){
             mMediaplayer.release();
             mMediaplayer = null;
         }
@@ -780,7 +780,6 @@ public class PlayerActivity extends InitActivity implements UVPlayerCallBack, Pl
 
     private void back() {
         if (CurOrientation == ActivityInfo.SCREEN_ORIENTATION_PORTRAIT) {
-            releasePlayer();
             finish();
         } else {
             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);

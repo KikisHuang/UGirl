@@ -231,5 +231,8 @@ dependencies {
     debugCompile 'com.squareup.leakcanary:leakcanary-android:1.3'
     releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.3'
     /////
-    compile 'com.ogaclejapan.smarttablayout:library:1.6.1@aar'
+//    compile 'com.ogaclejapan.smarttablayout:library:1.6.1@aar'
+    //卡片叠加测试效果compile;
+    compile 'com.github.mcxtzhang:ZLayoutManager:V1.1.0'
+
 }

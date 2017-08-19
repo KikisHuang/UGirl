@@ -93,7 +93,7 @@
                         android:textColor="@color/orange9"
                         android:textSize="11dp" />
 
-                    <TextView
+               <!--     <TextView
                         android:id="@+id/time_tv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -102,7 +102,7 @@
                         android:text=" 预计2017-07-23起发货"
                         android:gravity="center"
                         android:textColor="@color/gray1"
-                        android:textSize="11dp" />
+                        android:textSize="11dp" />-->
 
                 </LinearLayout>
 
