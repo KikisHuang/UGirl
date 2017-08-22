@@ -2,12 +2,12 @@ package example.com.fan.adapter;
 
 import android.content.Context;
 import android.graphics.Color;
-import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -22,7 +22,7 @@ import example.com.fan.bean.PrivateBean;
 import example.com.fan.mylistener.ItemClickListener;
 import example.com.fan.mylistener.ShareRequestListener;
 import example.com.fan.utils.DeviceUtils;
-import example.com.fan.utils.MzFinal;
+import example.com.fan.view.YuanJiaoImageView;
 import jp.wasabeef.glide.transformations.CropCircleTransformation;
 
 import static example.com.fan.utils.SynUtils.getTAG;
@@ -36,6 +36,7 @@ public class PrivatePhotoAdapter extends RecyclerView.Adapter<PrivatePhotoAdapte
     private Context context;
     private ItemClickListener listener;
     private ShareRequestListener slistener;
+    private int[] drwables = {R.drawable.private_corner1,R.drawable.private_corner2,R.drawable.private_corner3};
 
     // Provide a reference to the views for each data item
     // Complex data items may need more than one view per item, anda
@@ -43,17 +44,17 @@ public class PrivatePhotoAdapter extends RecyclerView.Adapter<PrivatePhotoAdapte
     static class ViewHolder extends RecyclerView.ViewHolder {
         // each data item is just a string in this case
         private TextView icon_name;
-        private CardView home_layout2;
-        private ImageView home_icon2, icon_logo, share_img;
-
+        private FrameLayout home_layout2;
+        private ImageView icon_logo, share_img;
+        private YuanJiaoImageView home_icon2;
 
         private ViewHolder(View v) {
             super(v);
             icon_name = (TextView) v.findViewById(R.id.icon_name);
-            home_icon2 = (ImageView) v.findViewById(R.id.home_icon2);
+            home_icon2 = (YuanJiaoImageView) v.findViewById(R.id.home_icon2);
             icon_logo = (ImageView) v.findViewById(R.id.icon_logo);
             share_img = (ImageView) v.findViewById(R.id.share_img);
-            home_layout2 = (CardView) v.findViewById(R.id.home_layout2);
+            home_layout2 = (FrameLayout) v.findViewById(R.id.home_layout2);
 
         }
     }
@@ -86,13 +87,13 @@ public class PrivatePhotoAdapter extends RecyclerView.Adapter<PrivatePhotoAdapte
         // - replace the contents of the view with that element
         holder.home_icon2.setAdjustViewBounds(true);
         int w = DeviceUtils.getWindowWidth(context) * 5 / 10;
-        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(w, w * 7 / 5);
-        LinearLayout.LayoutParams lp1 = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, w * 7 / 5);
+        FrameLayout.LayoutParams lp1 = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
 
-        lp1.leftMargin = DeviceUtils.dip2px(context, 4);
-        lp1.topMargin = DeviceUtils.dip2px(context, 4);
+        lp1.leftMargin = DeviceUtils.dip2px(context, 3);
+        lp1.topMargin = DeviceUtils.dip2px(context, 3);
         if (position % 2 != 0)
-            lp1.rightMargin = DeviceUtils.dip2px(context, 4);
+            lp1.rightMargin = DeviceUtils.dip2px(context, 3);
 
         holder.home_icon2.setLayoutParams(lp);
         holder.home_layout2.setLayoutParams(lp1);
@@ -109,13 +110,13 @@ public class PrivatePhotoAdapter extends RecyclerView.Adapter<PrivatePhotoAdapte
                 listener.onItemClickListener(1, mDataset.get(position).getId());
             }
         });
-        holder.home_icon2.setScaleType(ImageView.ScaleType.CENTER_CROP);
+        holder.home_icon2.setScaleType(ImageView.ScaleType.FIT_XY);
 
         Random ran = new Random();
         int a = ran.nextInt(5);
         int b = a % 3;
 
-        holder.home_layout2.setCardBackgroundColor(context.getResources().getColor(MzFinal.privatePhotoColors[b]));
+        holder.home_layout2.setBackground(context.getResources().getDrawable(drwables[b]));
 
         holder.icon_name.setText(mDataset.get(position).getName());
         holder.share_img.setOnClickListener(new View.OnClickListener() {

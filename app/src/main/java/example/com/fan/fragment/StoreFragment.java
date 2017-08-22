@@ -54,12 +54,12 @@ public class StoreFragment extends BaseFragment {
     }
 
     private void setNavi() {
-        title.add(getRouString(R.string.store1));
         title.add(getRouString(R.string.store2));
-        mTab.addTab(mTab.newTab().setText(getRouString(R.string.store1)));
+        title.add(getRouString(R.string.store1));
         mTab.addTab(mTab.newTab().setText(getRouString(R.string.store2)));
+        mTab.addTab(mTab.newTab().setText(getRouString(R.string.store1)));
 
-        for (int i = 0; i < 2; i++) {
+        for (int i = 1; i >= 0; i--) {
             StoreFragment2 rf = new StoreFragment2();
             rf.setTag(i);
             flist.add(rf);
@@ -70,6 +70,7 @@ public class StoreFragment extends BaseFragment {
     protected void click() {
 
     }
+
     @Override
     protected void init() {
         st_viewPager = (CustomViewPager) view.findViewById(R.id.viewPager);

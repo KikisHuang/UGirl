@@ -44,10 +44,8 @@ public class DirectionListView extends ListView {
             case MotionEvent.ACTION_MOVE:
                 if (Math.abs(ev.getY() - startY) > mTouchSlop) {
                     if (ev.getY() - startY >= 0) {
-                        Log.i(TAG,"下滑");
                         mListener.onScrollDown();
                     } else {
-                        Log.i(TAG,"上滑");
                         mListener.onScrollUp();
                     }
                 }

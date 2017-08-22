@@ -26,6 +26,12 @@
             android:textColor="@color/white"
             android:textSize="13dp" />
 
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center"
+            android:src="@mipmap/play_img1"
+            />
 
     </FrameLayout>
 

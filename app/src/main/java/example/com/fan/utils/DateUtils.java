@@ -58,7 +58,7 @@ public class DateUtils {
      */
     public static int daysBetween(String smdate, String bdate) throws ParseException {
         SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        Date d1 = sdf1.parse(smdate);
+        Date d1 = sdf1.parse(getCurrentTime());
         Date d2 = sdf1.parse(bdate);
 
 
@@ -73,5 +73,12 @@ public class DateUtils {
         long between_days = (time2 - time1) / (1000 * 3600 * 24);
 
         return Integer.parseInt(String.valueOf(between_days));
+    }
+
+    public static String getCurrentTime() {
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date curDate = new Date(System.currentTimeMillis());//获取当前时间
+        String str = formatter.format(curDate);
+        return str;
     }
 }

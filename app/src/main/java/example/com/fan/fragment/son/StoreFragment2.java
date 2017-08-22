@@ -287,7 +287,7 @@ public class StoreFragment2 extends BaseFragment implements SpringListener, Crow
             TextView name = new TextView(context);
 
             name.setTextColor(context.getResources().getColor(R.color.black12));
-            int sizeOfText = (int) this.getResources().getDimension(R.dimen.size13);
+            int sizeOfText = (int) this.getResources().getDimension(R.dimen.size11);
             name.setTextSize(sizeOfText);
             name.setText(data.get(i).getName());
             name.setMaxEms(5);
@@ -302,7 +302,7 @@ public class StoreFragment2 extends BaseFragment implements SpringListener, Crow
             num.setTextColor(context.getResources().getColor(R.color.cherry1));
 
             num.setText(KswitchWay(Double.parseDouble(data.get(i).getSumMoney())));
-            num.setTextSize((int) this.getResources().getDimension(R.dimen.size12));
+            num.setTextSize((int) this.getResources().getDimension(R.dimen.size10));
             lp3.gravity = Gravity.CENTER;
             num.setLayoutParams(lp3);
 

@@ -574,8 +574,12 @@ public class PageFragment extends BaseFragment implements View.OnClickListener, 
          */
         MyPagerButtomAdapter adapter1 = new MyPagerButtomAdapter(bottomList, getActivity());
         bottom_page.setAdapter(adapter1);
-        bottom_page.setOffscreenPageLimit(3);
-        bottom_page.setCurrentItem(1);
+        bottom_page.setOffscreenPageLimit(bottomList.size());
+        if (bottomList.size() > 3)
+            bottom_page.setCurrentItem(3);
+        else
+            bottom_page.setCurrentItem(1);
+
         //页面改变监听
         bottom_page.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
@@ -598,6 +602,7 @@ public class PageFragment extends BaseFragment implements View.OnClickListener, 
                     buttomcurrentPosition = blist.size();
                 } else if (position == blist.size() + 1) {
                     buttomcurrentPosition = 1;
+
                 } else {
                     buttomcurrentPosition = position;
                 }

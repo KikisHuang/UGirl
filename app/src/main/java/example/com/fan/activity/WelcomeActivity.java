@@ -3,6 +3,7 @@ package example.com.fan.activity;
 import android.graphics.Bitmap;
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.animation.Animation;
@@ -13,6 +14,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.GlideBuilder;
+import com.bumptech.glide.load.DecodeFormat;
 import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.zhy.http.okhttp.OkHttpUtils;
@@ -27,6 +30,8 @@ import java.util.TimerTask;
 import example.com.fan.R;
 import example.com.fan.mylistener.PositionAddListener;
 import example.com.fan.utils.AnimationUtil;
+import example.com.fan.utils.DeviceUtils;
+import example.com.fan.utils.MyGlideModule;
 import example.com.fan.utils.MzFinal;
 import example.com.fan.utils.ToastUtil;
 import okhttp3.Call;
@@ -41,7 +46,7 @@ import static example.com.fan.utils.SynUtils.getTAG;
  * Created by lian on 2017/5/19.
  * 欢迎页面;
  */
-public class WelcomeActivity extends InitActivity implements PositionAddListener{
+public class WelcomeActivity extends InitActivity implements PositionAddListener {
     private static final String TAG = getTAG(WelcomeActivity.class);
     private ImageView login_img;
     private TextView lead_tv;
@@ -54,6 +59,7 @@ public class WelcomeActivity extends InitActivity implements PositionAddListener
     private Bitmap bitmap = null;
     public static PositionAddListener plistener;
     private Runnable mrunnable;
+
     private void Hand() {
         handler = new Handler() {
             @Override
@@ -106,7 +112,7 @@ public class WelcomeActivity extends InitActivity implements PositionAddListener
     }
 
     @Override
-    protected  void click() {
+    protected void click() {
         login_img.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -180,6 +186,7 @@ public class WelcomeActivity extends InitActivity implements PositionAddListener
                     public void onError(Call call, Exception e, int id) {
                         ToastUtil.toast2_bottom(WelcomeActivity.this, "网络不顺畅...");
                     }
+
                     @Override
                     public void onResponse(String response, int id) {
                         try {
@@ -210,8 +217,9 @@ public class WelcomeActivity extends InitActivity implements PositionAddListener
     }
 
     @Override
-    protected  void init() {
+    protected void init() {
         setContentView(R.layout.welcome_layout);
+        GlideModuleConfig();
         plistener = this;
         login_img = f(R.id.login_img);
         welcome_img = f(R.id.welcome_img);
@@ -219,6 +227,25 @@ public class WelcomeActivity extends InitActivity implements PositionAddListener
         login_ll = f(R.id.login_ll);
         lead_tv = f(R.id.lead_tv);
         login_img.setEnabled(false);
+    }
+
+    /**
+     * Glide图片质量全局配置(根据手机分辨率来判断显示的质量);
+     */
+    private void GlideModuleConfig() {
+        MyGlideModule GlideConfig = new MyGlideModule();
+        GlideBuilder builder = new GlideBuilder(this);
+        int width = DeviceUtils.getRatio(this, true);
+        int height = DeviceUtils.getRatio(this, false);
+        Log.i(TAG, "Phone Ratio ===" + height + " x " + width);
+        if (width >= 1080 && height >= 1920) {
+            builder.setDecodeFormat(DecodeFormat.PREFER_ARGB_8888);
+            Log.i(TAG, "PREFER_ARGB_8888");
+        } else {
+            builder.setDecodeFormat(DecodeFormat.PREFER_RGB_565);
+            Log.i(TAG, "PREFER_RGB_565");
+        }
+        GlideConfig.applyOptions(this, builder);
     }
 
     @Override

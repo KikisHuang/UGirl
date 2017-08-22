@@ -516,6 +516,7 @@ public class PlayerActivity extends InitActivity implements UVPlayerCallBack, Pl
             mCtrl.changeOrientation(false, 0);
         }
     }
+
     @Override
     protected void init() {
         setContentView(R.layout.player_activity);

@@ -8,11 +8,14 @@ import android.view.View;
 import android.view.ViewTreeObserver;
 import android.view.WindowManager;
 
+import static example.com.fan.utils.SynUtils.getTAG;
+
 /**
  * Created by Forrest on 16/5/4.
  */
 public class DeviceUtils {
     public static final int DEVICE_SCALE = 640;
+    private static final String TAG = getTAG(DeviceUtils.class);
     public static int param = 0;
 
     /**
@@ -73,7 +76,6 @@ public class DeviceUtils {
 
         return DeviceUtils.getWindowWidth(context) * 4 / 10;
     }
-
     /**
      * 手机屏幕高度
      *
