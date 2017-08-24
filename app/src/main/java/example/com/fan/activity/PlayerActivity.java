@@ -156,6 +156,7 @@ public class PlayerActivity extends InitActivity implements UVPlayerCallBack, Pl
                     @Override
                     public void onError(Call call, Exception e, int id) {
                         ToastUtil.toast2_bottom(PlayerActivity.this, "网络不顺畅...");
+                        Cancle();
                     }
 
                     @Override
@@ -179,7 +180,7 @@ public class PlayerActivity extends InitActivity implements UVPlayerCallBack, Pl
                                         if (MyAppcation.VipFlag)
                                             getAccredit(vb.getMcPublishVideoUrls().get(0).getPath());
                                         else {
-                                            new AlertDialog(PlayerActivity.this).builder().setTitle("提示").setCancelable(true).setMsg("成为会员才能看哦，更多精彩细节等着你!").setNegativeButton("下次再说", new View.OnClickListener() {
+                                            new AlertDialog(PlayerActivity.this).builder().setTitle("提示").setCancelable(false).setMsg("成为会员才能看哦，更多精彩细节等着你!").setNegativeButton("下次再说", new View.OnClickListener() {
                                                 @Override
                                                 public void onClick(View v) {
                                                     finish();

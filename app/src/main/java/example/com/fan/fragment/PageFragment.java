@@ -78,6 +78,7 @@ import static example.com.fan.utils.JsonUtils.getCode;
 import static example.com.fan.utils.JsonUtils.getJsonAr;
 import static example.com.fan.utils.JsonUtils.getJsonOb;
 import static example.com.fan.utils.JsonUtils.getJsonSring;
+import static example.com.fan.utils.SynUtils.Login;
 import static example.com.fan.utils.SynUtils.LoginStatusQuery;
 import static example.com.fan.utils.SynUtils.getRouDrawable;
 import static example.com.fan.utils.SynUtils.getRouString;
@@ -671,26 +672,27 @@ public class PageFragment extends BaseFragment implements View.OnClickListener, 
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.ranking_img0:
-                skipRanking(String.valueOf(2));
-                break;
-            case R.id.ranking_img1:
-                skipRanking(String.valueOf(3));
-                break;
-            case R.id.ranking_img2:
-                skipRanking(String.valueOf(4));
-                break;
-            case R.id.ranking_more:
-                skipRanking(String.valueOf(0));
-                break;
-            case R.id.search_rl:
-                Intent intent = new Intent(getActivity(), SearchActivity.class);
-                startActivity(intent);
-                break;
-
-        }
-
+        if (LoginStatusQuery()) {
+            switch (v.getId()) {
+                case R.id.ranking_img0:
+                    skipRanking(String.valueOf(2));
+                    break;
+                case R.id.ranking_img1:
+                    skipRanking(String.valueOf(3));
+                    break;
+                case R.id.ranking_img2:
+                    skipRanking(String.valueOf(4));
+                    break;
+                case R.id.ranking_more:
+                    skipRanking(String.valueOf(0));
+                    break;
+                case R.id.search_rl:
+                    Intent intent = new Intent(getActivity(), SearchActivity.class);
+                    startActivity(intent);
+                    break;
+            }
+        } else
+            Login(getActivity());
     }
 
     private void skipRanking(String tag) {

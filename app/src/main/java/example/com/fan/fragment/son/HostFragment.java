@@ -51,7 +51,6 @@ public class HostFragment extends BaseFragment implements SpringListener, VipAnd
         this.flag = flag;
     }
 
-
     @Override
     protected int initContentView() {
         return R.layout.host_fragment;
@@ -72,7 +71,6 @@ public class HostFragment extends BaseFragment implements SpringListener, VipAnd
         mLayoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);//2列，纵向排列
 
         recyclerView.setLayoutManager(mLayoutManager);
-
     }
 
     @Override

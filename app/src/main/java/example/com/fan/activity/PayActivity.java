@@ -170,8 +170,10 @@ public class PayActivity extends InitActivity implements PayRefreshListener {
 
         CardView ca = (CardView) view.findViewById(R.id.card_view);
         Random ra = new Random();
-        int a = ra.nextInt(MzFinal.privatePhotoColors.length);
-        ca.setCardBackgroundColor(MzFinal.privatePhotoColors[a]);
+
+        int a = ra.nextInt(MzFinal.pay_colors.length);
+
+        ca.setCardBackgroundColor(getRouColors(MzFinal.pay_colors[a]));
 
 
         title.setText(pb.getName());

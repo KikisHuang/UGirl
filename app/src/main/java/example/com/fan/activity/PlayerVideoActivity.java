@@ -195,6 +195,7 @@ public class PlayerVideoActivity extends AppCompatActivity implements View.OnCli
                     @Override
                     public void onError(Call call, Exception e, int id) {
                         ToastUtil.toast2_bottom(PlayerVideoActivity.this, "网络不顺畅...");
+                        Cancle();
                     }
 
                     @Override
@@ -222,7 +223,7 @@ public class PlayerVideoActivity extends AppCompatActivity implements View.OnCli
                                             getAccredit(vb.getMcPublishVideoUrls().get(0).getPath(), vb);
                                         else {
 
-                                            new AlertDialog(PlayerVideoActivity.this).builder().setTitle("提示").setCancelable(true).setMsg("成为会员才能看哦，更多精彩细节等着你!\n\n").setNegativeButton("下次再说", new View.OnClickListener() {
+                                            new AlertDialog(PlayerVideoActivity.this).builder().setTitle("提示").setCancelable(false).setMsg("成为会员才能看哦，更多精彩细节等着你!\n\n").setNegativeButton("下次再说", new View.OnClickListener() {
                                                 @Override
                                                 public void onClick(View v) {
                                                     finish();

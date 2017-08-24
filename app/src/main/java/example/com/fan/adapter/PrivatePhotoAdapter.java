@@ -36,7 +36,7 @@ public class PrivatePhotoAdapter extends RecyclerView.Adapter<PrivatePhotoAdapte
     private Context context;
     private ItemClickListener listener;
     private ShareRequestListener slistener;
-    private int[] drwables = {R.drawable.private_corner1,R.drawable.private_corner2,R.drawable.private_corner3};
+    private int[] drwables = {R.drawable.private_corner1, R.drawable.private_corner2, R.drawable.private_corner3};
 
     // Provide a reference to the views for each data item
     // Complex data items may need more than one view per item, anda
@@ -126,10 +126,14 @@ public class PrivatePhotoAdapter extends RecyclerView.Adapter<PrivatePhotoAdapte
             }
         });
         try {
-            Glide.with(context)
-                    .load(mDataset.get(position).getCoverPath())
-                    .crossFade(200)
-                    .into(holder.home_icon2);
+            //做个tag判断,防止不设置固定高度时刷新的闪烁问题;
+            if (!mDataset.get(position).getCoverPath().equals(holder.home_icon2.getTag(R.id.home_icon2))) {
+                Glide.with(context)
+                        .load(mDataset.get(position).getCoverPath())
+                        .crossFade(200)
+                        .into(holder.home_icon2);
+                holder.home_icon2.setTag(R.id.home_icon2, mDataset.get(position).getCoverPath());
+            }
 
             Glide.with(context)
                     .load(mDataset.get(position).getUser_headImgUrl())

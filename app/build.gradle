@@ -16,8 +16,8 @@ android {
         applicationId "example.com.fan"
         minSdkVersion 17
         targetSdkVersion 20
-        versionCode 28
-        versionName "1.2.7"
+        versionCode 29
+        versionName "1.2.8"
         ndk {
             //选择要添加的对应cpu类型的.so库（不需要的删除即可）。
             abiFilters 'armeabi', 'armeabi-v7a', 'armeabi-v8a', 'x86', 'x86_64', 'mips', 'mips64'
@@ -154,6 +154,10 @@ android {
         yyb20 {
             manifestPlaceholders = [UMENG_CHANNEL_VALUE: "deec96e362f4"]
         }
+        yyb21 {
+            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "2e0d2de18826"]
+        }
+
     }
 
     sourceSets {

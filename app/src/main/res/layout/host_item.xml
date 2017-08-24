@@ -4,8 +4,6 @@
     android:id="@+id/home_layout2"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginLeft="3dp"
-    android:layout_marginRight="3dp"
     android:layout_marginTop="7dp"
     app:cardBackgroundColor="@color/private_random_color2"
     app:cardCornerRadius="5dp"
@@ -59,7 +57,7 @@
                     android:layout_weight="1"
                     android:gravity="center|left"
                     android:text="哇啦啦"
-                    android:textColor="@color/black"
+                    android:textColor="@color/white"
                     android:textSize="13dp" />
 
                 <ImageView
@@ -87,7 +85,7 @@
                     android:layout_marginLeft="5dp"
                     android:gravity="center"
                     android:text="哇啦啦"
-                    android:textColor="@color/black"
+                    android:textColor="@color/white"
                     android:textSize="13dp" />
 
                 <!--  <LinearLayout

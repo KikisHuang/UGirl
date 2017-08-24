@@ -13,7 +13,7 @@ public class MzFinal {
 //  public static final String URl = "http://192.168.1.224:8080/mcFnsInterface/";
 //  public static final String URl = "http://101.37.86.15:8080/mcFnsInterface/";
 //    public static final String URl = "http://fns.mozu123.com:8080/mcFnsInterface/";
-  public static final String URl = "http://fnsandroid.mozu123.com/mcFnsInterface/";
+    public static final String URl = "http://fnsandroid.mozu123.com/mcFnsInterface/";
 
     /**
      * 全局广告触摸时间变量;
@@ -55,8 +55,9 @@ public class MzFinal {
     //上滑动画
     public static int[] loadingAnimSrcs = new int[]{R.drawable.mt_loading01, R.drawable.mt_loading02};
 
-    public static int[] privatePhotoColors = new int[]{R.color.private_random_color1, R.color.private_random_color2, R.color.private_random_color3};
+    public static int[] privatePhotoColors = {R.color.private_random_color1, R.color.private_random_color2, R.color.private_random_color3};
 
+    public static int[] pay_colors = {R.color.pay_color1, R.color.pay_color2, R.color.pay_color3};
     /**
      * 推送自定义常量
      */

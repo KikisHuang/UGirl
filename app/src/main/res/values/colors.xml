@@ -152,6 +152,10 @@
     <color name="private_random_color2">#e8dfb8</color>
     <color name="private_random_color3">#f093d0</color>
 
+    <color name="pay_color1">#dcfff6</color>
+    <color name="pay_color2">#dcffe6</color>
+    <color name="pay_color3">#ffdcf6</color>
+
     <color name="alertdialog_line">#f0f0f0</color>
     <color name="actionsheet_blue">#037BFF</color>
     <color name="actionsheet_red">#FD4A2E</color>

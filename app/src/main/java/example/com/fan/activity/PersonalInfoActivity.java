@@ -360,6 +360,7 @@ public class PersonalInfoActivity extends InitActivity implements View.OnClickLi
                     @Override
                     public void onError(Call call, Exception e, int id) {
                         ToastUtil.toast2_bottom(PersonalInfoActivity.this, "网络不顺畅...");
+                        Cancle();
                     }
 
                     @Override

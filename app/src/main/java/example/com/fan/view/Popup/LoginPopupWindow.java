@@ -89,7 +89,7 @@ public class LoginPopupWindow implements View.OnClickListener, AccreditListener 
             hand();
             backgroundAlpha(0.4f);
             popupWindow.setFocusable(true);
-            popupWindow.setOutsideTouchable(true);
+//            popupWindow.setOutsideTouchable(true);
             // 如果不设置PopupWindow的背景，无论是点击外部区域还是Back键都无法dismiss弹框
             // 我觉得这里是API的一个bug
             popupWindow.setBackgroundDrawable(new ColorDrawable(0));
@@ -432,6 +432,7 @@ public class LoginPopupWindow implements View.OnClickListener, AccreditListener 
                     @Override
                     public void onError(Call call, Exception e, int id) {
                         ToastUtil.toast2_bottom(context, "网络不顺畅...");
+                        Cancle();
                     }
 
                     @Override

@@ -358,6 +358,7 @@ public class LoginActivity extends InitActivity implements View.OnClickListener,
                         @Override
                         public void onError(Call call, Exception e, int id) {
                             ToastUtil.toast2_bottom(LoginActivity.this, "网络不顺畅...");
+                            Cancle();
                         }
 
                         @Override

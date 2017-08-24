@@ -142,6 +142,7 @@ public class PrivateFragment2 extends BaseFragment implements SpringListener, It
         rlist = new ArrayList<>();
 
         recyclerView.setHasFixedSize(true);
+
         // 使用不规则的网格布局
         mLayoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);//2列，纵向排列
         recyclerView.setLayoutManager(mLayoutManager);

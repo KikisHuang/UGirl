@@ -39,11 +39,11 @@ public class HostAdapter extends RecyclerView.Adapter<HostAdapter.ViewHolder> {
     // Provide a reference to the views for each data item
     // Complex data items may need more than one view per item, anda
     // you provide access to all the views for a data item in a view holder
-     static class ViewHolder extends RecyclerView.ViewHolder {
+    static class ViewHolder extends RecyclerView.ViewHolder {
         // each data item is just a string in this case
-        private TextView icon_name,vip_icon_name;
+        private TextView icon_name, vip_icon_name;
         private CardView home_layout2;
-        private ImageView home_icon2, icon_logo,vip_share_img;
+        private ImageView home_icon2, icon_logo, vip_share_img;
         private LinearLayout vip_ll, model_ll;
 
 
@@ -93,6 +93,7 @@ public class HostAdapter extends RecyclerView.Adapter<HostAdapter.ViewHolder> {
 
 
         LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(DeviceUtils.getWindowWidth(context) * 5 / 10, (int) (DeviceUtils.getWindowHeight(context) * 4.3 / 10));
+
         holder.home_icon2.setLayoutParams(lp);
         if (vip) {
             holder.model_ll.setVisibility(View.GONE);
@@ -112,7 +113,6 @@ public class HostAdapter extends RecyclerView.Adapter<HostAdapter.ViewHolder> {
                 }
             });
         } else {
-
 
             holder.vip_ll.setVisibility(View.GONE);
             holder.model_ll.setVisibility(View.VISIBLE);
@@ -136,19 +136,19 @@ public class HostAdapter extends RecyclerView.Adapter<HostAdapter.ViewHolder> {
 
         try {
 
-        Glide.with(context)
-                .load(mDataset.get(position).getCoverPath())
-                .centerCrop()
-                .thumbnail(0.1f)
-                .crossFade(1000)
-                .into(holder.home_icon2);
-        Glide.with(context)
-                .load(mDataset.get(position).getUser_headImgUrl())
-                .centerCrop()
-                .bitmapTransform(new CropCircleTransformation(context))
-                .crossFade(300)
-                .override(50, 50)
-                .into(holder.icon_logo);
+            Glide.with(context)
+                    .load(mDataset.get(position).getCoverPath())
+                    .centerCrop()
+                    .thumbnail(0.1f)
+                    .crossFade(1000)
+                    .into(holder.home_icon2);
+            Glide.with(context)
+                    .load(mDataset.get(position).getUser_headImgUrl())
+                    .centerCrop()
+                    .bitmapTransform(new CropCircleTransformation(context))
+                    .crossFade(300)
+                    .override(50, 50)
+                    .into(holder.icon_logo);
         } catch (Exception e) {
             Log.i(TAG, "Glide You cannot start a load for a destroyed activity");
         }

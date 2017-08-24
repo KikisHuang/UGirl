@@ -117,6 +117,7 @@ public class BuygoodsActivity extends InitActivity implements View.OnClickListen
                     @Override
                     public void onError(Call call, Exception e, int id) {
                         ToastUtil.toast2_bottom(BuygoodsActivity.this, "网络不顺畅...");
+                        Cancle();
                     }
 
                     @Override

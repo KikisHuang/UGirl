@@ -68,7 +68,7 @@ public class BottomGridAdapter extends BaseAdapter {
 
         int w = DeviceUtils.getWindowWidth(context) * 5 / 10;
         name_tv.setText(blist.get(position).getName());
-        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(w, w * 7 / 5);
+        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, w * 7 / 5);
         grid_img.setLayoutParams(lp);
         grid_ll.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -79,7 +79,7 @@ public class AttentionAdapter extends BaseAdapter {
         attent_ll.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                listener.onItemClickListener(position, list.get(position).getId());
+                listener.onItemClickListener(0, list.get(position).getId());
             }
         });
 
