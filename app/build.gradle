@@ -4,6 +4,25 @@ def packageTime() {
     return new Date().format("yyyy-MM-dd", TimeZone.getTimeZone("UTC"))
 }
 
+def keystoreFilepath = ''
+def keystorePSW = ''
+def keystoreAlias = ''
+def keystoreAliasPSW = ''
+// default keystore file, PLZ config file path in local.properties
+def keyfile = file('s.keystore.temp')
+
+Properties properties = new Properties()
+// local.properties file in the root director
+properties.load(project.rootProject.file('local.properties').newDataInputStream())
+keystoreFilepath = properties.getProperty("keystore.path")
+
+if (keystoreFilepath) {
+    keystorePSW = properties.getProperty("keystore.password")
+    keystoreAlias = properties.getProperty("keystore.alias")
+    keystoreAliasPSW = properties.getProperty("keystore.alias_password")
+    keyfile = file(keystoreFilepath)
+}
+
 android {
     lintOptions {
         checkReleaseBuilds false
@@ -78,18 +97,28 @@ android {
         liushangyu007 {
             manifestPlaceholders = [UMENG_CHANNEL_VALUE: "a3f35abe78ce"]
         }
-   /*     aaa1 {
-            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "3ceafb99478c"]
+        MrWen {
+            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "36d69dcd8b13"]
         }
-        aaa2 {
-            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "8ed92cb4c3fe"]
+        jiangxu {
+            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "2cde5189001e"]
         }
-        ceshi1 {
-            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "758a30c71003"]
+        qin123 {
+            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "098a0f981725"]
         }
-        ceshi2 {
-            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "80d756003b97"]
-        }*/
+
+        /*     aaa1 {
+                 manifestPlaceholders = [UMENG_CHANNEL_VALUE: "3ceafb99478c"]
+             }
+             aaa2 {
+                 manifestPlaceholders = [UMENG_CHANNEL_VALUE: "8ed92cb4c3fe"]
+             }
+             ceshi1 {
+                 manifestPlaceholders = [UMENG_CHANNEL_VALUE: "758a30c71003"]
+             }
+             ceshi2 {
+                 manifestPlaceholders = [UMENG_CHANNEL_VALUE: "80d756003b97"]
+             }*/
         //应用宝微下载渠道;
         wuyi {
             manifestPlaceholders = [UMENG_CHANNEL_VALUE: "d7ac947753cd"]
@@ -159,6 +188,61 @@ android {
         }
 
     }
+/*    android {
+        productFlavors {
+            vivo {}
+            xiaomi {}
+            s360 {}
+            baidu {}
+            wandoujia {}
+            yingyongbao {}
+            lenovo {}
+            leshi {}
+            sougou {}
+            huawei {}
+            Samsung {}
+
+            liushangyu007 {}
+            MrWen {}
+            jiangxu {}
+            qin123 {}
+            wuyi {}
+            yyb1 {}
+            yyb2 {}
+            yyb3 {}
+            yyb4 {}
+            yyb5 {}
+            yyb6 {}
+            yyb7 {}
+            yyb8 {}
+            yyb9 {}
+            yyb10 {}
+            yyb11 {}
+            yyb12 {}
+            yyb13 {}
+            yyb14 {}
+            yyb15 {}
+            yyb16 {}
+            yyb17 {}
+            yyb18 {}
+            yyb19 {}
+            yyb20 {}
+        }
+
+        productFlavors.all {
+            flavor -> flavor.manifestPlaceholders = [UMENG_CHANNEL_VALUE: name]
+        }
+    }*/
+    signingConfigs {
+        myConfig {
+            storeFile keyfile
+            storePassword keystorePSW
+            keyAlias keystoreAlias
+            keyPassword keystoreAliasPSW
+            println("====== signingConfigs.release ======")
+        }
+
+    }
 
     sourceSets {
         main {
@@ -180,12 +264,20 @@ android {
 
 
     buildTypes {
+
         release {
             //混淆
             minifyEnabled true
             shrinkResources true//移除未使用的资源文件
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
 
+            //签名文件存在，则签名
+            if (keyfile.exists()) {
+                println("WITH -> buildTypes -> release: using jks key")
+                signingConfig signingConfigs.myConfig
+            } else {
+                println("WITH -> buildTypes -> release: using default key")
+            }
         }
     }
 //    ${defaultConfig.versionCode}-${defaultConfig.versionName}.apk"

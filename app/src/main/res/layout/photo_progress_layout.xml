@@ -9,9 +9,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_margin="30dp"
-        android:gravity="center"
         android:background="@drawable/white_corners"
-        >
+        android:gravity="center">
 
         <ImageView
             android:id="@+id/spinnerImageView"
@@ -19,6 +18,16 @@
             android:layout_height="match_parent"
             android:layout_margin="25dp"
             android:src="@drawable/loading_layout_icon" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center|top"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:text="@string/update_lead"
+            android:textColor="@color/cherry1"
+            android:textSize="13dp" />
 
         <TextView
             android:id="@+id/msg_tv"
@@ -34,10 +43,10 @@
             style="@style/StyleProgressBarMini"
             android:layout_width="match_parent"
             android:layout_height="5dp"
+            android:layout_gravity="bottom"
             android:layout_marginBottom="15dp"
             android:layout_marginLeft="30dp"
             android:layout_marginRight="30dp"
-            android:layout_gravity="bottom"
             android:background="@drawable/shape_progressbar_bg"
             android:max="100"
             android:progress="0"></ProgressBar>

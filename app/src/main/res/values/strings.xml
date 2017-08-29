@@ -160,6 +160,7 @@ Copyright  2012\n
     <string name="underway">进行中</string>
     <string name="nowpay">立即抢购</string>
     <string name="ending">已结束</string>
+    <string name="update_lead">请耐心等待一会，新版本更精彩哦！</string>
 
 
     <dimen name="size1">1px</dimen>

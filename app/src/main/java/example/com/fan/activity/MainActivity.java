@@ -117,6 +117,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
      * 检查通知栏权限;
      */
     private void checkNotify() {
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             if (isNotificationEnabled(getApplicationContext())) {
                 Log.i(TAG, "通知栏消息推送权限已获得..");

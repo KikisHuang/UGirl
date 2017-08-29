@@ -81,7 +81,7 @@ public class ToastUtil {
      * @param
      */
     public static void ToastErrorMsg(Context context, String src, int code) throws JSONException {
-
+        //登录过期;
         if (code == ServerCode.code[6]) {
             SPreferences.saveUserToken("");
             if (MyFragment.fragment != null)

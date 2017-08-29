@@ -66,7 +66,7 @@ public class homeViewPageUtils {
      * @param mImageViewList 返回的结果集;
      * @return
      */
-    public static List<PageTopBannerBean> getTopImg(final List<PageTopBannerBean> images, final Context context, List<PageTopBannerBean> mImageViewList, int flag,LayoutInflater inflater) {
+    public static List<PageTopBannerBean> getTopImg(final List<PageTopBannerBean> images, final Context context, List<PageTopBannerBean> mImageViewList, int flag, LayoutInflater inflater) {
 
         for (int i = 0; i < images.size() + 2; i++) {
             PageTopBannerBean pb = new PageTopBannerBean();
@@ -135,7 +135,7 @@ public class homeViewPageUtils {
      * @param context 上下文;
      * @return
      */
-    public static List<McOfficialSellImgUrls> getBuyTopImg(final List<McOfficialSellImgUrls> images, final Context context,LayoutInflater inflater) {
+    public static List<McOfficialSellImgUrls> getBuyTopImg(final List<McOfficialSellImgUrls> images, final Context context, LayoutInflater inflater) {
         // @param    mImageViewList 返回的结果集;
         List<McOfficialSellImgUrls> mImageViewList = new ArrayList<>();
 
@@ -184,6 +184,7 @@ public class homeViewPageUtils {
 
         return mImageViewList;
     }
+
     /**
      * 主页画廊ViewPager实现无限循环方法;
      *
@@ -191,7 +192,7 @@ public class homeViewPageUtils {
      * @param context 上下文;
      * @return
      */
-    public static List<GalleryBean> getbottomImg(final List<GalleryBean> images, final Context context,LayoutInflater inflater) {
+    public static List<GalleryBean> getbottomImg(final List<GalleryBean> images, final Context context, LayoutInflater inflater) {
 
         List<GalleryBean> mImageViewList = new ArrayList<>();
         for (int i = 0; i < images.size() + 2; i++) {
@@ -366,15 +367,15 @@ public class homeViewPageUtils {
             switch (j) {
                 case 0:
                     imageView1.setLayoutParams(params);
-                    setBitmap2(blist.get(i).getMcPublishRecords().get(j).getCoverPath(), imageView1, context,flag);
+                    setBitmap2(blist.get(i).getMcPublishRecords().get(j).getCoverPath(), imageView1, context, flag);
                     break;
                 case 1:
                     imageView2.setLayoutParams(params);
-                    setBitmap2(blist.get(i).getMcPublishRecords().get(j).getCoverPath(), imageView2, context,flag);
+                    setBitmap2(blist.get(i).getMcPublishRecords().get(j).getCoverPath(), imageView2, context, flag);
                     break;
                 case 2:
                     imageView3.setLayoutParams(params);
-                    setBitmap2(blist.get(i).getMcPublishRecords().get(j).getCoverPath(), imageView3, context,flag);
+                    setBitmap2(blist.get(i).getMcPublishRecords().get(j).getCoverPath(), imageView3, context, flag);
                     break;
                 case 3:
             }
@@ -429,22 +430,22 @@ public class homeViewPageUtils {
             switch (j) {
                 case 0:
                     imageView1.setLayoutParams(params);
-                    setBitmap2(blist.get(i).getMcPublishRecords().get(j).getCoverPath(), imageView1, context,flag);
+                    setBitmap2(blist.get(i).getMcPublishRecords().get(j).getCoverPath(), imageView1, context, flag);
                     break;
                 case 1:
                     imageView2.setLayoutParams(params);
-                    setBitmap2(blist.get(i).getMcPublishRecords().get(j).getCoverPath(), imageView2, context,flag);
+                    setBitmap2(blist.get(i).getMcPublishRecords().get(j).getCoverPath(), imageView2, context, flag);
                     break;
                 case 2:
 
                     imageView3.setLayoutParams(params);
-                    setBitmap2(blist.get(i).getMcPublishRecords().get(j).getCoverPath(), imageView3, context,flag);
+                    setBitmap2(blist.get(i).getMcPublishRecords().get(j).getCoverPath(), imageView3, context, flag);
 
                     break;
                 case 3:
 
                     imageView4.setLayoutParams(params);
-                    setBitmap2(blist.get(i).getMcPublishRecords().get(j).getCoverPath(), imageView4, context,flag);
+                    setBitmap2(blist.get(i).getMcPublishRecords().get(j).getCoverPath(), imageView4, context, flag);
                     break;
 
             }
@@ -500,26 +501,26 @@ public class homeViewPageUtils {
             switch (j) {
                 case 0:
                     imageView1.setLayoutParams(params);
-                    setBitmap2(blist.get(i).getMcPublishRecords().get(j).getCoverPath(), imageView1, context,flag);
+                    setBitmap2(blist.get(i).getMcPublishRecords().get(j).getCoverPath(), imageView1, context, flag);
                     break;
                 case 1:
                     imageView2.setLayoutParams(params);
-                    setBitmap2(blist.get(i).getMcPublishRecords().get(j).getCoverPath(), imageView2, context,flag);
+                    setBitmap2(blist.get(i).getMcPublishRecords().get(j).getCoverPath(), imageView2, context, flag);
                     break;
                 case 2:
 
                     imageView3.setLayoutParams(params);
-                    setBitmap2(blist.get(i).getMcPublishRecords().get(j).getCoverPath(), imageView3, context,flag);
+                    setBitmap2(blist.get(i).getMcPublishRecords().get(j).getCoverPath(), imageView3, context, flag);
 
                     break;
                 case 3:
 
                     imageView4.setLayoutParams(params);
-                    setBitmap2(blist.get(i).getMcPublishRecords().get(j).getCoverPath(), imageView4, context,flag);
+                    setBitmap2(blist.get(i).getMcPublishRecords().get(j).getCoverPath(), imageView4, context, flag);
                     break;
                 case 4:
                     imageView5.setLayoutParams(params);
-                    setBitmap2(blist.get(i).getMcPublishRecords().get(j).getCoverPath(), imageView5, context,flag);
+                    setBitmap2(blist.get(i).getMcPublishRecords().get(j).getCoverPath(), imageView5, context, flag);
                     break;
 
             }
@@ -555,8 +556,16 @@ public class homeViewPageUtils {
         } else {
             Glide.with(context)
                     .load(str)
-                    .override(320,320)
+                    .override(320, 320)
                     .into(img);
         }
     }
+
+//    private static void setBitmap(String str, ImageView img, Context context) {
+//        Glide.with(context)
+//                .load(str)
+//                .override(320, 320)
+//                .fitCenter()
+//                .into(img);
+//    }
 }

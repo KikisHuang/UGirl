@@ -18,8 +18,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.File;
-import java.util.HashMap;
-import java.util.Map;
 
 import example.com.fan.R;
 import example.com.fan.base.sign.save.SPreferences;
@@ -262,8 +260,9 @@ public class PersonalInfoActivity extends InitActivity implements View.OnClickLi
 
     private void ChangeUserInfo(final String add, final String sex, final String name, String addphone, String wx) {
 
-        Map<String, String> map = new HashMap<>();
         if (!add.equals(receiveAdd) || !addphone.equals(addressPhone)) {
+            if (receiveName == null)
+                receiveName = "";
             OkHttpUtils
                     .get()
                     .url(MzFinal.URl + MzFinal.MODIFYADDRESS)

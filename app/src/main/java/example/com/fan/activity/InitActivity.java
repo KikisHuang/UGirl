@@ -27,7 +27,7 @@ public abstract class InitActivity extends FragmentActivity implements alipayToo
         init();
         click();
         initData();
-        System.gc();
+        Runtime.getRuntime().gc();
     }
 
     /**
@@ -75,7 +75,7 @@ public abstract class InitActivity extends FragmentActivity implements alipayToo
     protected void onDestroy() {
         super.onDestroy();
 //        MyAppcation.getRefWatcher(this).watch(this);
-        System.gc();
+        Runtime.getRuntime().gc();
     }
 
     @Override

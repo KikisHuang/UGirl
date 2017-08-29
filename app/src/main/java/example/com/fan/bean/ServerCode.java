@@ -2,6 +2,7 @@ package example.com.fan.bean;
 
 /**
  * Created by lian on 2017/6/12.
+ * 服务端状态返回;
  */
 public class ServerCode {
 

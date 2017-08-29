@@ -225,8 +225,11 @@ public class MyFragment extends BaseFragment implements View.OnClickListener, Ch
                                         Glide.with(getActivity().getApplicationContext()).load(R.mipmap.test_icon).bitmapTransform(new CropCircleTransformation(getActivity())).into(user_icon);
                                     else
                                         Glide.with(getActivity().getApplicationContext()).load(info.get(0).getHeadImgUrl()).bitmapTransform(new CropCircleTransformation(getActivity())).into(user_icon);
+                                    if (cleanNull(info.get(0).getName()))
+                                        user_name.setText("");
+                                    else
+                                        user_name.setText(info.get(0).getName());
 
-                                    user_name.setText(info.get(0).getName());
                                     MyAppcation.UserIcon = ub.getHeadImgUrl();
                                     MyAppcation.myInvitationCode = ub.getMyInvitationCode();
                                 } else
