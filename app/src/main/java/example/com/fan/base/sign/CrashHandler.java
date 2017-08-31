@@ -20,6 +20,9 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+import example.com.fan.MyAppcation;
+import example.com.fan.base.sign.save.SPreferences;
+
 import static example.com.fan.utils.SynUtils.getTAG;
 
 /**
@@ -132,6 +135,8 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler {
                 String versionCode = pi.versionCode + "";
                 infos.put("versionName", versionName);
                 infos.put("versionCode", versionCode);
+                infos.put("UGril-CHANNEL", MyAppcation.CHANNEL);
+                infos.put("UGril-TOKEN", SPreferences.getUserToken());
             }
         } catch (PackageManager.NameNotFoundException e) {
             Log.e(TAG, "an error occured when collect package info", e);

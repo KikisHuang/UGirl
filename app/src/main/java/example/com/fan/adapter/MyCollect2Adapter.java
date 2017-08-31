@@ -106,7 +106,7 @@ public class MyCollect2Adapter extends BaseAdapter {
             @Override
             public void onClick(View v) {
                 List<String> d = new ArrayList<String>();
-                d.add(list.get(position).getMcPublishRecord());
+                d.add(list.get(position).getid());
                 deleteListener.onDelete(d);
             }
         });

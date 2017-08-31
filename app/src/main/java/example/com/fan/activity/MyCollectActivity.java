@@ -65,6 +65,7 @@ public class MyCollectActivity extends InitActivity implements View.OnClickListe
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 
             }
+
             @Override
             public void onPageSelected(int position) {
                 mpos = position;
@@ -89,6 +90,7 @@ public class MyCollectActivity extends InitActivity implements View.OnClickListe
         list.add(str);
         mTab.addTab(mTab.newTab().setText(str));
     }
+
     @Override
     protected void init() {
         setContentView(R.layout.mycollect_activity_layout);
@@ -138,8 +140,10 @@ public class MyCollectActivity extends InitActivity implements View.OnClickListe
 
     @Override
     public void onSelect() {
-        if (search_tv.getText().toString().equals("选择")) {
+        if (search_tv.getText().toString().equals("选择"))
             search_tv.setText("取消");
-        }
+        else
+            search_tv.setText("选择");
+
     }
 }

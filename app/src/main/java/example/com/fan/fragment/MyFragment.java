@@ -79,7 +79,7 @@ public class MyFragment extends BaseFragment implements View.OnClickListener, Ch
     private void IsLogin() {
         //获取广告;
         getBeanner();
-        if (SPreferences.getUserToken() == null || SPreferences.getUserToken().equals("")) {
+        if (!LoginStatusQuery()) {
             account_number_layout.setVisibility(View.GONE);
             login_rl.setVisibility(View.GONE);
             unlogin_ll.setVisibility(View.VISIBLE);
@@ -195,7 +195,7 @@ public class MyFragment extends BaseFragment implements View.OnClickListener, Ch
         /**
          * 获取个人信息;
          */
-        if (SPreferences.getUserToken() != null && !SPreferences.getUserToken().isEmpty()) {
+        if (LoginStatusQuery()) {
             info.clear();
             OkHttpUtils
                     .get()

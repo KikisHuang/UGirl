@@ -6,11 +6,14 @@ import android.util.Log;
 
 import com.umeng.analytics.MobclickAgent;
 
+import example.com.fan.MyAppcation;
+import example.com.fan.base.sign.save.SPreferences;
 import example.com.fan.fragment.son.PictureSlideFragment;
 import example.com.fan.utils.GlideCacheUtil;
 import example.com.fan.utils.MzFinal;
 import example.com.fan.utils.pay.ali.alipayTool;
 
+import static example.com.fan.utils.SynUtils.LoginStatusQuery;
 import static example.com.fan.utils.SynUtils.getTAG;
 import static example.com.fan.utils.SynUtils.getUserVip;
 
@@ -20,6 +23,7 @@ import static example.com.fan.utils.SynUtils.getUserVip;
  */
 public abstract class InitActivity extends FragmentActivity implements alipayTool.alipayResult {
     private static final String TAG = getTAG(InitActivity.class);
+    private Throwable able = new Throwable("手动抛出TOKEN异常信息。。。");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +32,19 @@ public abstract class InitActivity extends FragmentActivity implements alipayToo
         click();
         initData();
         Runtime.getRuntime().gc();
+    }
+
+    /**
+     * 检查Token是否异常,手动抛出异常信息至服务器;
+     */
+    private void CheckLoginToken() {
+        if (LoginStatusQuery() && SPreferences.getUserToken().length() <= 31) {
+            if (able != null)
+                MyAppcation.crashHandler.uncaughtException(new Thread(), able);
+             else
+                able = new Throwable("手动抛出TOKEN异常信息。。。");
+
+        }
     }
 
     /**
@@ -60,6 +77,7 @@ public abstract class InitActivity extends FragmentActivity implements alipayToo
     protected void onResume() {
         super.onResume();
         MobclickAgent.onResume(this);
+        CheckLoginToken();
         System.gc();
         Log.i(TAG, "GlideCache==== " + GlideCacheUtil.getCacheSize(this));
     }

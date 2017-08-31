@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -93,7 +94,14 @@ public class HostAdapter extends RecyclerView.Adapter<HostAdapter.ViewHolder> {
 
 
         LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(DeviceUtils.getWindowWidth(context) * 5 / 10, (int) (DeviceUtils.getWindowHeight(context) * 4.3 / 10));
+        FrameLayout.LayoutParams lp1 = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
 
+        lp1.leftMargin = DeviceUtils.dip2px(context, 5);
+        lp1.topMargin = DeviceUtils.dip2px(context, 5);
+        if (position % 2 != 0)
+            lp1.rightMargin = DeviceUtils.dip2px(context, 5);
+
+        holder.home_layout2.setLayoutParams(lp1);
         holder.home_icon2.setLayoutParams(lp);
         if (vip) {
             holder.model_ll.setVisibility(View.GONE);

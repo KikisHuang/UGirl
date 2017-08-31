@@ -389,7 +389,7 @@ public class PhotoActivity extends InitActivity implements View.OnClickListener,
         photo_bottom_ll.setVisibility(View.GONE);
         photo_top_rl.setVisibility(View.GONE);
         screnn_img.setVisibility(View.GONE);
-        viewPager.setOffscreenPageLimit(3);
+        viewPager.setOffscreenPageLimit(1);
         MzFinal.isPay = false;
     }
 

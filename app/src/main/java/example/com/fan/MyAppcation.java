@@ -29,7 +29,7 @@ public class MyAppcation extends Application {
     public static String myInvitationCode;
     public static String UserIcon;
     public static boolean VipFlag;
-
+    public static CrashHandler crashHandler;
     /**
      * 内存泄露检测;
      */
@@ -48,7 +48,7 @@ public class MyAppcation extends Application {
         /**
          * 全局异常捕获方法;
          */
-      CrashHandler crashHandler = CrashHandler.getInstance();
+      crashHandler = CrashHandler.getInstance();
       crashHandler.init(getApplicationContext());
 
         OkHttpInit();

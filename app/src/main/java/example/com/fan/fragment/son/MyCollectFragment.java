@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import example.com.fan.R;
+import example.com.fan.activity.MyCollectActivity;
 import example.com.fan.adapter.MyCollect2Adapter;
 import example.com.fan.adapter.MyCollectAdapter;
 import example.com.fan.base.sign.save.SPreferences;
@@ -224,6 +225,7 @@ public class MyCollectFragment extends BaseFragment implements ItemClickListener
                                 Log.i(TAG, "tag=====" + tag);
                                 if (adapter != null)
                                     adapter.notifyDataSetChanged();
+
                                 else {
                                     adapter = new MyCollectAdapter(getActivity(), rlist, listener, delete_tv, deleteListener, fragment);
                                     adapter.setSwitch(false);
@@ -248,6 +250,7 @@ public class MyCollectFragment extends BaseFragment implements ItemClickListener
         delete_tv.setVisibility(View.VISIBLE);
         adapter.setSwitch(true);
         adapter.notifyDataSetChanged();
+
     }
 
 
@@ -344,12 +347,12 @@ public class MyCollectFragment extends BaseFragment implements ItemClickListener
                 .build()
                 .execute(new StringCallback() {
                     @Override
-                    public void onError(Call call, Exception e, int id) {
+                    public void onError(Call call, Exception e, int idd) {
                         ToastUtil.toast2_bottom(getActivity(), "网络不顺畅...");
                     }
 
                     @Override
-                    public void onResponse(String response, int id) {
+                    public void onResponse(String response, int idd) {
                         try {
                             int code = getCode(response);
                             if (code == 1) {
@@ -358,14 +361,22 @@ public class MyCollectFragment extends BaseFragment implements ItemClickListener
 
                                         break;
                                     case "0":
-                                        for (int j = 0; j < rlist.size(); j++) {
-                                            if (rlist.get(j).getMcPublishRecord().equals(id))
-                                                rlist.remove(j);
+                                        if (tag == 1){
+                                            for (int j = 0; j < rlist.size(); j++) {
+                                                if (rlist.get(j).getMcPublishRecord().equals(id))
+                                                    rlist.remove(j);
+                                            }
+                                            TvHide();
+                                            MyCollectActivity.slistener.onSelect();
+//                                            adapter.notifyDataSetChanged();
                                         }
-                                        if (tag == 1)
-                                            adapter.notifyDataSetChanged();
-                                        if (tag == 2)
+                                        if (tag == 2){
+                                            for (int j = 0; j < rlist.size(); j++) {
+                                                if (rlist.get(j).getid().equals(id))
+                                                    rlist.remove(j);
+                                            }
                                             adapter2.notifyDataSetChanged();
+                                        }
                                         ToastUtil.toast2_bottom(getActivity(), "取消收藏!");
                                         break;
                                 }
@@ -392,22 +403,24 @@ public class MyCollectFragment extends BaseFragment implements ItemClickListener
                 .build()
                 .execute(new StringCallback() {
                     @Override
-                    public void onError(Call call, Exception e, int id) {
+                    public void onError(Call call, Exception e, int ids) {
                         ToastUtil.toast2_bottom(getActivity(), "网络不顺畅...");
                     }
 
                     @Override
-                    public void onResponse(String response, int id) {
+                    public void onResponse(String response, int ids) {
                         try {
                             int code = getCode(response);
                             if (code == 1) {
                                 switch (getJsonSring(response)) {
                                     case "0":
                                         for (int j = 0; j < rlist.size(); j++) {
+
                                             if (rlist.get(j).getMcPublishRecord().equals(id))
                                                 rlist.remove(j);
                                         }
-                                        adapter.notifyDataSetChanged();
+                                        TvHide();
+                                        MyCollectActivity.slistener.onSelect();
                                         ToastUtil.toast2_bottom(getActivity(), "删除成功");
                                         break;
                                     default:

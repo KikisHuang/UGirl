@@ -5,7 +5,8 @@ import android.content.SharedPreferences;
 
 
 /**
- * Created by hzxuwen on 2015/4/13.
+ * Created by on 2017/5/13
+ * Sp存储类;
  */
 public class SPreferences {
 
@@ -34,12 +35,15 @@ public class SPreferences {
     public static String getUserToken() {
         return getString(KEY_USER_TOKEN);
     }
+
     public static void saveLoginWay(String str) {
         saveString(KEY_LOGIN_WAY, str);
     }
+
     public static void saveInViCode(boolean f) {
         saveBoolean(KEY_INVI_CODE, f);
     }
+
     public static boolean getInViCode() {
         return getBoolean(KEY_INVI_CODE);
     }
@@ -47,6 +51,7 @@ public class SPreferences {
     public static String getLoginWay() {
         return getString(KEY_LOGIN_WAY);
     }
+
     private static void saveString(String key, String value) {
         SharedPreferences.Editor editor = getSharedPreferences().edit();
         editor.putString(key, value);

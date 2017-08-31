@@ -150,6 +150,11 @@ public class PictureSlideFragment extends BaseFragment implements PayRefreshList
         }
     }
 
+    /**
+     * 图片显示方法
+     *
+     * @param url 路径;
+     */
     private void ReadImg(String url) {
         try {
 //            int w = getRatio(getActivity(), true);
@@ -169,18 +174,18 @@ public class PictureSlideFragment extends BaseFragment implements PayRefreshList
 //                            }
 //                        });
 //            } else {
-                Glide.with(getActivity().getApplicationContext())
-                        .load(url)
-                        .crossFade(200)
-                        .error(R.drawable.load_fail_img)
-                        .centerCrop()
-                        .into(new GlideDrawableImageViewTarget(imageView) {
-                            @Override
-                            public void onResourceReady(GlideDrawable resource, GlideAnimation<? super GlideDrawable> animation) {
-                                super.onResourceReady(resource, animation);
-                                load_img.setVisibility(View.GONE);
-                            }
-                        });
+            Glide.with(getActivity().getApplicationContext())
+                    .load(url)
+                    .crossFade(200)
+                    .error(R.drawable.load_fail_img)
+                    .centerCrop()
+                    .into(new GlideDrawableImageViewTarget(imageView) {
+                        @Override
+                        public void onResourceReady(GlideDrawable resource, GlideAnimation<? super GlideDrawable> animation) {
+                            super.onResourceReady(resource, animation);
+                            load_img.setVisibility(View.GONE);
+                        }
+                    });
 //            }
         } catch (Exception e) {
             Log.i(TAG, "Glide You cannot start a load for a destroyed activity");
@@ -271,5 +276,10 @@ public class PictureSlideFragment extends BaseFragment implements PayRefreshList
     @Override
     public void onPayRefresh() {
         getData();
+        ErrorListen();
+    }
+
+    private void ErrorListen() {
+
     }
 }

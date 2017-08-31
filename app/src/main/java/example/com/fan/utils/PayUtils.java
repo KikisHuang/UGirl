@@ -18,11 +18,14 @@ import okhttp3.Call;
 
 import static example.com.fan.utils.JsonUtils.getCode;
 import static example.com.fan.utils.JsonUtils.getJsonOb;
+import static example.com.fan.utils.SynUtils.getTAG;
 
 /**
  * Created by lian on 2017/7/6.
  */
 public class PayUtils {
+
+    private static final String TAG = getTAG(PayUtils.class);
 
     /**
      * 支付通用接口
@@ -59,7 +62,6 @@ public class PayUtils {
                                         alipayTool atool = new alipayTool();
                                         atool.setalipayResultListener(((InitActivity) context));
                                         atool.pay((Activity) context, ab.getInfo());
-//                            atool.pay(OrderActivity.this, "app_id=" + ab.getApp_id() + "&biz_content=" + ab.getBiz_content() + "&charset=" + ab.getCharset() + "&format=" + ab.getFormat() + "&method=" + ab.getMethod() + "&notify_url=" + ab.getNotify_url() + "&sign_type=" + ab.getSign_type() + "&timestamp" + ab.getTimestamp() + "&version=" + ab.getVersion() + "&sign="+ab.getSign());
                                         break;
                                     case 1:
                                         WeiXinTool wtool = new WeiXinTool(context);

@@ -72,7 +72,7 @@ public class PayActivity extends InitActivity implements PayRefreshListener {
         OkHttpUtils
                 .get()
                 .url(MzFinal.URl + MzFinal.GETMYDETAILS)
-                .addParams("key", SPreferences.getUserToken())
+                .addParams(MzFinal.KEY, SPreferences.getUserToken())
                 .tag(this)
                 .build()
                 .execute(new StringCallback() {
@@ -301,7 +301,6 @@ public class PayActivity extends InitActivity implements PayRefreshListener {
             ll.setVisibility(View.GONE);
             tv.setText(R.string.click_unfold);
         }
-
     }
 
     @Override

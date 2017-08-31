@@ -377,7 +377,6 @@ public class WeiXinTool {
     public void sendPayReq() {
         req.appId = mapList2.get("appid");
         req.partnerId = mapList2.get("partnerid");
-//        req.prepayId = resultunifiedorder.get("prepay_id");
         req.prepayId = mapList2.get("prepayid");
         req.packageValue = mapList2.get("package");
         req.nonceStr = mapList2.get("noncestr");

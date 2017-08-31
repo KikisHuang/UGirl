@@ -81,7 +81,7 @@ public class JsonUtils {
      */
     public static Map<String, String> getKeyMap() {
         Map<String, String> map = new HashMap<>();
-        map.put("key", SPreferences.getUserToken());
+        map.put(MzFinal.KEY, SPreferences.getUserToken());
         return map;
     }
     /**

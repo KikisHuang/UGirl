@@ -35,8 +35,8 @@ android {
         applicationId "example.com.fan"
         minSdkVersion 17
         targetSdkVersion 20
-        versionCode 29
-        versionName "1.2.8"
+        versionCode 30
+        versionName "1.2.9"
         ndk {
             //选择要添加的对应cpu类型的.so库（不需要的删除即可）。
             abiFilters 'armeabi', 'armeabi-v7a', 'armeabi-v8a', 'x86', 'x86_64', 'mips', 'mips64'
@@ -188,51 +188,7 @@ android {
         }
 
     }
-/*    android {
-        productFlavors {
-            vivo {}
-            xiaomi {}
-            s360 {}
-            baidu {}
-            wandoujia {}
-            yingyongbao {}
-            lenovo {}
-            leshi {}
-            sougou {}
-            huawei {}
-            Samsung {}
 
-            liushangyu007 {}
-            MrWen {}
-            jiangxu {}
-            qin123 {}
-            wuyi {}
-            yyb1 {}
-            yyb2 {}
-            yyb3 {}
-            yyb4 {}
-            yyb5 {}
-            yyb6 {}
-            yyb7 {}
-            yyb8 {}
-            yyb9 {}
-            yyb10 {}
-            yyb11 {}
-            yyb12 {}
-            yyb13 {}
-            yyb14 {}
-            yyb15 {}
-            yyb16 {}
-            yyb17 {}
-            yyb18 {}
-            yyb19 {}
-            yyb20 {}
-        }
-
-        productFlavors.all {
-            flavor -> flavor.manifestPlaceholders = [UMENG_CHANNEL_VALUE: name]
-        }
-    }*/
     signingConfigs {
         myConfig {
             storeFile keyfile

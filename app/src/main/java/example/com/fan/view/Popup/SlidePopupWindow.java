@@ -111,7 +111,7 @@ public class SlidePopupWindow implements View.OnClickListener {
 
     private static void getData(final Context mContext) {
 
-        if (SPreferences.getUserToken() == null || SPreferences.getUserToken().equals("")) {
+        if (!LoginStatusQuery()) {
             user_name.setText("立即登录");
         } else {
 
@@ -273,7 +273,7 @@ public class SlidePopupWindow implements View.OnClickListener {
      * 登录
      */
     private void login() {
-        if (SPreferences.getUserToken() == null || SPreferences.getUserToken().equals("")) {
+        if (!LoginStatusQuery()) {
             goLoginPage(mContext);
             backgroundAlpha(1f, mContext);
             if (popupWindow.isShowing())

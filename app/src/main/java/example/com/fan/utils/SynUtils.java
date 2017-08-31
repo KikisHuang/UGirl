@@ -135,7 +135,7 @@ public class SynUtils {
         if (SPreferences.getUserToken() == null || SPreferences.getUserToken().equals("")) {
             return false;
         } else {
-            Log.i(TAG, "SPreferences.getUserToken() =====" + SPreferences.getUserToken());
+//            Log.i(TAG, "SPreferences.getUserToken() =====" + SPreferences.getUserToken());
             return true;
         }
     }

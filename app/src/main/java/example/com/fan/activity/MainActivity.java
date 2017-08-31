@@ -136,7 +136,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
         /**
          * 获取个人信息;
          */
-        if (SPreferences.getUserToken() != null && !SPreferences.getUserToken().isEmpty()) {
+        if (LoginStatusQuery()) {
             OkHttpUtils
                     .get()
                     .url(MzFinal.URl + MzFinal.GETMYDETAILS)
@@ -240,6 +240,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
         imglist = new ArrayList<>();
         ilist = new ArrayList<>();
         listener = this;
+
 //        SPreferences.saveUserToken("5e9a!TgpaVOIKNMCf8bteiR/Ro4KywYGLTO4PGbWebzPA1I7yW2LRWDie3Gf/MGlpDMGbQQt1VQW/GSU!s0y");
 
         imglist.add(page_img = f(R.id.page_img));
@@ -470,7 +471,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
             ft.add(R.id.main_ll, fiveFragment).show(fiveFragment);
         } else {
             ft.show(fiveFragment);
-
         }
         ft.commit();
     }
