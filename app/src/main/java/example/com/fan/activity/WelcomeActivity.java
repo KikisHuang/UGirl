@@ -39,7 +39,9 @@ import okhttp3.Call;
 import static example.com.fan.bean.ServerCode.getCodeStatusMsg;
 import static example.com.fan.utils.IntentUtils.goMainPage;
 import static example.com.fan.utils.JsonUtils.getCode;
+import static example.com.fan.utils.SynUtils.getIMEI;
 import static example.com.fan.utils.SynUtils.getTAG;
+import static example.com.fan.utils.SynUtils.getVersionName;
 
 
 /**
@@ -176,9 +178,15 @@ public class WelcomeActivity extends InitActivity implements PositionAddListener
     }
 
     private void getData() {
+
         OkHttpUtils
-                .get()
+                .post()
                 .url(MzFinal.URl + MzFinal.GETWELCOMEIMGURL)
+                .addParams("IMEI", getIMEI(this))
+                .addParams("Phone",android.os.Build.BRAND)
+                .addParams("Molde",android.os.Build.MODEL)
+                .addParams("Android_Version",android.os.Build.VERSION.RELEASE)
+                .addParams("VersionName",getVersionName(this))
                 .tag(this)
                 .build()
                 .execute(new StringCallback() {
@@ -252,6 +260,7 @@ public class WelcomeActivity extends InitActivity implements PositionAddListener
     protected void initData() {
         Hand();
         getData();
+
     }
 
     @Override

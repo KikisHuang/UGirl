@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
-import android.util.Log;
 import android.view.View;
 import android.widget.RelativeLayout;
 
@@ -146,7 +145,6 @@ public class PrivateFragment2 extends BaseFragment implements SpringListener, It
         // 使用不规则的网格布局
         mLayoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);//2列，纵向排列
         recyclerView.setLayoutManager(mLayoutManager);
-        Log.i(TAG, "setAdapter");
 
         if (control) {
             recyclerView.setOnScrollListener(rs);

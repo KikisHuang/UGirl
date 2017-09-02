@@ -1,7 +1,6 @@
 package example.com.fan.utils.pay.ali;
 
 import android.app.Activity;
-import android.content.Context;
 import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
@@ -27,7 +26,6 @@ import example.com.fan.bean.AliPayBean;
  * Created by yy on 2015/7/20.
  */
 public class alipayTool {
-    private Context context;
     private Activity maActivity;
 
     /**

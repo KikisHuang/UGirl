@@ -21,6 +21,7 @@ import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
+import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
@@ -39,6 +40,7 @@ import java.lang.reflect.Method;
 import java.text.DecimalFormat;
 import java.util.List;
 import java.util.Timer;
+import java.util.UUID;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -49,7 +51,9 @@ import example.com.fan.base.sign.save.SPreferences;
 import example.com.fan.view.Popup.LoginPopupWindow;
 import okhttp3.Call;
 
+import static example.com.fan.base.sign.save.SPreferences.getUserUUID;
 import static example.com.fan.base.sign.save.SPreferences.saveLoginWay;
+import static example.com.fan.base.sign.save.SPreferences.saveUserUUID;
 import static example.com.fan.utils.JsonUtils.getCode;
 
 /**
@@ -209,7 +213,7 @@ public class SynUtils {
      *
      * @return
      */
-    public static void getUserVip(final Context context) {
+    public static void getUserVip() {
         if (SPreferences.getUserToken() != null && !SPreferences.getUserToken().isEmpty()) {
 
             OkHttpUtils
@@ -220,7 +224,7 @@ public class SynUtils {
                     .execute(new StringCallback() {
                         @Override
                         public void onError(Call call, Exception e, int id) {
-                            ToastUtil.toast2_bottom(context, "网络不顺畅...");
+
                         }
 
                         @Override
@@ -319,14 +323,38 @@ public class SynUtils {
         try {
             //第二个参数代表额外的信息，例如获取当前应用中的所有的Activity
             PackageInfo packageInfo = manager.getPackageInfo(context.getPackageName(), 0);
-
-            return packageInfo.versionName;
+            String versionName = packageInfo.versionName == null ? "null" : packageInfo.versionName;
+            return versionName;
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
         }
         return "";
     }
+    /**
+     * 获取IMEI
+     *
+     * @return
+     */
+    public static synchronized String getIMEI(Context context) {
+        TelephonyManager TelephonyMgr = (TelephonyManager) context.getSystemService(context.TELEPHONY_SERVICE);
+        String ID = TelephonyMgr.getDeviceId();
+        if (ID == null || ID.isEmpty())
+            ID = getUUID();
+        return ID;
+    }
 
+    /**
+     * 得到全局唯一UUID
+     */
+    public static synchronized String getUUID() {
+        String uuid = getUserUUID();
+        if (uuid == null || uuid.isEmpty()) {
+            uuid = UUID.randomUUID().toString();
+            saveUserUUID(uuid);
+        } else
+            return uuid;
+        return uuid;
+    }
     /**
      * Wifi环境判断
      *

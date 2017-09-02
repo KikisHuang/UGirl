@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/nodata_img"
+    xmlns:ripple="http://schemas.android.com/apk/res/example.com.fan"
     android:orientation="vertical">
 
     <android.support.v7.widget.RecyclerView
@@ -17,7 +18,7 @@
         android:layout_height="match_parent"
         android:divider="@null"></ListView>
 
-    <TextView
+    <example.com.fan.view.RippleView
         android:id="@+id/delete_tv"
         android:layout_width="match_parent"
         android:layout_height="50dp"
@@ -26,10 +27,13 @@
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
         android:layout_marginTop="10dp"
-        android:background="@drawable/person_info_bt_selector"
+        android:background="@drawable/green_bt_normal"
         android:gravity="center"
         android:text="@string/delete"
         android:textColor="@color/white"
-        android:visibility="gone" />
+        android:visibility="gone"
+        ripple:alphaFactor="0.5"
+        ripple:hover="false"
+        ripple:rippleColor="@color/white" />
 
 </FrameLayout>

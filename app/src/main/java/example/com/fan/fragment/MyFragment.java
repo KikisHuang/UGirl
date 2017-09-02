@@ -243,7 +243,7 @@ public class MyFragment extends BaseFragment implements View.OnClickListener, Ch
         /**
          * 更新vip状态;
          */
-        getUserVip(getActivity().getApplicationContext());
+        getUserVip();
     }
 
     public void init() {

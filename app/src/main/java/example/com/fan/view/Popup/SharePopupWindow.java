@@ -67,6 +67,7 @@ public class SharePopupWindow implements ShareListener, View.OnClickListener {
         setQRCode();
         click();
         backgroundAlpha(0.3f, mContext);
+        popupWindow.setAnimationStyle(R.style.AnimationPreview);
         popupWindow.setFocusable(true);
         popupWindow.setOutsideTouchable(true);
         popupWindow.setBackgroundDrawable(new ColorDrawable(0));

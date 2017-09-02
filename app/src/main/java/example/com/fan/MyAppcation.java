@@ -48,8 +48,8 @@ public class MyAppcation extends Application {
         /**
          * 全局异常捕获方法;
          */
-      crashHandler = CrashHandler.getInstance();
-      crashHandler.init(getApplicationContext());
+//      crashHandler = CrashHandler.getInstance();
+//      crashHandler.init(getApplicationContext());
 
         OkHttpInit();
         CHANNEL = AnalyticsConfig.getChannel(getApplicationContext());

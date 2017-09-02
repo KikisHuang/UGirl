@@ -39,6 +39,7 @@ public class CommentEditPopupWindow {
             int width = (int) (DeviceUtils.getWindowWidth(mContext) * 3.4 / 10);
 
             popupWindow = new PopupWindow(contentView, ViewGroup.LayoutParams.MATCH_PARENT, width);
+            popupWindow.setAnimationStyle(R.style.AnimationPreview);
             SendMsg(mContext);
             popupWindow.setFocusable(true);
             popupWindow.setOutsideTouchable(true);

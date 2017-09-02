@@ -10,11 +10,11 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.PopupWindow;
-import android.widget.TextView;
 
 import example.com.fan.R;
 import example.com.fan.mylistener.AddressListener;
 import example.com.fan.utils.DeviceUtils;
+import example.com.fan.view.RippleView;
 
 import static example.com.fan.utils.SynUtils.getTAG;
 
@@ -25,7 +25,7 @@ import static example.com.fan.utils.SynUtils.getTAG;
 public class ChangeAddressPopupWindow {
     private static final String TAG = getTAG(ChangeAddressPopupWindow.class);
     private static EditText address_tv, wx_tv,phone_tv;
-    private static TextView submit_info;
+    private static RippleView submit_info;
     private static PopupWindow popupWindow;
 
     //附近的人地区筛选;
@@ -35,6 +35,7 @@ public class ChangeAddressPopupWindow {
         int h = (int) (DeviceUtils.getWindowHeight(mContext) * 4.5 / 10);
         int w = (int) (DeviceUtils.getWindowWidth(mContext) * 9 / 10);
          popupWindow = new PopupWindow(contentView, w, ViewGroup.LayoutParams.WRAP_CONTENT);
+        popupWindow.setAnimationStyle(R.style.AnimationPreview);
         backgroundAlpha(0.4f, mContext);
         init(contentView);
         setInfo(wx, phone, address);
@@ -78,8 +79,7 @@ public class ChangeAddressPopupWindow {
         address_tv = (EditText) contentView.findViewById(R.id.address_tv);
         wx_tv = (EditText) contentView.findViewById(R.id.wx_tv);
         phone_tv = (EditText) contentView.findViewById(R.id.phone_tv);
-        submit_info = (TextView) contentView.findViewById(R.id.submit_info);
-
+        submit_info = (RippleView) contentView.findViewById(R.id.submit_info);
     }
 
     /**

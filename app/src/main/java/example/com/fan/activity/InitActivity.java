@@ -106,7 +106,7 @@ public abstract class InitActivity extends FragmentActivity implements alipayToo
             if (PayActivity.paylistener != null)
                 PayActivity.paylistener.onPayRefresh();
 
-            getUserVip(getApplicationContext());
+            getUserVip();
         } catch (Exception e) {
             Log.i(TAG, "Error ==== " + e);
         }

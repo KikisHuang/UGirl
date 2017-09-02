@@ -106,7 +106,6 @@ public class PrivatePhotoAdapter extends RecyclerView.Adapter<PrivatePhotoAdapte
         holder.home_layout2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 listener.onItemClickListener(1, mDataset.get(position).getId());
             }
         });
@@ -146,7 +145,6 @@ public class PrivatePhotoAdapter extends RecyclerView.Adapter<PrivatePhotoAdapte
             Log.i(TAG, "Glide You cannot start a load for a destroyed activity");
         }
     }
-
     // Return the size of your dataset (invoked by the layout manager)
     @Override
     public int getItemCount() {

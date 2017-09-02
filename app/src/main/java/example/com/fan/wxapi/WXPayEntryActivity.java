@@ -54,7 +54,7 @@ public class WXPayEntryActivity extends Activity implements IWXAPIEventHandler {
                     if(PayActivity.paylistener!=null)
                         PayActivity.paylistener.onPayRefresh();
 
-                    getUserVip(getApplicationContext());
+                    getUserVip();
                 } catch (Exception e) {
                     Log.i(TAG, "Error ==== " + e);
                 }

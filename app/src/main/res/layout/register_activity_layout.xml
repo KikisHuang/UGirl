@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
+    xmlns:ripple="http://schemas.android.com/apk/res/example.com.fan"
     android:orientation="vertical">
 
     <include layout="@layout/title_layout"></include>
@@ -86,16 +87,19 @@
 
         </LinearLayout>
 
-        <TextView
+        <example.com.fan.view.RippleView
             android:id="@+id/code_tv"
             android:layout_width="90dp"
             android:layout_height="match_parent"
             android:layout_marginLeft="10dp"
-            android:background="@drawable/person_info_bt_selector"
+            android:background="@drawable/green_bt_normal"
             android:gravity="center"
             android:text="获取验证码"
             android:textColor="@color/white"
-            android:textSize="13dp" />
+            android:textSize="13dp"
+            ripple:alphaFactor="0.5"
+            ripple:hover="false"
+            ripple:rippleColor="@color/white" />
 
     </LinearLayout>
 
@@ -124,15 +128,19 @@
 
     </LinearLayout>
 
-    <TextView
+    <example.com.fan.view.RippleView
         android:id="@+id/submit_info"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
         android:layout_marginTop="10dp"
-        android:background="@drawable/person_info_bt_selector"
+        android:background="@drawable/green_bt_normal"
         android:gravity="center"
         android:text="注册"
-        android:textColor="@color/white" />
+        android:textColor="@color/white"
+        ripple:alphaFactor="0.5"
+        ripple:hover="false"
+        ripple:rippleColor="@color/white" />
+
 </LinearLayout>

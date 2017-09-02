@@ -11,7 +11,6 @@ import android.os.Build;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewAnimationUtils;
-import android.view.animation.AccelerateInterpolator;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.view.animation.RotateAnimation;
@@ -118,7 +117,7 @@ public class AnimationUtil {
 
     /**
      * 欢迎界面缩放动画;
-     * 从view中心放大;
+     * 从IMG中心放大;
      *
      * @return
      */
@@ -228,13 +227,13 @@ public class AnimationUtil {
      * @return
      */
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-    public static void cuttoAnima(RelativeLayout layoutView) {
+    public static void cuttoAnima(View layoutView, int x, int y) {
 
-        // 圆形动画的x坐标  位于View的中心
-        int cx = (layoutView.getLeft() + layoutView.getRight()) / 2;
+        // view 的x坐标;
+        int cx = x;
 
-        //圆形动画的y坐标  位于View的中心
-        int cy = (layoutView.getTop() + layoutView.getBottom()) / 2;
+        //view 的y坐标;
+        int cy = y;
 
         //起始大小半径
         float startX = 0f;
@@ -244,8 +243,8 @@ public class AnimationUtil {
         Animator animator = null;
         animator = ViewAnimationUtils.createCircularReveal(layoutView, cx, cy, startX, startY);
         //在动画开始的地方速率改变比较慢,然后开始加速
-        animator.setInterpolator(new AccelerateInterpolator());
-        animator.setDuration(1000);
+//        animator.setInterpolator(new AccelerateInterpolator());
+        animator.setDuration(800);
         animator.start();
 
         animator.addListener(new Animator.AnimatorListener() {

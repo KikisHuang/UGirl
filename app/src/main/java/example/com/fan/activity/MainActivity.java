@@ -203,7 +203,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
                 main_rl.post(new Runnable() {
                     @Override
                     public void run() {
-                        AnimationUtil.cuttoAnima(main_rl);
+                        AnimationUtil.cuttoAnima(main_rl,(main_rl.getLeft() + main_rl.getRight()) / 2,(main_rl.getTop() + main_rl.getBottom()) / 2);
                     }
                 });
             } else {
@@ -307,7 +307,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
     @Override
     public void initData() {
         getUserInfo();
-        getUserVip(getApplicationContext());
+        getUserVip();
         checkNotify();
         JobServerInit();
         initFragment();

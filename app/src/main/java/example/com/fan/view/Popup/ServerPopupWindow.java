@@ -45,6 +45,8 @@ public class ServerPopupWindow implements VersionCheckListener {
         View contentView = LayoutInflater.from(mContext).inflate(R.layout.server_popu_layout, null);
         int h = (int) (DeviceUtils.getWindowHeight(mContext) * 4.7 / 10);
         popupWindow = new PopupWindow(contentView, ViewGroup.LayoutParams.MATCH_PARENT, h);
+        popupWindow.setAnimationStyle(R.style.ActionSheetDialogAnimation);
+
         getVersionInfo(mContext.getApplicationContext(), this);
         init(contentView);
         backgroundAlpha(0.7f, mContext);

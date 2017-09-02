@@ -9,7 +9,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 
@@ -23,6 +22,7 @@ import example.com.fan.fragment.son.MyCollectFragment;
 import example.com.fan.mylistener.DeleteListener;
 import example.com.fan.mylistener.ItemClickListener;
 import example.com.fan.utils.DeviceUtils;
+import example.com.fan.view.RippleView;
 
 import static example.com.fan.utils.SynUtils.getTAG;
 
@@ -40,7 +40,7 @@ public class MyCollectAdapter extends RecyclerView.Adapter<MyCollectAdapter.View
     //记录recycler的状态;
     private List<Boolean> state;
     private DeleteListener deleteListener;
-    private TextView delete_tv;
+    private RippleView delete_tv;
     private MyCollectFragment f;
 
     // Provide a reference to the views for each data item
@@ -70,7 +70,7 @@ public class MyCollectAdapter extends RecyclerView.Adapter<MyCollectAdapter.View
     }
 
     // Provide a suitable constructor (depends on the kind of dataset)
-    public MyCollectAdapter(Context context, List<MyCollectBean> myDataset, ItemClickListener listener, TextView delete_tv, DeleteListener deleteListener, MyCollectFragment f) {
+    public MyCollectAdapter(Context context, List<MyCollectBean> myDataset, ItemClickListener listener, RippleView delete_tv, DeleteListener deleteListener, MyCollectFragment f) {
         this.context = context.getApplicationContext();
         this.mDataset = myDataset;
         this.listener = listener;

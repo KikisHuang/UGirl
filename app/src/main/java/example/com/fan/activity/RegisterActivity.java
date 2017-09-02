@@ -6,7 +6,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
@@ -20,6 +19,7 @@ import example.com.fan.fragment.MyFragment;
 import example.com.fan.mylistener.EditChangedListener;
 import example.com.fan.utils.MzFinal;
 import example.com.fan.utils.ToastUtil;
+import example.com.fan.view.RippleView;
 import okhttp3.Call;
 
 import static com.tencent.open.utils.Util.isNumeric;
@@ -37,7 +37,7 @@ public class RegisterActivity extends InitActivity implements View.OnClickListen
     private static final String TAG = getTAG(RegisterActivity.class);
     private EditText photo_ed, code_ed;
     private ImageView clear_img, check_img;
-    private TextView code_tv, submit_info;
+    private RippleView submit_info,code_tv;
     private boolean check = true;
     private int page = 60;
     private Handler handler;
@@ -57,7 +57,7 @@ public class RegisterActivity extends InitActivity implements View.OnClickListen
                         if (page <= 0) {
                             sflag = false;
                             code_tv.setEnabled(true);
-                            code_tv.setBackgroundDrawable(getResources().getDrawable(R.drawable.person_info_bt_selector));
+                            code_tv.setBackgroundDrawable(getResources().getDrawable(R.drawable.green_bt_normal));
                             code_tv.setText("获取验证码");
                             page = 60;
                         } else {

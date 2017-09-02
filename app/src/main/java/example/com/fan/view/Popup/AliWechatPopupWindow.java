@@ -41,7 +41,7 @@ public class AliWechatPopupWindow implements View.OnClickListener {
             // 一个自定义的布局，作为显示的内容
             view = LayoutInflater.from(context).inflate(R.layout.aliwechat_popu_layout, null);
             popupWindow = new PopupWindow(view, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-
+            popupWindow.setAnimationStyle(R.style.AnimationPreview);
             init();
             click();
             backgroundAlpha(0.4f, context);

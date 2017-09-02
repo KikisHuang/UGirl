@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@drawable/white_corners"
+    xmlns:ripple="http://schemas.android.com/apk/res/example.com.fan"
     android:orientation="vertical">
 
     <TextView
@@ -100,16 +101,18 @@
             android:textSize="13dp" />
 
     </LinearLayout>
-
-    <TextView
+    <example.com.fan.view.RippleView
         android:id="@+id/submit_info"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_marginBottom="20dp"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
-        android:background="@drawable/person_info_bt_selector"
+        android:background="@drawable/green_bt_normal"
         android:gravity="center"
         android:text="完成"
-        android:textColor="@color/white" />
+        android:textColor="@color/white"
+        ripple:alphaFactor="0.5"
+        ripple:hover="false"
+        ripple:rippleColor="@color/white" />
 </LinearLayout>

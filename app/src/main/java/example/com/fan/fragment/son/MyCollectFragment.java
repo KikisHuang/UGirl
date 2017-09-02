@@ -6,7 +6,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.zhy.http.okhttp.OkHttpUtils;
@@ -29,6 +28,7 @@ import example.com.fan.mylistener.DeleteListener;
 import example.com.fan.mylistener.ItemClickListener;
 import example.com.fan.utils.MzFinal;
 import example.com.fan.utils.ToastUtil;
+import example.com.fan.view.RippleView;
 import example.com.fan.view.dialog.AlertDialog;
 import okhttp3.Call;
 
@@ -51,7 +51,7 @@ public class MyCollectFragment extends BaseFragment implements ItemClickListener
     private StaggeredGridLayoutManager mLayoutManager;
     private ItemClickListener listener;
     private ListView listView;
-    public TextView delete_tv;
+    public RippleView delete_tv;
     private FrameLayout no_data;
     private int tag;
     private DeleteListener deleteListener;
@@ -264,15 +264,16 @@ public class MyCollectFragment extends BaseFragment implements ItemClickListener
     protected void click() {
 
     }
+
     @Override
-    protected  void init() {
+    protected void init() {
         fragment = this;
         deleteListener = this;
         listener = this;
         recyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
         listView = (ListView) view.findViewById(R.id.listView);
         no_data = (FrameLayout) view.findViewById(R.id.no_data);
-        delete_tv = (TextView) view.findViewById(R.id.delete_tv);
+        delete_tv = (RippleView) view.findViewById(R.id.delete_tv);
         rlist = new ArrayList<>();
 
         recyclerView.setHasFixedSize(true);
@@ -361,7 +362,7 @@ public class MyCollectFragment extends BaseFragment implements ItemClickListener
 
                                         break;
                                     case "0":
-                                        if (tag == 1){
+                                        if (tag == 1) {
                                             for (int j = 0; j < rlist.size(); j++) {
                                                 if (rlist.get(j).getMcPublishRecord().equals(id))
                                                     rlist.remove(j);
@@ -370,7 +371,7 @@ public class MyCollectFragment extends BaseFragment implements ItemClickListener
                                             MyCollectActivity.slistener.onSelect();
 //                                            adapter.notifyDataSetChanged();
                                         }
-                                        if (tag == 2){
+                                        if (tag == 2) {
                                             for (int j = 0; j < rlist.size(); j++) {
                                                 if (rlist.get(j).getid().equals(id))
                                                     rlist.remove(j);
@@ -434,5 +435,5 @@ public class MyCollectFragment extends BaseFragment implements ItemClickListener
                         }
                     }
                 });
-        }
+    }
 }

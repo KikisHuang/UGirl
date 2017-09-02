@@ -27,6 +27,7 @@ import example.com.fan.mylistener.onPhotoCutListener;
 import example.com.fan.utils.JsonUtils;
 import example.com.fan.utils.MzFinal;
 import example.com.fan.utils.ToastUtil;
+import example.com.fan.view.RippleView;
 import example.com.fan.view.dialog.ActionSheetDialog;
 import jp.wasabeef.glide.transformations.CropCircleTransformation;
 import okhttp3.Call;
@@ -51,7 +52,8 @@ public class PersonalInfoActivity extends InitActivity implements View.OnClickLi
     private static final String TAG = getTAG(PersonalInfoActivity.class);
     private EditText info_name, phone_tv, wx_tv, invite_tv;
     private ImageView clear_img, sex_icon, user_icon;
-    private TextView info_sex, address_tv, submit_info;
+    private TextView info_sex, address_tv;
+    private RippleView submit_info;
     public static onPhotoCutListener listener;
     private String receiveSex, receiveName, receiveAdd, addressPhone, wechat;
     private LinearLayout invite_ll;

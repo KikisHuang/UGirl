@@ -50,6 +50,7 @@ public class PayPopupWindow {
         this.tag = tag;
         init();
         click();
+        popupWindow.setAnimationStyle(R.style.AnimationPreview);
         popupWindow.setFocusable(true);
         popupWindow.setOutsideTouchable(true);
         // 如果不设置PopupWindow的背景，无论是点击外部区域还是Back键都无法dismiss弹框

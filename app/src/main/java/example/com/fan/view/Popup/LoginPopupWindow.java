@@ -84,6 +84,7 @@ public class LoginPopupWindow implements View.OnClickListener, AccreditListener 
             int width = DeviceUtils.getWindowWidth(context) * 8 / 10;
             int h = (int) (DeviceUtils.getWindowHeight(context) * 8.5 / 10);
             popupWindow = new PopupWindow(contentView, width, h);
+            popupWindow.setAnimationStyle(R.style.AnimationPreview);
             init(contentView);
             click();
             hand();

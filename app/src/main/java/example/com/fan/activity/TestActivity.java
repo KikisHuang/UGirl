@@ -1,14 +1,10 @@
 package example.com.fan.activity;
 
 import android.view.View;
-import android.widget.Button;
-
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.HashMap;
-import java.util.Map;
+import android.widget.FrameLayout;
 
 import example.com.fan.R;
+import example.com.fan.view.RippleView;
 
 import static example.com.fan.utils.SynUtils.getTAG;
 
@@ -18,14 +14,8 @@ import static example.com.fan.utils.SynUtils.getTAG;
  */
 public class TestActivity extends InitActivity implements View.OnClickListener {
     private static final String TAG = getTAG(TestActivity.class);
-    private Button button;
-    //用来存储设备信息和异常信息
-    private Map<String, String> infos = new HashMap<String, String>();
-    String path = "";
-    String fname = "U_Error";
-
-    //用于格式化日期,作为日志文件名的一部分
-    private DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss");
+    private FrameLayout frament_ll;
+    private RippleView button;
 
     @Override
     protected void click() {
@@ -36,7 +26,7 @@ public class TestActivity extends InitActivity implements View.OnClickListener {
     protected void init() {
         setContentView(R.layout.test_layout);
         button = f(R.id.button);
-
+        frament_ll = f(R.id.fragment_ll);
     }
 
     @Override
