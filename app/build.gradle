@@ -271,7 +271,8 @@ dependencies {
     compile 'com.android.support:appcompat-v7:24.2.0'
     compile 'com.davemorrissey.labs:subsampling-scale-image-view:3.5.0'
     compile project(':umenglibrarys')
-    compile project(':jcvideoplayer')
+//    compile project(':jcvideoplayer')
+    compile 'fm.jiecao:jiecaovideoplayer:5.8.1'
     //    compile files('libs/utovr_player_1.0.5513.jar')
     compile 'com.zhy:okhttputils:2.6.2'
     compile 'com.balysv.materialmenu:material-menu:2.0.0'

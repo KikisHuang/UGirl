@@ -55,6 +55,9 @@ public class OutSideActivity extends InitActivity {
         webView = f(R.id.webView);
         statement_tv = f(R.id.statement_tv);
         statement_scroll = f(R.id.statement_scroll);
+//        if (Build.VERSION.SDK_INT >= 19) // KITKAT
+//            webView.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
+
     }
 
     @Override

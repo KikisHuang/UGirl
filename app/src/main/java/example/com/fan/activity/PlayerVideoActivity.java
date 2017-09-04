@@ -131,7 +131,7 @@ public class PlayerVideoActivity extends AppCompatActivity implements View.OnCli
         video_icon = (ImageView) top.findViewById(R.id.video_icon);
 
         attention_tv = (TextView) top.findViewById(R.id.attention_tv);
-//        this.getSupportActionBar().hide();
+
     }
 
     private void receive() {
@@ -241,7 +241,7 @@ public class PlayerVideoActivity extends AppCompatActivity implements View.OnCli
                                     } else {
                                         //设置标题;
                                         mJcVideoPlayerStandard.setUp(vb.getMcPublishVideoUrls().get(0).getPath()
-                                                , JCVideoPlayerStandard.SCREEN_LAYOUT_NORMAL, vb.getName());
+                                                , JCVideoPlayerStandard.SCREEN_LAYOUT_NORMAL, "");
                                         Path = vb.getMcPublishVideoUrls().get(0).getPath();
                                     }
 
@@ -341,7 +341,7 @@ public class PlayerVideoActivity extends AppCompatActivity implements View.OnCli
                                 Path = getJsonSring(response);
                                 //设置标题;
                                 mJcVideoPlayerStandard.setUp(getJsonSring(response)
-                                        , JCVideoPlayerStandard.SCREEN_LAYOUT_NORMAL, vb.getName());
+                                        , JCVideoPlayerStandard.SCREEN_LAYOUT_NORMAL, "");
                             } else
                                 ToastUtil.ToastErrorMsg(PlayerVideoActivity.this, response, code);
                         } catch (Exception e) {

@@ -1,3 +1,2 @@
-include ':app', ':umenglibrarys', ':jcvideoplayer'
+include ':app', ':umenglibrarys'
 project(':umenglibrarys').projectDir = new File('umenglibrary')
-project(':jcvideoplayer').projectDir = new File('jcvideoplayer-lib')
