@@ -38,6 +38,7 @@ import static example.com.fan.utils.JsonUtils.getCode;
 import static example.com.fan.utils.JsonUtils.getJsonAr;
 import static example.com.fan.utils.JsonUtils.getKeyMap;
 import static example.com.fan.utils.ShareUtils.ShareApp;
+import static example.com.fan.utils.SynUtils.Finish;
 import static example.com.fan.utils.SynUtils.Login;
 import static example.com.fan.utils.SynUtils.LoginStatusQuery;
 import static example.com.fan.utils.SynUtils.getTAG;
@@ -157,7 +158,7 @@ public class NewestActivity extends BaseActivity implements ItemClickListener, S
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
-        finish();
+        Finish(this);
         return false;
     }
 

@@ -263,6 +263,7 @@ public class WelcomeActivity extends InitActivity implements PositionAddListener
 
     }
 
+
     @Override
     protected void onDestroy() {
         super.onDestroy();
@@ -295,5 +296,4 @@ public class WelcomeActivity extends InitActivity implements PositionAddListener
 
         finish();
     }
-
 }

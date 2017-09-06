@@ -17,6 +17,7 @@ import example.com.fan.fragment.son.PictureSlideFragment;
 import example.com.fan.utils.MzFinal;
 import example.com.fan.utils.ToastUtil;
 
+import static example.com.fan.utils.SynUtils.Finish;
 import static example.com.fan.utils.SynUtils.getTAG;
 import static example.com.fan.utils.SynUtils.getUserVip;
 
@@ -66,7 +67,7 @@ public class WXPayEntryActivity extends Activity implements IWXAPIEventHandler {
                 ToastUtil.toast2_bottom(this, "支付失败!");
                 break;
         }
-        finish();
+        Finish(WXPayEntryActivity.this);
     }
 
     @Override

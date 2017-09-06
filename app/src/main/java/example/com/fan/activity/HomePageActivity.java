@@ -42,6 +42,7 @@ import static example.com.fan.utils.JsonUtils.getJsonAr;
 import static example.com.fan.utils.JsonUtils.getJsonInt;
 import static example.com.fan.utils.JsonUtils.getJsonOb;
 import static example.com.fan.utils.ShareUtils.ShareApp;
+import static example.com.fan.utils.SynUtils.Finish;
 import static example.com.fan.utils.SynUtils.Login;
 import static example.com.fan.utils.SynUtils.LoginStatusQuery;
 import static example.com.fan.utils.SynUtils.getRouColors;
@@ -73,7 +74,7 @@ public class HomePageActivity extends BaseActivity implements ItemClickListener,
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
-        finish();
+        Finish(HomePageActivity.this);
         return false;
     }
 
@@ -229,7 +230,7 @@ public class HomePageActivity extends BaseActivity implements ItemClickListener,
             Log.i(TAG, "user_id =====" + user_id);
         } catch (Exception e) {
             Log.i(TAG, "Error =====" + e);
-            finish();
+            Finish(HomePageActivity.this);
         }
         listener = this;
         slistener = this;
@@ -266,7 +267,7 @@ public class HomePageActivity extends BaseActivity implements ItemClickListener,
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.home_page_finish:
-                finish();
+                Finish(this);
                 break;
             case R.id.attention_tv:
                 if (LoginStatusQuery()) {

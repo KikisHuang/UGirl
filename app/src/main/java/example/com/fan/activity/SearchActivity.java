@@ -36,6 +36,7 @@ import static example.com.fan.utils.IntentUtils.goPhotoPage;
 import static example.com.fan.utils.IntentUtils.goPlayerPage;
 import static example.com.fan.utils.JsonUtils.getCode;
 import static example.com.fan.utils.JsonUtils.getJsonAr;
+import static example.com.fan.utils.SynUtils.Finish;
 import static example.com.fan.utils.SynUtils.getTAG;
 
 /**
@@ -184,7 +185,7 @@ public class SearchActivity extends InitActivity implements View.OnClickListener
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.cancel_tv:
-                finish();
+                Finish(SearchActivity.this);
                 break;
             case R.id.search_img:
                 if (search_edit.getText().toString().trim().length() > 0)

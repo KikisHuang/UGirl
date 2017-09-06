@@ -23,6 +23,7 @@ import example.com.fan.utils.photo.AppSDUtil;
 import example.com.fan.utils.photo.CutUtil;
 
 import static android.support.v4.content.FileProvider.getUriForFile;
+import static example.com.fan.utils.SynUtils.Finish;
 import static example.com.fan.utils.SynUtils.getTAG;
 import static example.com.fan.utils.photo.KitKatPhoto.getPath;
 import static example.com.fan.utils.photo.KitKatPhoto.selectImage;
@@ -81,7 +82,7 @@ public class UploadPhotoActivity extends Activity implements CutPhotoListener, D
             }
         } catch (Exception e) {
             Log.i(TAG, "ERROR ========" + e);
-            finish();
+            Finish(UploadPhotoActivity.this);
         }
     }
 
@@ -93,7 +94,7 @@ public class UploadPhotoActivity extends Activity implements CutPhotoListener, D
         } catch (IllegalAccessException e) {
             Toast.makeText(this, "获取SD卡不成功", Toast.LENGTH_SHORT)
                     .show();
-            finish();
+            Finish(UploadPhotoActivity.this);
             return;
         }
 
@@ -183,9 +184,9 @@ public class UploadPhotoActivity extends Activity implements CutPhotoListener, D
                     break;
             }
 
-        } else {
-            finish();
-        }
+        } else
+            Finish(UploadPhotoActivity.this);
+
     }
 
     private void doAfterGetBitPath(String pathstr) {
@@ -207,17 +208,17 @@ public class UploadPhotoActivity extends Activity implements CutPhotoListener, D
         setResult(1012);
         if (PersonalInfoActivity.listener != null)
             PersonalInfoActivity.listener.PhotoLBitmapistener(url, bitmap);
-        finish();
+        Finish(UploadPhotoActivity.this);
     }
 
     @Override
     public void onFail() {
         ToastUtil.toast2_bottom(UploadPhotoActivity.this, "保存图片失败...");
-        finish();
+        Finish(UploadPhotoActivity.this);
     }
 
     @Override
     public void onMyDestroy(int position) {
-        finish();
+        Finish(UploadPhotoActivity.this);
     }
 }

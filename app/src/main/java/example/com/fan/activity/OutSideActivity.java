@@ -13,6 +13,7 @@ import example.com.fan.R;
 import example.com.fan.utils.ToastUtil;
 import example.com.fan.view.OutSideWebViewClient;
 
+import static example.com.fan.utils.SynUtils.Finish;
 import static example.com.fan.utils.SynUtils.getRouString;
 import static example.com.fan.utils.TitleUtils.setTitles;
 import static example.com.fan.view.dialog.CustomProgress.Cancle;
@@ -33,10 +34,10 @@ public class OutSideActivity extends InitActivity {
     }
 
     private void webinit() {
-
         webView.setInitialScale(50);//这里一定要设置，数值可以根据各人的需求而定，我这里设置的是50%的缩放
 
         WebSettings webSettings = webView.getSettings();
+
         webSettings.setJavaScriptEnabled(true);
         webSettings.setJavaScriptCanOpenWindowsAutomatically(true);
         webSettings.setDomStorageEnabled(true);
@@ -67,7 +68,8 @@ public class OutSideActivity extends InitActivity {
 
     private void receiver() {
         try {
-            url = getIntent().getStringExtra("outside_url");
+//            url = getIntent().getStringExtra("outside_url");
+            url = "http://news.online.sh.cn/news/gb/content/2017-09/05/content_8603221.htm";
             if (url.isEmpty()) {
                 webView.setVisibility(View.GONE);
                 statement_scroll.setVisibility(View.VISIBLE);
@@ -77,6 +79,7 @@ public class OutSideActivity extends InitActivity {
                 synCookies(this, url);
                 Show(this, "加载中", true, null);
                 webView.loadUrl(url);
+
                 webView.setVisibility(View.VISIBLE);
                 //覆盖WebView默认使用第三方或系统默认浏览器打开网页的行为，使网页用WebView打开
                 webView.setWebViewClient(new OutSideWebViewClient());
@@ -86,7 +89,7 @@ public class OutSideActivity extends InitActivity {
         } catch (Exception e) {
             ToastUtil.toast2_bottom(OutSideActivity.this, "非常抱歉,该页面发生了异常!");
             Cancle();
-            finish();
+            Finish(this);
         }
     }
 

@@ -1,7 +1,6 @@
 package example.com.fan.fragment;
 
 import android.Manifest;
-import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -35,8 +34,6 @@ import java.util.Random;
 
 import example.com.fan.MyAppcation;
 import example.com.fan.R;
-import example.com.fan.activity.RankingActivity;
-import example.com.fan.activity.SearchActivity;
 import example.com.fan.adapter.BottomGridAdapter;
 import example.com.fan.adapter.MyPagerButtomAdapter;
 import example.com.fan.adapter.PageTopBannerAdapter;
@@ -74,6 +71,8 @@ import static example.com.fan.base.sign.save.SPreferences.getInViCode;
 import static example.com.fan.base.sign.save.SPreferences.saveInViCode;
 import static example.com.fan.utils.DeviceUtils.getWindowWidth;
 import static example.com.fan.utils.IntentUtils.goHomePage;
+import static example.com.fan.utils.IntentUtils.goRankingPage;
+import static example.com.fan.utils.IntentUtils.goSearchPage;
 import static example.com.fan.utils.JsonUtils.getCode;
 import static example.com.fan.utils.JsonUtils.getJsonAr;
 import static example.com.fan.utils.JsonUtils.getJsonOb;
@@ -675,30 +674,23 @@ public class PageFragment extends BaseFragment implements View.OnClickListener, 
         if (LoginStatusQuery()) {
             switch (v.getId()) {
                 case R.id.ranking_img0:
-                    skipRanking(String.valueOf(2));
+                    goRankingPage(getActivity(),String.valueOf(2));
                     break;
                 case R.id.ranking_img1:
-                    skipRanking(String.valueOf(3));
+                    goRankingPage(getActivity(),String.valueOf(3));
                     break;
                 case R.id.ranking_img2:
-                    skipRanking(String.valueOf(4));
+                    goRankingPage(getActivity(),String.valueOf(4));
                     break;
                 case R.id.ranking_more:
-                    skipRanking(String.valueOf(0));
+                    goRankingPage(getActivity(),String.valueOf(0));
                     break;
                 case R.id.search_rl:
-                    Intent intent = new Intent(getActivity(), SearchActivity.class);
-                    startActivity(intent);
+                    goSearchPage(getActivity());
                     break;
             }
         } else
             Login(getActivity());
-    }
-
-    private void skipRanking(String tag) {
-        Intent intent = new Intent(getActivity(), RankingActivity.class);
-        intent.putExtra("Rangking_Tag", tag);
-        startActivity(intent);
     }
 
     @Override

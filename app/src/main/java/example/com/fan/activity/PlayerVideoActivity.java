@@ -53,6 +53,7 @@ import static example.com.fan.utils.JsonUtils.getJsonInt;
 import static example.com.fan.utils.JsonUtils.getJsonOb;
 import static example.com.fan.utils.JsonUtils.getJsonSring;
 import static example.com.fan.utils.JsonUtils.getKeyMap;
+import static example.com.fan.utils.SynUtils.Finish;
 import static example.com.fan.utils.SynUtils.KswitchWay;
 import static example.com.fan.utils.SynUtils.ParseK;
 import static example.com.fan.utils.SynUtils.getRouColors;
@@ -226,14 +227,14 @@ public class PlayerVideoActivity extends AppCompatActivity implements View.OnCli
                                             new AlertDialog(PlayerVideoActivity.this).builder().setTitle("提示").setCancelable(false).setMsg("成为会员才能看哦，更多精彩细节等着你!\n\n").setNegativeButton("下次再说", new View.OnClickListener() {
                                                 @Override
                                                 public void onClick(View v) {
-                                                    finish();
+                                                    Finish(PlayerVideoActivity.this);
                                                 }
                                             }).setPositiveButton("成为会员", new View.OnClickListener() {
                                                 @Override
                                                 public void onClick(View v) {
 
                                                     goPayPage(PlayerVideoActivity.this);
-                                                    finish();
+                                                    Finish(PlayerVideoActivity.this);
                                                 }
                                             }).show();
                                         }
@@ -255,7 +256,7 @@ public class PlayerVideoActivity extends AppCompatActivity implements View.OnCli
                                     }
                                 } else {
                                     ToastUtil.toast2_bottom(PlayerVideoActivity.this, "异常，没有获取到视频地址！");
-                                    finish();
+                                    Finish(PlayerVideoActivity.this);
                                 }
 
                                 if (listView.getHeaderViewsCount() == 0)
@@ -442,7 +443,7 @@ public class PlayerVideoActivity extends AppCompatActivity implements View.OnCli
                 Admire();
                 break;
             case R.id.activity_imgBack:
-                finish();
+                Finish(PlayerVideoActivity.this);
                 break;
             case R.id.attention_tv:
                 if (!Path.isEmpty() && !userId.isEmpty())

@@ -38,6 +38,7 @@ import static example.com.fan.utils.IntentUtils.goUploadPhotoPage;
 import static example.com.fan.utils.JsonUtils.NullDispose;
 import static example.com.fan.utils.JsonUtils.getCode;
 import static example.com.fan.utils.JsonUtils.getJsonOb;
+import static example.com.fan.utils.SynUtils.Finish;
 import static example.com.fan.utils.SynUtils.getRouString;
 import static example.com.fan.utils.SynUtils.getSex;
 import static example.com.fan.utils.SynUtils.getTAG;
@@ -217,7 +218,7 @@ public class PersonalInfoActivity extends InitActivity implements View.OnClickLi
                     submitInVite();
 
                 if (add.equals(receiveAdd) && name.equals(receiveName) && sex.equals(receiveSex) && addphone.equals(addressPhone) && wx.equals(wechat)) {
-                    finish();
+                    Finish(this);
                     Log.i(TAG, "没有任何修改");
                 } else
                     ChangeUserInfo(add, sex, name, addphone, wx);
@@ -325,7 +326,7 @@ public class PersonalInfoActivity extends InitActivity implements View.OnClickLi
                                 ToastUtil.toast2_bottom(PersonalInfoActivity.this, "修改成功!");
                                 if (MyFragment.fragment != null)
                                     MyFragment.fragment.onUpDataUserInfo();
-                                finish();
+                                Finish(PersonalInfoActivity.this);
                             } else
                                 ToastUtil.ToastErrorMsg(PersonalInfoActivity.this, response, code);
                         } catch (Exception e) {

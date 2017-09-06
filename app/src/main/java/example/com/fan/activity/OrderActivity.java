@@ -30,6 +30,7 @@ import static example.com.fan.utils.JsonUtils.NullDispose;
 import static example.com.fan.utils.JsonUtils.getCode;
 import static example.com.fan.utils.JsonUtils.getJsonOb;
 import static example.com.fan.utils.PayUtils.PayNow;
+import static example.com.fan.utils.SynUtils.Finish;
 import static example.com.fan.utils.SynUtils.getRouString;
 import static example.com.fan.utils.SynUtils.getTAG;
 import static example.com.fan.utils.TitleUtils.setTitles;
@@ -281,7 +282,7 @@ public class OrderActivity extends InitActivity implements View.OnClickListener,
                     }
                 } else {
                     ToastUtil.toast2_bottom(OrderActivity.this, "没有获取到支付方式...");
-                    finish();
+                    Finish(this);
                 }
 
                 break;

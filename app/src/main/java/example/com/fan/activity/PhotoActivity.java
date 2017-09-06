@@ -6,7 +6,6 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
@@ -57,6 +56,7 @@ import static example.com.fan.utils.JsonUtils.getJsonAr;
 import static example.com.fan.utils.JsonUtils.getJsonOb;
 import static example.com.fan.utils.JsonUtils.getJsonSring;
 import static example.com.fan.utils.ShareUtils.ShareApp;
+import static example.com.fan.utils.SynUtils.Finish;
 import static example.com.fan.utils.SynUtils.KswitchWay;
 import static example.com.fan.utils.SynUtils.ParseK;
 import static example.com.fan.utils.SynUtils.getTAG;
@@ -344,7 +344,6 @@ public class PhotoActivity extends InitActivity implements View.OnClickListener,
             viewPager.setScrollble(true, clistener);
         viewPager.setCurrentItem(oldposition);
     }
-
     @Override
     protected void init() {
         setContentView(R.layout.photo_activity_layout);
@@ -412,11 +411,11 @@ public class PhotoActivity extends InitActivity implements View.OnClickListener,
             if (!id.isEmpty())
                 getData(id);
             else
-                finish();
+                Finish(this);
 
         } catch (Exception e) {
             Log.i(TAG, "Error" + e);
-            finish();
+            Finish(this);
         }
     }
 
@@ -467,7 +466,7 @@ public class PhotoActivity extends InitActivity implements View.OnClickListener,
 
                             } else {
                                 ToastUtil.ToastErrorMsg(PhotoActivity.this, response, code);
-                                finish();
+                                Finish(PhotoActivity.this);
                             }
 
                         } catch (Exception e) {
@@ -495,7 +494,7 @@ public class PhotoActivity extends InitActivity implements View.OnClickListener,
             case R.id.title_right_icon:
                 if (!urlList.get(0).getJoinUser().getId().isEmpty()) {
                     goHomePage(this, urlList.get(0).getJoinUser().getId());
-                    finish();
+                    Finish(PhotoActivity.this);
                 }
                 break;
             case R.id.comment_fl:
@@ -512,7 +511,7 @@ public class PhotoActivity extends InitActivity implements View.OnClickListener,
 
             case R.id.rt_tv:
                 if (commentFragment == null) {
-                    finish();
+                    Finish(PhotoActivity.this);
                 } else {
                     fragment_ll.removeAllViews();
                     commentFragment = null;
@@ -625,20 +624,6 @@ public class PhotoActivity extends InitActivity implements View.OnClickListener,
                         }
                     }
                 });
-    }
-
-    @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-
-        if (commentFragment == null)
-            finish();
-        else {
-            fragment_ll.removeAllViews();
-            Log.i(TAG, "hide fragment");
-            commentFragment = null;
-        }
-        return false;
-
     }
 
     @Override

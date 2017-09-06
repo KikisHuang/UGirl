@@ -244,7 +244,7 @@ public class AnimationUtil {
         animator = ViewAnimationUtils.createCircularReveal(layoutView, cx, cy, startX, startY);
         //在动画开始的地方速率改变比较慢,然后开始加速
 //        animator.setInterpolator(new AccelerateInterpolator());
-        animator.setDuration(800);
+        animator.setDuration(5000);
         animator.start();
 
         animator.addListener(new Animator.AnimatorListener() {

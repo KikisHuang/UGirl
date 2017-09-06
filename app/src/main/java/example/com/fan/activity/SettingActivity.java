@@ -26,6 +26,7 @@ import static example.com.fan.utils.IntentUtils.goHelpPage;
 import static example.com.fan.utils.IntentUtils.goOutsidePage;
 import static example.com.fan.utils.JsonUtils.getCode;
 import static example.com.fan.utils.JsonUtils.getJsonSring;
+import static example.com.fan.utils.SynUtils.Finish;
 import static example.com.fan.utils.SynUtils.getRouString;
 import static example.com.fan.utils.SynUtils.getTAG;
 import static example.com.fan.utils.SynUtils.getVersionCode;
@@ -44,7 +45,7 @@ public class SettingActivity extends InitActivity implements View.OnClickListene
 
 
     @Override
-    protected  void click() {
+    protected void click() {
         logout.setOnClickListener(this);
         clear_cache.setOnClickListener(this);
         help.setOnClickListener(this);
@@ -54,7 +55,7 @@ public class SettingActivity extends InitActivity implements View.OnClickListene
     }
 
     @Override
-    protected  void init() {
+    protected void init() {
         setContentView(R.layout.setting_activity_layout);
         setTitles(this, getRouString(R.string.system_setting));
         logout = f(R.id.logout);
@@ -85,13 +86,18 @@ public class SettingActivity extends InitActivity implements View.OnClickListene
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.logout:
-                SPreferences.saveUserToken("");
-                if (MyFragment.fragment != null)
-                    MyFragment.fragment.onUpDataUserInfo();
-                ToastUtil.toast2_bottom(this, "成功清除登录信息....");
-                finish();
+                if (SynUtils.LoginStatusQuery()) {
+                    SPreferences.saveUserToken("");
+                    if (MyFragment.fragment != null)
+                        MyFragment.fragment.onUpDataUserInfo();
+                    ToastUtil.toast2_bottom(this, "成功清除登录信息....");
+                    Finish(SettingActivity.this);
+                } else
+                    ToastUtil.toast2_bottom(this, "您未登录!");
                 break;
             case R.id.clear_cache:
+
+
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
@@ -99,6 +105,7 @@ public class SettingActivity extends InitActivity implements View.OnClickListene
                     }
                 }).start();
                 ToastUtil.toast2_bottom(this, "成功清除缓存....");
+
                 break;
             case R.id.help:
                 goHelpPage(this);
@@ -137,6 +144,7 @@ public class SettingActivity extends InitActivity implements View.OnClickListene
                         public void onError(Call call, Exception e, int id) {
                             ToastUtil.toast2_bottom(SettingActivity.this, "网络不顺畅...");
                         }
+
                         @Override
                         public void onResponse(String response, int id) {
                             try {

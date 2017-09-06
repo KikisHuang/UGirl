@@ -26,6 +26,7 @@ import static com.tencent.open.utils.Util.isNumeric;
 import static example.com.fan.base.sign.save.SPreferences.saveInViCode;
 import static example.com.fan.base.sign.save.SPreferences.saveLoginWay;
 import static example.com.fan.utils.JsonUtils.getCode;
+import static example.com.fan.utils.SynUtils.Finish;
 import static example.com.fan.utils.SynUtils.getRouString;
 import static example.com.fan.utils.SynUtils.getTAG;
 import static example.com.fan.utils.TitleUtils.setTitles;
@@ -218,7 +219,7 @@ public class RegisterActivity extends InitActivity implements View.OnClickListen
                                     MyFragment.fragment.onUpDataUserInfo();
                                 saveInViCode(true);
                                 saveLoginWay(getRouString(R.string.phone_login));
-                                finish();
+                                Finish(RegisterActivity.this);
                             } else
                                 ToastUtil.ToastErrorMsg(RegisterActivity.this, response, code);
                         } catch (Exception e) {

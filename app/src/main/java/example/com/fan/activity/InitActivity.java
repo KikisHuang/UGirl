@@ -1,12 +1,18 @@
 package example.com.fan.activity;
 
+import android.annotation.TargetApi;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.transition.Transition;
+import android.transition.TransitionInflater;
 import android.util.Log;
+import android.view.Window;
 
 import com.umeng.analytics.MobclickAgent;
 
 import example.com.fan.MyAppcation;
+import example.com.fan.R;
 import example.com.fan.base.sign.save.SPreferences;
 import example.com.fan.fragment.son.PictureSlideFragment;
 import example.com.fan.utils.GlideCacheUtil;
@@ -28,10 +34,22 @@ public abstract class InitActivity extends FragmentActivity implements alipayToo
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getWindow().requestFeature(Window.FEATURE_CONTENT_TRANSITIONS);
+        setAnima();
         init();
         click();
         initData();
         Runtime.getRuntime().gc();
+    }
+
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+    public void setAnima() {
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+            Transition explode = TransitionInflater.from(this).inflateTransition(R.transition.fade);
+            getWindow().setExitTransition(explode);
+            getWindow().setReenterTransition(explode);
+            getWindow().setEnterTransition(explode);
+        }
     }
 
     /**
@@ -41,7 +59,7 @@ public abstract class InitActivity extends FragmentActivity implements alipayToo
         if (LoginStatusQuery() && SPreferences.getUserToken().length() <= 31) {
             if (able != null)
                 MyAppcation.crashHandler.uncaughtException(new Thread(), able);
-             else
+            else
                 able = new Throwable("手动抛出TOKEN异常信息。。。");
 
         }

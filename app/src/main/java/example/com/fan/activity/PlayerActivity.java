@@ -65,6 +65,7 @@ import static example.com.fan.utils.JsonUtils.getJsonAr;
 import static example.com.fan.utils.JsonUtils.getJsonInt;
 import static example.com.fan.utils.JsonUtils.getJsonOb;
 import static example.com.fan.utils.JsonUtils.getJsonSring;
+import static example.com.fan.utils.SynUtils.Finish;
 import static example.com.fan.utils.SynUtils.KswitchWay;
 import static example.com.fan.utils.SynUtils.ParseK;
 import static example.com.fan.utils.SynUtils.getRouColors;
@@ -100,7 +101,7 @@ public class PlayerActivity extends InitActivity implements UVPlayerCallBack, Pl
     private View top;
     private LinearLayout more_content_ll, player_bottom;
     private PlayerCommentAdapter adapter;
-    private TextView video_title, player_number, video_name, attention_tv, collect_num, admire_num,share_num;
+    private TextView video_title, player_number, video_name, attention_tv, collect_num, admire_num, share_num;
     private ImageView video_icon, cover_img, video_tool_imgFullscreen;
     private ListView listView;
     private FrameLayout collect_fl, admire_fl, share_fl;
@@ -183,14 +184,14 @@ public class PlayerActivity extends InitActivity implements UVPlayerCallBack, Pl
                                             new AlertDialog(PlayerActivity.this).builder().setTitle("提示").setCancelable(false).setMsg("成为会员才能看哦，更多精彩细节等着你!").setNegativeButton("下次再说", new View.OnClickListener() {
                                                 @Override
                                                 public void onClick(View v) {
-                                                    finish();
+                                                    Finish(PlayerActivity.this);
                                                 }
                                             }).setPositiveButton("成为会员", new View.OnClickListener() {
                                                 @Override
                                                 public void onClick(View v) {
 
                                                     goPayPage(PlayerActivity.this);
-                                                    finish();
+                                                    Finish(PlayerActivity.this);
                                                 }
                                             }).show();
                                         }
@@ -202,7 +203,7 @@ public class PlayerActivity extends InitActivity implements UVPlayerCallBack, Pl
                                     share_num.setText(KswitchWay(vb.getShareCount()));
                                 } else {
                                     ToastUtil.toast2_bottom(PlayerActivity.this, "没有获取到视频地址！");
-                                    finish();
+                                    Finish(PlayerActivity.this);
                                 }
 //                        Path = "http://fns-video-public.oss-cn-hangzhou.aliyuncs.com/960p.mp4";
                                 try {
@@ -603,7 +604,7 @@ public class PlayerActivity extends InitActivity implements UVPlayerCallBack, Pl
      * 释放播放器资源;
      */
     public void releasePlayer() {
-        if(mMediaplayer!=null){
+        if (mMediaplayer != null) {
             mMediaplayer.release();
             mMediaplayer = null;
         }
@@ -782,7 +783,7 @@ public class PlayerActivity extends InitActivity implements UVPlayerCallBack, Pl
 
     private void back() {
         if (CurOrientation == ActivityInfo.SCREEN_ORIENTATION_PORTRAIT) {
-            finish();
+            Finish(this);
         } else {
             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
             this.coverEnabled();
@@ -902,7 +903,7 @@ public class PlayerActivity extends InitActivity implements UVPlayerCallBack, Pl
                         }
                     }
                 });
-        }
+    }
 
     private void Admire() {
 

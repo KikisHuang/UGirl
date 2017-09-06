@@ -1,10 +1,15 @@
 package example.com.fan.activity;
 
+import android.annotation.TargetApi;
+import android.app.ActivityOptions;
+import android.content.Intent;
+import android.os.Build;
 import android.view.View;
-import android.widget.FrameLayout;
+import android.widget.ImageView;
+
+import com.bumptech.glide.Glide;
 
 import example.com.fan.R;
-import example.com.fan.view.RippleView;
 
 import static example.com.fan.utils.SynUtils.getTAG;
 
@@ -14,31 +19,38 @@ import static example.com.fan.utils.SynUtils.getTAG;
  */
 public class TestActivity extends InitActivity implements View.OnClickListener {
     private static final String TAG = getTAG(TestActivity.class);
-    private FrameLayout frament_ll;
-    private RippleView button;
+    private ImageView img;
 
     @Override
     protected void click() {
-        button.setOnClickListener(this);
+        img.setOnClickListener(this);
     }
 
     @Override
     protected void init() {
         setContentView(R.layout.test_layout);
-        button = f(R.id.button);
-        frament_ll = f(R.id.fragment_ll);
+        img = f(R.id.img);
+        Glide.with(this)
+                .load("http://fns-photo-public.oss-cn-hangzhou.aliyuncs.com/15035476852731eaf84.jpg")
+                .into(img);
     }
 
     @Override
     protected void initData() {
     }
 
+
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.button:
-
+            case R.id.img:
+                Intent intent = new Intent(this, PhotoActivity.class);
+                ActivityOptions options =  ActivityOptions.makeSceneTransitionAnimation
+                            (this, v, "transition_morph_view");
+                startActivity(intent, options.toBundle());
                 break;
         }
     }
+
 }

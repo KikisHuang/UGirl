@@ -104,5 +104,5 @@
         android:layout_width="130dp"
         android:layout_height="130dp"
         android:layout_gravity="top|center"
-        android:src="@drawable/pay_back" />
+        android:src="@drawable/login_popup_icon" />
 </FrameLayout>

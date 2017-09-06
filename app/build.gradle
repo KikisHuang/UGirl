@@ -1,5 +1,4 @@
 apply plugin: 'com.android.application'
-
 def packageTime() {
     return new Date().format("yyyy-MM-dd", TimeZone.getTimeZone("UTC"))
 }
@@ -205,6 +204,7 @@ android {
             //jni库的调用会到资源文件夹下libs里面找so文件
             jniLibs.srcDirs = ['libs']
         }
+        main.java.srcDirs += 'src/main/kotlin'
     }
 
     task nativeLibsToJar(type: Zip, description: "create a jar archive of the native libs") {
@@ -256,6 +256,7 @@ repositories {
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     testCompile 'junit:junit:4.12'
+
     compile 'com.android.support:support-v4:24.2.0'
     compile 'com.github.bumptech.glide:glide:3.7.0'
     compile 'com.squareup.okio:okio:1.8.0'

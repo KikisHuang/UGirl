@@ -23,6 +23,7 @@ import okhttp3.Call;
 
 import static example.com.fan.utils.JsonUtils.getCode;
 import static example.com.fan.utils.JsonUtils.getJsonAr;
+import static example.com.fan.utils.SynUtils.Finish;
 import static example.com.fan.utils.TitleUtils.setTitles;
 
 /**
@@ -137,7 +138,7 @@ public class ChoicenessActivity extends BaseActivity {
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
-        finish();
+        Finish(this);
         return false;
     }
 

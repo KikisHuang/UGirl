@@ -32,6 +32,7 @@ import static example.com.fan.base.sign.save.SPreferences.saveInViCode;
 import static example.com.fan.base.sign.save.SPreferences.saveLoginWay;
 import static example.com.fan.utils.IntentUtils.goRegisterPage;
 import static example.com.fan.utils.JsonUtils.getCode;
+import static example.com.fan.utils.SynUtils.Finish;
 import static example.com.fan.utils.SynUtils.SaveLoginWay;
 import static example.com.fan.utils.SynUtils.getRouColors;
 import static example.com.fan.utils.SynUtils.getRouString;
@@ -173,7 +174,7 @@ public class LoginActivity extends InitActivity implements View.OnClickListener,
                 goRegisterPage(this);
                 break;
             case R.id.home_page_finish:
-                finish();
+                Finish(this);
                 break;
             case R.id.clear_img:
                 user_ed.setText("");
@@ -265,7 +266,7 @@ public class LoginActivity extends InitActivity implements View.OnClickListener,
                                 saveLoginWay(getRouString(R.string.phone_login));
                                 if (MyFragment.fragment != null)
                                     MyFragment.fragment.onUpDataUserInfo();
-                                finish();
+                                Finish(LoginActivity.this);
                             } else
                                 ToastUtil.ToastErrorMsg(LoginActivity.this, response, code);
                         } catch (Exception e) {

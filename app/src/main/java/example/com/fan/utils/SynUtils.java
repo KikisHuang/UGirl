@@ -1,6 +1,7 @@
 package example.com.fan.utils;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.app.ActivityManager;
 import android.app.AppOpsManager;
 import android.content.Context;
@@ -667,5 +668,11 @@ public class SynUtils {
             child.setLayoutParams(params);
             child.invalidate();
         }
+    }
+    public static void Finish(Activity activity){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
+            activity.finishAfterTransition();
+        else
+            activity.finish();
     }
 }

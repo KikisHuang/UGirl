@@ -10,6 +10,8 @@ import example.com.fan.utils.photo.CompressIamge;
 import example.com.fan.utils.photo.LruCacheUtils;
 import example.com.fan.view.cut.ClipImageLayout;
 
+import static example.com.fan.utils.SynUtils.Finish;
+
 /**
  * Created by lian on 2017/6/12.
  */
@@ -47,14 +49,14 @@ public class IconCutActivity extends InitActivity {
                     UploadPhotoActivity.listener.onFail();
                 }
 
-                finish();
+                Finish(IconCutActivity.this);
             }
         });
 
         Cancle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                finish();
+                Finish(IconCutActivity.this);
             }
         });
 

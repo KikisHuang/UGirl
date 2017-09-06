@@ -6,15 +6,12 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <example.com.fan.view.RippleView
-        android:id="@+id/button"
-        android:layout_width="match_parent"
-        android:layout_height="80dp"
-        android:layout_gravity="center"
-        android:background="@color/gray0"
-        android:layout_margin="10dp"
-        ripple:alphaFactor="0.7"
-        ripple:rippleColor="#58FAAC"
-        ripple:hover="false"
+    <ImageView
+        android:id="@+id/img"
+        android:layout_width="150dp"
+        android:layout_height="200dp"
+        android:scaleType="centerCrop"
+        android:layout_gravity="center|top|left"
+        android:transitionName="transition_morph_view"
         />
 </FrameLayout>
