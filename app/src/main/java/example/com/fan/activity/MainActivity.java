@@ -236,6 +236,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
 
     public void init() {
         setContentView(R.layout.activity_main);
+
         nlist = new ArrayList<>();
         imglist = new ArrayList<>();
         ilist = new ArrayList<>();

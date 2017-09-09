@@ -2,6 +2,7 @@ package example.com.fan.utils;
 
 import android.app.Activity;
 import android.content.Context;
+import android.util.Log;
 
 import com.google.gson.Gson;
 import com.zhy.http.okhttp.OkHttpUtils;
@@ -9,6 +10,7 @@ import com.zhy.http.okhttp.callback.StringCallback;
 
 import org.json.JSONObject;
 
+import example.com.fan.MyAppcation;
 import example.com.fan.activity.InitActivity;
 import example.com.fan.base.sign.save.SPreferences;
 import example.com.fan.bean.AliPayBean;
@@ -18,6 +20,8 @@ import okhttp3.Call;
 
 import static example.com.fan.utils.JsonUtils.getCode;
 import static example.com.fan.utils.JsonUtils.getJsonOb;
+import static example.com.fan.utils.MzFinal.AlisOfWecha;
+import static example.com.fan.utils.MzFinal.getAPPID;
 import static example.com.fan.utils.SynUtils.getTAG;
 
 /**
@@ -37,11 +41,23 @@ public class PayUtils {
      * @param num      商品数量;
      */
     public static void PayNow(final Context context, String PayId, String url, final int Pay_Type, final int num) {
+        String appid = "";
+        //支付方式判断;
+        if (AlisOfWecha(url))
+            appid = MyAppcation.ALIID;
+        else {
+            if (getAPPID(MyAppcation.pkName))
+                appid = MyAppcation.WECHATID;
+            else
+                appid = MzFinal.xiaoketang;
+        }
 
+        Log.i(TAG," appid ========"+appid);
         OkHttpUtils
                 .get()
                 .url(MzFinal.URl + url)
                 .addParams(MzFinal.KEY, SPreferences.getUserToken())
+                .addParams(MzFinal.APPID, appid)
                 .addParams(MzFinal.ID, PayId)
                 .addParams(MzFinal.COUNT, String.valueOf(num))
                 .build()
@@ -50,6 +66,7 @@ public class PayUtils {
                     public void onError(Call call, Exception e, int id) {
                         ToastUtil.toast2_bottom(context, "网络不顺畅...");
                     }
+
                     @Override
                     public void onResponse(String response, int id) {
                         try {

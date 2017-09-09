@@ -12,8 +12,6 @@ import java.util.Map.Entry;
 import java.util.Set;
 import java.util.TreeMap;
 
-import example.com.fan.view.Popup.SharePopupWindow;
-
 import static example.com.fan.utils.SynUtils.getTAG;
 
 public class Signature {

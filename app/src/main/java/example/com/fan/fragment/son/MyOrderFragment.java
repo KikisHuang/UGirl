@@ -91,6 +91,7 @@ public class MyOrderFragment extends BaseFragment implements MyOrderDetailsListe
                         try {
                             int code = getCode(response);
                             if (code == 1) {
+                                rlist.clear();
                                 JSONArray ar = getJsonAr(response);
                                 if (ar.length() > 0)
                                     no_data.setBackgroundResource(R.color.content7);
@@ -141,12 +142,14 @@ public class MyOrderFragment extends BaseFragment implements MyOrderDetailsListe
 
     @Override
     public void IsonRefresh() {
-
+        pageSize = 20;
+        newInstance();
     }
 
     @Override
     public void IsonLoadmore() {
-
+        pageSize += 20;
+        newInstance();
     }
 
     @Override

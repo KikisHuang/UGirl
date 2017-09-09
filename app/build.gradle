@@ -34,21 +34,21 @@ android {
         applicationId "example.com.fan"
         minSdkVersion 17
         targetSdkVersion 20
-        versionCode 30
-        versionName "1.2.9"
+        versionCode 31
+        versionName "1.3"
         ndk {
             //选择要添加的对应cpu类型的.so库（不需要的删除即可）。
             abiFilters 'armeabi', 'armeabi-v7a', 'armeabi-v8a', 'x86', 'x86_64', 'mips', 'mips64'
         }
         manifestPlaceholders = [
                 JPUSH_PKGNAME: applicationId,
-                JPUSH_APPKEY : "de9f3a021374e233fc9e8d89", //JPush上注册的包名对应的appkey（*换成你的*）
+                JPUSH_APPKEY : "de9f3a021374e233fc9e8d89", //JPush上注册的包名对应的appkey（*换成你的*）(尤女郎：de9f3a021374e233fc9e8d89)(尤女映画：b209f4b9e95ab346f16e3905)
                 JPUSH_CHANNEL: "developer-default", //暂时填写默认值即可.
         ]
     }
 
     productFlavors {
-        //市场渠道;
+        //尤女郎市场渠道;
         vivo {
             manifestPlaceholders = [UMENG_CHANNEL_VALUE: "1f2720441bbd"]
         }
@@ -82,6 +82,41 @@ android {
         s360 {
             manifestPlaceholders = [UMENG_CHANNEL_VALUE: "705fd562e242"]
         }
+
+
+        //尤女映画市场渠道;
+        uvivo {
+            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "d40908d9f65a"]
+        }
+        uxiaomi {
+            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "365c11fe3a8f"]
+        }
+        uyingyongbao {
+            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "142293eb3c54"]
+        }
+        ulenovo {
+            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "fe4edd22f974"]
+        }
+        uleshi {
+            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "f94832c0c1a5"]
+        }
+        usougou {
+            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "8ed2db350673"]
+        }
+        uwandoujia {
+            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "9ac2c8ee4a68"]
+        }
+        ubaidu {
+            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "b6fe41784d2d"]
+        }
+        uhuawei {
+            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "b144647a1769"]
+        }
+        us360 {
+            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "ffc27594d72b"]
+        }
+
+
 /*        jifeng {
             manifestPlaceholders = [UMENG_CHANNEL_VALUE: "383a1f1e937c"]
         }
@@ -250,17 +285,19 @@ android {
 }
 repositories {
     jcenter()
+    maven {
+        url "http://maven.aliyun.com/nexus/content/repositories/releases"
+    }
 }
 
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     testCompile 'junit:junit:4.12'
-
     compile 'com.android.support:support-v4:24.2.0'
     compile 'com.github.bumptech.glide:glide:3.7.0'
-    compile 'com.squareup.okio:okio:1.8.0'
-    compile 'com.squareup.okhttp3:okhttp:3.3.1'
+    /*   compile 'com.squareup.okio:okio:1.8.0'
+            compile 'com.squareup.okhttp3:okhttp:3.3.1'*/
     //    compile files('libs/okhttp-3.3.1.jar')
     compile 'com.android.support:cardview-v7:24.2.0'
     compile 'jp.wasabeef:glide-transformations:2.0.2'
@@ -272,15 +309,10 @@ dependencies {
     compile 'com.android.support:appcompat-v7:24.2.0'
     compile 'com.davemorrissey.labs:subsampling-scale-image-view:3.5.0'
     compile project(':umenglibrarys')
-//    compile project(':jcvideoplayer')
     compile 'fm.jiecao:jiecaovideoplayer:5.8.1'
-    //    compile files('libs/utovr_player_1.0.5513.jar')
     compile 'com.zhy:okhttputils:2.6.2'
     compile 'com.balysv.materialmenu:material-menu:2.0.0'
-    compile files('libs/gson-1.7.1.jar')
-    compile files('libs/libammsdk.jar')
     compile 'cn.jiguang:jpush:2.1.8'
-    compile files('libs/alipaySdk-20170623-proguard.jar')
     //内存检测工具
     debugCompile 'com.squareup.leakcanary:leakcanary-android:1.3'
     releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.3'
@@ -288,5 +320,18 @@ dependencies {
     //    compile 'com.github.mcxtzhang:ZLayoutManager:V1.1.0'
     //(测试)tablayout扩展效果compile;
     //compile 'com.ogaclejapan.smarttablayout:library:1.6.1@aar'
+
+    //热更新;
+//    compile 'com.aliyun.ams:alicloud-android-hotfix:3.0.5'
+/*    compile files('libs/utovr_player_1.0.5513.jar')
+    compile files('libs/gson-1.7.1.jar')
+    compile files('libs/libammsdk.jar')
+    //动画兼容库;
     compile files('libs/nineoldandroids-2.4.0.jar')
+    compile files('libs/alipaySdk-20170725.jar')*/
+    compile files('lib/utovr_player_1.0.5513.jar')
+    compile files('lib/nineoldandroids-2.4.0.jar')
+    compile files('lib/libammsdk.jar')
+    compile files('lib/gson-1.7.1.jar')
+    compile files('lib/alipaySdk-20170725.jar')
 }

@@ -152,7 +152,10 @@
 -keep class com.google.zxing.** {*;}
 -dontwarn com.google.zxing.**
 ####zxing#####
-
+####sophix###
+-keep class com.taobao.sophix.**{*;}
+-keep class com.ta.utdid2.device.**{*;}
+###sophix####
 ####UtoVR####
   -dontwarn com.google.**
   -dontwarn android.media.**

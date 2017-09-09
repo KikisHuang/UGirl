@@ -14,22 +14,28 @@ import java.util.concurrent.TimeUnit;
 
 import example.com.fan.base.sign.CrashHandler;
 import example.com.fan.base.sign.save.SPreferences;
-import example.com.fan.utils.MzFinal;
 import okhttp3.OkHttpClient;
 
 import static example.com.fan.utils.SynUtils.JpushInit;
-import static example.com.fan.utils.SynUtils.getTAG;
+import static example.com.fan.utils.SynUtils.getOverID;
 
 /**
  * Created by lian on 2017/5/2.
  */
 public class MyAppcation extends Application {
-    private static final String TAG = getTAG(MyAppcation.class);
+    //    private static final String TAG = getTAG(MyAppcation.class);
+    private static final String TAG = "MyAppcation";
     public static String CHANNEL;
     public static String myInvitationCode;
     public static String UserIcon;
     public static boolean VipFlag;
     public static CrashHandler crashHandler;
+    public static String pkName = "";
+    public static String QQID = "";
+    public static String WECHATID = "";
+    public static String ALIID = "";
+
+
     /**
      * 内存泄露检测;
      */
@@ -40,7 +46,6 @@ public class MyAppcation extends Application {
 //                .getApplicationContext();
 //        return application.refWatcher;
 //    }
-
     @Override
     public void onCreate() {
         super.onCreate();
@@ -50,10 +55,15 @@ public class MyAppcation extends Application {
          */
 //      crashHandler = CrashHandler.getInstance();
 //      crashHandler.init(getApplicationContext());
+        pkName = getOverID(pkName, this);
 
+        Log.i(TAG, "pk ===========" + pkName);
         OkHttpInit();
-        CHANNEL = AnalyticsConfig.getChannel(getApplicationContext());
         JpushInit(this);
+//        SophixInit();
+
+        CHANNEL = AnalyticsConfig.getChannel(getApplicationContext());
+
         Log.i(TAG, "CHANNEL ====" + CHANNEL);
         SPreferences.setContext(getApplicationContext());
         {
@@ -61,12 +71,45 @@ public class MyAppcation extends Application {
              * 参数一: appID;
              * 参数二: key;
              */
-            PlatformConfig.setWeixin(MzFinal.WECHATPAY, "4bcde8ce9e646833395aae492d93bbc8");
-            PlatformConfig.setQQZone(MzFinal.QQLOGIN, "63e5c4ab1c476fa9204c8504fa2338bd");
-            /*PlatformConfig.setSinaWeibo("172922517", "048166c79d54b2c4ce3e76ba5d30097a");*/
+            //尤女郎 key;
+           PlatformConfig.setWeixin(WECHATID, "4bcde8ce9e646833395aae492d93bbc8");
+           PlatformConfig.setQQZone(QQID, "63e5c4ab1c476fa9204c8504fa2338bd");
+
+            //尤女映画 key;
+//            PlatformConfig.setWeixin(WECHATID, "db426a9829e4b49a0dcac7b4162da6b6");
+//            PlatformConfig.setQQZone(QQID, "5021f5bba7807a82e424d47a3190720b");
 
         }
     }
+
+
+/*    private void SophixInit() {
+        SophixManager.getInstance().setContext(this)
+                .setAppVersion(getVersionName(this))
+                .setAesKey(null)
+                .setEnableDebug(true)
+                .setPatchLoadStatusStub(new PatchLoadStatusListener() {
+                    @Override
+                    public void onLoad(final int mode, final int code, final String info, final int handlePatchVersion) {
+                        // 补丁加载回调通知
+                        if (code == PatchStatus.CODE_LOAD_SUCCESS) {
+                            Log.i(TAG,"Sophix --- 补丁成功!!! CODE ==="+code);
+                        } else if (code == PatchStatus.CODE_LOAD_RELAUNCH) {
+                            Log.i(TAG,"Sophix --- 新补丁生效需要重启!!! CODE ==="+code);
+                            // 表明新补丁生效需要重启. 开发者可提示用户或者强制重启;
+                            // 建议: 用户可以监听进入后台事件, 然后应用自杀
+                        } else if (code == PatchStatus.CODE_LOAD_FAIL) {
+                            Log.i(TAG,"Sophix --- 内部引擎异常!!! CODE ==="+code);
+                            // 内部引擎异常, 推荐此时清空本地补丁, 防止失败补丁重复加载
+                            // SophixManager.getInstance().cleanPatches();
+                        } else {
+                            Log.i(TAG,"Sophix --- 其他错误信息!!! CODE ==="+code);
+                            // 其它错误信息, 查看PatchStatus类说明
+                        }
+                    }
+                }).initialize();
+        SophixManager.getInstance().queryAndLoadNewPatch();
+    }*/
 
     /**
      * OkHttp初始化;
@@ -82,4 +125,5 @@ public class MyAppcation extends Application {
 
         OkHttpUtils.initClient(okHttpClient);
     }
+
 }

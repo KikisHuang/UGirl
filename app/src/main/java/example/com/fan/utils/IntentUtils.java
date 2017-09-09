@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 
 import example.com.fan.activity.AttentionActivity;
 import example.com.fan.activity.BuyCrowdActivity;
@@ -251,6 +252,27 @@ public class IntentUtils {
         intent.putExtra("person_sex", sex);
         intent.putExtra("person_wx", wx);
         startPage(context, intent);
+
+    }
+
+    /**
+     * 修改个人信息页面(带头像跳转动画方法);
+     *
+     * @param context 上下文;
+     */
+    public static void goPersonInfoPage2(Context context, String icon, String name, String sex, String wx, View v) {
+        Intent intent = new Intent(context, PersonalInfoActivity.class);
+        intent.putExtra("person_name", name);
+        intent.putExtra("person_icon", icon);
+        intent.putExtra("person_sex", sex);
+        intent.putExtra("person_wx", wx);
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+            ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation
+                    ((Activity) context, v, "transition_morph_view");
+            context.startActivity(intent, options.toBundle());
+        } else
+            context.startActivity(intent);
+
     }
 
     /**

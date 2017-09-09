@@ -25,6 +25,7 @@ public class MzFinal {
     public static long TouchTime = 0;
 
     public static String KEY = "key";
+    public static String APPID = "appId";
     public static String PAGE = "page";
     public static String SIZE = "pageSize";
     public static String TYPE = "type";
@@ -33,14 +34,57 @@ public class MzFinal {
     public static String CONTENT = "content";
 
     public static final String br = "<br />";
+    //支付宝支付接口存放数组;
+    public static String[] Alis = {MzFinal.ALIPAYCROWDFUNDING, MzFinal.ALIPAYOFFICIALSELL, MzFinal.ALIPAYPHOTO, MzFinal.ALIPAYVIP};
+
+
+
+    //尤女映画、支付宝APPID;
+    public static final String AliAPPID2 = "2017082508371443";
+    //尤女映画、微信APPID;
+    public static final String WECHATAPPID2 = "wxc5790f30f6da0d43";
+
+    //尤女郎、支付宝APPID;
+    public static final String AliAPPID1 = "2017061207472579";
+    //尤女郎、微信APPID;
+    public static final String WECHATAPPID1 = "wx34d169cf97a82205";
+    //小课堂;
+    public static final String xiaoketang = "wx0703fd5e9c59b6b0";
+
+    /**
+     * <p/>
+     * 尤女映画 WECHAT：wxc5790f30f6da0d43
+     * 尤女映画 QQ：101409825
+     */
+    public static final String QQLOGIN2 = "101409825";
+    /**
+     *  微信支付AppID;
+     * 尤女郎 WECHAT：wx34d169cf97a82205;
+     * 尤女郎 QQ：101408068;
+     */
+    public static final String QQLOGIN1 = "101408068";
+
+
+    //客户端判断;
+    public static boolean getAPPID(String pk) {
+        if (pk.equals("example.com.yinhua"))
+            return true;
+        else return false;
+    }
+
+    //微信支付、支付宝支付方式判断;
+    public static boolean AlisOfWecha(String url) {
+        for (String u : Alis) {
+            if (u.equals(url))
+                return true;
+        }
+        return false;
+    }
 
     /**
      * 专辑购买标识符;
      */
     public static boolean isPay = false;
-    //占位图;
-    public static String[] images = {"http://img2.duitang.com/uploads/item/201202/10/20120210134806_xJJSw.jpg",
-    };
 
     //关于我们外链;
     public static final String AS_WE = "http://fns-system.oss-cn-hangzhou.aliyuncs.com/system/about.png";
@@ -72,12 +116,6 @@ public class MzFinal {
     public static final int VIDEO = 4; // 视频
     public static final int VRVIDEO = 5;  // VR视频
 
-    /**
-     * 微信支付AppID;
-     */
-    public static final String WECHATPAY = "wx34d169cf97a82205";
-
-    public static final String QQLOGIN = "101408068";
     /**
      * 收藏接口
      */
@@ -330,6 +368,7 @@ public class MzFinal {
     /**
      * 微信一口价支付接口
      */
+
     public static final String WXPAYOFFICIALSELL = "order/wxPayOfficialSell.app";
     /**
      * 支付宝一口价支付接口
@@ -342,6 +381,7 @@ public class MzFinal {
     /**
      * 支付宝专辑支付接口
      */
+
     public static final String ALIPAYPHOTO = "order/aliPayPhoto.app";
     /**
      * 支付宝VIP支付接口

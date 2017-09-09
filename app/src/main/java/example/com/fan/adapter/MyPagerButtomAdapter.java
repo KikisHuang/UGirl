@@ -13,6 +13,7 @@ import example.com.fan.MyAppcation;
 import example.com.fan.R;
 import example.com.fan.bean.GalleryBean;
 import example.com.fan.utils.DeviceUtils;
+import example.com.fan.utils.SynUtils;
 import example.com.fan.view.Popup.PayPopupWindow;
 
 import static example.com.fan.utils.IntentUtils.goChoicenessPage;
@@ -20,6 +21,7 @@ import static example.com.fan.utils.IntentUtils.goHostModelPage;
 import static example.com.fan.utils.IntentUtils.goNewestPage;
 import static example.com.fan.utils.IntentUtils.goVideoOfVrPage;
 import static example.com.fan.utils.IntentUtils.goVipPage;
+import static example.com.fan.utils.SynUtils.Login;
 import static example.com.fan.utils.SynUtils.getTAG;
 
 /**
@@ -47,7 +49,7 @@ public class MyPagerButtomAdapter extends PagerAdapter {
     }
 
     @Override
-    public Object instantiateItem(ViewGroup container, final int position) {
+    public Object instantiateItem(final ViewGroup container, final int position) {
         View view = list.get(position).getView();
         view.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -60,16 +62,19 @@ public class MyPagerButtomAdapter extends PagerAdapter {
                         goHostModelPage(context);
                         break;
                     case 3:
-                        if (MyAppcation.VipFlag)
-                            goVipPage(context);
-                        else {
-                            PayPopupWindow p = new PayPopupWindow(context);
-                            View contentView = LayoutInflater.from(context).inflate(R.layout.pay_pp_layout, null);
-                            int width = DeviceUtils.getWindowWidth(context) * 8 / 10;
-                            int h = (int) (DeviceUtils.getWindowHeight(context) * 6 / 10);
-                            pay = new PopupWindow(contentView, width, h);
-                            p.ScreenPopupWindow(LayoutInflater.from(context).inflate(R.layout.my_fragment, null), pay, 1, contentView);
-                        }
+                        if (SynUtils.LoginStatusQuery()) {
+                            if (MyAppcation.VipFlag)
+                                goVipPage(context);
+                            else {
+                                PayPopupWindow p = new PayPopupWindow(context);
+                                View contentView = LayoutInflater.from(context).inflate(R.layout.pay_pp_layout, null);
+                                int width = DeviceUtils.getWindowWidth(context) * 8 / 10;
+                                int h = (int) (DeviceUtils.getWindowHeight(context) * 6 / 10);
+                                pay = new PopupWindow(contentView, width, h);
+                                p.ScreenPopupWindow(LayoutInflater.from(context).inflate(R.layout.my_fragment, null), pay, 1, contentView);
+                            }
+                        } else
+                            Login(context);
                         break;
                     case -2:
                         goVideoOfVrPage(context, "1");

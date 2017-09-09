@@ -42,7 +42,7 @@ import static example.com.fan.utils.IntentUtils.goMyCollectPage;
 import static example.com.fan.utils.IntentUtils.goMyOrderPage;
 import static example.com.fan.utils.IntentUtils.goOverPayPage;
 import static example.com.fan.utils.IntentUtils.goPayPage;
-import static example.com.fan.utils.IntentUtils.goPersonInfoPage;
+import static example.com.fan.utils.IntentUtils.goPersonInfoPage2;
 import static example.com.fan.utils.IntentUtils.goRegisterPage;
 import static example.com.fan.utils.IntentUtils.goSettingPage;
 import static example.com.fan.utils.IntentUtils.goUnReadPage;
@@ -299,7 +299,7 @@ public class MyFragment extends BaseFragment implements View.OnClickListener, Ch
 
             case R.id.user_icon:
                 if (info.size() > 0)
-                    goPersonInfoPage(getActivity(), info.get(0).getHeadImgUrl(), info.get(0).getName(), String.valueOf(getSex(info.get(0).getSex())), info.get(0).getWx());
+                    goPersonInfoPage2(getActivity(), info.get(0).getHeadImgUrl(), info.get(0).getName(), String.valueOf(getSex(info.get(0).getSex())), info.get(0).getWx(),user_icon);
                 break;
             case R.id.login_tv:
                 goLoginPage(getActivity());
@@ -309,7 +309,7 @@ public class MyFragment extends BaseFragment implements View.OnClickListener, Ch
                 break;
             case R.id.compile_layout:
                 if (info.size() > 0)
-                    goPersonInfoPage(getActivity(), info.get(0).getHeadImgUrl(), info.get(0).getName(), String.valueOf(getSex(info.get(0).getSex())), info.get(0).getWx());
+                    goPersonInfoPage2(getActivity(), info.get(0).getHeadImgUrl(), info.get(0).getName(), String.valueOf(getSex(info.get(0).getSex())), info.get(0).getWx(),user_icon);
                 break;
             case R.id.attention_tv:
                 goAttentionPage(getActivity());

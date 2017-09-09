@@ -227,6 +227,7 @@ public class WelcomeActivity extends InitActivity implements PositionAddListener
     @Override
     protected void init() {
         setContentView(R.layout.welcome_layout);
+
         GlideModuleConfig();
         plistener = this;
         login_img = f(R.id.login_img);
@@ -260,7 +261,6 @@ public class WelcomeActivity extends InitActivity implements PositionAddListener
     protected void initData() {
         Hand();
         getData();
-
     }
 
 

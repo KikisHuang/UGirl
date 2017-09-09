@@ -351,6 +351,7 @@ public class LoginActivity extends InitActivity implements View.OnClickListener,
                     .get()
                     .url(MzFinal.URl + url)
                     .addParams("openId", openid)
+                    .addParams("oauth_consumer_key",MyAppcation.QQID)
                     .addParams("accessToken", access_token)
                     .addParams("channelCode", MyAppcation.CHANNEL)
                     .tag(this)

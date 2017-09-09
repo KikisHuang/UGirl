@@ -36,7 +36,7 @@ import static example.com.fan.utils.IntentUtils.goHelpPage;
 import static example.com.fan.utils.IntentUtils.goLoginPage;
 import static example.com.fan.utils.IntentUtils.goOverPayPage;
 import static example.com.fan.utils.IntentUtils.goPayPage;
-import static example.com.fan.utils.IntentUtils.goPersonInfoPage;
+import static example.com.fan.utils.IntentUtils.goPersonInfoPage2;
 import static example.com.fan.utils.IntentUtils.goSettingPage;
 import static example.com.fan.utils.JsonUtils.getCode;
 import static example.com.fan.utils.JsonUtils.getJsonOb;
@@ -64,7 +64,7 @@ public class SlidePopupWindow implements View.OnClickListener {
         this.mContext = context;
     }
 
-    //附近的人地区筛选;
+
     public void ScreenPopupWindow() {
         if (popupWindow == null) {
 
@@ -275,16 +275,12 @@ public class SlidePopupWindow implements View.OnClickListener {
     private void login() {
         if (!LoginStatusQuery()) {
             goLoginPage(mContext);
-            backgroundAlpha(1f, mContext);
-            if (popupWindow.isShowing())
-                popupWindow.dismiss();
+//            backgroundAlpha(1f, mContext);
 
         } else {
             if (info != null) {
-                goPersonInfoPage(mContext, info.getHeadImgUrl(), info.getName(), String.valueOf(getSex(info.getSex())), info.getWx());
-                backgroundAlpha(1f, mContext);
-                if (popupWindow.isShowing())
-                    popupWindow.dismiss();
+                goPersonInfoPage2(mContext, info.getHeadImgUrl(), info.getName(), String.valueOf(getSex(info.getSex())), info.getWx(),user_icon);
+//                backgroundAlpha(1f, mContext);
             }
         }
     }

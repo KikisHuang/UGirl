@@ -6,12 +6,11 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <ImageView
-        android:id="@+id/img"
-        android:layout_width="150dp"
-        android:layout_height="200dp"
-        android:scaleType="centerCrop"
-        android:layout_gravity="center|top|left"
-        android:transitionName="transition_morph_view"
-        />
+   <TextView
+       android:id="@+id/textview"
+       android:layout_width="match_parent"
+       android:layout_height="match_parent"
+       android:layout_margin="25dp"
+       android:background="@color/green6"
+       />
 </FrameLayout>

@@ -11,6 +11,7 @@ import android.os.Build;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewAnimationUtils;
+import android.view.animation.AccelerateInterpolator;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.view.animation.RotateAnimation;
@@ -243,8 +244,8 @@ public class AnimationUtil {
         Animator animator = null;
         animator = ViewAnimationUtils.createCircularReveal(layoutView, cx, cy, startX, startY);
         //在动画开始的地方速率改变比较慢,然后开始加速
-//        animator.setInterpolator(new AccelerateInterpolator());
-        animator.setDuration(5000);
+        animator.setInterpolator(new AccelerateInterpolator());
+        animator.setDuration(3200);
         animator.start();
 
         animator.addListener(new Animator.AnimatorListener() {

@@ -427,6 +427,7 @@ public class LoginPopupWindow implements View.OnClickListener, AccreditListener 
                 .url(MzFinal.URl + url)
                 .addParams("openId", openid)
                 .addParams("accessToken", accessToken)
+                .addParams("oauth_consumer_key",MyAppcation.QQID)
                 .addParams("channelCode", MyAppcation.CHANNEL)
                 .build()
                 .execute(new StringCallback() {

@@ -11,6 +11,7 @@ import com.tencent.mm.sdk.openapi.IWXAPI;
 import com.tencent.mm.sdk.openapi.IWXAPIEventHandler;
 import com.tencent.mm.sdk.openapi.WXAPIFactory;
 
+import example.com.fan.MyAppcation;
 import example.com.fan.activity.PayActivity;
 import example.com.fan.activity.PhotoActivity;
 import example.com.fan.fragment.son.PictureSlideFragment;
@@ -31,7 +32,8 @@ public class WXPayEntryActivity extends Activity implements IWXAPIEventHandler {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 //        setContentView(R.layout.pay_result);
-        api = WXAPIFactory.createWXAPI(this, MzFinal.WECHATPAY);
+
+        api = WXAPIFactory.createWXAPI(this, MyAppcation.WECHATID);
         api.handleIntent(getIntent(), this);
     }
 
@@ -61,10 +63,10 @@ public class WXPayEntryActivity extends Activity implements IWXAPIEventHandler {
                 }
                 break;
             case -1:
-                ToastUtil.toast2_bottom(this, "支付失败");
+                ToastUtil.toast2_bottom(this, "-1支付失败");
                 break;
             case -2:
-                ToastUtil.toast2_bottom(this, "支付失败!");
+//                ToastUtil.toast2_bottom(this, "-2支付失败!");
                 break;
         }
         Finish(WXPayEntryActivity.this);

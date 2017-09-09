@@ -56,6 +56,7 @@ import static example.com.fan.base.sign.save.SPreferences.getUserUUID;
 import static example.com.fan.base.sign.save.SPreferences.saveLoginWay;
 import static example.com.fan.base.sign.save.SPreferences.saveUserUUID;
 import static example.com.fan.utils.JsonUtils.getCode;
+import static example.com.fan.utils.MzFinal.getAPPID;
 
 /**
  * Created by lian on 2017/6/7.
@@ -331,6 +332,7 @@ public class SynUtils {
         }
         return "";
     }
+
     /**
      * 获取IMEI
      *
@@ -356,6 +358,7 @@ public class SynUtils {
             return uuid;
         return uuid;
     }
+
     /**
      * Wifi环境判断
      *
@@ -466,6 +469,29 @@ public class SynUtils {
             return false;
         }
         return true;
+    }
+
+    /**
+     * 判断版本 APPID（马甲包）方法;
+     *
+     * @param pkName
+     * @param context
+     */
+    public static String getOverID(String pkName, Context context) {
+        pkName = context.getPackageName();
+        if (pkName.isEmpty() || pkName.equals("") || pkName == null)
+            System.exit(0);
+
+        if (getAPPID(pkName)) {
+            MyAppcation.QQID = MzFinal.QQLOGIN2;
+            MyAppcation.WECHATID = MzFinal.WECHATAPPID2;
+            MyAppcation.ALIID = MzFinal.AliAPPID2;
+        } else {
+            MyAppcation.QQID = MzFinal.QQLOGIN1;
+            MyAppcation.WECHATID = MzFinal.WECHATAPPID1;
+            MyAppcation.ALIID = MzFinal.AliAPPID1;
+        }
+        return pkName;
     }
 
     /**
@@ -669,7 +695,8 @@ public class SynUtils {
             child.invalidate();
         }
     }
-    public static void Finish(Activity activity){
+
+    public static void Finish(Activity activity) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
             activity.finishAfterTransition();
         else

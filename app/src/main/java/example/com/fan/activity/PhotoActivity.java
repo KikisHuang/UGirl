@@ -6,6 +6,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
@@ -205,8 +206,13 @@ public class PhotoActivity extends InitActivity implements View.OnClickListener,
 
                         Message msg = new Message();
                         msg.what = 0;
-                        if (handler != null)
-                            handler.sendMessage(msg);
+                        try {
+                            if (handler != null)
+                                handler.sendMessage(msg);
+                        } catch (Exception e) {
+                            if (e instanceof NullPointerException)
+                                CreateComment();
+                        }
                         try {
                             Thread.sleep(10);
                         } catch (InterruptedException e) {
@@ -344,6 +350,7 @@ public class PhotoActivity extends InitActivity implements View.OnClickListener,
             viewPager.setScrollble(true, clistener);
         viewPager.setCurrentItem(oldposition);
     }
+
     @Override
     protected void init() {
         setContentView(R.layout.photo_activity_layout);
@@ -492,7 +499,7 @@ public class PhotoActivity extends InitActivity implements View.OnClickListener,
                 collectPhoto();
                 break;
             case R.id.title_right_icon:
-                if (!urlList.get(0).getJoinUser().getId().isEmpty()) {
+                if (urlList.size() > 0 && !urlList.get(0).getJoinUser().getId().isEmpty()) {
                     goHomePage(this, urlList.get(0).getJoinUser().getId());
                     Finish(PhotoActivity.this);
                 }
@@ -510,13 +517,12 @@ public class PhotoActivity extends InitActivity implements View.OnClickListener,
                 break;
 
             case R.id.rt_tv:
-                if (commentFragment == null) {
+                if (commentFragment == null)
                     Finish(PhotoActivity.this);
-                } else {
+                else {
                     fragment_ll.removeAllViews();
                     commentFragment = null;
                 }
-
                 break;
             case R.id.lead_rl:
                 if (lead_rl.getVisibility() == View.VISIBLE) {
@@ -583,6 +589,17 @@ public class PhotoActivity extends InitActivity implements View.OnClickListener,
                         }
                     }
                 });
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (commentFragment == null)
+            Finish(PhotoActivity.this);
+        else {
+            fragment_ll.removeAllViews();
+            commentFragment = null;
+        }
+        return true;
     }
 
     private void collectPhoto() {

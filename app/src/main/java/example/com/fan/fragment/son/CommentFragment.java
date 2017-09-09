@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
+import com.liaoinstan.springview.widget.SpringView;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
 
@@ -24,6 +25,7 @@ import example.com.fan.base.sign.save.SPreferences;
 import example.com.fan.bean.CollectBean;
 import example.com.fan.bean.CommentBean;
 import example.com.fan.fragment.BaseFragment;
+import example.com.fan.mylistener.SpringListener;
 import example.com.fan.mylistener.editeListener;
 import example.com.fan.utils.DeviceUtils;
 import example.com.fan.utils.MzFinal;
@@ -34,12 +36,13 @@ import okhttp3.Call;
 
 import static example.com.fan.utils.JsonUtils.getCode;
 import static example.com.fan.utils.JsonUtils.getJsonAr;
+import static example.com.fan.utils.SpringUtils.SpringViewInit;
 import static example.com.fan.utils.SynUtils.getTAG;
 
 /**
  * Created by lian on 2017/6/13.
  */
-public class CommentFragment extends BaseFragment implements editeListener {
+public class CommentFragment extends BaseFragment implements editeListener, SpringListener {
     private static final String TAG = getTAG(CommentFragment.class);
 
     private TextView collect_num, msg_edt;
@@ -51,6 +54,10 @@ public class CommentFragment extends BaseFragment implements editeListener {
     private List<CommentBean> commentlist;
     private List<CollectBean> collectlist;
     private String Colle;
+    private SpringView springview1;
+    private SpringListener slistener;
+    private int size = 20;
+
 
     public void setId(String id, String Colle) {
         this.id = id;
@@ -72,7 +79,6 @@ public class CommentFragment extends BaseFragment implements editeListener {
     }
 
     private void getData() {
-
         /**
          * 收藏数据;
          */
@@ -113,14 +119,14 @@ public class CommentFragment extends BaseFragment implements editeListener {
     }
 
     private void getComment() {
-        commentlist.clear();
+
         OkHttpUtils
                 .get()
                 .url(MzFinal.URl + MzFinal.GETMYCOMMENT)
                 .addParams(MzFinal.ID, id)
                 .addParams(MzFinal.TYPE, "0")
                 .addParams(MzFinal.PAGE, "0")
-                .addParams(MzFinal.SIZE, "50")
+                .addParams(MzFinal.SIZE, String.valueOf(size))
                 .tag(this)
                 .build()
                 .execute(new StringCallback() {
@@ -134,17 +140,19 @@ public class CommentFragment extends BaseFragment implements editeListener {
                         try {
                             int code = getCode(response);
                             if (code == 1) {
+                                commentlist.clear();
                                 JSONArray ar = getJsonAr(response);
                                 for (int i = 0; i < ar.length(); i++) {
                                     CommentBean com = new Gson().fromJson(String.valueOf(ar.getJSONObject(i)), CommentBean.class);
                                     commentlist.add(com);
                                 }
                                 Log.i(TAG, "ID======" + id);
-                                if (adapte != null) {
+                                if (adapte != null)
                                     adapte.notifyDataSetChanged();
+                                else {
+                                    adapte = new CommentAdapter(getActivity().getApplicationContext(), commentlist);
+                                    listView.setAdapter(adapte);
                                 }
-                                adapte = new CommentAdapter(getActivity().getApplicationContext(), commentlist);
-                                listView.setAdapter(adapte);
 
                             } else
                                 ToastUtil.ToastErrorMsg(getActivity(), response, code);
@@ -181,6 +189,9 @@ public class CommentFragment extends BaseFragment implements editeListener {
         elistener = this;
         commentlist = new ArrayList<>();
         collectlist = new ArrayList<>();
+        slistener = this;
+        springview1 = (SpringView) view.findViewById(R.id.springview1);
+        SpringViewInit(springview1, getActivity(), slistener);
         collect_num = (TextView) view.findViewById(R.id.collect_num);
         listView = (ListView) view.findViewById(R.id.listView);
         msg_edt = (TextView) view.findViewById(R.id.msg_edt);
@@ -189,6 +200,7 @@ public class CommentFragment extends BaseFragment implements editeListener {
 
     @Override
     protected void initData() {
+
         getData();
     }
 
@@ -232,5 +244,17 @@ public class CommentFragment extends BaseFragment implements editeListener {
                         }
                     }
                 });
+    }
+
+    @Override
+    public void IsonRefresh() {
+        size = 20;
+        getComment();
+    }
+
+    @Override
+    public void IsonLoadmore() {
+        size += 10;
+        getComment();
     }
 }

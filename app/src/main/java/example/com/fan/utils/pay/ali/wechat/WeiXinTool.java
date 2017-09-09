@@ -24,7 +24,7 @@ import java.util.Set;
 import java.util.SortedMap;
 import java.util.TreeMap;
 
-import example.com.fan.utils.MzFinal;
+import example.com.fan.MyAppcation;
 
 import static example.com.fan.utils.SynUtils.getTAG;
 
@@ -42,10 +42,11 @@ public class WeiXinTool {
 
     public WeiXinTool(Context context) {
         this.context = context;
+
         req = new PayReq();
         sb = new StringBuffer();
         msgApi = WXAPIFactory.createWXAPI(context, null);
-        msgApi.registerApp(MzFinal.WECHATPAY);
+        msgApi.registerApp(MyAppcation.WECHATID);
     }
 
     public void pay(SortedMap<String, String> parameters) {
@@ -93,7 +94,6 @@ public class WeiXinTool {
 //        Log.e("orion", appSign);
 //        return appSign;
 //    }
-
     private String toXml(List<BasicNameValuePair> params) {
         StringBuilder sb = new StringBuilder();
         sb.append("<xml>");
