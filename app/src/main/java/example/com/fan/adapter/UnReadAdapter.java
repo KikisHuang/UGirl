@@ -74,12 +74,12 @@ public class UnReadAdapter extends BaseAdapter {
        page_view.setText(see);
        name.setText(list.get(position).getJoinUser().getName());
         try {
-        Glide.with(context)
-                .load(list.get(position).getJoinUser().getHeadImgUrl())
-                .centerCrop()
-                .bitmapTransform(new CropCircleTransformation(context))
-                .crossFade(200)
-                .into(head_img);
+            Glide.with(context)
+                    .load(list.get(position).getJoinUser().getHeadImgUrl())
+                    .centerCrop()
+                    .bitmapTransform(new CropCircleTransformation(context))
+                    .crossFade(200)
+                    .into(head_img);
         } catch (Exception e) {
             Log.i(TAG, "Glide You cannot start a load for a destroyed activity");
         }

@@ -70,6 +70,7 @@ public class AttentionAdapter extends BaseAdapter {
 
         try {
             Glide.with(context).load(list.get(position).getHeadImgUrl()).override(80, 80).bitmapTransform(new CropCircleTransformation(context)).crossFade(300).into(at_icon);
+
         } catch (Exception e) {
             Log.i(TAG, "Glide You cannot start a load for a destroyed activity");
         }

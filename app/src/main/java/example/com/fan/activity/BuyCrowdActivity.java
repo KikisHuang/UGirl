@@ -126,6 +126,7 @@ public class BuyCrowdActivity extends InitActivity implements View.OnClickListen
             im.setScaleType(ImageView.ScaleType.FIT_CENTER);
             try {
                 Glide.with(getApplicationContext()).load(R.drawable.nodata_img).crossFade(200).into(im);
+
             } catch (Exception e) {
                 Log.i(TAG, "Glide You cannot start a load for a destroyed activity");
             }

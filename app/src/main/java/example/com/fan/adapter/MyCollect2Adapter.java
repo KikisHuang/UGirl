@@ -77,18 +77,15 @@ public class MyCollect2Adapter extends BaseAdapter {
 //        TextView stype_tv = (TextView) root.findViewById(R.id.type_tv);
 
         try {
-
             Glide.with(context)
                     .load(list.get(position).getCoverPath())
                     .centerCrop()
                     .thumbnail(0.1f)
-                    .crossFade(1000)
                     .into(cover_img);
             Glide.with(context)
                     .load(list.get(position).getUserHeadImgUrl())
                     .centerCrop()
                     .bitmapTransform(new CropCircleTransformation(context))
-                    .crossFade(300)
                     .override(50, 50)
                     .into(nike_icon);
         } catch (Exception e) {

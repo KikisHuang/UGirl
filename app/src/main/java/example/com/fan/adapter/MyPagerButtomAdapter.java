@@ -79,6 +79,9 @@ public class MyPagerButtomAdapter extends PagerAdapter {
                     case -2:
                         goVideoOfVrPage(context, "1");
                         break;
+                    case -3:
+                        goVideoOfVrPage(context, "0");
+                        break;
                     default:
                         goChoicenessPage(context, list.get(position).getTypeName());
                         break;

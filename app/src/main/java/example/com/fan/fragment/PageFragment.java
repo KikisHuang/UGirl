@@ -1,13 +1,9 @@
 package example.com.fan.fragment;
 
-import android.Manifest;
-import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Handler;
 import android.os.Message;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.Gravity;
@@ -154,18 +150,22 @@ public class PageFragment extends BaseFragment implements View.OnClickListener, 
      * 最新版本检查;
      */
     private void CheckVersion() {
-        if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.READ_EXTERNAL_STORAGE)
+        getVersionInfo(getActivity().getApplicationContext(), this);
+    /*    if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.READ_EXTERNAL_STORAGE)
                 != PackageManager.PERMISSION_GRANTED ||
                 ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_NETWORK_STATE)
                         != PackageManager.PERMISSION_GRANTED ||
                 ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.WRITE_EXTERNAL_STORAGE)
                         != PackageManager.PERMISSION_GRANTED ||
                 ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.RECORD_AUDIO)
-                        != PackageManager.PERMISSION_GRANTED ||
-                ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.READ_PHONE_STATE)
-                        != PackageManager.PERMISSION_GRANTED ||
+                        != PackageManager.PERMISSION_GRANTED||
                 ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.CAMERA)
                         != PackageManager.PERMISSION_GRANTED) {
+            Log.i(TAG,"checkSelfPermission  ======"+ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.READ_EXTERNAL_STORAGE)
+                    +ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_NETWORK_STATE)
+                    +ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                    +ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.READ_PHONE_STATE)
+                    +ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.CAMERA));
             //申请WRITE_EXTERNAL_STORAGE权限
             ActivityCompat.requestPermissions(getActivity(), new String[]{
                             Manifest.permission.CAMERA,
@@ -175,8 +175,8 @@ public class PageFragment extends BaseFragment implements View.OnClickListener, 
                             Manifest.permission.WRITE_EXTERNAL_STORAGE,
                             Manifest.permission.READ_EXTERNAL_STORAGE},
                     100);//自定义的code
-            getVersionInfo(getActivity().getApplicationContext(), this);
-        }
+
+        }*/
     }
 
     /**
@@ -308,6 +308,7 @@ public class PageFragment extends BaseFragment implements View.OnClickListener, 
         OkHttpUtils
                 .get()
                 .url(MzFinal.URl + MzFinal.GETHOMEBANNERPHOTOBYTYPE)
+                .addParams("versionCode","2")
                 .build()
                 .execute(new StringCallback() {
                     @Override
@@ -674,16 +675,16 @@ public class PageFragment extends BaseFragment implements View.OnClickListener, 
         if (LoginStatusQuery()) {
             switch (v.getId()) {
                 case R.id.ranking_img0:
-                    goRankingPage(getActivity(),String.valueOf(2));
+                    goRankingPage(getActivity(), String.valueOf(2));
                     break;
                 case R.id.ranking_img1:
-                    goRankingPage(getActivity(),String.valueOf(3));
+                    goRankingPage(getActivity(), String.valueOf(3));
                     break;
                 case R.id.ranking_img2:
-                    goRankingPage(getActivity(),String.valueOf(4));
+                    goRankingPage(getActivity(), String.valueOf(4));
                     break;
                 case R.id.ranking_more:
-                    goRankingPage(getActivity(),String.valueOf(0));
+                    goRankingPage(getActivity(), String.valueOf(0));
                     break;
                 case R.id.search_rl:
                     goSearchPage(getActivity());
@@ -785,6 +786,7 @@ public class PageFragment extends BaseFragment implements View.OnClickListener, 
     public void onFail() {
         LoadingCancle();
     }
+
 
     @Override
     public void onIncrease() {

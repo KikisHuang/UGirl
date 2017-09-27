@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <TextView
+        android:id="@+id/title_tag"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:text="热门模特/网红"
+        android:textSize="16dp"
+        android:paddingLeft="10dp"
+        android:textColor="@color/black"
+        android:gravity="center|left"
+        />
+    <ImageView
+        android:id="@+id/cover_img"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:scaleType="centerCrop"
+        />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp">
+
+        <ImageView
+            android:id="@+id/user_icon"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/user_icon"
+            android:paddingLeft="10dp">
+
+            <TextView
+                android:id="@+id/name_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text=""
+                android:textColor="@color/cherry"
+                android:textSize="15dp" />
+
+            <TextView
+                android:id="@+id/content_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/name_tv"
+                android:layout_marginLeft="2dp"
+                android:layout_marginTop="5dp"
+                android:text=""
+                android:textColor="@color/black"
+                android:textSize="13dp" />
+
+            <ImageView
+                android:id="@+id/add_wechat_img"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:src="@mipmap/add_wechat_icon" />
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+</LinearLayout>

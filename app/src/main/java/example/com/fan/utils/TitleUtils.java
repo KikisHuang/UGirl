@@ -146,59 +146,34 @@ public class TitleUtils {
      * @param ac
      */
     public static void ChangeTitleLayout(final Activity ac, boolean flag, int tag, String name) {
-//        RelativeLayout title_rl = (RelativeLayout) ac.findViewById(R.id.title_rl);
-//        RelativeLayout title_ll = (RelativeLayout) ac.findViewById(R.id.title_ll);
         RelativeLayout title = (RelativeLayout) ac.findViewById(R.id.title);
-//        ImageView img = (ImageView) ac.findViewById(R.id.title_img2);
         ImageView mimg = (ImageView) ac.findViewById(R.id.title_img);
         MaterialMenuView slide = (MaterialMenuView) ac.findViewById(R.id.material_menu_button);
         ImageView search = (ImageView) ac.findViewById(R.id.search_img);
-//        TextView tv = (TextView) ac.findViewById(R.id.title_tv2);
         TextView mtv = (TextView) ac.findViewById(R.id.title_tv);
-
-        int dp = 0;
         if (flag) {
-//            title_ll.setVisibility(View.VISIBLE);
-//            title_rl.setVisibility(View.GONE);
-//            dp = DeviceUtils.dip2px(ac, 20);
             TitleAnima(ac,title,flag,mtv,slide,search);
             if (tag == 0) {
                 mimg.setVisibility(View.VISIBLE);
                 mtv.setVisibility(View.GONE);
-//                slide.setVisibility(View.GONE);
-//                search.setVisibility(View.GONE);
             }
-
             if (tag == 1) {
                 mtv.setVisibility(View.VISIBLE);
                 mimg.setVisibility(View.GONE);
-//                slide.setVisibility(View.GONE);
-//                search.setVisibility(View.GONE);
                 mtv.setText(name);
             }
-
         } else {
-//            title_ll.setVisibility(View.GONE);
-//            title_rl.setVisibility(View.VISIBLE);
-//            dp = DeviceUtils.dip2px(ac, 50);
             TitleAnima(ac,title,flag,mtv,slide,search);
             if (tag == 0) {
                 mimg.setVisibility(View.VISIBLE);
-//                slide.setVisibility(View.VISIBLE);
-//                search.setVisibility(View.VISIBLE);
                 mtv.setVisibility(View.GONE);
             }
-
             if (tag == 1) {
                 mtv.setVisibility(View.VISIBLE);
                 mimg.setVisibility(View.GONE);
-//                slide.setVisibility(View.VISIBLE);
-//                search.setVisibility(View.VISIBLE);
                 mtv.setText(name);
             }
         }
-//        RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
-//        title.setLayoutParams(lp);
     }
 
 }

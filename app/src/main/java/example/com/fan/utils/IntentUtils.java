@@ -35,9 +35,11 @@ import example.com.fan.activity.RankingActivity;
 import example.com.fan.activity.RegisterActivity;
 import example.com.fan.activity.SearchActivity;
 import example.com.fan.activity.SettingActivity;
+import example.com.fan.activity.StoreActivity;
 import example.com.fan.activity.TaskActivity;
 import example.com.fan.activity.UnReadActivity;
 import example.com.fan.activity.UploadPhotoActivity;
+import example.com.fan.activity.UploadWeChatActivity;
 import example.com.fan.activity.VideoAndVrSonActivity;
 import example.com.fan.activity.VipActivity;
 import example.com.fan.bean.MyOrderBean;
@@ -91,6 +93,16 @@ public class IntentUtils {
 
         Intent intent = new Intent(context, HomePageActivity.class);
         intent.putExtra("user_id", id);
+        startPage(context, intent);
+    }
+    /**
+     * 活动、商城页面;
+     *
+     * @param context 上下文;
+     */
+    public static void goStorePage(Context context) {
+
+        Intent intent = new Intent(context, StoreActivity.class);
         startPage(context, intent);
     }
 
@@ -363,6 +375,15 @@ public class IntentUtils {
      */
     public static void goSettingPage(Context context) {
         Intent intent = new Intent(context, SettingActivity.class);
+        startPage(context, intent);
+    }
+    /**
+     * 我的微信页面;
+     *
+     * @param context 上下文;
+     */
+    public static void goWeChatPage(Context context) {
+        Intent intent = new Intent(context, UploadWeChatActivity.class);
         startPage(context, intent);
     }
 

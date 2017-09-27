@@ -176,6 +176,7 @@ public class StoreAdapter extends BaseAdapter {
 
                         try {
                             Glide.with(context).load(list.get(position).getMcOfficialSellShoppingMall().getCoverPath()).into(holder.goods_img);
+
                         } catch (Exception e) {
                             Log.i(TAG, "Glide You cannot start a load for a destroyed activity");
                         }

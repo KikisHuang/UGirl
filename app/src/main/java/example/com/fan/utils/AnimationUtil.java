@@ -21,6 +21,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+
 import com.balysv.materialmenu.MaterialMenuView;
 
 import example.com.fan.activity.WelcomeActivity;
@@ -281,7 +282,7 @@ public class AnimationUtil {
     public static void TitleAnima(final Context context, final RelativeLayout layout, boolean flag, final TextView mtv, MaterialMenuView slide, ImageView search) {
         ValueAnimator va = null;
         Log.i(TAG, "flag ===" + layout.getLayoutParams().height);
-        if (flag && layout.getLayoutParams().height == 150) {
+        if (flag ) {
             size = 4;
             //隐藏view，高度从50变为25
             va = ValueAnimator.ofInt(DeviceUtils.dip2px(context, 50), DeviceUtils.dip2px(context, 25));
@@ -323,7 +324,7 @@ public class AnimationUtil {
             //开始动画
             va.start();
         }
-        if (!flag && layout.getLayoutParams().height == 75) {
+        if (!flag ) {
             size = 0;
             va = ValueAnimator.ofInt(DeviceUtils.dip2px(context, 25), DeviceUtils.dip2px(context, 50));
             slide.setVisibility(View.VISIBLE);

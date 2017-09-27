@@ -11,6 +11,7 @@ import android.view.Window;
 
 import com.umeng.analytics.MobclickAgent;
 
+import cn.jpush.android.api.JPushInterface;
 import example.com.fan.MyAppcation;
 import example.com.fan.R;
 import example.com.fan.base.sign.save.SPreferences;
@@ -22,6 +23,7 @@ import example.com.fan.utils.pay.ali.alipayTool;
 import static example.com.fan.utils.SynUtils.LoginStatusQuery;
 import static example.com.fan.utils.SynUtils.getTAG;
 import static example.com.fan.utils.SynUtils.getUserVip;
+import static example.com.fan.view.dialog.CustomProgress.Cancle;
 
 /**
  * Created by lian on 2017/6/6.
@@ -94,6 +96,10 @@ public abstract class InitActivity extends FragmentActivity implements alipayToo
     @Override
     protected void onResume() {
         super.onResume();
+        //在所有的Activity都要调用，一般放在基类中
+        JPushInterface.onResume(this);
+        MainActivity.isForeground = true;
+
         MobclickAgent.onResume(this);
         CheckLoginToken();
         System.gc();
@@ -103,16 +109,23 @@ public abstract class InitActivity extends FragmentActivity implements alipayToo
     @Override
     protected void onPause() {
         super.onPause();
+        MainActivity.isForeground = false;
+        //在所有的Activity都要调用，一般放在基类中
+        JPushInterface.onPause(this);
+
         MobclickAgent.onPause(this);
         MobclickAgent.setSessionContinueMillis(30000);
+
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
 //        MyAppcation.getRefWatcher(this).watch(this);
+        Cancle();
         Runtime.getRuntime().gc();
     }
+
 
     @Override
     public void result(int result) {

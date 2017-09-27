@@ -11,6 +11,7 @@ import static example.com.fan.utils.SynUtils.getTAG;
 /**
  * Created by lian on 2017/5/18.
  */
+
 public class MyGlideModule implements GlideModule {
 
     private static final String TAG = getTAG(MyGlideModule.class);

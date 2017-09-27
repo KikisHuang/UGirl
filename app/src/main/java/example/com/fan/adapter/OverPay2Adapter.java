@@ -102,7 +102,6 @@ public class OverPay2Adapter extends BaseAdapter {
         });
         try {
 
-
             Glide.with(context)
                     .load(list.get(position).getCoverPath())
                     .centerCrop()

@@ -64,6 +64,7 @@ public class CommentAdapter extends BaseAdapter {
 
         try {
             Glide.with(context).load(blist.get(position).getUserHeadImgUrl()).override(50, 50).bitmapTransform(new CropCircleTransformation(context)).crossFade(500).into(icon_img);
+
         } catch (Exception e) {
             Log.i(TAG, "Glide You cannot start a load for a destroyed activity");
         }

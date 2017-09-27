@@ -169,6 +169,7 @@ public class MyOrderDetailsActivity extends InitActivity {
                         public void onError(Call call, Exception e, int id) {
                             ToastUtil.toast2_bottom(MyOrderDetailsActivity.this, "网络不顺畅...");
                         }
+
                         @Override
                         public void onResponse(String response, int id) {
                             try {
@@ -200,6 +201,7 @@ public class MyOrderDetailsActivity extends InitActivity {
         super.onDestroy();
         OkHttpUtils.getInstance().cancelTag(this);
     }
+
     @Override
     protected void init() {
         setContentView(R.layout.order_details_activity_layout);

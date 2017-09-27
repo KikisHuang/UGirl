@@ -171,7 +171,6 @@ public class CommentFragment extends BaseFragment implements editeListener, Spri
             lp.setMargins(0, 0, 15, 0);
             ImageView img = new ImageView(getActivity());
             try {
-
                 if (cb.getHeadImgUrl().isEmpty() || cb.getHeadImgUrl() == null)
                     Glide.with(getActivity().getApplicationContext()).load(R.mipmap.test_icon).override(45, 45).bitmapTransform(new CropCircleTransformation(getActivity())).crossFade(500).into(img);
                 else

@@ -10,7 +10,8 @@ import java.util.List;
 
 import example.com.fan.R;
 import example.com.fan.adapter.PictureSlidePagerAdapter;
-import example.com.fan.fragment.son.StoreFragment2;
+import example.com.fan.fragment.son.ModelFragment;
+import example.com.fan.fragment.son.ModelRcFragment;
 import example.com.fan.view.CustomViewPager;
 
 import static example.com.fan.utils.SynUtils.getRouString;
@@ -29,7 +30,7 @@ public class StoreFragment extends BaseFragment {
 
     @Override
     protected int initContentView() {
-        return R.layout.store_fragment;
+        return R.layout.store_fragment2;
     }
 
     private void setPager() {
@@ -54,16 +55,17 @@ public class StoreFragment extends BaseFragment {
     }
 
     private void setNavi() {
-        title.add(getRouString(R.string.store2));
-        title.add(getRouString(R.string.store1));
-        mTab.addTab(mTab.newTab().setText(getRouString(R.string.store2)));
-        mTab.addTab(mTab.newTab().setText(getRouString(R.string.store1)));
+        title.add(getRouString(R.string.model));
+        title.add(getRouString(R.string.dynamic));
+        mTab.addTab(mTab.newTab().setText(getRouString(R.string.model)));
+        mTab.addTab(mTab.newTab().setText(getRouString(R.string.dynamic)));
 
-        for (int i = 1; i >= 0; i--) {
-            StoreFragment2 rf = new StoreFragment2();
-            rf.setTag(i);
-            flist.add(rf);
-        }
+        ModelFragment rf = new ModelFragment();
+        ModelRcFragment rf1 = new ModelRcFragment();
+        rf.setTag(0);
+        rf1.setTag(1);
+        flist.add(rf);
+        flist.add(rf1);
     }
 
     @Override

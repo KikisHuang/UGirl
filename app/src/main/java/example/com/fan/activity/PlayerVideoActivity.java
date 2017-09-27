@@ -84,6 +84,7 @@ public class PlayerVideoActivity extends AppCompatActivity implements View.OnCli
     private VideoPlayBean vb;
     private editeListener elistener;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

@@ -99,7 +99,9 @@
     public <init>(android.content.Context, android.util.AttributeSet, int);
     public void set*(...);
 }
-
+####TabLayout####
+-keep class android.support.design.widget.TabLayout{*;}
+####TabLayout####
 #保持 Parcelable 不被混淆
 -keep class * implements android.os.Parcelable {
   public static final android.os.Parcelable$Creator *;

@@ -25,7 +25,7 @@ public class MyNetworkReceiver extends BroadcastReceiver {
         String action = intent.getAction();
         if (action.equals(ConnectivityManager.CONNECTIVITY_ACTION)) {
             //网络状态判断;
-            if (SynUtils.isNetworkConnected(context.getApplicationContext())) {
+            if (SynUtils.isNetworkConnected(context)) {
                 //当前网络状态可用
 //                JpushInit(context);
                 if (isPushStopped(context)) {

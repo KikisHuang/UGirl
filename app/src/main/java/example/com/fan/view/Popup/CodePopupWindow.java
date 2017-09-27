@@ -27,6 +27,7 @@ import example.com.fan.utils.MzFinal;
 import example.com.fan.utils.ToastUtil;
 import okhttp3.Call;
 
+import static example.com.fan.base.sign.save.SPreferences.saveInViCode;
 import static example.com.fan.utils.IntentUtils.goPersonInfoPage;
 import static example.com.fan.utils.JsonUtils.getCode;
 import static example.com.fan.utils.JsonUtils.getJsonOb;
@@ -68,7 +69,7 @@ public class CodePopupWindow {
                 popupWindow = null;
                 code_img = null;
                 info = null;
-
+                saveInViCode(false);
             }
         });
 
@@ -110,10 +111,10 @@ public class CodePopupWindow {
             @Override
             public void onClick(View v) {
 
-                if (info.size() > 0) {
+                if (info.size() > 0)
                     goPersonInfoPage(mContext, info.get(0).getHeadImgUrl(), info.get(0).getName(), String.valueOf(getSex(info.get(0).getSex())), info.get(0).getWx());
-                    popupWindow.dismiss();
-                }
+//                  popupWindow.dismiss();
+
             }
         });
     }

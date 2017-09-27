@@ -91,6 +91,173 @@
     </RelativeLayout>
 
     <TextView style="@style/line_styles_5" />
+    <RelativeLayout
+        android:id="@+id/rl_layout10"
+        android:layout_width="match_parent"
+        android:layout_height="44dp">
+
+        <ImageView
+            android:id="@+id/icon10"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_centerVertical="true"
+            android:layout_marginBottom="7dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="7dp"
+            android:layout_marginTop="7dp"
+            android:src="@mipmap/shop_icon" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="9dp"
+            android:layout_toRightOf="@+id/icon10"
+            android:text="我的私照"
+            android:textColor="@color/black"
+            android:textSize="13dp"
+
+            />
+
+        <ImageView
+            android:layout_width="10dp"
+            android:layout_height="10dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="15dp"
+            android:src="@mipmap/more_img3" />
+        <TextView
+            style="@style/line_styles_ove_w"
+            android:layout_alignParentBottom="true"
+            android:layout_marginLeft="9dp"
+            android:layout_toRightOf="@+id/icon10" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl_layout11"
+        android:layout_width="match_parent"
+        android:layout_height="44dp">
+
+        <ImageView
+            android:id="@+id/icon11"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_centerVertical="true"
+            android:layout_marginBottom="7dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="7dp"
+            android:layout_marginTop="7dp"
+            android:src="@mipmap/shop_icon" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="9dp"
+            android:layout_toRightOf="@+id/icon11"
+            android:text="我的视频"
+            android:textColor="@color/black"
+            android:textSize="13dp"
+
+            />
+
+        <ImageView
+            android:layout_width="10dp"
+            android:layout_height="10dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="15dp"
+            android:src="@mipmap/more_img3" />
+        <TextView
+            style="@style/line_styles_ove_w"
+            android:layout_alignParentBottom="true"
+            android:layout_marginLeft="9dp"
+            android:layout_toRightOf="@+id/icon11" />
+    </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/rl_layout12"
+        android:layout_width="match_parent"
+        android:layout_height="44dp">
+
+        <ImageView
+            android:id="@+id/icon12"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_centerVertical="true"
+            android:layout_marginBottom="7dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="7dp"
+            android:layout_marginTop="7dp"
+            android:src="@mipmap/shop_icon" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="9dp"
+            android:layout_toRightOf="@+id/icon12"
+            android:text="我的微信"
+            android:textColor="@color/black"
+            android:textSize="13dp"
+
+            />
+
+        <ImageView
+            android:layout_width="10dp"
+            android:layout_height="10dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="15dp"
+            android:src="@mipmap/more_img3" />
+        <TextView
+            style="@style/line_styles_ove_w"
+            android:layout_alignParentBottom="true"
+            android:layout_marginLeft="9dp"
+            android:layout_toRightOf="@+id/icon12" />
+    </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/rl_layout13"
+        android:layout_width="match_parent"
+        android:layout_height="44dp">
+
+        <ImageView
+            android:id="@+id/icon13"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_centerVertical="true"
+            android:layout_marginBottom="7dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="7dp"
+            android:layout_marginTop="7dp"
+            android:src="@mipmap/shop_icon" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="9dp"
+            android:layout_toRightOf="@+id/icon13"
+            android:text="卖出订单"
+            android:textColor="@color/black"
+            android:textSize="13dp"
+
+            />
+
+        <ImageView
+            android:layout_width="10dp"
+            android:layout_height="10dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="15dp"
+            android:src="@mipmap/more_img3" />
+        <TextView
+            style="@style/line_styles_ove_w"
+            android:layout_alignParentBottom="true"
+            android:layout_marginLeft="9dp"
+            android:layout_toRightOf="@+id/icon13" />
+    </RelativeLayout>
+
+    <TextView style="@style/line_styles_5" />
 
     <RelativeLayout
         android:id="@+id/rl_layout3"
@@ -133,6 +300,49 @@
             android:layout_alignParentBottom="true"
             android:layout_marginLeft="9dp"
             android:layout_toRightOf="@+id/icon3" />
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:id="@+id/rl_layout33"
+        android:layout_width="match_parent"
+        android:layout_height="44dp">
+
+        <ImageView
+            android:id="@+id/icon33"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_centerVertical="true"
+            android:layout_marginBottom="7dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="7dp"
+            android:layout_marginTop="7dp"
+            android:src="@mipmap/shop_icon" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="9dp"
+            android:layout_toRightOf="@+id/icon33"
+            android:text="活动"
+            android:textColor="@color/black"
+            android:textSize="13dp"
+
+            />
+
+        <ImageView
+            android:layout_width="10dp"
+            android:layout_height="10dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="15dp"
+            android:src="@mipmap/more_img3" />
+        <TextView
+            style="@style/line_styles_ove_w"
+            android:layout_alignParentBottom="true"
+            android:layout_marginLeft="9dp"
+            android:layout_toRightOf="@+id/icon33" />
     </RelativeLayout>
 
     <RelativeLayout

@@ -15,6 +15,7 @@ import com.zhy.http.okhttp.callback.FileCallBack;
 
 import java.io.File;
 
+import example.com.fan.MyAppcation;
 import okhttp3.Call;
 
 import static example.com.fan.utils.SynUtils.getNameFromUrl;
@@ -45,7 +46,7 @@ public class DownLoadUtils {
                 switch (msg.what) {
                     case 1:
                         SettingRate(msg.arg1);
-                        Log.i(TAG,"进度 ======="+msg.arg1);
+//                        Log.i(TAG, "进度 =======" + msg.arg1);
                         break;
                     case 3:
 //                        ToastUtil.toast2_bottom(context, "下载完成!");
@@ -92,7 +93,6 @@ public class DownLoadUtils {
 
                     @Override
                     public void inProgress(float progress, long total, int id) {
-                        Log.i(TAG, "进度 ==" + progress);
                         Message msg = new Message();
                         msg.arg1 = (int) (progress * 100);
                         msg.what = 1;
@@ -129,21 +129,24 @@ public class DownLoadUtils {
 
     //打开APK
     public void openFile(File file) {
-        // TODO Auto-generated method stub
-        Log.e("OpenFile", file.getName());
-        Intent intent = new Intent(Intent.ACTION_VIEW);
-        //判读版本是否在7.0以上
-        if (Build.VERSION.SDK_INT >= 24) {
-            //provider authorities
-            Uri apkUri = FileProvider.getUriForFile(context, context.getPackageName() + ".fileprovider", file);
-            //Granting Temporary Permissions to a URI
-            intent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION|Intent.FLAG_ACTIVITY_NEW_TASK);
-            intent.setDataAndType(apkUri, "application/vnd.android.package-archive");
-        } else {
-            intent.setDataAndType(Uri.fromFile(file), "application/vnd.android.package-archive");
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        try {
+            // TODO Auto-generated method stub
+            Log.e("OpenFile", file.getName());
+            Intent intent = new Intent(Intent.ACTION_VIEW);
+            //判读版本是否在7.0以上
+            if (Build.VERSION.SDK_INT >= 24) {
+                //provider authorities
+                Uri apkUri = FileProvider.getUriForFile(context, context.getPackageName() + ".fileprovider", file);
+                //Granting Temporary Permissions to a URI
+                intent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_ACTIVITY_NEW_TASK);
+                intent.setDataAndType(apkUri, "application/vnd.android.package-archive");
+            } else {
+                intent.setDataAndType(Uri.fromFile(file), "application/vnd.android.package-archive");
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            }
+            context.startActivity(intent);
+        } catch (Exception e) {
+            MyAppcation.crashHandler.uncaughtException(new Thread(), e);
         }
-
-        context.startActivity(intent);
     }
 }

@@ -83,7 +83,7 @@ public class AttentionActivity extends InitActivity implements SpringListener, I
                             if (code == 1) {
                                 list.clear();
                                 JSONArray ar = getJsonAr(response);
-                                for (int i = 0; i < ar.length() - 1; i++) {
+                                for (int i = 0; i < ar.length(); i++) {
                                     AttentBean ab = new Gson().fromJson(String.valueOf(ar.getJSONObject(i)), AttentBean.class);
                                     list.add(ab);
                                 }
@@ -138,6 +138,7 @@ public class AttentionActivity extends InitActivity implements SpringListener, I
 
 
     }
+
     @Override
     protected void init() {
         setContentView(R.layout.attention_activity_layout);

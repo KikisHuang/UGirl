@@ -9,7 +9,6 @@ public class MzFinal {
     /**
      * 主路径
      */
-//  public static final String URl = "http://192.168.1.200:8888/mcFnsInterface/";
 //  public static final String URl = "http://192.168.1.224:8080/mcFnsInterface/";
 //  public static final String URl = "http://101.37.86.15:8080/mcFnsInterface/";
 
@@ -17,6 +16,7 @@ public class MzFinal {
 
 //    public static final String URl = "http://fnsandroid.mozu123.com/mcFnsInterface/";
 //    public static final String URl = "http://fnsandroid2.mozu123.com/mcFnsInterface/";
+//    public static final String URl = "http://fnsandroid3.mozu123.com/mcFnsInterface/";
 
 
     /**

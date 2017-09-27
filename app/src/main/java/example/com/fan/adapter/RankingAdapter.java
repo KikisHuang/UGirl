@@ -76,7 +76,8 @@ public class RankingAdapter extends BaseAdapter {
         if (position > 2) {
             ranking_layout.setVisibility(View.VISIBLE);
             try {
-            Glide.with(context).load(list.get(position).getHeadImgUrl()).bitmapTransform(new CropCircleTransformation(context)).crossFade(1000).into(nike_icon);
+                Glide.with(context).load(list.get(position).getHeadImgUrl()).bitmapTransform(new CropCircleTransformation(context)).crossFade(1000).into(nike_icon);
+
             } catch (Exception e) {
                 Log.i(TAG, "Glide You cannot start a load for a destroyed activity");
             }

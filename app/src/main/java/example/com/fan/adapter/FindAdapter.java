@@ -45,7 +45,7 @@ public class FindAdapter extends BaseAdapter {
     private TextView name_tv, type_tv, date_tv, content_tv, attention_tv;
     private boolean homeflag;
 
-    public FindAdapter(Context context, List<ModelBean> list, ItemClickListener listener, TwoParamaListener tlistener, ShareRequestListener slistener,boolean homeflag) {
+    public FindAdapter(Context context, List<ModelBean> list, ItemClickListener listener, TwoParamaListener tlistener, ShareRequestListener slistener, boolean homeflag) {
         this.context = context.getApplicationContext();
         this.list = list;
         this.listener = listener;
@@ -105,6 +105,7 @@ public class FindAdapter extends BaseAdapter {
 
         try {
             Glide.with(context).load(list.get(position).getJoinUser().getHeadImgUrl()).bitmapTransform(new CropCircleTransformation(context)).override(50, 50).crossFade(300).into(icon_logo);
+
         } catch (Exception e) {
             Log.i(TAG, "Glide You cannot start a load for a destroyed activity");
         }
@@ -118,11 +119,11 @@ public class FindAdapter extends BaseAdapter {
                 slistener.onShare(list.get(position).getJoinUser().getId(), list.get(position).getName(), list.get(position).getInfo(), list.get(position).getMcSettingPublishType().getId());
             }
         });
-        if(!homeflag){
+        if (!homeflag) {
             icon_logo.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    listener.onItemClickListener(1,list.get(position).getJoinUser().getId());
+                    listener.onItemClickListener(1, list.get(position).getJoinUser().getId());
                 }
             });
         }
@@ -237,7 +238,7 @@ public class FindAdapter extends BaseAdapter {
 
     /**
      * 专辑图组初始化设置;
-     * <p>
+     * <p/>
      * //     * @param position
      */
     private void SpecialInit(final int position) {

@@ -173,9 +173,7 @@ public class RegisterActivity extends InitActivity implements View.OnClickListen
                 } else {
                     check = true;
                     check_img.setImageResource(R.mipmap.on_img);
-
                 }
-
                 break;
         }
     }

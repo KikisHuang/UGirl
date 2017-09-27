@@ -94,8 +94,7 @@ public class HomePageActivity extends BaseActivity implements ItemClickListener,
         ImageView img = listView.getHeaderView();
         img.setScaleType(ImageView.ScaleType.CENTER_CROP);
         try {
-            Glide.with(getApplicationContext()).load(cover).override(1296, 1080).into(img);
-        } catch (Exception e) {
+            Glide.with(getApplicationContext()).load(cover).override(1296, 1080).into(img);        } catch (Exception e) {
             Log.i(TAG, "Glide You cannot start a load for a destroyed activity");
         }
         //高度;
@@ -169,6 +168,7 @@ public class HomePageActivity extends BaseActivity implements ItemClickListener,
 
                                 try {
                                     Glide.with(getApplicationContext()).load(mib.getMcUser().getHeadImgUrl()).transform(new GlideCircleTransform(HomePageActivity.this, 1, getRouColors(R.color.white))).crossFade(200).into(home_page_icon);
+
                                 } catch (Exception e) {
                                     Log.i(TAG, "Glide You cannot start a load for a destroyed activity");
                                 }

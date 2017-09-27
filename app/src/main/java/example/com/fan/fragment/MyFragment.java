@@ -45,8 +45,10 @@ import static example.com.fan.utils.IntentUtils.goPayPage;
 import static example.com.fan.utils.IntentUtils.goPersonInfoPage2;
 import static example.com.fan.utils.IntentUtils.goRegisterPage;
 import static example.com.fan.utils.IntentUtils.goSettingPage;
+import static example.com.fan.utils.IntentUtils.goStorePage;
 import static example.com.fan.utils.IntentUtils.goUnReadPage;
 import static example.com.fan.utils.IntentUtils.goVipPage;
+import static example.com.fan.utils.IntentUtils.goWeChatPage;
 import static example.com.fan.utils.JsonUtils.getCode;
 import static example.com.fan.utils.JsonUtils.getJsonAr;
 import static example.com.fan.utils.JsonUtils.getJsonOb;
@@ -66,7 +68,8 @@ public class MyFragment extends BaseFragment implements View.OnClickListener, Ch
     private static final String TAG = getTAG(MyFragment.class);
     private TextView attention_tv, account_tv, rank_tv, login_tv, register_tv, user_name, acoount_line;
     private ImageView user_icon, ad_img;
-    private RelativeLayout rl_layout1, rl_layout2, rl_layout3, rl_layout4, rl_layout5, rl_layout6, rl_layout7, rl_layout8, login_rl;
+    private RelativeLayout rl_layout1, rl_layout2, rl_layout3, rl_layout4, rl_layout5, rl_layout6, rl_layout7, rl_layout8, login_rl, rl_layout33;
+    private RelativeLayout rl_layout10, rl_layout11, rl_layout12, rl_layout13;
     private LinearLayout unlogin_ll, account_number_layout, compile_layout;
     public static MyFragment fragment;
     private List<UserInfoBean> info;
@@ -153,6 +156,12 @@ public class MyFragment extends BaseFragment implements View.OnClickListener, Ch
         rl_layout6.setOnClickListener(this);
         rl_layout7.setOnClickListener(this);
         rl_layout8.setOnClickListener(this);
+        rl_layout33.setOnClickListener(this);
+
+        rl_layout10.setOnClickListener(this);
+        rl_layout11.setOnClickListener(this);
+        rl_layout12.setOnClickListener(this);
+        rl_layout13.setOnClickListener(this);
     }
 
     private void getData() {
@@ -234,16 +243,16 @@ public class MyFragment extends BaseFragment implements View.OnClickListener, Ch
                                     MyAppcation.myInvitationCode = ub.getMyInvitationCode();
                                 } else
                                     ToastUtil.ToastErrorMsg(getActivity(), response, code);
+                                /**
+                                 * 更新vip状态;
+                                 */
+                                getUserVip();
                             } catch (Exception e) {
 
                             }
                         }
                     });
         }
-        /**
-         * 更新vip状态;
-         */
-        getUserVip();
     }
 
     public void init() {
@@ -258,6 +267,8 @@ public class MyFragment extends BaseFragment implements View.OnClickListener, Ch
         login_tv = (TextView) view.findViewById(R.id.login_tv);
         register_tv = (TextView) view.findViewById(R.id.register_tv);
         acoount_line = (TextView) view.findViewById(R.id.acoount_line);
+
+        rl_layout33 = (RelativeLayout) view.findViewById(R.id.rl_layout33);
 
         account_number_layout = (LinearLayout) view.findViewById(R.id.account_number_layout);
         compile_layout = (LinearLayout) view.findViewById(R.id.compile_layout);
@@ -275,6 +286,11 @@ public class MyFragment extends BaseFragment implements View.OnClickListener, Ch
         rl_layout6 = (RelativeLayout) view.findViewById(R.id.rl_layout6);
         rl_layout7 = (RelativeLayout) view.findViewById(R.id.rl_layout7);
         rl_layout8 = (RelativeLayout) view.findViewById(R.id.rl_layout8);
+
+        rl_layout10 = (RelativeLayout) view.findViewById(R.id.rl_layout10);
+        rl_layout11 = (RelativeLayout) view.findViewById(R.id.rl_layout11);
+        rl_layout12 = (RelativeLayout) view.findViewById(R.id.rl_layout12);
+        rl_layout13 = (RelativeLayout) view.findViewById(R.id.rl_layout13);
 
         login_rl = (RelativeLayout) view.findViewById(R.id.login_rl);
         unlogin_ll = (LinearLayout) view.findViewById(R.id.unlogin_ll);
@@ -299,7 +315,7 @@ public class MyFragment extends BaseFragment implements View.OnClickListener, Ch
 
             case R.id.user_icon:
                 if (info.size() > 0)
-                    goPersonInfoPage2(getActivity(), info.get(0).getHeadImgUrl(), info.get(0).getName(), String.valueOf(getSex(info.get(0).getSex())), info.get(0).getWx(),user_icon);
+                    goPersonInfoPage2(getActivity(), info.get(0).getHeadImgUrl(), info.get(0).getName(), String.valueOf(getSex(info.get(0).getSex())), info.get(0).getWx(), user_icon);
                 break;
             case R.id.login_tv:
                 goLoginPage(getActivity());
@@ -309,7 +325,7 @@ public class MyFragment extends BaseFragment implements View.OnClickListener, Ch
                 break;
             case R.id.compile_layout:
                 if (info.size() > 0)
-                    goPersonInfoPage2(getActivity(), info.get(0).getHeadImgUrl(), info.get(0).getName(), String.valueOf(getSex(info.get(0).getSex())), info.get(0).getWx(),user_icon);
+                    goPersonInfoPage2(getActivity(), info.get(0).getHeadImgUrl(), info.get(0).getName(), String.valueOf(getSex(info.get(0).getSex())), info.get(0).getWx(), user_icon);
                 break;
             case R.id.attention_tv:
                 goAttentionPage(getActivity());
@@ -354,6 +370,12 @@ public class MyFragment extends BaseFragment implements View.OnClickListener, Ch
                 } else
                     Login(getActivity());
                 break;
+            case R.id.rl_layout33:
+                if (LoginStatusQuery()) {
+                    goStorePage(getActivity());
+                } else
+                    Login(getActivity());
+                break;
             case R.id.rl_layout5:
                 if (LoginStatusQuery()) {
                     goUnReadPage(getActivity());
@@ -384,6 +406,18 @@ public class MyFragment extends BaseFragment implements View.OnClickListener, Ch
                 break;
             case R.id.rl_layout8:
                 goSettingPage(getActivity());
+                break;
+            case R.id.rl_layout10:
+
+                break;
+            case R.id.rl_layout11:
+
+                break;
+            case R.id.rl_layout12:
+                goWeChatPage(getActivity());
+                break;
+            case R.id.rl_layout13:
+
                 break;
 
         }

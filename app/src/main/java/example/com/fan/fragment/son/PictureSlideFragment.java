@@ -97,6 +97,7 @@ public class PictureSlideFragment extends BaseFragment implements PayRefreshList
 
         load_img.setVisibility(View.VISIBLE);
         Glide.with(getActivity().getApplicationContext()).load(R.drawable.loading_gif).asGif().diskCacheStrategy(DiskCacheStrategy.SOURCE).into(load_img);
+
         /**
          * 收费图片从oss中获取;
          */
@@ -174,9 +175,9 @@ public class PictureSlideFragment extends BaseFragment implements PayRefreshList
 //                            }
 //                        });
 //            } else {
+
             Glide.with(getActivity().getApplicationContext())
                     .load(url)
-                    .crossFade(200)
                     .error(R.drawable.load_fail_img)
                     .centerCrop()
                     .into(new GlideDrawableImageViewTarget(imageView) {

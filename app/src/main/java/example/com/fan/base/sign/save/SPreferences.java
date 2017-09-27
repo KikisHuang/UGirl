@@ -61,7 +61,7 @@ public class SPreferences {
     }
 
     /**
-     * 保存登录状态;
+     * 保存登录方式;
      */
     public static void saveLoginWay(String str) {
         saveString(KEY_LOGIN_WAY, str);

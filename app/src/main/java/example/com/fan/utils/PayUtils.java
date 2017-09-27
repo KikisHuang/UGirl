@@ -54,7 +54,7 @@ public class PayUtils {
 
         Log.i(TAG," appid ========"+appid);
         OkHttpUtils
-                .get()
+                .post()
                 .url(MzFinal.URl + url)
                 .addParams(MzFinal.KEY, SPreferences.getUserToken())
                 .addParams(MzFinal.APPID, appid)

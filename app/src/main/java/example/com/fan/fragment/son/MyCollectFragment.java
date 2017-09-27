@@ -51,7 +51,7 @@ public class MyCollectFragment extends BaseFragment implements ItemClickListener
     private StaggeredGridLayoutManager mLayoutManager;
     private ItemClickListener listener;
     private ListView listView;
-    public RippleView delete_tv;
+    public  RippleView delete_tv;
     private FrameLayout no_data;
     private int tag;
     private DeleteListener deleteListener;

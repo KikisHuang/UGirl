@@ -11,6 +11,7 @@
     <string name="my">我的</string>
     <string name="host_model">热门模特</string>
     <string name="model">模特</string>
+    <string name="dynamic">动态</string>
     <string name="newest">最新</string>
     <string name="newhost">最热</string>
     <string name="vip">VIP专区</string>
@@ -161,6 +162,7 @@ Copyright  2012\n
     <string name="nowpay">立即抢购</string>
     <string name="ending">已结束</string>
     <string name="update_lead">请耐心等待一会，新版本更精彩哦！</string>
+    <string name="save">保存</string>
 
 
     <dimen name="size1">1px</dimen>

@@ -50,7 +50,8 @@ public class PhotoProgress extends Dialog {
             TextView msg_tv = (TextView) dialog.findViewById(R.id.msg_tv);
             Random ra = new Random();
             int x = ra.nextInt(100);
-            setTextColor2(msg_tv, msg + MzFinal.br, "   升级包大小：8." + x + "M", "#FF4D87");
+            //升级包大小随意填写;
+            setTextColor2(msg_tv, msg + MzFinal.br, "   升级包大小：5." + x + "M", "#FF4D87");
 
             pb.setVisibility(View.VISIBLE);
 

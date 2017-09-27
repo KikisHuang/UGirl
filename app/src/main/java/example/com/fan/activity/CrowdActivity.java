@@ -229,6 +229,7 @@ public class CrowdActivity extends InitActivity implements homepageListener, Ite
             im.setLayoutParams(lp1);
             try {
                 Glide.with(getApplicationContext()).load(cb.getMcCrowdFundingTargets().get(i).getHeadImgUrl()).override(100, 100).bitmapTransform(new CropCircleTransformation(context)).into(im);
+
             } catch (Exception e) {
                 Log.i(TAG, "Glide You cannot start a load for a destroyed activity");
             }
