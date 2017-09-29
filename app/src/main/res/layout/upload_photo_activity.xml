@@ -1,0 +1,287 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:ripple="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <include layout="@layout/title_layout"></include>
+
+    <LinearLayout
+        android:id="@+id/lock_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="10dp"
+        android:visibility="gone">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="* "
+                android:textColor="@color/cherry"
+                android:textSize="13dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="设置从第几张收费后才可上传私照（设置后不可修改）。"
+                android:textColor="@color/black"
+                android:textSize="13dp" />
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:paddingTop="10dp">
+
+            <TextView
+                android:id="@+id/qweqwe"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:text="第"
+                android:textColor="@color/black"
+                android:textSize="16dp" />
+
+            <EditText
+                android:id="@+id/price_detail_ed"
+                android:layout_width="40dp"
+                android:layout_height="match_parent"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@+id/qweqwe"
+                android:background="@color/white"
+                android:gravity="center"
+                android:inputType="number"
+                android:text="2"
+                android:textColor="@color/cherry"
+                android:textSize="17dp" />
+
+            <TextView
+                android:id="@+id/pprice_detaile_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@+id/price_detail_ed"
+                android:gravity="center"
+                android:text="张开始收费"
+                android:textColor="@color/black"
+                android:textSize="16dp" />
+
+
+            <TextView
+                style="@style/line_styles_ove_w"
+                android:layout_alignParentBottom="true" />
+        </RelativeLayout>
+
+        <example.com.fan.view.RippleView
+            android:id="@+id/lock_button"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_gravity="center|bottom"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/cherry_corner4"
+            android:gravity="center"
+            android:text="@string/confirm"
+            android:textColor="@color/white"
+            ripple:alphaFactor="0.5"
+            ripple:hover="false"
+            ripple:rippleColor="@color/white" />
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:id="@+id/upload_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:paddingTop="10dp">
+
+                <example.com.fan.view.CustomGridView
+                    android:id="@+id/gridView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:columnWidth="60dp"
+                    android:numColumns="4"
+                    android:stretchMode="columnWidth"
+                    android:verticalSpacing="5dp"></example.com.fan.view.CustomGridView>
+            </RelativeLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:gravity="center"
+                android:text="每张专辑只可以上传15张照片"
+                android:textColor="@color/red3" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="5dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:paddingTop="10dp">
+
+                <TextView
+                    android:id="@+id/price_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
+                    android:layout_centerVertical="true"
+                    android:gravity="center"
+                    android:text="打赏金额："
+                    android:textColor="@color/black"
+                    android:textSize="16dp" />
+
+                <TextView
+                    android:id="@+id/place_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_toRightOf="@+id/price_tv"
+                    android:gravity="center"
+                    android:text="￥"
+                    android:textColor="@color/red1"
+                    android:textSize="17dp" />
+
+                <EditText
+                    android:id="@+id/price_ed"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_centerVertical="true"
+                    android:layout_toRightOf="@+id/place_tv"
+                    android:background="@color/white"
+                    android:text="2"
+                    android:textColor="@color/red1"
+                    android:textColorHint="@color/red1"
+                    android:textSize="17dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:text="(2-28元)"
+                    android:textColor="@color/content6"
+                    android:textSize="15dp" />
+
+                <TextView
+                    style="@style/line_styles_ove_w"
+                    android:layout_alignParentBottom="true" />
+            </RelativeLayout>
+
+            <example.com.fan.view.RippleView
+                android:id="@+id/save_button"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_gravity="center|bottom"
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/cherry_corner4"
+                android:gravity="center"
+                android:text="@string/upload1"
+                android:textColor="@color/white"
+                ripple:alphaFactor="0.5"
+                ripple:hover="false"
+                ripple:rippleColor="@color/white" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="10dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="温馨提示"
+                    android:textColor="@color/black" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="* "
+                        android:textColor="@color/cherry"
+                        android:textSize="13dp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="上传照片后需要平台审核才可显示。"
+                        android:textColor="@color/black"
+                        android:textSize="13dp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="* "
+                        android:textColor="@color/cherry"
+                        android:textSize="13dp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="用户打赏足够的金额才能够查看，请放心上传！"
+                        android:textColor="@color/black"
+                        android:textSize="13dp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="* "
+                        android:textColor="@color/cherry"
+                        android:textSize="13dp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="请上传高质量高观赏性的私密照片，用户更喜欢！不得上传违规的照片。"
+                        android:textColor="@color/black"
+                        android:textSize="13dp" />
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

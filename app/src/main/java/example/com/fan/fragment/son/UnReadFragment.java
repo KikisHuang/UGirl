@@ -44,7 +44,7 @@ public class UnReadFragment extends BaseFragment implements SpringListener {
     private FrameLayout no_data;
     private int tag;
     private SpringView springview;
-    private int pagesize = 20;
+    private int page = 0;
 
     public void setTag(final int tag) {
         this.tag = tag;
@@ -55,21 +55,21 @@ public class UnReadFragment extends BaseFragment implements SpringListener {
         return R.layout.unread_fragment;
     }
 
-    public void newInstance() {
+    public void newInstance(boolean b) {
         switch (tag) {
             case 0:
-                getUnRead("0");
+                getUnRead("0",b);
                 break;
             case 1:
-                getUnRead("4");
+                getUnRead("4", b);
                 break;
             case 2:
-                getUnRead("5");
+                getUnRead("5", b);
                 break;
         }
     }
 
-    private void getUnRead(String type) {
+    private void getUnRead(String type, final boolean b) {
         /**
          * 未读;
          */
@@ -77,8 +77,8 @@ public class UnReadFragment extends BaseFragment implements SpringListener {
                 .get()
                 .url(MzFinal.URl + MzFinal.GETNOTREADRECORD)
                 .addParams(MzFinal.KEY, SPreferences.getUserToken())
-                .addParams(MzFinal.PAGE, "0")
-                .addParams(MzFinal.SIZE, String.valueOf(pagesize))
+                .addParams(MzFinal.PAGE, String.valueOf(page))
+                .addParams(MzFinal.SIZE, String.valueOf(page+20))
                 .addParams(MzFinal.TYPE, type)
                 .tag(this)
                 .build()
@@ -93,6 +93,7 @@ public class UnReadFragment extends BaseFragment implements SpringListener {
                         try {
                             int code = getCode(response);
                             if (code == 1) {
+                                if (b)
                                 rlist.clear();
                                 JSONArray ar = getJsonAr(response);
                                 if (ar.length() > 0) {
@@ -140,6 +141,7 @@ public class UnReadFragment extends BaseFragment implements SpringListener {
             }
         });
     }
+
     @Override
     protected void init() {
         listView = (ListView) view.findViewById(R.id.listView);
@@ -151,13 +153,13 @@ public class UnReadFragment extends BaseFragment implements SpringListener {
 
     @Override
     protected void initData() {
-        newInstance();
+        newInstance(true);
     }
 
     @Override
-    public void IsonRefresh() {
-        pagesize = 20;
-        newInstance();
+    public void IsonRefresh(int i) {
+        page = i;
+        newInstance(true);
     }
 
     @Override
@@ -167,8 +169,8 @@ public class UnReadFragment extends BaseFragment implements SpringListener {
     }
 
     @Override
-    public void IsonLoadmore() {
-        pagesize += 20;
-        newInstance();
+    public void IsonLoadmore(int a) {
+        page += a;
+        newInstance(false);
     }
 }

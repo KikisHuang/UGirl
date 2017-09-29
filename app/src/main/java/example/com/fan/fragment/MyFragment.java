@@ -40,13 +40,17 @@ import static example.com.fan.utils.IntentUtils.goAttentionPage;
 import static example.com.fan.utils.IntentUtils.goLoginPage;
 import static example.com.fan.utils.IntentUtils.goMyCollectPage;
 import static example.com.fan.utils.IntentUtils.goMyOrderPage;
+import static example.com.fan.utils.IntentUtils.goMyPrivatePhotoPage;
+import static example.com.fan.utils.IntentUtils.goMyVideoPage;
 import static example.com.fan.utils.IntentUtils.goOverPayPage;
 import static example.com.fan.utils.IntentUtils.goPayPage;
 import static example.com.fan.utils.IntentUtils.goPersonInfoPage2;
 import static example.com.fan.utils.IntentUtils.goRegisterPage;
+import static example.com.fan.utils.IntentUtils.goRzPage;
 import static example.com.fan.utils.IntentUtils.goSettingPage;
 import static example.com.fan.utils.IntentUtils.goStorePage;
 import static example.com.fan.utils.IntentUtils.goUnReadPage;
+import static example.com.fan.utils.IntentUtils.goUpPrivatePhotoPage;
 import static example.com.fan.utils.IntentUtils.goVipPage;
 import static example.com.fan.utils.IntentUtils.goWeChatPage;
 import static example.com.fan.utils.JsonUtils.getCode;
@@ -73,6 +77,7 @@ public class MyFragment extends BaseFragment implements View.OnClickListener, Ch
     private LinearLayout unlogin_ll, account_number_layout, compile_layout;
     public static MyFragment fragment;
     private List<UserInfoBean> info;
+    private TextView upload_private, upload_video;
 
     @Override
     protected int initContentView() {
@@ -162,6 +167,9 @@ public class MyFragment extends BaseFragment implements View.OnClickListener, Ch
         rl_layout11.setOnClickListener(this);
         rl_layout12.setOnClickListener(this);
         rl_layout13.setOnClickListener(this);
+
+        upload_video.setOnClickListener(this);
+        upload_private.setOnClickListener(this);
     }
 
     private void getData() {
@@ -226,6 +234,12 @@ public class MyFragment extends BaseFragment implements View.OnClickListener, Ch
                                     JSONObject ob = getJsonOb(response);
                                     UserInfoBean ub = new Gson().fromJson(String.valueOf(ob), UserInfoBean.class);
                                     info.add(ub);
+
+                                    if (ub.getModelFlag() == 1)
+                                        MzFinal.MODELFLAG = true;
+                                    else
+                                        MzFinal.MODELFLAG = false;
+
                                     setTextColor1(account_tv, info.get(0).getBalance() + MzFinal.br, "我的账户", "#FF4D87");
                                     setTextColor1(rank_tv, info.get(0).getCommentLevel() + MzFinal.br, "等级", "#000000");
                                     MyAppcation.UserIcon = ub.getHeadImgUrl();
@@ -275,6 +289,9 @@ public class MyFragment extends BaseFragment implements View.OnClickListener, Ch
 
         user_icon = (ImageView) view.findViewById(R.id.user_icon);
         user_name = (TextView) view.findViewById(R.id.user_name);
+
+        upload_private = (TextView) view.findViewById(R.id.upload_private);
+        upload_video = (TextView) view.findViewById(R.id.upload_video);
 
         ad_img = (ImageView) view.findViewById(R.id.ad_img);
 
@@ -408,19 +425,47 @@ public class MyFragment extends BaseFragment implements View.OnClickListener, Ch
                 goSettingPage(getActivity());
                 break;
             case R.id.rl_layout10:
-
+                if (MzFinal.MODELFLAG) {
+                    goMyPrivatePhotoPage(getActivity());
+                } else
+                    GoRenzPage();
                 break;
             case R.id.rl_layout11:
-
+                if (MzFinal.MODELFLAG) {
+                    goMyVideoPage(getActivity());
+                } else
+                    GoRenzPage();
                 break;
             case R.id.rl_layout12:
-                goWeChatPage(getActivity());
+
+                if (MzFinal.MODELFLAG) {
+                    goWeChatPage(getActivity());
+                } else
+                    GoRenzPage();
                 break;
             case R.id.rl_layout13:
 
                 break;
+            case R.id.upload_private:
+                if (MzFinal.MODELFLAG) {
+                    goUpPrivatePhotoPage(getActivity());
+                } else
+                    GoRenzPage();
+                break;
+            case R.id.upload_video:
+                if (MzFinal.MODELFLAG) {
+
+                } else
+                    GoRenzPage();
+
+                break;
 
         }
+    }
+
+    private void GoRenzPage() {
+        ToastUtil.toast2_bottom(getActivity(), "此页面为模特用户页面，实名认证后才可进入！");
+        goRzPage(getActivity());
     }
 
     @Override

@@ -174,7 +174,7 @@ public class LoginActivity extends InitActivity implements View.OnClickListener,
                 goRegisterPage(this);
                 break;
             case R.id.home_page_finish:
-                Finish(this);
+                finish();
                 break;
             case R.id.clear_img:
                 user_ed.setText("");
@@ -266,7 +266,7 @@ public class LoginActivity extends InitActivity implements View.OnClickListener,
                                 saveLoginWay(getRouString(R.string.phone_login));
                                 if (MyFragment.fragment != null)
                                     MyFragment.fragment.onUpDataUserInfo();
-                                Finish(LoginActivity.this);
+                                finish();
                             } else
                                 ToastUtil.ToastErrorMsg(LoginActivity.this, response, code);
                         } catch (Exception e) {

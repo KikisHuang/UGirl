@@ -20,7 +20,7 @@
     <color name="content9">#ededed</color>
     <color name="content10">#9d9d9d</color>
 
-
+    <color name="button_cotent">#ff586f</color>
     <!-- 白色渐变 -->
     <color name="white1">#11FFFFFF</color>
     <color name="white2">#22FFFFFF</color>

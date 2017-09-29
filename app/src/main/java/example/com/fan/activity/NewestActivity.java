@@ -15,7 +15,6 @@ import org.json.JSONArray;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import example.com.fan.R;
 import example.com.fan.adapter.FindAdapter;
@@ -34,11 +33,10 @@ import okhttp3.Call;
 import static example.com.fan.utils.IntentUtils.goHomePage;
 import static example.com.fan.utils.IntentUtils.goPhotoPage;
 import static example.com.fan.utils.IntentUtils.goPlayerPage;
+import static example.com.fan.utils.IntentUtils.goPrivatePhotoPage;
 import static example.com.fan.utils.JsonUtils.getCode;
 import static example.com.fan.utils.JsonUtils.getJsonAr;
-import static example.com.fan.utils.JsonUtils.getKeyMap;
 import static example.com.fan.utils.ShareUtils.ShareApp;
-import static example.com.fan.utils.SynUtils.Finish;
 import static example.com.fan.utils.SynUtils.Login;
 import static example.com.fan.utils.SynUtils.LoginStatusQuery;
 import static example.com.fan.utils.SynUtils.getTAG;
@@ -56,7 +54,7 @@ public class NewestActivity extends BaseActivity implements ItemClickListener, S
     private ItemClickListener listener;
     private TwoParamaListener tlistener;
     private View top;
-    private int size = 20;
+    private int page = 0;
     private ShareRequestListener slistener;
 
 
@@ -70,25 +68,28 @@ public class NewestActivity extends BaseActivity implements ItemClickListener, S
     }
 
     @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        finish();
+        return false;
+    }
+
+    @Override
     protected void onDestroy() {
         super.onDestroy();
         OkHttpUtils.getInstance().cancelTag(this);
     }
 
-    private void getData() {
+    private void getData(final boolean b) {
         /**
          * 模特所属的私照或视频详情数据;
          */
-        Map<String, String> map = getKeyMap();
-        map.put(MzFinal.PAGE, "0");
-        map.put(MzFinal.SIZE, String.valueOf(size));
         final long start = System.currentTimeMillis();
         OkHttpUtils
                 .get()
                 .url(MzFinal.URl + MzFinal.GETPUBLISHRECORDBYMODEL)
                 .addParams(MzFinal.KEY, SPreferences.getUserToken())
-                .addParams(MzFinal.PAGE, "0")
-                .addParams(MzFinal.SIZE, String.valueOf(size))
+                .addParams(MzFinal.PAGE, String.valueOf(page))
+                .addParams(MzFinal.SIZE, String.valueOf(page + 20))
                 .tag(this)
                 .build()
                 .execute(new StringCallback() {
@@ -104,7 +105,7 @@ public class NewestActivity extends BaseActivity implements ItemClickListener, S
                             String a = String.valueOf(end - start);
                             Log.i(TAG, "" + a + "ms");
                             int code = getCode(response);
-                            if (rlist.size() > 0)
+                            if (b)
                                 rlist.clear();
                             if (code == 1) {
                                 JSONArray ar = getJsonAr(response);
@@ -148,35 +149,36 @@ public class NewestActivity extends BaseActivity implements ItemClickListener, S
                 case 0:
                     goPhotoPage(NewestActivity.this, id, 0);
                     break;
+                case -2:
+                    goPrivatePhotoPage(NewestActivity.this, id, 0);
+                    break;
                 case 1:
                     goHomePage(NewestActivity.this, id);
+                    break;
+                case -3:
+
                     break;
             }
         } else
             Login(NewestActivity.this);
     }
 
+
     @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        Finish(this);
-        return false;
+    public void IsonRefresh(int i) {
+        page = i;
+        getData(true);
     }
 
     @Override
-    public void IsonRefresh() {
-        size = 20;
-        getData();
-    }
-
-    @Override
-    public void IsonLoadmore() {
-        size += 20;
-        getData();
+    public void IsonLoadmore(int a) {
+        page += a;
+        getData(false);
     }
 
     @Override
     public void initData() {
-        getData();
+        getData(true);
         addHeader();
     }
 

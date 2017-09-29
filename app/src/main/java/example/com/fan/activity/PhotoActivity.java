@@ -57,7 +57,6 @@ import static example.com.fan.utils.JsonUtils.getJsonAr;
 import static example.com.fan.utils.JsonUtils.getJsonOb;
 import static example.com.fan.utils.JsonUtils.getJsonSring;
 import static example.com.fan.utils.ShareUtils.ShareApp;
-import static example.com.fan.utils.SynUtils.Finish;
 import static example.com.fan.utils.SynUtils.KswitchWay;
 import static example.com.fan.utils.SynUtils.ParseK;
 import static example.com.fan.utils.SynUtils.getTAG;
@@ -418,11 +417,11 @@ public class PhotoActivity extends InitActivity implements View.OnClickListener,
             if (!id.isEmpty())
                 getData(id);
             else
-                Finish(this);
+                finish();
 
         } catch (Exception e) {
             Log.i(TAG, "Error" + e);
-            Finish(this);
+            finish();
         }
     }
 
@@ -473,7 +472,7 @@ public class PhotoActivity extends InitActivity implements View.OnClickListener,
 
                             } else {
                                 ToastUtil.ToastErrorMsg(PhotoActivity.this, response, code);
-                                Finish(PhotoActivity.this);
+                                finish();
                             }
 
                         } catch (Exception e) {
@@ -501,7 +500,7 @@ public class PhotoActivity extends InitActivity implements View.OnClickListener,
             case R.id.title_right_icon:
                 if (urlList.size() > 0 && !urlList.get(0).getJoinUser().getId().isEmpty()) {
                     goHomePage(this, urlList.get(0).getJoinUser().getId());
-                    Finish(PhotoActivity.this);
+                    finish();
                 }
                 break;
             case R.id.comment_fl:
@@ -518,7 +517,7 @@ public class PhotoActivity extends InitActivity implements View.OnClickListener,
 
             case R.id.rt_tv:
                 if (commentFragment == null)
-                    Finish(PhotoActivity.this);
+                    finish();
                 else {
                     fragment_ll.removeAllViews();
                     commentFragment = null;
@@ -594,7 +593,7 @@ public class PhotoActivity extends InitActivity implements View.OnClickListener,
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (commentFragment == null)
-            Finish(PhotoActivity.this);
+            finish();
         else {
             fragment_ll.removeAllViews();
             commentFragment = null;
@@ -706,6 +705,8 @@ public class PhotoActivity extends InitActivity implements View.OnClickListener,
         slistener = null;
         tlistener = null;
         pay.dismiss();
+        handler.removeCallbacksAndMessages(mScrollToBottom);
+        handler = null;
         pay = null;
     }
 

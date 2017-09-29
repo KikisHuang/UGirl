@@ -62,7 +62,7 @@ import static example.com.fan.utils.SynUtils.stopPlay;
 /**
  * Created by lian on 2017/6/17.
  */
-public class VRFragment extends BaseFragment implements SpringListener, ItemClickListener, View.OnClickListener, OverallRefreshListener, PositionAddListener, ShareRequestListener, TwoParamaListener,DirectionListView.OnScrollDirectionListener {
+public class VRFragment extends BaseFragment implements SpringListener, ItemClickListener, View.OnClickListener, OverallRefreshListener, PositionAddListener, ShareRequestListener, TwoParamaListener, DirectionListView.OnScrollDirectionListener {
     private static final String TAG = getTAG(VRFragment.class);
 
     private View top;
@@ -78,7 +78,7 @@ public class VRFragment extends BaseFragment implements SpringListener, ItemClic
     private int dotPosition = 0;
     private int prePosition = 0;
     private Handler handler;
-    private int size = 20;
+    private int page = 0;
     private SpringView springView;
     private VrAdapter adapter;
     private ItemClickListener listener;
@@ -173,25 +173,27 @@ public class VRFragment extends BaseFragment implements SpringListener, ItemClic
                 });
     }
 
-    private void getData() {
+    private void getData(final boolean b) {
 
         OkHttpUtils
                 .get()
                 .url(MzFinal.URl + MzFinal.GETALLVIDEO)
-                .addParams(MzFinal.PAGE, "0")
-                .addParams(MzFinal.SIZE, String.valueOf(size))
+                .addParams(MzFinal.PAGE, String.valueOf(page))
+                .addParams(MzFinal.SIZE, String.valueOf(page+20))
                 .build()
                 .execute(new StringCallback() {
                     @Override
                     public void onError(Call call, Exception e, int id) {
                         ToastUtil.toast2_bottom(getActivity(), "网络不顺畅...");
                     }
+
                     @Override
                     public void onResponse(String response, int id) {
                         try {
                             int code = getCode(response);
                             if (code == 1) {
-                                vrlist.clear();
+                                if (b)
+                                    vrlist.clear();
 
                                 JSONArray ar = getJsonAr(response);
                                 for (int i = 0; i < ar.length(); i++) {
@@ -305,7 +307,7 @@ public class VRFragment extends BaseFragment implements SpringListener, ItemClic
             listView.addHeaderView(top);
             startPlay(handler, mViewPager, 2);
         }
-        getData();
+        getData(true);
     }
 
     private void setViewPager() {
@@ -369,15 +371,15 @@ public class VRFragment extends BaseFragment implements SpringListener, ItemClic
     }
 
     @Override
-    public void IsonRefresh() {
-        size = 20;
-        getData();
+    public void IsonRefresh(int i) {
+        page = i;
+        getData(true);
     }
 
     @Override
-    public void IsonLoadmore() {
-        size += 20;
-        getData();
+    public void IsonLoadmore(int a) {
+        page += a;
+        getData(false);
     }
 
     @Override
@@ -411,7 +413,7 @@ public class VRFragment extends BaseFragment implements SpringListener, ItemClic
     @Override
     public void notifyAllActivity(boolean net) {
         if (net)
-            getData();
+            getData(true);
     }
 
     @Override

@@ -25,6 +25,7 @@
             android:src="@mipmap/wechat_icon1" />
 
         <EditText
+            android:id="@+id/wechat_ed"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_centerVertical="true"
@@ -75,7 +76,8 @@
             android:layout_centerVertical="true"
             android:layout_toRightOf="@+id/place_tv"
             android:background="@color/white"
-            android:hint="0"
+            android:text="88"
+            android:inputType="number"
             android:textColor="@color/red1"
             android:textColorHint="@color/red1"
             android:textSize="17dp" />
@@ -85,7 +87,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:text="(68/568/元)"
+            android:text="(68-568/元)"
             android:textColor="@color/content6"
             android:textSize="15dp" />
 

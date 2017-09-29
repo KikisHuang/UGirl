@@ -43,7 +43,6 @@ import static example.com.fan.utils.IntentUtils.goPersonInfoPage;
 import static example.com.fan.utils.JsonUtils.getCode;
 import static example.com.fan.utils.JsonUtils.getJsonOb;
 import static example.com.fan.utils.JsonUtils.getJsonSring;
-import static example.com.fan.utils.SynUtils.Finish;
 import static example.com.fan.utils.SynUtils.getRouColors;
 import static example.com.fan.utils.SynUtils.getSex;
 import static example.com.fan.utils.SynUtils.getTAG;
@@ -312,7 +311,7 @@ public class PayActivity extends InitActivity implements PayRefreshListener {
             public void onClick(View v) {
                 if (info.size() > 0)
                     goPersonInfoPage(PayActivity.this, info.get(0).getHeadImgUrl(), info.get(0).getName(), String.valueOf(getSex(info.get(0).getSex())), info.get(0).getWx());
-                Finish(PayActivity.this);
+                finish();
             }
         }).show();
     }

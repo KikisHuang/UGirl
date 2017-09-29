@@ -91,7 +91,7 @@ public class RankingActivity extends InitActivity {
         try {
             String a = getIntent().getStringExtra("Rangking_Tag");
             if (cleanNull(a))
-                Finish(RankingActivity.this);
+                finish();
 
             tag = Integer.valueOf(a);
             String[] str = {getRouString(R.string.ranking1), getRouString(R.string.ranking2), getRouString(R.string.ranking3), getRouString(R.string.ranking4), getRouString(R.string.ranking5)};
@@ -102,7 +102,7 @@ public class RankingActivity extends InitActivity {
                 title.add(str[i]);
             }
         } catch (NullPointerException e) {
-            Finish(RankingActivity.this);
+            finish();
         }
     }
 

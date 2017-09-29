@@ -7,6 +7,7 @@ import android.util.Log;
 
 import example.com.fan.activity.IconCutActivity;
 
+import static example.com.fan.utils.DeviceUtils.getAutoFileOrFilesSize;
 import static example.com.fan.utils.SynUtils.getTAG;
 
 /**
@@ -17,7 +18,7 @@ public class CutUtil {
     private static final String TAG = getTAG(CutUtil.class);
 
     public void CutBitmap(String urlSTR, Activity ac, String flag) {
-
+        Log.i(TAG, "未压缩的图片大小 ===" + getAutoFileOrFilesSize(urlSTR));
         Bitmap bitmap = CompressIamge.getBitmapFromUri2(urlSTR, ac);
         LruCacheUtils lcu = new LruCacheUtils();
         lcu.addBitmapToMemoryCache(urlSTR, bitmap);

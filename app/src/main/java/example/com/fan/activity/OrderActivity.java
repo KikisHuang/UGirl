@@ -282,7 +282,7 @@ public class OrderActivity extends InitActivity implements View.OnClickListener,
                     }
                 } else {
                     ToastUtil.toast2_bottom(OrderActivity.this, "没有获取到支付方式...");
-                    Finish(this);
+                    finish();
                 }
 
                 break;

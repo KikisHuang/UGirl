@@ -6,6 +6,7 @@
     <string name="find_find">发现</string>
     <string name="page">尤女郎</string>
     <string name="store">周边</string>
+    <string name="model_status">周边</string>
     <string name="store1">商城</string>
     <string name="store2">活动</string>
     <string name="my">我的</string>
@@ -43,6 +44,7 @@
     <string name="over_pay">已购买的</string>
     <string name="VR">视频/VR</string>
     <string name="Video">视频</string>
+    <string name="privateVideo">私密视频</string>
     <string name="videoson">视频列表</string>
     <string name="vrson">VR列表</string>
     <string name="comment_inter">评论互动</string>
@@ -68,9 +70,11 @@
     <string name="daily_task">每日任务</string>
     <string name="unread">未读</string>
     <string name="special">专辑</string>
+    <string name="privatephoto">个人私照</string>
     <string name="wechat_pay">微信支付</string>
     <string name="ali_pay">支付宝</string>
     <string name="comvideo">2D视频</string>
+    <string name="attestation">申请认证</string>
     <string name="vrvideo">VR视频</string>
     <string name="server_details">工作时间：上午09:00-凌晨01:00（非工作期间可留言）</string>
     <string name="qq_server">QQ客服</string>
@@ -93,6 +97,7 @@
     <string name="updata_details">亲爱的用户，如果您的app从旧版本升级到新版后，在你重新登录后，发现以前购买的专辑消失了，银果余额没有了，VIP身份消失了这样的问题，   您可能登陆的账户和您以前登陆的账户不一致， 请尝试使用以前您使用过的登录方式： 例如：腾讯QQ，微信  如果仍然无法找回此前的帐号，请联系我们的客服QQ： </string>
     <string name="wx_server">微信客服</string>
     <string name="pay_introduce">充会员更优惠还送豪礼，单期购买需要</string>
+    <string name="pay2_introduce">私密照片，单期购买需要</string>
     <string name="pay_introduce2">充会员更优惠还送豪礼</string>
     <string name="phone_login">您上次使用的是手机号登录</string>
     <string name="qq_login">您上次使用的是QQ登录 </string>
@@ -163,6 +168,10 @@ Copyright  2012\n
     <string name="ending">已结束</string>
     <string name="update_lead">请耐心等待一会，新版本更精彩哦！</string>
     <string name="save">保存</string>
+    <string name="upload1">提交审核</string>
+    <string name="send_hb">发红包</string>
+    <string name="confirm">确定</string>
+    <string name="sales">专辑销量：</string>
 
 
     <dimen name="size1">1px</dimen>

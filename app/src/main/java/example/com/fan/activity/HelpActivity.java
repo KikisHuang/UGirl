@@ -25,7 +25,6 @@ import example.com.fan.mylistener.VersionCheckListener;
 import example.com.fan.utils.SynUtils;
 import example.com.fan.utils.ToastUtil;
 
-import static example.com.fan.utils.SynUtils.Finish;
 import static example.com.fan.utils.SynUtils.getRouString;
 import static example.com.fan.utils.TitleUtils.setTitles;
 import static example.com.fan.utils.getVersionUtils.getVersionInfo;
@@ -223,6 +222,6 @@ public class HelpActivity extends InitActivity implements View.OnClickListener, 
 
     @Override
     public void onFail() {
-        Finish(this);
+        finish();
     }
 }

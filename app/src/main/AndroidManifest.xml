@@ -149,7 +149,16 @@
         <activity
             android:name="example.com.fan.activity.UploadPhotoActivity"
             android:screenOrientation="portrait">
-
+        </activity>
+        <!-- 认证页面 -->
+        <activity
+            android:name="example.com.fan.activity.AttestationActivity"
+            android:screenOrientation="portrait">
+        </activity>
+        <!-- 新的订单页面 -->
+        <activity
+            android:name="example.com.fan.activity.NewsOrderActivity"
+            android:screenOrientation="portrait">
         </activity>
         <!-- 测试页面 -->
         <activity
@@ -213,6 +222,11 @@
             android:name="example.com.fan.activity.PhotoActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan|stateHidden" />
+        <!-- 私密图片查看器页面 -->
+        <activity
+            android:name="example.com.fan.activity.PrivatePhotoActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan|stateHidden" />
         <!-- 注册页面 -->
         <activity
             android:name="example.com.fan.activity.RegisterActivity"
@@ -245,6 +259,26 @@
         <!-- 上传微信页面 -->
         <activity
             android:name="example.com.fan.activity.UploadWeChatActivity"
+            android:screenOrientation="portrait"></activity>
+        <!-- 上传私照页面 -->
+        <activity
+            android:name="example.com.fan.activity.UploadPrivatePhotoActivity"
+            android:screenOrientation="portrait"></activity>
+        <!-- 私密提问页面 -->
+        <activity
+            android:name="example.com.fan.activity.UploadQuizActivity"
+            android:screenOrientation="portrait"></activity>
+        <!-- 问题选择页面 -->
+        <activity
+            android:name="example.com.fan.activity.IssueSelectActivity"
+            android:screenOrientation="portrait"></activity>
+        <!-- 我的视频页面 -->
+        <activity
+            android:name="example.com.fan.activity.MyVideoActivity"
+            android:screenOrientation="portrait"></activity>
+        <!-- 我的私照页面 -->
+        <activity
+            android:name="example.com.fan.activity.MyPrivatePhotoActivity"
             android:screenOrientation="portrait"></activity>
         <!-- 外链页面 -->
         <activity

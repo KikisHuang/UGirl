@@ -16,6 +16,7 @@ import example.com.fan.MyAppcation;
 import example.com.fan.R;
 import example.com.fan.base.sign.save.SPreferences;
 import example.com.fan.fragment.son.PictureSlideFragment;
+import example.com.fan.fragment.son.PictureSlideFragment2;
 import example.com.fan.utils.GlideCacheUtil;
 import example.com.fan.utils.MzFinal;
 import example.com.fan.utils.pay.ali.alipayTool;
@@ -134,6 +135,10 @@ public abstract class InitActivity extends FragmentActivity implements alipayToo
                 MzFinal.isPay = true;
                 PictureSlideFragment.PayListener.onPayRefresh();
             }
+            if (PictureSlideFragment2.PayListener != null && PrivatePhotoActivity.tlistener != null) {
+                MzFinal.isPay = true;
+                PictureSlideFragment2.PayListener.onPayRefresh();
+            }
             if (PayActivity.paylistener != null)
                 PayActivity.paylistener.onPayRefresh();
 
@@ -145,6 +150,6 @@ public abstract class InitActivity extends FragmentActivity implements alipayToo
 
     @Override
     public void failure() {
-    }
 
+    }
 }

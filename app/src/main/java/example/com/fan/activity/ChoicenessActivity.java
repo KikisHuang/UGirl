@@ -2,7 +2,6 @@ package example.com.fan.activity;
 
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
-import android.view.KeyEvent;
 
 import com.google.gson.Gson;
 import com.zhy.http.okhttp.OkHttpUtils;
@@ -23,7 +22,6 @@ import okhttp3.Call;
 
 import static example.com.fan.utils.JsonUtils.getCode;
 import static example.com.fan.utils.JsonUtils.getJsonAr;
-import static example.com.fan.utils.SynUtils.Finish;
 import static example.com.fan.utils.TitleUtils.setTitles;
 
 /**
@@ -134,12 +132,6 @@ public class ChoicenessActivity extends BaseActivity {
     protected void onDestroy() {
         super.onDestroy();
         OkHttpUtils.getInstance().cancelTag(this);
-    }
-
-    @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        Finish(this);
-        return false;
     }
 
     private void createView(String str) {

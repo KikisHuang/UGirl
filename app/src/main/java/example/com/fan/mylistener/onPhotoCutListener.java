@@ -8,6 +8,6 @@ import android.graphics.Bitmap;
 public interface onPhotoCutListener {
 
      void PhotoListener(String path);
-     void PhotoLBitmapistener(String path, Bitmap bitmap);
+     void PhotoLBitmapistener(String path, Bitmap bitmap,int page);
 
 }

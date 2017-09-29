@@ -185,7 +185,7 @@ public class SearchActivity extends InitActivity implements View.OnClickListener
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.cancel_tv:
-                Finish(SearchActivity.this);
+                finish();
                 break;
             case R.id.search_img:
                 if (search_edit.getText().toString().trim().length() > 0)

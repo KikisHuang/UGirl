@@ -89,7 +89,7 @@ public class OutSideActivity extends InitActivity {
         } catch (Exception e) {
             ToastUtil.toast2_bottom(OutSideActivity.this, "非常抱歉,该页面发生了异常!");
             Cancle();
-            Finish(this);
+            finish();
         }
     }
 

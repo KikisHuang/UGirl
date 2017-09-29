@@ -23,20 +23,19 @@ public class MzFinal {
      * 全局广告触摸时间变量;
      */
     public static long TouchTime = 0;
-
-    public static String KEY = "key";
-    public static String APPID = "appId";
-    public static String PAGE = "page";
-    public static String SIZE = "pageSize";
-    public static String TYPE = "type";
-    public static String ID = "id";
-    public static String COUNT = "count";
-    public static String CONTENT = "content";
+    public static final String KEY = "key";
+    public static final String APPID = "appId";
+    public static final String PAGE = "page";
+    public static final String SIZE = "pageSize";
+    public static final String TYPE = "type";
+    public static final String ID = "id";
+    public static final String COUNT = "count";
+    public static final String CONTENT = "content";
+    public static final String typeFlag = "typeFlag";
 
     public static final String br = "<br />";
     //支付宝支付接口存放数组;
     public static String[] Alis = {MzFinal.ALIPAYCROWDFUNDING, MzFinal.ALIPAYOFFICIALSELL, MzFinal.ALIPAYPHOTO, MzFinal.ALIPAYVIP};
-
 
 
     //尤女映画、支付宝APPID;
@@ -52,18 +51,21 @@ public class MzFinal {
     public static final String xiaoketang = "wx0703fd5e9c59b6b0";
 
     /**
-     * <p/>
+     * <p>
      * 尤女映画 WECHAT：wxc5790f30f6da0d43
      * 尤女映画 QQ：101409825
      */
     public static final String QQLOGIN2 = "101409825";
     /**
-     *  微信支付AppID;
+     * 微信支付AppID;
      * 尤女郎 WECHAT：wx34d169cf97a82205;
      * 尤女郎 QQ：101408068;
      */
     public static final String QQLOGIN1 = "101408068";
-
+    /**
+     * 模特标识符
+     */
+    public static boolean MODELFLAG = false;
 
     //客户端判断;
     public static boolean getAPPID(String pk) {
@@ -297,6 +299,10 @@ public class MzFinal {
      */
     public static final String GETPUBLISHRECORDBYMODEL = "modle/getPublishRecordByModel.app";
     /**
+     * 获取模特自己传的私密照片/私密视频
+     */
+    public static final String GETPRIVATERECORD = "v2_model/getPrivateRecord.app";
+    /**
      * 关注接口
      */
     public static final String FOLLOWUSER = "user/followUser.app";
@@ -322,11 +328,20 @@ public class MzFinal {
      */
     public static final String VIDEODETAILS = "video/getDetails.app";
     /**
-     * 获取加密照片接口
+     * 获取照片OSS接口
      */
     public static final String PHOTOAUTHENTICATION = "oss/photoAuthentication.app";
     /**
-     * 获取加密视频接口
+     * 获取私密照片OSS接口
+     */
+    public static final String PRIVATEPHOTOAUTHENTICATION = "oss/privatePhotoAuthentication.app";
+
+    /**
+     * 获取私密视频OSS接口
+     */
+    public static final String PRIVATEVIDEOAUTHENTICATION = "oss/privateVideoAuthentication.app";
+    /**
+     * 获取视频OSS接口
      */
     public static final String VIDEOAUTHENTICATION = "oss/videoAuthentication.app";
     /**
@@ -411,5 +426,42 @@ public class MzFinal {
      * 获取我未读的私照 0、视频4、VR 5 接口
      */
     public static final String GETNOTREADRECORD = "see/getNotReadRecord.app";
+    /**
+     * 获取未完成的旧的私密照片集;
+     */
+    public static final String GETOLDPRIVATEPHOTO = "photo/getOldPrivatePhoto.app";
+
+    /**
+     * 创建空的私照集;
+     */
+    public static final String CREATEPRIVATEPHOTO = "photo/createPrivatePhoto.app";
+    /**
+     * 新增私照图片;
+     */
+    public static final String ADDPHOTOIMG = "photo/addPhotoIMG.app";
+    /**
+     * 发布专辑;
+     */
+    public static final String PUBLISHPRIVATEPHOTO = "photo/publishPrivatePhoto.app";
+    /**
+     * 获取模特微信号和价格;
+     */
+    public static final String GETWXPRICE = "v2_model/getWXPrice.app key=KEY ";
+    /**
+     * 设置模特微信号和价格;
+     */
+    public static final String SETWXPRICE = "v2_model/setWXPrice.app";
+    /**
+     * 获取私密模特列表 ;
+     */
+    public static final String GETMODELBYPAGE = "v2_model/getModelByPage.app";
+    /**
+     * 获取私密模特信息 ;
+     */
+    public static final String GETMODELINFO2 = "v2_model/getModelInfo.app";
+    /**
+     * 根据模特获取他/她所属的私密照片或私密视频接口 ;
+     */
+    public static final String GETPUBLISHRECORDBYMODEL2 = "v2_model/getPublishRecordByModel.app ";
 
 }

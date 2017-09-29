@@ -184,14 +184,14 @@ public class PlayerActivity extends InitActivity implements UVPlayerCallBack, Pl
                                             new AlertDialog(PlayerActivity.this).builder().setTitle("提示").setCancelable(false).setMsg("成为会员才能看哦，更多精彩细节等着你!").setNegativeButton("下次再说", new View.OnClickListener() {
                                                 @Override
                                                 public void onClick(View v) {
-                                                    Finish(PlayerActivity.this);
+                                                    finish();
                                                 }
                                             }).setPositiveButton("成为会员", new View.OnClickListener() {
                                                 @Override
                                                 public void onClick(View v) {
 
                                                     goPayPage(PlayerActivity.this);
-                                                    Finish(PlayerActivity.this);
+                                                    finish();
                                                 }
                                             }).show();
                                         }
@@ -203,7 +203,7 @@ public class PlayerActivity extends InitActivity implements UVPlayerCallBack, Pl
                                     share_num.setText(KswitchWay(vb.getShareCount()));
                                 } else {
                                     ToastUtil.toast2_bottom(PlayerActivity.this, "没有获取到视频地址！");
-                                    Finish(PlayerActivity.this);
+                                    finish();
                                 }
 //                        Path = "http://fns-video-public.oss-cn-hangzhou.aliyuncs.com/960p.mp4";
                                 try {
@@ -467,7 +467,6 @@ public class PlayerActivity extends InitActivity implements UVPlayerCallBack, Pl
         releasePlayer();
         super.onDestroy();
     }
-
     @Override
     public boolean onKeyUp(int keyCode, KeyEvent event) {
 
@@ -783,7 +782,7 @@ public class PlayerActivity extends InitActivity implements UVPlayerCallBack, Pl
 
     private void back() {
         if (CurOrientation == ActivityInfo.SCREEN_ORIENTATION_PORTRAIT) {
-            Finish(this);
+            finish();
         } else {
             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
             this.coverEnabled();

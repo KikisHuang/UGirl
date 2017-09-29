@@ -22,6 +22,15 @@ public class ModeInfoBean {
     private int lowerMeasurement;
 
     private String realName;
+    private String headImgUrl;
+
+    public String getHeadImgUrl() {
+        return headImgUrl;
+    }
+
+    public void setHeadImgUrl(String headImgUrl) {
+        this.headImgUrl = headImgUrl;
+    }
 
     private int uid;
 
@@ -30,6 +39,34 @@ public class ModeInfoBean {
     private String userId;
 
     private int weight;
+    private String wxPrice;
+
+    public String getInfo() {
+        return info;
+    }
+
+    public void setInfo(String info) {
+        this.info = info;
+    }
+
+    public String getPublicCoverPath() {
+        return publicCoverPath;
+    }
+
+    public void setPublicCoverPath(String publicCoverPath) {
+        this.publicCoverPath = publicCoverPath;
+    }
+
+    private String info;
+    private String publicCoverPath;
+
+    public String getWxPrice() {
+        return wxPrice;
+    }
+
+    public void setWxPrice(String wxPrice) {
+        this.wxPrice = wxPrice;
+    }
 
     public example.com.fan.bean.mcUser getMcUser() {
         return mcUser;

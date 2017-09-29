@@ -34,7 +34,7 @@ import static example.com.fan.utils.SynUtils.getTAG;
 /**
  * Created by lian on 2017/5/5.
  */
-public class VDVRFragment extends BaseFragment implements SpringListener, ItemClickListener ,ShareRequestListener{
+public class VDVRFragment extends BaseFragment implements SpringListener, ItemClickListener, ShareRequestListener {
     private static final String TAG = getTAG(VDVRFragment.class);
     private List<VrVideoBean> rlist;
     private ShareRequestListener slistener;
@@ -44,7 +44,7 @@ public class VDVRFragment extends BaseFragment implements SpringListener, ItemCl
     private int i;
     private ListView listView;
     private VdVrAdapter adapter;
-    private int size = 20;
+    private int page = 0;
 
     public void setTag(int tag, final int i) {
         this.tag = tag;
@@ -73,32 +73,32 @@ public class VDVRFragment extends BaseFragment implements SpringListener, ItemCl
 
     @Override
     protected void initData() {
-        newInstance();
+        newInstance(true);
     }
 
     @Override
-    public void IsonRefresh() {
+    public void IsonRefresh(int i) {
 //        this.onDownTouchListener(1, getRouString(R.string.find_find));
-        size = 20;
+        page = i;
         switch (tag) {
             case 0:
-                newInstance();
+                newInstance(true);
                 break;
             case 1:
-                newInstance();
+                newInstance(true);
                 break;
         }
     }
 
     @Override
-    public void IsonLoadmore() {
-        size += 20;
+    public void IsonLoadmore(int a) {
+        page += a;
         switch (tag) {
             case 0:
-                newInstance();
+                newInstance(false);
                 break;
             case 1:
-                newInstance();
+                newInstance(false);
                 break;
         }
     }
@@ -128,15 +128,15 @@ public class VDVRFragment extends BaseFragment implements SpringListener, ItemCl
     }
 
 
-    public void newInstance() {
+    public void newInstance(boolean b) {
 
         switch (tag) {
             case 0:
-                getData(MzFinal.GETVIDEO);
+                getData(MzFinal.GETVIDEO, b);
                 break;
             case 1:
 
-                getData(MzFinal.GETVRVIDEO);
+                getData(MzFinal.GETVRVIDEO, b);
                 break;
         }
 
@@ -164,12 +164,12 @@ public class VDVRFragment extends BaseFragment implements SpringListener, ItemCl
 //        }, getActivity(), false, MzFinal.GETPHOTOTYPE, null, "");
     }
 
-    private void getData(String URL) {
+    private void getData(String URL, final boolean b) {
         OkHttpUtils
                 .get()
                 .url(MzFinal.URl + URL)
-                .addParams(MzFinal.PAGE, "0")
-                .addParams(MzFinal.SIZE, String.valueOf(size))
+                .addParams(MzFinal.PAGE, String.valueOf(page))
+                .addParams(MzFinal.SIZE, String.valueOf(page+20))
                 .addParams("model", String.valueOf(i))
                 .tag(this)
                 .build()
@@ -184,8 +184,8 @@ public class VDVRFragment extends BaseFragment implements SpringListener, ItemCl
                         try {
                             int code = getCode(response);
                             if (code == 1) {
-                                if (rlist.size() > 0)
-                                rlist.clear();
+                                if (b)
+                                    rlist.clear();
                                 JSONArray ar = getJsonAr(response);
                                 for (int i = 0; i < ar.length(); i++) {
                                     VrVideoBean vb = new Gson().fromJson(String.valueOf(ar.optJSONObject(i)), VrVideoBean.class);
@@ -195,7 +195,7 @@ public class VDVRFragment extends BaseFragment implements SpringListener, ItemCl
                                 if (adapter != null)
                                     adapter.notifyDataSetChanged();
                                 else {
-                                    adapter = new VdVrAdapter(getActivity(), rlist, listener,slistener);
+                                    adapter = new VdVrAdapter(getActivity(), rlist, listener, slistener);
                                     listView.setAdapter(adapter);
                                 }
                             } else

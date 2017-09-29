@@ -27,9 +27,9 @@ import java.util.List;
 import example.com.fan.R;
 import example.com.fan.adapter.ModelAdapter;
 import example.com.fan.adapter.PageTopBannerAdapter;
+import example.com.fan.bean.ModeInfoBean;
 import example.com.fan.bean.PageTopBannerBean;
 import example.com.fan.bean.PageTopBean;
-import example.com.fan.bean.StoreBean;
 import example.com.fan.fragment.BaseFragment;
 import example.com.fan.mylistener.ItemClickListener;
 import example.com.fan.mylistener.OverallRefreshListener;
@@ -44,8 +44,6 @@ import example.com.fan.view.ViewPagerScroller;
 import okhttp3.Call;
 
 import static example.com.fan.utils.DeviceUtils.BannerHeight;
-import static example.com.fan.utils.IntentUtils.goBuyCrowdPage;
-import static example.com.fan.utils.IntentUtils.goBuyGoodsPage;
 import static example.com.fan.utils.IntentUtils.goHomePage;
 import static example.com.fan.utils.JsonUtils.getCode;
 import static example.com.fan.utils.JsonUtils.getJsonAr;
@@ -65,7 +63,7 @@ public class ModelFragment extends BaseFragment implements SpringListener, homep
     private static final String TAG = getTAG(ModelFragment.class);
     private ListView listView;
     private ModelAdapter adapter;
-    private List<StoreBean> rlist;
+    private List<ModeInfoBean> rlist;
     private ViewPager mViewPager;
 
     private List<PageTopBannerBean> mImageViewList;
@@ -85,7 +83,6 @@ public class ModelFragment extends BaseFragment implements SpringListener, homep
     private ItemClickListener hlistener;
     public static PositionAddListener polistener;
     private int page = 0;
-    private int pageSize = 20;
 
     private Handler handler;
 
@@ -121,13 +118,13 @@ public class ModelFragment extends BaseFragment implements SpringListener, homep
         getBanner();
     }
 
-    private void getData(String getshoppingmall) {
+    private void getData(final boolean b) {
 
         OkHttpUtils
                 .get()
-                .url(MzFinal.URl + getshoppingmall)
+                .url(MzFinal.URl + MzFinal.GETMODELBYPAGE)
                 .addParams(MzFinal.PAGE, String.valueOf(page))
-                .addParams(MzFinal.SIZE, String.valueOf(pageSize))
+                .addParams(MzFinal.SIZE, String.valueOf(page + 20))
                 .build()
                 .execute(new StringCallback() {
                     @Override
@@ -144,15 +141,16 @@ public class ModelFragment extends BaseFragment implements SpringListener, homep
                             ll.setVisibility(View.GONE);
                             JSONArray ar = getJsonAr(response);
                             if (code == 1) {
-                                rlist.clear();
+                                if (b)
+                                    rlist.clear();
                                 for (int i = 0; i < ar.length(); i++) {
-                                    StoreBean sb = new Gson().fromJson(String.valueOf(ar.getJSONObject(i)), StoreBean.class);
+                                    ModeInfoBean sb = new Gson().fromJson(String.valueOf(ar.getJSONObject(i)), ModeInfoBean.class);
                                     rlist.add(sb);
                                 }
                                 if (adapter != null) {
                                     adapter.notifyDataSetChanged();
                                 } else {
-                                    adapter = new ModelAdapter(getActivity(), rlist, tag);
+                                    adapter = new ModelAdapter(getActivity(), rlist, tag, hlistener);
                                     listView.setAdapter(adapter);
                                 }
 
@@ -232,18 +230,32 @@ public class ModelFragment extends BaseFragment implements SpringListener, homep
             listView.addHeaderView(top);
             startPlay(handler, mViewPager, 4);
         }
-        getData(MzFinal.GETSHOPPINGMALL);
+        getData(true);
     }
 
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
         if (isVisibleToUser) {
+            polistener = this;
             startPlay(handler, mViewPager, 4);
             Log.i(TAG, "onResume");
         } else {
             stopPlay();
+            polistener = null;
             Log.i(TAG, "onPause");
+        }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        Log.i(TAG, "onResume");
+        try {
+            polistener = this;
+            startPlay(handler, mViewPager, 4);
+        } catch (Exception e) {
+            Log.i(TAG, "Error ==" + e);
         }
     }
 
@@ -307,6 +319,19 @@ public class ModelFragment extends BaseFragment implements SpringListener, homep
     }
 
     @Override
+    public void onPause() {
+        super.onPause();
+        Log.i(TAG, "onPause");
+        try {
+            polistener = null;
+            stopPlay();
+
+        } catch (Exception e) {
+            Log.i(TAG, "Error ==" + e);
+        }
+    }
+
+    @Override
     protected void click() {
 
     }
@@ -343,16 +368,16 @@ public class ModelFragment extends BaseFragment implements SpringListener, homep
 
     //刷新;
     @Override
-    public void IsonRefresh() {
-        pageSize = 20;
-        getData(MzFinal.GETSHOPPINGMALL);
+    public void IsonRefresh(int i) {
+        page = i;
+        getData(true);
     }
 
     //下滑;
     @Override
-    public void IsonLoadmore() {
-        pageSize += 20;
-        getData(MzFinal.GETSHOPPINGMALL);
+    public void IsonLoadmore(int a) {
+        page += a;
+        getData(false);
     }
 
     //modelIcon点击事件;
@@ -365,7 +390,7 @@ public class ModelFragment extends BaseFragment implements SpringListener, homep
     public void notifyAllActivity(boolean net) {
         if (net) {
             Log.i(TAG, "   position ====" + tag);
-            getData(MzFinal.GETSHOPPINGMALL);
+            getData(true);
         }
     }
 
@@ -377,14 +402,7 @@ public class ModelFragment extends BaseFragment implements SpringListener, homep
     @Override
     public void onItemClickListener(int position, String id) {
         if (LoginStatusQuery()) {
-            switch (position) {
-                case 0:
-                    goBuyGoodsPage(getActivity(), id);
-                    break;
-                case 1:
-                    goBuyCrowdPage(getActivity(), id);
-                    break;
-            }
+            goHomePage(getActivity(), id);
         } else
             Login(getActivity());
     }

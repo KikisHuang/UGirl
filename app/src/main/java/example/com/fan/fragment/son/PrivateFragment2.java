@@ -54,7 +54,6 @@ public class PrivateFragment2 extends BaseFragment implements SpringListener, It
     private RecyclerViewScrollDetector rs;
     private RelativeLayout loading_layout;
     private String Typeid = "";
-    private int size = 20;
     private int page = 0;
     private List<PrivateBean> rlist;
     private ShareRequestListener slistener;
@@ -80,13 +79,13 @@ public class PrivateFragment2 extends BaseFragment implements SpringListener, It
 
     }
 
-    private void newInstance() {
+    private void newInstance(final boolean b) {
         OkHttpUtils
                 .get()
                 .url(MzFinal.URl + MzFinal.GETPHOTOBYTYPE)
                 .addParams("typeId", Typeid)
                 .addParams(MzFinal.PAGE, String.valueOf(page))
-                .addParams(MzFinal.SIZE, "" + size)
+                .addParams(MzFinal.SIZE, String.valueOf(page+20))
                 .tag(this)
                 .build()
                 .execute(new StringCallback() {
@@ -99,6 +98,7 @@ public class PrivateFragment2 extends BaseFragment implements SpringListener, It
                         try {
                             int code = getCode(response);
                             if (code == 1) {
+                                if (b)
                                     rlist.clear();
 
                                 JSONArray ar = getJsonAr(response);
@@ -154,7 +154,7 @@ public class PrivateFragment2 extends BaseFragment implements SpringListener, It
 
     @Override
     protected void initData() {
-        newInstance();
+        newInstance(true);
     }
 
     @Override
@@ -164,18 +164,18 @@ public class PrivateFragment2 extends BaseFragment implements SpringListener, It
     }
 
     @Override
-    public void IsonRefresh() {
+    public void IsonRefresh(int i) {
         if (control)
             this.onDownTouchListener(1, getRouString(R.string.private_photo));
-        size = 20;
-        newInstance();
+        page = i;
+        newInstance(true);
 
     }
 
     @Override
-    public void IsonLoadmore() {
-        size += 20;
-        newInstance();
+    public void IsonLoadmore(int a) {
+        page+=a;
+        newInstance(false);
     }
 
     @Override

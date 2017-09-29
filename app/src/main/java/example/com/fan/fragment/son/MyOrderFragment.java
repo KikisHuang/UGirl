@@ -44,7 +44,7 @@ public class MyOrderFragment extends BaseFragment implements MyOrderDetailsListe
     private ListView listView;
     private FrameLayout no_data;
     private int tag;
-    private int pageSize = 20;
+    private int page = 0;
 
     public void setTag(int tag) {
         this.tag = tag;
@@ -55,29 +55,29 @@ public class MyOrderFragment extends BaseFragment implements MyOrderDetailsListe
         return R.layout.myorder_fragment;
     }
 
-    public void newInstance() {
+    public void newInstance(boolean b) {
         switch (tag) {
             case 0:
-                getAllOrder("");
+                getAllOrder("", b);
                 break;
             case 1:
-                getAllOrder("1");
+                getAllOrder("1", b);
                 break;
             case 2:
-                getAllOrder("-3");
+                getAllOrder("-3", b);
                 break;
         }
     }
 
-    private void getAllOrder(String sta) {
+    private void getAllOrder(String sta, final boolean b) {
 
         OkHttpUtils
                 .get()
                 .url(MzFinal.URl + MzFinal.GETMYORDERBYPAGE)
                 .addParams(MzFinal.KEY, SPreferences.getUserToken())
                 .addParams("status", sta)
-                .addParams(MzFinal.PAGE, "0")
-                .addParams(MzFinal.SIZE, String.valueOf(pageSize))
+                .addParams(MzFinal.PAGE, String.valueOf(page))
+                .addParams(MzFinal.SIZE, String.valueOf(page+20))
                 .tag(this)
                 .build()
                 .execute(new StringCallback() {
@@ -91,7 +91,8 @@ public class MyOrderFragment extends BaseFragment implements MyOrderDetailsListe
                         try {
                             int code = getCode(response);
                             if (code == 1) {
-                                rlist.clear();
+                                if (b)
+                                    rlist.clear();
                                 JSONArray ar = getJsonAr(response);
                                 if (ar.length() > 0)
                                     no_data.setBackgroundResource(R.color.content7);
@@ -136,20 +137,20 @@ public class MyOrderFragment extends BaseFragment implements MyOrderDetailsListe
 
     @Override
     protected void initData() {
-        newInstance();
+        newInstance(true);
     }
 
 
     @Override
-    public void IsonRefresh() {
-        pageSize = 20;
-        newInstance();
+    public void IsonRefresh(int i) {
+        page = i;
+        newInstance(true);
     }
 
     @Override
-    public void IsonLoadmore() {
-        pageSize += 20;
-        newInstance();
+    public void IsonLoadmore(int a) {
+        page += a;
+        newInstance(false);
     }
 
     @Override

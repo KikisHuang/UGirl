@@ -16,7 +16,6 @@ import example.com.fan.fragment.son.MyCollectFragment;
 import example.com.fan.mylistener.SelectListener;
 import example.com.fan.view.CustomViewPager;
 
-import static example.com.fan.utils.SynUtils.Finish;
 import static example.com.fan.utils.SynUtils.getRouString;
 
 /**
@@ -118,7 +117,7 @@ public class MyCollectActivity extends InitActivity implements View.OnClickListe
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.back_img:
-                Finish(this);
+                finish();
                 break;
             case R.id.search_tv:
                 if (search_tv.getText().toString().equals("选择")) {

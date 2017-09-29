@@ -102,7 +102,7 @@ public class BuygoodsActivity extends InitActivity implements View.OnClickListen
     }
 
     private void getData() {
-        Show(BuygoodsActivity.this, "", true, null);
+        Show(BuygoodsActivity.this, "", false, null);
         /**
          * 一口价数据;
          */
@@ -188,7 +188,6 @@ public class BuygoodsActivity extends InitActivity implements View.OnClickListen
             bottom_details_layout.addView(im);
         }
     }
-
 
     private void setData(BuyGoodsBean bb) {
         buy_name.setText(bb.getTitle());

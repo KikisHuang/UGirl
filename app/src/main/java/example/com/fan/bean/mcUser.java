@@ -19,6 +19,15 @@ public class mcUser {
     private String residentProvince;
 
     private int sex;
+    private String wx;
+
+    public String getWx() {
+        return wx;
+    }
+
+    public void setWx(String wx) {
+        this.wx = wx;
+    }
 
     public void setBirthday(String birthday){
         this.birthday = birthday;

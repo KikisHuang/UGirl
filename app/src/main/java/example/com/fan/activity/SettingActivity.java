@@ -91,7 +91,7 @@ public class SettingActivity extends InitActivity implements View.OnClickListene
                     if (MyFragment.fragment != null)
                         MyFragment.fragment.onUpDataUserInfo();
                     ToastUtil.toast2_bottom(this, "成功清除登录信息....");
-                    Finish(SettingActivity.this);
+                    finish();
                 } else
                     ToastUtil.toast2_bottom(this, "您未登录!");
                 break;

@@ -148,7 +148,7 @@ public class FindAdapter extends BaseAdapter {
                     mid.setVisibility(View.GONE);
                     bottom.setVisibility(View.GONE);
                 }
-                SpecialInit(position);
+                SpecialInit(position,0);
                 attention_tv.setText(String.valueOf("已被" + list.get(position).getCollectionCount() + "人订阅"));
                 break;
             //视频
@@ -188,6 +188,48 @@ public class FindAdapter extends BaseAdapter {
                     public void onClick(View v) {
 
                         tlistener.onGoPlayPage(list.get(position).getId(), 5);
+                    }
+                });
+                break;
+            //个人私照
+            case -2:
+                type_tv.setText(getRouString(R.string.privatephoto));
+                type_tv.setTextColor(getRouColors(R.color.orange6));
+                video_cover.setVisibility(View.GONE);
+                item_topic_image_layout.setVisibility(View.VISIBLE);
+                if (list.get(position).getMcPublishImgUrls().size() > 6) {
+                    top.setVisibility(View.VISIBLE);
+                    mid.setVisibility(View.VISIBLE);
+                    bottom.setVisibility(View.VISIBLE);
+                } else if (list.get(position).getMcPublishImgUrls().size() > 3) {
+                    top.setVisibility(View.VISIBLE);
+                    mid.setVisibility(View.VISIBLE);
+                    bottom.setVisibility(View.GONE);
+                } else {
+                    top.setVisibility(View.VISIBLE);
+                    mid.setVisibility(View.GONE);
+                    bottom.setVisibility(View.GONE);
+                }
+                SpecialInit(position,-2);
+                attention_tv.setText(String.valueOf("已被" + list.get(position).getCollectionCount() + "人订阅"));
+                break;
+            //私密视频
+            case -3:
+                type_tv.setText(getRouString(R.string.privateVideo));
+                type_tv.setTextColor(getRouColors(R.color.cherry2));
+                video_cover.setVisibility(View.VISIBLE);
+                item_topic_image_layout.setVisibility(View.GONE);
+                try {
+                    Glide.with(context).load(list.get(position).getCoverPath()).into(video_cover);
+                } catch (Exception e) {
+                    Log.i(TAG, "Glide You cannot start a load for a destroyed activity");
+                }
+                attention_tv.setText(String.valueOf("已被播放" + list.get(position).getSellCount() + "次"));
+                video_cover.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        tlistener.onGoPlayPage(list.get(position).getId(), 4);
+
                     }
                 });
                 break;
@@ -241,12 +283,12 @@ public class FindAdapter extends BaseAdapter {
      * <p/>
      * //     * @param position
      */
-    private void SpecialInit(final int position) {
+    private void SpecialInit(final int position, final int key) {
         if (list.size() > 0) {
             item_topic_image_layout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    listener.onItemClickListener(0, list.get(position).getId());
+                    listener.onItemClickListener(key, list.get(position).getId());
                 }
             });
         }

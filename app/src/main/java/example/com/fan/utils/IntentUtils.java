@@ -9,11 +9,13 @@ import android.util.Log;
 import android.view.View;
 
 import example.com.fan.activity.AttentionActivity;
+import example.com.fan.activity.AttestationActivity;
 import example.com.fan.activity.BuyCrowdActivity;
 import example.com.fan.activity.BuygoodsActivity;
 import example.com.fan.activity.ChoicenessActivity;
 import example.com.fan.activity.CrowdActivity;
 import example.com.fan.activity.HelpActivity;
+import example.com.fan.activity.HomePage2Activity;
 import example.com.fan.activity.HomePageActivity;
 import example.com.fan.activity.HostModelActivity;
 import example.com.fan.activity.LoginActivity;
@@ -21,6 +23,8 @@ import example.com.fan.activity.MainActivity;
 import example.com.fan.activity.MyCollectActivity;
 import example.com.fan.activity.MyOrderActivity;
 import example.com.fan.activity.MyOrderDetailsActivity;
+import example.com.fan.activity.MyPrivatePhotoActivity;
+import example.com.fan.activity.MyVideoActivity;
 import example.com.fan.activity.NewestActivity;
 import example.com.fan.activity.OrderActivity;
 import example.com.fan.activity.OutSideActivity;
@@ -30,6 +34,7 @@ import example.com.fan.activity.PersonalInfoActivity;
 import example.com.fan.activity.PhotoActivity;
 import example.com.fan.activity.PlayerActivity;
 import example.com.fan.activity.PlayerVideoActivity;
+import example.com.fan.activity.PrivatePhotoActivity;
 import example.com.fan.activity.ProjectIncomeActivity;
 import example.com.fan.activity.RankingActivity;
 import example.com.fan.activity.RegisterActivity;
@@ -39,6 +44,7 @@ import example.com.fan.activity.StoreActivity;
 import example.com.fan.activity.TaskActivity;
 import example.com.fan.activity.UnReadActivity;
 import example.com.fan.activity.UploadPhotoActivity;
+import example.com.fan.activity.UploadPrivatePhotoActivity;
 import example.com.fan.activity.UploadWeChatActivity;
 import example.com.fan.activity.VideoAndVrSonActivity;
 import example.com.fan.activity.VipActivity;
@@ -82,6 +88,20 @@ public class IntentUtils {
         intent.putExtra("photo_id", id);
         startPage(context, intent);
     }
+    /**
+     * 照片查看器页面2（个人私照版,不判断vip）;
+     *
+     * @param context 上下文;
+     * @param id      私照id;
+     * @param i       从第几张查看;
+     */
+    public static void goPrivatePhotoPage(Context context, String id, int i) {
+
+        Intent intent = new Intent(context, PrivatePhotoActivity.class);
+        intent.putExtra("photo_position", i + "");
+        intent.putExtra("photo_id", id);
+        startPage(context, intent);
+    }
 
     /**
      * 模特个人主页页面;
@@ -95,6 +115,19 @@ public class IntentUtils {
         intent.putExtra("user_id", id);
         startPage(context, intent);
     }
+    /**
+     * 模特个人主页2页面;
+     *
+     * @param context 上下文;
+     * @param id      用户id;
+     */
+    public static void goHomePage2(Context context, String id) {
+
+        Intent intent = new Intent(context, HomePage2Activity.class);
+        intent.putExtra("user_id", id);
+        startPage(context, intent);
+    }
+
     /**
      * 活动、商城页面;
      *
@@ -216,6 +249,16 @@ public class IntentUtils {
         Intent intent = new Intent(context, LoginActivity.class);
         startPage(context, intent);
     }
+    /**
+     * 认证页面;
+     *
+     * @param context 上下文;
+     */
+    public static void goRzPage(Context context) {
+
+        Intent intent = new Intent(context, AttestationActivity.class);
+        startPage(context, intent);
+    }
 
     /**
      * 精选图集页面;
@@ -264,7 +307,6 @@ public class IntentUtils {
         intent.putExtra("person_sex", sex);
         intent.putExtra("person_wx", wx);
         startPage(context, intent);
-
     }
 
     /**
@@ -284,7 +326,6 @@ public class IntentUtils {
             context.startActivity(intent, options.toBundle());
         } else
             context.startActivity(intent);
-
     }
 
     /**
@@ -292,10 +333,13 @@ public class IntentUtils {
      *
      * @param context 上下文;
      *                requestCode 186
+     * @param cut
      */
-    public static void goUploadPhotoPage(Context context, String tag) {
+    public static void goUploadPhotoPage(Context context, String tag, boolean cut, int page) {
         Intent intent = new Intent(context, UploadPhotoActivity.class);
         intent.putExtra("photo_flag", tag);
+        intent.putExtra("photo_page", page + "");
+        intent.putExtra("photo_cut", cut + "");
         startPage(context, intent);
     }
 
@@ -377,6 +421,17 @@ public class IntentUtils {
         Intent intent = new Intent(context, SettingActivity.class);
         startPage(context, intent);
     }
+
+    /**
+     * 我的视频页面;
+     *
+     * @param context 上下文;
+     */
+    public static void goMyVideoPage(Context context) {
+        Intent intent = new Intent(context, MyVideoActivity.class);
+        startPage(context, intent);
+    }
+
     /**
      * 我的微信页面;
      *
@@ -384,6 +439,26 @@ public class IntentUtils {
      */
     public static void goWeChatPage(Context context) {
         Intent intent = new Intent(context, UploadWeChatActivity.class);
+        startPage(context, intent);
+    }
+
+    /**
+     * 上传私照页面;
+     *
+     * @param context 上下文;
+     */
+    public static void goUpPrivatePhotoPage(Context context) {
+        Intent intent = new Intent(context, UploadPrivatePhotoActivity.class);
+        startPage(context, intent);
+    }
+
+    /**
+     * 我的私照页面;
+     *
+     * @param context 上下文;
+     */
+    public static void goMyPrivatePhotoPage(Context context) {
+        Intent intent = new Intent(context, MyPrivatePhotoActivity.class);
         startPage(context, intent);
     }
 
@@ -493,6 +568,20 @@ public class IntentUtils {
      * @param intent
      */
     private static void startPage(Context context, Intent intent) {
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP)
+//            context.startActivity(intent, ActivityOptions.makeSceneTransitionAnimation((Activity) context).toBundle());
+            context.startActivity(intent);
+        else
+            context.startActivity(intent);
+    }
+
+    /**
+     * 跳转通用方法;
+     *
+     * @param context
+     * @param intent
+     */
+    private static void startPage2(Context context, Intent intent) {
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP)
             context.startActivity(intent, ActivityOptions.makeSceneTransitionAnimation((Activity) context).toBundle());
         else

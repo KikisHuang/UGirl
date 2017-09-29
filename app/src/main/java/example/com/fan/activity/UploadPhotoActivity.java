@@ -20,10 +20,12 @@ import example.com.fan.mylistener.CutPhotoListener;
 import example.com.fan.mylistener.DestroyListener;
 import example.com.fan.utils.ToastUtil;
 import example.com.fan.utils.photo.AppSDUtil;
+import example.com.fan.utils.photo.CompressIamge;
 import example.com.fan.utils.photo.CutUtil;
+import example.com.fan.utils.photo.LruCacheUtils;
 
 import static android.support.v4.content.FileProvider.getUriForFile;
-import static example.com.fan.utils.SynUtils.Finish;
+import static example.com.fan.utils.DeviceUtils.getAutoFileOrFilesSize;
 import static example.com.fan.utils.SynUtils.getTAG;
 import static example.com.fan.utils.photo.KitKatPhoto.getPath;
 import static example.com.fan.utils.photo.KitKatPhoto.selectImage;
@@ -34,6 +36,8 @@ import static example.com.fan.utils.photo.KitKatPhoto.selectImage;
 public class UploadPhotoActivity extends Activity implements CutPhotoListener, DestroyListener {
     private static final String TAG = getTAG(UploadPhotoActivity.class);
     private int flag;
+    private boolean cut = false;
+    private int page = 0;
     /**
      * 选择照片请求
      */
@@ -51,6 +55,9 @@ public class UploadPhotoActivity extends Activity implements CutPhotoListener, D
         listener = this;
         dlistener = this;
         flag = Integer.parseInt(getIntent().getStringExtra("photo_flag"));
+        page = Integer.parseInt(getIntent().getStringExtra("photo_page"));
+        cut = getIntent().getBooleanExtra("photo_cut", false);
+        Log.i(TAG, "CUT FLAG ======" + cut);
         Judge();
     }
 
@@ -82,7 +89,7 @@ public class UploadPhotoActivity extends Activity implements CutPhotoListener, D
             }
         } catch (Exception e) {
             Log.i(TAG, "ERROR ========" + e);
-            Finish(UploadPhotoActivity.this);
+            finish();
         }
     }
 
@@ -94,7 +101,7 @@ public class UploadPhotoActivity extends Activity implements CutPhotoListener, D
         } catch (IllegalAccessException e) {
             Toast.makeText(this, "获取SD卡不成功", Toast.LENGTH_SHORT)
                     .show();
-            Finish(UploadPhotoActivity.this);
+            finish();
             return;
         }
 
@@ -185,15 +192,33 @@ public class UploadPhotoActivity extends Activity implements CutPhotoListener, D
             }
 
         } else
-            Finish(UploadPhotoActivity.this);
+            finish();
 
     }
 
     private void doAfterGetBitPath(String pathstr) {
 //        pathstr = CompressIamge.copy(pathstr);
         Log.i(TAG, "doAfterGetBitPath   pathStr   ===" + pathstr);
-        CutUtil cu = new CutUtil();
-        cu.CutBitmap(pathstr, this, "info");
+        if (cut) {
+
+            CutUtil cu = new CutUtil();
+            cu.CutBitmap(pathstr, this, "info");
+
+        } else {
+            Bitmap bitmap = CompressIamge.getBitmapFromUri2(pathstr, this);
+            LruCacheUtils lcu = new LruCacheUtils();
+            lcu.addBitmapToMemoryCache(pathstr, bitmap);
+
+            String url = CompressIamge.saveToFile(bitmap);
+            Log.i(TAG, "图片保存至本地路径 ===" + url);
+            Log.i(TAG, "未压缩的图片大小 ===" + getAutoFileOrFilesSize(pathstr));
+            Log.i(TAG, "压缩过的图片大小 ===" + getAutoFileOrFilesSize(url));
+            if (!url.isEmpty() && bitmap != null) {
+                listener.onSucceed(url, lcu.getBitmapFromMemCache(pathstr));
+            } else
+                listener.onFail();
+        }
+
     }
 
     @Override
@@ -207,18 +232,20 @@ public class UploadPhotoActivity extends Activity implements CutPhotoListener, D
     public void onSucceed(String url, Bitmap bitmap) {
         setResult(1012);
         if (PersonalInfoActivity.listener != null)
-            PersonalInfoActivity.listener.PhotoLBitmapistener(url, bitmap);
-        Finish(UploadPhotoActivity.this);
+            PersonalInfoActivity.listener.PhotoLBitmapistener(url, bitmap,page);
+        if (UploadPrivatePhotoActivity.listener != null)
+            UploadPrivatePhotoActivity.listener.PhotoLBitmapistener(url, bitmap,page);
+        finish();
     }
 
     @Override
     public void onFail() {
         ToastUtil.toast2_bottom(UploadPhotoActivity.this, "保存图片失败...");
-        Finish(UploadPhotoActivity.this);
+        finish();
     }
 
     @Override
     public void onMyDestroy(int position) {
-        Finish(UploadPhotoActivity.this);
+        finish();
     }
 }

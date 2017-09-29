@@ -31,7 +31,7 @@ public class SpringUtils {
                     public void run() {
                         //结束刷新动画;
                         springView.onFinishFreshAndLoad();
-                        springListener.IsonRefresh();
+                        springListener.IsonRefresh(0);
                     }
                 }, 500);
             }
@@ -43,7 +43,7 @@ public class SpringUtils {
                     public void run() {
                         //结束刷新动画;
                         springView.onFinishFreshAndLoad();
-                        springListener.IsonLoadmore();
+                        springListener.IsonLoadmore(20);
                     }
                 }, 500);
             }

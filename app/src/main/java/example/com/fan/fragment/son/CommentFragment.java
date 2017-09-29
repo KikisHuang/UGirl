@@ -56,8 +56,7 @@ public class CommentFragment extends BaseFragment implements editeListener, Spri
     private String Colle;
     private SpringView springview1;
     private SpringListener slistener;
-    private int size = 20;
-
+    private int page = 0;
 
     public void setId(String id, String Colle) {
         this.id = id;
@@ -86,8 +85,8 @@ public class CommentFragment extends BaseFragment implements editeListener, Spri
                 .get()
                 .url(MzFinal.URl + MzFinal.GETCOLLECTIONUSER)
                 .addParams(MzFinal.ID, id)
-                .addParams(MzFinal.PAGE, "0")
-                .addParams(MzFinal.SIZE, "30")
+                .addParams(MzFinal.PAGE, String.valueOf(0))
+                .addParams(MzFinal.SIZE, String.valueOf(20))
                 .tag(this)
                 .build()
                 .execute(new StringCallback() {
@@ -115,18 +114,18 @@ public class CommentFragment extends BaseFragment implements editeListener, Spri
                     }
                 });
 
-        getComment();
+        getComment(true);
     }
 
-    private void getComment() {
+    private void getComment(final boolean b) {
 
         OkHttpUtils
                 .get()
                 .url(MzFinal.URl + MzFinal.GETMYCOMMENT)
                 .addParams(MzFinal.ID, id)
                 .addParams(MzFinal.TYPE, "0")
-                .addParams(MzFinal.PAGE, "0")
-                .addParams(MzFinal.SIZE, String.valueOf(size))
+                .addParams(MzFinal.PAGE, String.valueOf(page))
+                .addParams(MzFinal.SIZE, String.valueOf(page+20))
                 .tag(this)
                 .build()
                 .execute(new StringCallback() {
@@ -140,6 +139,7 @@ public class CommentFragment extends BaseFragment implements editeListener, Spri
                         try {
                             int code = getCode(response);
                             if (code == 1) {
+                                if(b)
                                 commentlist.clear();
                                 JSONArray ar = getJsonAr(response);
                                 for (int i = 0; i < ar.length(); i++) {
@@ -235,7 +235,7 @@ public class CommentFragment extends BaseFragment implements editeListener, Spri
                             int code = getCode(response);
                             if (code == 1) {
                                 ToastUtil.toast2_bottom(getActivity(), "评论成功!");
-                                getComment();
+                                getComment(true);
                             } else
                                 ToastUtil.ToastErrorMsg(getActivity(), response, code);
                         } catch (Exception e) {
@@ -246,14 +246,14 @@ public class CommentFragment extends BaseFragment implements editeListener, Spri
     }
 
     @Override
-    public void IsonRefresh() {
-        size = 20;
-        getComment();
+    public void IsonRefresh(int init) {
+        page = init;
+        getComment(true);
     }
 
     @Override
-    public void IsonLoadmore() {
-        size += 10;
-        getComment();
+    public void IsonLoadmore(int add) {
+        page += add;
+        getComment(false);
     }
 }

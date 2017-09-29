@@ -12,7 +12,6 @@ import com.balysv.materialmenu.MaterialMenuView;
 import example.com.fan.R;
 
 import static example.com.fan.utils.AnimationUtil.TitleAnima;
-import static example.com.fan.utils.SynUtils.Finish;
 import static example.com.fan.utils.SynUtils.getTAG;
 
 /**
@@ -36,7 +35,7 @@ public class TitleUtils {
         ac.findViewById(R.id.back_img).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Finish(ac);
+                ac.finish();
             }
         });
     }

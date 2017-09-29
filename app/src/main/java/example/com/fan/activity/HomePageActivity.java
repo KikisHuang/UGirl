@@ -37,12 +37,12 @@ import okhttp3.Call;
 
 import static example.com.fan.utils.IntentUtils.goPhotoPage;
 import static example.com.fan.utils.IntentUtils.goPlayerPage;
+import static example.com.fan.utils.IntentUtils.goPrivatePhotoPage;
 import static example.com.fan.utils.JsonUtils.getCode;
 import static example.com.fan.utils.JsonUtils.getJsonAr;
 import static example.com.fan.utils.JsonUtils.getJsonInt;
 import static example.com.fan.utils.JsonUtils.getJsonOb;
 import static example.com.fan.utils.ShareUtils.ShareApp;
-import static example.com.fan.utils.SynUtils.Finish;
 import static example.com.fan.utils.SynUtils.Login;
 import static example.com.fan.utils.SynUtils.LoginStatusQuery;
 import static example.com.fan.utils.SynUtils.getRouColors;
@@ -51,7 +51,7 @@ import static example.com.fan.utils.SynUtils.getTAG;
 
 /**
  * Created by lian on 2017/5/31.
- * 个人主页;
+ * 模特个人主页;
  */
 public class HomePageActivity extends BaseActivity implements ItemClickListener, View.OnClickListener, TwoParamaListener, ShareRequestListener {
 
@@ -71,13 +71,6 @@ public class HomePageActivity extends BaseActivity implements ItemClickListener,
     private int page = 999;
     private String cover = "";
 
-
-    @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        Finish(HomePageActivity.this);
-        return false;
-    }
-
     protected void click() {
         home_page_finish.setOnClickListener(this);
         attention_tv.setOnClickListener(this);
@@ -94,7 +87,8 @@ public class HomePageActivity extends BaseActivity implements ItemClickListener,
         ImageView img = listView.getHeaderView();
         img.setScaleType(ImageView.ScaleType.CENTER_CROP);
         try {
-            Glide.with(getApplicationContext()).load(cover).override(1296, 1080).into(img);        } catch (Exception e) {
+            Glide.with(getApplicationContext()).load(cover).override(1296, 1080).into(img);
+        } catch (Exception e) {
             Log.i(TAG, "Glide You cannot start a load for a destroyed activity");
         }
         //高度;
@@ -212,6 +206,7 @@ public class HomePageActivity extends BaseActivity implements ItemClickListener,
                                     ModelBean mb = new Gson().fromJson(String.valueOf(ar.getJSONObject(i)), ModelBean.class);
                                     rlist.add(mb);
                                 }
+
                                 adapter = new FindAdapter(HomePageActivity.this, rlist, listener, tlistener, slistener, true);
                                 Headerinit();
                             } else
@@ -230,7 +225,7 @@ public class HomePageActivity extends BaseActivity implements ItemClickListener,
             Log.i(TAG, "user_id =====" + user_id);
         } catch (Exception e) {
             Log.i(TAG, "Error =====" + e);
-            Finish(HomePageActivity.this);
+            finish();
         }
         listener = this;
         slistener = this;
@@ -256,10 +251,17 @@ public class HomePageActivity extends BaseActivity implements ItemClickListener,
 
     @Override
     public void onItemClickListener(int position, String id) {
+        if (LoginStatusQuery()) {
+            switch (position) {
+                case -2:
+                    goPrivatePhotoPage(HomePageActivity.this, id, 0);
+                    break;
+                default:
+                    goPhotoPage(HomePageActivity.this, id, 0);
+                    break;
 
-        if (LoginStatusQuery())
-            goPhotoPage(HomePageActivity.this, id, 0);
-        else
+            }
+        } else
             Login(HomePageActivity.this);
     }
 
@@ -267,7 +269,7 @@ public class HomePageActivity extends BaseActivity implements ItemClickListener,
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.home_page_finish:
-                Finish(this);
+                finish();
                 break;
             case R.id.attention_tv:
                 if (LoginStatusQuery()) {
@@ -280,6 +282,12 @@ public class HomePageActivity extends BaseActivity implements ItemClickListener,
 
         }
 
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        finish();
+        return false;
     }
 
     private void Attention() {

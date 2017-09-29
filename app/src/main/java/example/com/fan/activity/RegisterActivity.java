@@ -217,7 +217,7 @@ public class RegisterActivity extends InitActivity implements View.OnClickListen
                                     MyFragment.fragment.onUpDataUserInfo();
                                 saveInViCode(true);
                                 saveLoginWay(getRouString(R.string.phone_login));
-                                Finish(RegisterActivity.this);
+                                finish();
                             } else
                                 ToastUtil.ToastErrorMsg(RegisterActivity.this, response, code);
                         } catch (Exception e) {

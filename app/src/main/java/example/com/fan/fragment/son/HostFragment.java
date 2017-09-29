@@ -43,8 +43,8 @@ public class HostFragment extends BaseFragment implements SpringListener, VipAnd
     private int tag;
     private RecyclerView recyclerView;
     private HostAdapter adapter;
-    private int size = 20;
     private boolean flag;
+    private int page = 0;
 
     public void setTag(final boolean flag, int tag) {
         this.tag = tag;
@@ -62,6 +62,7 @@ public class HostFragment extends BaseFragment implements SpringListener, VipAnd
 
     protected void init() {
         listener = this;
+        rlist = new ArrayList<>();
         springView1 = (SpringView) view.findViewById(R.id.springview1);
         SpringUtils.SpringViewInit(springView1, getActivity(), this);
         recyclerView = (RecyclerView) view.findViewById(R.id.recycler);
@@ -75,31 +76,31 @@ public class HostFragment extends BaseFragment implements SpringListener, VipAnd
 
     @Override
     protected void initData() {
-        newInstance();
+        newInstance(true);
     }
 
     @Override
-    public void IsonRefresh() {
-        size = 20;
-        newInstance();
+    public void IsonRefresh(int i) {
+        page = i;
+        newInstance(true);
     }
 
     @Override
-    public void IsonLoadmore() {
-        size += 20;
-        newInstance();
+    public void IsonLoadmore(int a) {
+        page += a;
+        newInstance(false);
     }
 
 
-    public void newInstance() {
+    public void newInstance(final boolean b) {
 
         Log.i(TAG, "   position ====" + tag);
         OkHttpUtils
                 .get()
                 .url(MzFinal.URl + MzFinal.GETPHOTOBYTYPE)
                 .addParams("typeId", String.valueOf(tag))
-                .addParams(MzFinal.PAGE, "0")
-                .addParams(MzFinal.SIZE, "" + size)
+                .addParams(MzFinal.PAGE, String.valueOf(page))
+                .addParams(MzFinal.SIZE, String.valueOf(page+20))
                 .tag(this)
                 .build()
                 .execute(new StringCallback() {
@@ -114,9 +115,7 @@ public class HostFragment extends BaseFragment implements SpringListener, VipAnd
                             int code = getCode(response);
                             if (code == 1) {
                                 JSONArray ar = getJsonAr(response);
-                                if (rlist == null)
-                                    rlist = new ArrayList<>();
-                                else
+                                if (b)
                                     rlist.clear();
                                 for (int i = 0; i < ar.length(); i++) {
                                     NewstHostBean nb = new Gson().fromJson(String.valueOf(ar.getJSONObject(i)), NewstHostBean.class);

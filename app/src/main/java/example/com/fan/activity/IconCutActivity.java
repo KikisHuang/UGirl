@@ -10,7 +10,7 @@ import example.com.fan.utils.photo.CompressIamge;
 import example.com.fan.utils.photo.LruCacheUtils;
 import example.com.fan.view.cut.ClipImageLayout;
 
-import static example.com.fan.utils.SynUtils.Finish;
+import static example.com.fan.utils.DeviceUtils.getAutoFileOrFilesSize;
 
 /**
  * Created by lian on 2017/6/12.
@@ -43,20 +43,21 @@ public class IconCutActivity extends InitActivity {
                 if (!url.isEmpty() && bitmap != null) {
                     Log.i(TAG, "裁剪的图片保存至本地路径 ===" + url);
                     if (flag.equals("info")) {
+                        Log.i(TAG, "压缩过的图片大小 ===" + getAutoFileOrFilesSize(url));
                         UploadPhotoActivity.listener.onSucceed(url, bitmap);
                     }
                 } else {
                     UploadPhotoActivity.listener.onFail();
                 }
 
-                Finish(IconCutActivity.this);
+                finish();
             }
         });
 
         Cancle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Finish(IconCutActivity.this);
+                finish();
             }
         });
 

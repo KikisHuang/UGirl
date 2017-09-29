@@ -52,13 +52,14 @@ public class AttentionActivity extends InitActivity implements SpringListener, I
     private List<AttentBean> list;
     private SpringView springview;
     private ItemClickListener listener;
+    private int page = 0;
 
     @Override
     protected void click() {
 
     }
 
-    private void getData() {
+    private void getData(final boolean b) {
         /**
          * 我关注的;
          */
@@ -66,8 +67,8 @@ public class AttentionActivity extends InitActivity implements SpringListener, I
                 .get()
                 .url(MzFinal.URl + MzFinal.GETMYFOLLOW)
                 .addParams(MzFinal.KEY, SPreferences.getUserToken())
-                .addParams(MzFinal.PAGE, "0")
-                .addParams(MzFinal.SIZE, String.valueOf(999))
+                .addParams(MzFinal.PAGE, String.valueOf(page))
+                .addParams(MzFinal.SIZE, String.valueOf(page+20))
                 .tag(this)
                 .build()
                 .execute(new StringCallback() {
@@ -81,7 +82,8 @@ public class AttentionActivity extends InitActivity implements SpringListener, I
                         try {
                             int code = getCode(response);
                             if (code == 1) {
-                                list.clear();
+                                if (b)
+                                    list.clear();
                                 JSONArray ar = getJsonAr(response);
                                 for (int i = 0; i < ar.length(); i++) {
                                     AttentBean ab = new Gson().fromJson(String.valueOf(ar.getJSONObject(i)), AttentBean.class);
@@ -153,7 +155,7 @@ public class AttentionActivity extends InitActivity implements SpringListener, I
 
     @Override
     protected void initData() {
-        getData();
+        getData(true);
     }
 
     private void getcolletIcon(final ModeInfoBean cb) {
@@ -178,13 +180,15 @@ public class AttentionActivity extends InitActivity implements SpringListener, I
     }
 
     @Override
-    public void IsonRefresh() {
-
+    public void IsonRefresh(int i) {
+        page = i;
+        getData(true);
     }
 
     @Override
-    public void IsonLoadmore() {
-
+    public void IsonLoadmore(int a) {
+        page += a;
+        getData(false);
     }
 
     @Override
@@ -227,7 +231,7 @@ public class AttentionActivity extends InitActivity implements SpringListener, I
                                         if (MyFragment.fragment != null)
                                             MyFragment.fragment.onUpDataUserInfo();
 
-                                        getData();
+                                        getData(true);
                                         break;
                                     case 1:
                                         ToastUtil.toast2_bottom(AttentionActivity.this, "关注成功!");

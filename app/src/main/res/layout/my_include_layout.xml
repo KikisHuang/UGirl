@@ -119,13 +119,16 @@
 
             />
 
-        <ImageView
-            android:layout_width="10dp"
-            android:layout_height="10dp"
+        <TextView
+            android:id="@+id/upload_private"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="15dp"
-            android:src="@mipmap/more_img3" />
+            android:gravity="center"
+            android:textColor="@color/black"
+            android:text="上传私照" />
         <TextView
             style="@style/line_styles_ove_w"
             android:layout_alignParentBottom="true"
@@ -161,13 +164,16 @@
 
             />
 
-        <ImageView
-            android:layout_width="10dp"
-            android:layout_height="10dp"
+        <TextView
+            android:id="@+id/upload_video"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="15dp"
-            android:src="@mipmap/more_img3" />
+            android:gravity="center"
+            android:textColor="@color/black"
+            android:text="上传视频" />
         <TextView
             style="@style/line_styles_ove_w"
             android:layout_alignParentBottom="true"

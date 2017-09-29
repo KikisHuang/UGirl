@@ -26,6 +26,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import cn.jzvd.JZVideoPlayer;
+import cn.jzvd.JZVideoPlayerStandard;
 import example.com.fan.MyAppcation;
 import example.com.fan.R;
 import example.com.fan.adapter.PlayerCommentAdapter;
@@ -40,8 +42,6 @@ import example.com.fan.utils.ShareUtils;
 import example.com.fan.utils.ToastUtil;
 import example.com.fan.view.Popup.CommentEditPopupWindow;
 import example.com.fan.view.dialog.AlertDialog;
-import fm.jiecao.jcvideoplayer_lib.JCVideoPlayer;
-import fm.jiecao.jcvideoplayer_lib.JCVideoPlayerStandard;
 import jp.wasabeef.glide.transformations.CropCircleTransformation;
 import okhttp3.Call;
 
@@ -53,7 +53,6 @@ import static example.com.fan.utils.JsonUtils.getJsonInt;
 import static example.com.fan.utils.JsonUtils.getJsonOb;
 import static example.com.fan.utils.JsonUtils.getJsonSring;
 import static example.com.fan.utils.JsonUtils.getKeyMap;
-import static example.com.fan.utils.SynUtils.Finish;
 import static example.com.fan.utils.SynUtils.KswitchWay;
 import static example.com.fan.utils.SynUtils.ParseK;
 import static example.com.fan.utils.SynUtils.getRouColors;
@@ -67,7 +66,7 @@ import static example.com.fan.view.dialog.CustomProgress.Show;
  */
 public class PlayerVideoActivity extends AppCompatActivity implements View.OnClickListener, editeListener {
     private static final String TAG = getTAG(PlayerVideoActivity.class);
-    private JCVideoPlayerStandard mJcVideoPlayerStandard;
+    private JZVideoPlayerStandard mJcVideoPlayerStandard;
     private ListView listView;
     //顶部评论;
     private TextView comment_ed, share_num;
@@ -116,7 +115,7 @@ public class PlayerVideoActivity extends AppCompatActivity implements View.OnCli
         share_fl = (FrameLayout) findViewById(R.id.share_fl);
         listView = (ListView) findViewById(R.id.listView);
         FrameLayout.LayoutParams lp = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, DeviceUtils.getWindowWidth(this) * 9 / 16);
-        mJcVideoPlayerStandard = (JCVideoPlayerStandard) findViewById(R.id.jc_video);
+        mJcVideoPlayerStandard = (JZVideoPlayerStandard) findViewById(R.id.jc_video);
         mJcVideoPlayerStandard.setLayoutParams(lp);
         comment_ed = (TextView) findViewById(R.id.comment_ed);
         commentlist = new ArrayList<>();
@@ -228,14 +227,14 @@ public class PlayerVideoActivity extends AppCompatActivity implements View.OnCli
                                             new AlertDialog(PlayerVideoActivity.this).builder().setTitle("提示").setCancelable(false).setMsg("成为会员才能看哦，更多精彩细节等着你!\n\n").setNegativeButton("下次再说", new View.OnClickListener() {
                                                 @Override
                                                 public void onClick(View v) {
-                                                    Finish(PlayerVideoActivity.this);
+                                                    finish();
                                                 }
                                             }).setPositiveButton("成为会员", new View.OnClickListener() {
                                                 @Override
                                                 public void onClick(View v) {
 
                                                     goPayPage(PlayerVideoActivity.this);
-                                                    Finish(PlayerVideoActivity.this);
+                                                    finish();
                                                 }
                                             }).show();
                                         }
@@ -243,7 +242,7 @@ public class PlayerVideoActivity extends AppCompatActivity implements View.OnCli
                                     } else {
                                         //设置标题;
                                         mJcVideoPlayerStandard.setUp(vb.getMcPublishVideoUrls().get(0).getPath()
-                                                , JCVideoPlayerStandard.SCREEN_LAYOUT_NORMAL, "");
+                                                , JZVideoPlayerStandard.SCREEN_LAYOUT_NORMAL, "");
                                         Path = vb.getMcPublishVideoUrls().get(0).getPath();
                                     }
 
@@ -257,7 +256,7 @@ public class PlayerVideoActivity extends AppCompatActivity implements View.OnCli
                                     }
                                 } else {
                                     ToastUtil.toast2_bottom(PlayerVideoActivity.this, "异常，没有获取到视频地址！");
-                                    Finish(PlayerVideoActivity.this);
+                                    finish();
                                 }
 
                                 if (listView.getHeaderViewsCount() == 0)
@@ -343,7 +342,7 @@ public class PlayerVideoActivity extends AppCompatActivity implements View.OnCli
                                 Path = getJsonSring(response);
                                 //设置标题;
                                 mJcVideoPlayerStandard.setUp(getJsonSring(response)
-                                        , JCVideoPlayerStandard.SCREEN_LAYOUT_NORMAL, "");
+                                        , JZVideoPlayerStandard.SCREEN_LAYOUT_NORMAL, "");
                             } else
                                 ToastUtil.ToastErrorMsg(PlayerVideoActivity.this, response, code);
                         } catch (Exception e) {
@@ -409,12 +408,12 @@ public class PlayerVideoActivity extends AppCompatActivity implements View.OnCli
     @Override
     protected void onPause() {
         super.onPause();
-        JCVideoPlayer.releaseAllVideos();
+        JZVideoPlayer.releaseAllVideos();
     }
 
     @Override
     public void onBackPressed() {
-        if (JCVideoPlayer.backPress()) {
+        if (JZVideoPlayer.backPress()) {
             return;
         }
         super.onBackPressed();
@@ -425,10 +424,11 @@ public class PlayerVideoActivity extends AppCompatActivity implements View.OnCli
         super.onDestroy();
         OkHttpUtils.getInstance().cancelTag(this);
         elistener = null;
-        JCVideoPlayer.clearSavedProgress(this, Path);
+        JZVideoPlayer.clearSavedProgress(this, Path);
         if (mJcVideoPlayerStandard != null) {
             mJcVideoPlayerStandard.removeAllViews();
         }
+
     }
 
     @Override
@@ -444,7 +444,7 @@ public class PlayerVideoActivity extends AppCompatActivity implements View.OnCli
                 Admire();
                 break;
             case R.id.activity_imgBack:
-                Finish(PlayerVideoActivity.this);
+                finish();
                 break;
             case R.id.attention_tv:
                 if (!Path.isEmpty() && !userId.isEmpty())

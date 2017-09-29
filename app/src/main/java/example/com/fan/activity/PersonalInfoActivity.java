@@ -1,7 +1,9 @@
 package example.com.fan.activity;
 
+import android.app.Activity;
 import android.graphics.Bitmap;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.EditText;
@@ -9,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.balysv.materialmenu.MaterialMenuView;
 import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
 import com.zhy.http.okhttp.OkHttpUtils;
@@ -34,15 +37,14 @@ import okhttp3.Call;
 
 import static example.com.fan.base.sign.save.SPreferences.getInViCode;
 import static example.com.fan.base.sign.save.SPreferences.saveInViCode;
-import static example.com.fan.utils.IntentUtils.goUploadPhotoPage;
 import static example.com.fan.utils.JsonUtils.NullDispose;
 import static example.com.fan.utils.JsonUtils.getCode;
 import static example.com.fan.utils.JsonUtils.getJsonOb;
 import static example.com.fan.utils.SynUtils.Finish;
+import static example.com.fan.utils.SynUtils.PhotoPictureDialog;
 import static example.com.fan.utils.SynUtils.getRouString;
 import static example.com.fan.utils.SynUtils.getSex;
 import static example.com.fan.utils.SynUtils.getTAG;
-import static example.com.fan.utils.TitleUtils.setTitles;
 import static example.com.fan.view.dialog.CustomProgress.Cancle;
 import static example.com.fan.view.dialog.CustomProgress.Show;
 
@@ -66,6 +68,12 @@ public class PersonalInfoActivity extends InitActivity implements View.OnClickLi
         OkHttpUtils.getInstance().cancelTag(this);
         if (listener != null)
             listener = null;
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        Finish(this);
+        return false;
     }
 
     private void getAddress() {
@@ -117,7 +125,7 @@ public class PersonalInfoActivity extends InitActivity implements View.OnClickLi
     @Override
     protected void init() {
         setContentView(R.layout.person_info_activity_layout);
-        setTitles(this, getRouString(R.string.my));
+        MYsetTitles(this, getRouString(R.string.my));
         listener = this;
         address_tv = f(R.id.address_tv);
         submit_info = f(R.id.submit_info);
@@ -137,6 +145,34 @@ public class PersonalInfoActivity extends InitActivity implements View.OnClickLi
             saveInViCode(false);
         }
 
+    }
+
+    private void MYsetTitles(final PersonalInfoActivity ac, String str) {
+
+        TextView textView = (TextView) ac.findViewById(R.id.title_tv);
+        textView.setVisibility(View.VISIBLE);
+        textView.setText(str);
+        hideView(ac);
+        ac.findViewById(R.id.back_img).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Finish(ac);
+            }
+        });
+    }
+
+    /**
+     * View控件隐藏;
+     *
+     * @param ac
+     */
+    public static void hideView(Activity ac) {
+        MaterialMenuView silide_img = (MaterialMenuView) ac.findViewById(R.id.material_menu_button);
+        ImageView search_img = (ImageView) ac.findViewById(R.id.search_img);
+        ImageView title_img = (ImageView) ac.findViewById(R.id.title_img);
+        silide_img.setVisibility(View.GONE);
+        search_img.setVisibility(View.GONE);
+        title_img.setVisibility(View.GONE);
     }
 
     @Override
@@ -189,20 +225,20 @@ public class PersonalInfoActivity extends InitActivity implements View.OnClickLi
                 }).show();
                 break;
             case R.id.user_icon:
-
-                new ActionSheetDialog(this).builder().
+                PhotoPictureDialog(this, true, 101);
+             /*   new ActionSheetDialog(this).builder().
                         addSheetItem("相册", ActionSheetDialog.SheetItemColor.Blue, new ActionSheetDialog.OnSheetItemClickListener() {
                             @Override
                             public void onClick(int which) {
-                                goUploadPhotoPage(PersonalInfoActivity.this, "0");
+                                goUploadPhotoPage(PersonalInfoActivity.this, "0", Cut);
                             }
                         }).addSheetItem("相机", ActionSheetDialog.SheetItemColor.Blue, new ActionSheetDialog.OnSheetItemClickListener() {
                     @Override
                     public void onClick(int which) {
-                        goUploadPhotoPage(PersonalInfoActivity.this, "1");
+                        goUploadPhotoPage(PersonalInfoActivity.this, "1", Cut);
                     }
                 }).show();
-
+*/
                 break;
             case R.id.clear_img:
                 info_name.setText("");
@@ -342,8 +378,11 @@ public class PersonalInfoActivity extends InitActivity implements View.OnClickLi
     }
 
     @Override
-    public void PhotoLBitmapistener(String path, Bitmap bitmap) {
-        UploadIcon(path);
+    public void PhotoLBitmapistener(String path, Bitmap bitmap, int page) {
+        bitmap.recycle();
+        if (page == 101)
+            UploadIcon(path);
+
     }
 
     private void UploadIcon(final String path) {

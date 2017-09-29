@@ -9,6 +9,8 @@ import android.content.IntentFilter;
 import android.net.ConnectivityManager;
 import android.net.wifi.WifiManager;
 import android.os.Build;
+import android.os.Bundle;
+import android.os.PersistableBundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
@@ -262,7 +264,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
         menu3 = (TextView) three_img.findViewById(R.id.name);
         menu3.setText("VR");
         menu4 = (TextView) four_img.findViewById(R.id.name);
-        menu4.setText(getRouString(R.string.store));
+        menu4.setText(getRouString(R.string.model_status));
         menu5 = (TextView) five_img.findViewById(R.id.name);
         menu5.setText(getRouString(R.string.my));
 
@@ -463,6 +465,17 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
             ft.show(fourFragment);
         }
         ft.commit();
+    }
+
+    /**
+     * 不保存状态;
+     *
+     * @param outState
+     * @param outPersistentState
+     */
+    @Override
+    public void onSaveInstanceState(Bundle outState, PersistableBundle outPersistentState) {
+
     }
 
     private void five() {

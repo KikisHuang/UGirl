@@ -27,9 +27,7 @@ import com.zhy.http.okhttp.callback.StringCallback;
 import org.json.JSONArray;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import example.com.fan.R;
 import example.com.fan.adapter.PageTopBannerAdapter;
@@ -99,7 +97,6 @@ public class StoreFragment2 extends BaseFragment implements SpringListener, Crow
     private ItemClickListener hlistener;
     public static PositionAddListener polistener;
     private int page = 0;
-    private int pageSize = 20;
 
     private Handler handler;
 
@@ -134,7 +131,7 @@ public class StoreFragment2 extends BaseFragment implements SpringListener, Crow
         Log.i(TAG, "   position ====" + tag);
         switch (tag) {
             case 0:
-                getData(MzFinal.GETSHOPPINGMALL);
+                getData(MzFinal.GETSHOPPINGMALL,true);
                 break;
             case 1:
                 getBanner();
@@ -143,16 +140,12 @@ public class StoreFragment2 extends BaseFragment implements SpringListener, Crow
         }
     }
 
-    private void getData(String getshoppingmall) {
-        Map<String, String> map = new HashMap<>();
-        map.put(MzFinal.PAGE, String.valueOf(page));
-        map.put(MzFinal.SIZE, String.valueOf(pageSize));
-
+    private void getData(String getshoppingmall, final boolean b) {
         OkHttpUtils
                 .get()
                 .url(MzFinal.URl + getshoppingmall)
                 .addParams(MzFinal.PAGE, String.valueOf(page))
-                .addParams(MzFinal.SIZE, String.valueOf(pageSize))
+                .addParams(MzFinal.SIZE, String.valueOf(page+20))
                 .build()
                 .execute(new StringCallback() {
                     @Override
@@ -168,6 +161,7 @@ public class StoreFragment2 extends BaseFragment implements SpringListener, Crow
                             RelativeLayout ll = (RelativeLayout) view.findViewById(R.id.loading_layout);
                             ll.setVisibility(View.GONE);
                             if (code == 1) {
+                                if (b)
                                 rlist.clear();
                                 JSONArray ar = getJsonAr(response);
                                 for (int i = 0; i < ar.length(); i++) {
@@ -334,7 +328,7 @@ public class StoreFragment2 extends BaseFragment implements SpringListener, Crow
             listView.addHeaderView(top);
             startPlay(handler, mViewPager, 1);
         }
-        getData(MzFinal.GETSHOPPINGMALLACTIVITIES);
+        getData(MzFinal.GETSHOPPINGMALLACTIVITIES,true);
     }
 
     @Override
@@ -445,28 +439,28 @@ public class StoreFragment2 extends BaseFragment implements SpringListener, Crow
 
     //刷新;
     @Override
-    public void IsonRefresh() {
-        pageSize = 20;
+    public void IsonRefresh(int i) {
+        page = i;
         switch (tag) {
             case 0:
-                getData(MzFinal.GETSHOPPINGMALL);
+                getData(MzFinal.GETSHOPPINGMALL,true);
                 break;
             case 1:
-                getData(MzFinal.GETSHOPPINGMALLACTIVITIES);
+                getData(MzFinal.GETSHOPPINGMALLACTIVITIES,true);
                 break;
         }
     }
 
     //下滑;
     @Override
-    public void IsonLoadmore() {
-        pageSize += 20;
+    public void IsonLoadmore(int a) {
+        page+=a;
         switch (tag) {
             case 0:
-                getData(MzFinal.GETSHOPPINGMALL);
+                getData(MzFinal.GETSHOPPINGMALL,false);
                 break;
             case 1:
-                getData(MzFinal.GETSHOPPINGMALLACTIVITIES);
+                getData(MzFinal.GETSHOPPINGMALLACTIVITIES,false);
                 break;
         }
     }
@@ -508,10 +502,10 @@ public class StoreFragment2 extends BaseFragment implements SpringListener, Crow
             Log.i(TAG, "   position ====" + tag);
             switch (tag) {
                 case 0:
-                    getData(MzFinal.GETSHOPPINGMALL);
+                    getData(MzFinal.GETSHOPPINGMALL,true);
                     break;
                 case 1:
-                    getData(MzFinal.GETSHOPPINGMALLACTIVITIES);
+                    getData(MzFinal.GETSHOPPINGMALLACTIVITIES,true);
                     break;
             }
         }

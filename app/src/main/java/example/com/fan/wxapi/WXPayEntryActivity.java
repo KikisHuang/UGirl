@@ -14,11 +14,12 @@ import com.tencent.mm.sdk.openapi.WXAPIFactory;
 import example.com.fan.MyAppcation;
 import example.com.fan.activity.PayActivity;
 import example.com.fan.activity.PhotoActivity;
+import example.com.fan.activity.PrivatePhotoActivity;
 import example.com.fan.fragment.son.PictureSlideFragment;
+import example.com.fan.fragment.son.PictureSlideFragment2;
 import example.com.fan.utils.MzFinal;
 import example.com.fan.utils.ToastUtil;
 
-import static example.com.fan.utils.SynUtils.Finish;
 import static example.com.fan.utils.SynUtils.getTAG;
 import static example.com.fan.utils.SynUtils.getUserVip;
 
@@ -54,6 +55,10 @@ public class WXPayEntryActivity extends Activity implements IWXAPIEventHandler {
                         MzFinal.isPay = true;
                         PictureSlideFragment.PayListener.onPayRefresh();
                     }
+                    if (PictureSlideFragment2.PayListener != null && PrivatePhotoActivity.tlistener != null) {
+                        MzFinal.isPay = true;
+                        PictureSlideFragment2.PayListener.onPayRefresh();
+                    }
                     if(PayActivity.paylistener!=null)
                         PayActivity.paylistener.onPayRefresh();
 
@@ -69,7 +74,7 @@ public class WXPayEntryActivity extends Activity implements IWXAPIEventHandler {
 //                ToastUtil.toast2_bottom(this, "-2支付失败!");
                 break;
         }
-        Finish(WXPayEntryActivity.this);
+        finish();
     }
 
     @Override

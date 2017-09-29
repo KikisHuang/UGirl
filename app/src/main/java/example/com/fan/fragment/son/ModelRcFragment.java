@@ -55,9 +55,8 @@ public class ModelRcFragment extends BaseFragment implements SpringListener, hom
     private SpringView springview1;
     private SpringListener slistener;
     private ItemClickListener hlistener;
-    private int page = 0;
-    private int pageSize = 20;
 
+    private int page = 0;
     private int tag;
 
     public void setTag(int tag) {
@@ -77,16 +76,16 @@ public class ModelRcFragment extends BaseFragment implements SpringListener, hom
 
     public void newInstance() {
         Log.i(TAG, "   position ====" + tag);
-        getData(MzFinal.GETSHOPPINGMALL);
+        getData(true);
     }
 
-    private void getData(String getshoppingmall) {
+    private void getData(final boolean b) {
 
         OkHttpUtils
                 .get()
-                .url(MzFinal.URl + getshoppingmall)
+                .url(MzFinal.URl + MzFinal.GETSHOPPINGMALL)
                 .addParams(MzFinal.PAGE, String.valueOf(page))
-                .addParams(MzFinal.SIZE, String.valueOf(pageSize))
+                .addParams(MzFinal.SIZE, String.valueOf(page+20))
                 .build()
                 .execute(new StringCallback() {
                     @Override
@@ -103,6 +102,7 @@ public class ModelRcFragment extends BaseFragment implements SpringListener, hom
                             ll.setVisibility(View.GONE);
                             JSONArray ar = getJsonAr(response);
                             if (code == 1) {
+                                if (b)
                                 rlist.clear();
                                 for (int i = 0; i < ar.length(); i++) {
                                     StoreBean sb = new Gson().fromJson(String.valueOf(ar.getJSONObject(i)), StoreBean.class);
@@ -162,16 +162,16 @@ public class ModelRcFragment extends BaseFragment implements SpringListener, hom
 
     //刷新;
     @Override
-    public void IsonRefresh() {
-        pageSize = 20;
-        getData(MzFinal.GETSHOPPINGMALL);
+    public void IsonRefresh(int i) {
+        page=i;
+        getData(true);
     }
 
     //下滑;
     @Override
-    public void IsonLoadmore() {
-        pageSize += 20;
-        getData(MzFinal.GETSHOPPINGMALL);
+    public void IsonLoadmore(int a) {
+        page+=a;
+        getData(false);
     }
 
     //modelIcon点击事件;
@@ -185,7 +185,7 @@ public class ModelRcFragment extends BaseFragment implements SpringListener, hom
 
         if (net) {
             Log.i(TAG, "   position ====" + tag);
-            getData(MzFinal.GETSHOPPINGMALL);
+            getData(false);
         }
     }
 

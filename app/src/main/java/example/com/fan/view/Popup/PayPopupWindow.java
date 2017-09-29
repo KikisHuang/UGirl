@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import example.com.fan.R;
 import example.com.fan.activity.PhotoActivity;
+import example.com.fan.activity.PrivatePhotoActivity;
 import example.com.fan.utils.MzFinal;
 
 import static example.com.fan.utils.IntentUtils.goPayPage;
@@ -102,6 +103,8 @@ public class PayPopupWindow {
 
                 if (PhotoActivity.clistener != null)
                     PhotoActivity.clistener.onCollect();
+                if (PrivatePhotoActivity.clistener != null)
+                    PrivatePhotoActivity.clistener.onCollect();
             }
         });
     }
@@ -117,6 +120,9 @@ public class PayPopupWindow {
             pay_tv.setVisibility(View.GONE);
             collect_tv.setVisibility(View.GONE);
             introduce_tv.setText(getRouString(R.string.pay_introduce2));
+        } else if (tag == 2) {
+            vip_tv.setVisibility(View.GONE);
+            introduce_tv.setText(getRouString(R.string.pay2_introduce) + price + "元");
         } else {
             if (!price.isEmpty())
                 introduce_tv.setText(getRouString(R.string.pay_introduce) + price + "元");
