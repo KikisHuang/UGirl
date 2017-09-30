@@ -55,6 +55,8 @@ public class MyAppcation extends Application {
          */
 //      crashHandler = CrashHandler.getInstance();
 //      crashHandler.init(getApplicationContext());
+
+        //支付方式判断(多个马甲包,根据包名判断appid);
         pkName = getOverID(pkName, this);
 
         Log.i(TAG, "pk ===========" + pkName);

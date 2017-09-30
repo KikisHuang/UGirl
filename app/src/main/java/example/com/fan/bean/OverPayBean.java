@@ -30,6 +30,16 @@ public class OverPayBean {
 
     private int user_sex;
 
+    private int typeFlag;
+
+    public int getTypeFlag() {
+        return typeFlag;
+    }
+
+    public void setTypeFlag(int typeFlag) {
+        this.typeFlag = typeFlag;
+    }
+
     public void setCollectionCount(int collectionCount){
         this.collectionCount = collectionCount;
     }

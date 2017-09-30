@@ -76,7 +76,7 @@
             android:layout_centerVertical="true"
             android:layout_toRightOf="@+id/place_tv"
             android:background="@color/white"
-            android:text="88"
+            android:text="68"
             android:inputType="number"
             android:textColor="@color/red1"
             android:textColorHint="@color/red1"

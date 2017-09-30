@@ -34,6 +34,7 @@ import okhttp3.Call;
 
 import static example.com.fan.utils.IntentUtils.goPhotoPage;
 import static example.com.fan.utils.IntentUtils.goPlayerPage;
+import static example.com.fan.utils.IntentUtils.goPrivatePhotoPage;
 import static example.com.fan.utils.JsonUtils.getCode;
 import static example.com.fan.utils.JsonUtils.getJsonAr;
 import static example.com.fan.utils.JsonUtils.getJsonSring;
@@ -292,15 +293,21 @@ public class MyCollectFragment extends BaseFragment implements ItemClickListener
     @Override
     public void onItemClickListener(int position, String id) {
 
-        switch (tag) {
+        switch (position) {
             case 0:
                 goPhotoPage(getActivity(), id, 0);
                 break;
-            case 1:
+            case 4:
                 goPlayerPage(getActivity(), id, 4);
                 break;
-            case 2:
+            case 5:
                 goPlayerPage(getActivity(), id, 5);
+                break;
+            case -3:
+                goPlayerPage(getActivity(), id, -3);
+                break;
+            case -2:
+                goPrivatePhotoPage(getActivity(), id, 0);
                 break;
         }
 

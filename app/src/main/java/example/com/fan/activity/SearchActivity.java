@@ -34,9 +34,9 @@ import okhttp3.Call;
 import static example.com.fan.utils.IntentUtils.goHomePage;
 import static example.com.fan.utils.IntentUtils.goPhotoPage;
 import static example.com.fan.utils.IntentUtils.goPlayerPage;
+import static example.com.fan.utils.IntentUtils.goPrivatePhotoPage;
 import static example.com.fan.utils.JsonUtils.getCode;
 import static example.com.fan.utils.JsonUtils.getJsonAr;
-import static example.com.fan.utils.SynUtils.Finish;
 import static example.com.fan.utils.SynUtils.getTAG;
 
 /**
@@ -216,6 +216,12 @@ public class SearchActivity extends InitActivity implements View.OnClickListener
                 break;
             case 4:
                 goPlayerPage(SearchActivity.this, id, 4);
+                break;
+            case -3:
+                goPlayerPage(SearchActivity.this, id, -3);
+                break;
+            case -2:
+                goPrivatePhotoPage(SearchActivity.this, id, 0);
                 break;
             case 5:
                 goPlayerPage(SearchActivity.this, id, 5);

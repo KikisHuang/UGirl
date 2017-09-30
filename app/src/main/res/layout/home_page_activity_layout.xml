@@ -83,6 +83,7 @@
         >
 
         <LinearLayout
+            android:id="@+id/attention_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -99,10 +100,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="关注"
+                android:layout_marginTop="3dp"
                 android:textColor="@color/black"
-                android:textSize="12dp" />
+                android:textSize="11dp" />
         </LinearLayout>
         <LinearLayout
+            android:id="@+id/private_quiz_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -118,11 +121,13 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="关注"
+                android:text="私密提问"
+                android:layout_marginTop="3dp"
                 android:textColor="@color/black"
-                android:textSize="12dp" />
+                android:textSize="11dp" />
         </LinearLayout>
         <LinearLayout
+            android:id="@+id/add_wechat_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -138,11 +143,13 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="关注"
+                android:text="加微信"
+                android:layout_marginTop="3dp"
                 android:textColor="@color/black"
-                android:textSize="12dp" />
+                android:textSize="11dp" />
         </LinearLayout>
         <LinearLayout
+            android:id="@+id/private_chat_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -158,9 +165,10 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="关注"
+                android:text="私聊"
+                android:layout_marginTop="3dp"
                 android:textColor="@color/black"
-                android:textSize="12dp" />
+                android:textSize="11dp" />
         </LinearLayout>
     </LinearLayout>
 </FrameLayout>

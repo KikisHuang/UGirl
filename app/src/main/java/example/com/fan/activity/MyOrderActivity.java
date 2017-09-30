@@ -20,6 +20,7 @@ import static example.com.fan.utils.TitleUtils.setTitles;
  * 我的订单页面;
  */
 public class MyOrderActivity extends InitActivity {
+
     private CustomViewPager pr_viewPager;
     private HostModelAdapter page_adapter;
     private TabLayout mTab;

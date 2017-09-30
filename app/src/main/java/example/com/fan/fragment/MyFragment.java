@@ -239,7 +239,7 @@ public class MyFragment extends BaseFragment implements View.OnClickListener, Ch
                                         MzFinal.MODELFLAG = true;
                                     else
                                         MzFinal.MODELFLAG = false;
-
+                                    MzFinal.MYID = ub.getId();
                                     setTextColor1(account_tv, info.get(0).getBalance() + MzFinal.br, "我的账户", "#FF4D87");
                                     setTextColor1(rank_tv, info.get(0).getCommentLevel() + MzFinal.br, "等级", "#000000");
                                     MyAppcation.UserIcon = ub.getHeadImgUrl();
@@ -424,18 +424,21 @@ public class MyFragment extends BaseFragment implements View.OnClickListener, Ch
             case R.id.rl_layout8:
                 goSettingPage(getActivity());
                 break;
+            //我的私照
             case R.id.rl_layout10:
                 if (MzFinal.MODELFLAG) {
-                    goMyPrivatePhotoPage(getActivity());
+                    goMyPrivatePhotoPage(getActivity(),MzFinal.MYID);
                 } else
                     GoRenzPage();
                 break;
+            //我的视频
             case R.id.rl_layout11:
                 if (MzFinal.MODELFLAG) {
                     goMyVideoPage(getActivity());
                 } else
                     GoRenzPage();
                 break;
+            //我的微信;
             case R.id.rl_layout12:
 
                 if (MzFinal.MODELFLAG) {
@@ -446,12 +449,14 @@ public class MyFragment extends BaseFragment implements View.OnClickListener, Ch
             case R.id.rl_layout13:
 
                 break;
+            //上传私照;
             case R.id.upload_private:
                 if (MzFinal.MODELFLAG) {
                     goUpPrivatePhotoPage(getActivity());
                 } else
                     GoRenzPage();
                 break;
+            //上传视频;
             case R.id.upload_video:
                 if (MzFinal.MODELFLAG) {
 

@@ -27,6 +27,15 @@ public class OverPayVideoVrBean {
     private String joinUserId;
 
     private int likesCount;
+    private int typeFlag;
+
+    public int getTypeFlag() {
+        return typeFlag;
+    }
+
+    public void setTypeFlag(int typeFlag) {
+        this.typeFlag = typeFlag;
+    }
 
     private McSettingPublishType mcSettingPublishType;
 

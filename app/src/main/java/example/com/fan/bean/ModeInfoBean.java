@@ -57,6 +57,16 @@ public class ModeInfoBean {
         this.publicCoverPath = publicCoverPath;
     }
 
+    public String getWx() {
+        return wx;
+    }
+
+    public void setWx(String wx) {
+        this.wx = wx;
+    }
+
+    private String wx;
+
     private String info;
     private String publicCoverPath;
 

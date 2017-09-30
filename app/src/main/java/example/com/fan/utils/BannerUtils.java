@@ -30,6 +30,8 @@ public class BannerUtils {
                 goPlayerPage(context, id, 4);
             if (type == 5)
                 goPlayerPage(context, id, 5);
+            if (type == -3)
+                goPlayerPage(context, id, -3);
         } else
             Login(context);
     }

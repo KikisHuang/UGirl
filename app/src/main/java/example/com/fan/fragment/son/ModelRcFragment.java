@@ -18,21 +18,20 @@ import java.util.List;
 
 import example.com.fan.R;
 import example.com.fan.adapter.RcModelAdapter;
-import example.com.fan.bean.StoreBean;
+import example.com.fan.bean.VrBean;
 import example.com.fan.fragment.BaseFragment;
-import example.com.fan.mylistener.ItemClickListener;
 import example.com.fan.mylistener.OverallRefreshListener;
 import example.com.fan.mylistener.PositionAddListener;
 import example.com.fan.mylistener.SpringListener;
+import example.com.fan.mylistener.TwoParamaListener;
 import example.com.fan.mylistener.homepageListener;
 import example.com.fan.utils.ListenerManager;
 import example.com.fan.utils.MzFinal;
 import example.com.fan.utils.ToastUtil;
 import okhttp3.Call;
 
-import static example.com.fan.utils.IntentUtils.goBuyCrowdPage;
-import static example.com.fan.utils.IntentUtils.goBuyGoodsPage;
 import static example.com.fan.utils.IntentUtils.goHomePage;
+import static example.com.fan.utils.IntentUtils.goPlayerPage;
 import static example.com.fan.utils.JsonUtils.getCode;
 import static example.com.fan.utils.JsonUtils.getJsonAr;
 import static example.com.fan.utils.SpringUtils.SpringViewInit;
@@ -45,16 +44,16 @@ import static example.com.fan.utils.SynUtils.getTAG;
  */
 
 
-public class ModelRcFragment extends BaseFragment implements SpringListener, homepageListener, OverallRefreshListener, PositionAddListener, ItemClickListener {
+public class ModelRcFragment extends BaseFragment implements SpringListener, homepageListener, OverallRefreshListener, PositionAddListener, TwoParamaListener {
     private static final String TAG = getTAG(ModelRcFragment.class);
     private RecyclerView recyclerView;
     private RcModelAdapter rcadapter;
-    private List<StoreBean> rlist;
+    private List<VrBean> rlist;
     private StaggeredGridLayoutManager mLayoutManager;
 
     private SpringView springview1;
     private SpringListener slistener;
-    private ItemClickListener hlistener;
+    private TwoParamaListener tlistener;
 
     private int page = 0;
     private int tag;
@@ -85,7 +84,7 @@ public class ModelRcFragment extends BaseFragment implements SpringListener, hom
                 .get()
                 .url(MzFinal.URl + MzFinal.GETSHOPPINGMALL)
                 .addParams(MzFinal.PAGE, String.valueOf(page))
-                .addParams(MzFinal.SIZE, String.valueOf(page+20))
+                .addParams(MzFinal.SIZE, String.valueOf(page + 20))
                 .build()
                 .execute(new StringCallback() {
                     @Override
@@ -103,15 +102,15 @@ public class ModelRcFragment extends BaseFragment implements SpringListener, hom
                             JSONArray ar = getJsonAr(response);
                             if (code == 1) {
                                 if (b)
-                                rlist.clear();
+                                    rlist.clear();
                                 for (int i = 0; i < ar.length(); i++) {
-                                    StoreBean sb = new Gson().fromJson(String.valueOf(ar.getJSONObject(i)), StoreBean.class);
-                                    rlist.add(sb);
+                                    VrBean vb = new Gson().fromJson(String.valueOf(ar.getJSONObject(i)), VrBean.class);
+                                    rlist.add(vb);
                                 }
                                 if (rcadapter != null) {
                                     rcadapter.notifyDataSetChanged();
                                 } else {
-                                    rcadapter = new RcModelAdapter(getActivity(), rlist);
+                                    rcadapter = new RcModelAdapter(getActivity(), rlist,tlistener);
                                     recyclerView.setAdapter(rcadapter);
                                 }
 
@@ -127,8 +126,6 @@ public class ModelRcFragment extends BaseFragment implements SpringListener, hom
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        if (hlistener != null)
-            hlistener = null;
     }
 
     @Override
@@ -139,7 +136,7 @@ public class ModelRcFragment extends BaseFragment implements SpringListener, hom
     @Override
     protected void init() {
         slistener = this;
-        hlistener = this;
+        tlistener = this;
         //注册观察者监听网络;
         ListenerManager.getInstance().registerListtener(this);
 
@@ -163,14 +160,14 @@ public class ModelRcFragment extends BaseFragment implements SpringListener, hom
     //刷新;
     @Override
     public void IsonRefresh(int i) {
-        page=i;
+        page = i;
         getData(true);
     }
 
     //下滑;
     @Override
     public void IsonLoadmore(int a) {
-        page+=a;
+        page += a;
         getData(false);
     }
 
@@ -193,17 +190,11 @@ public class ModelRcFragment extends BaseFragment implements SpringListener, hom
     public void onIncrease() {
     }
 
+
     @Override
-    public void onItemClickListener(int position, String id) {
+    public void onGoPlayPage(String id, int typeFlag) {
         if (LoginStatusQuery()) {
-            switch (position) {
-                case 0:
-                    goBuyGoodsPage(getActivity(), id);
-                    break;
-                case 1:
-                    goBuyCrowdPage(getActivity(), id);
-                    break;
-            }
+            goPlayerPage(getActivity(), id, typeFlag);
         } else
             Login(getActivity());
     }

@@ -42,7 +42,7 @@ public class PayUtils {
      */
     public static void PayNow(final Context context, String PayId, String url, final int Pay_Type, final int num) {
         String appid = "";
-        //支付方式判断;
+        //判断支付方式(支付宝or微信);
         if (AlisOfWecha(url))
             appid = MyAppcation.ALIID;
         else {
@@ -52,7 +52,7 @@ public class PayUtils {
                 appid = MzFinal.xiaoketang;
         }
 
-        Log.i(TAG," appid ========"+appid);
+        Log.i(TAG, " appid ========" + appid);
         OkHttpUtils
                 .post()
                 .url(MzFinal.URl + url)

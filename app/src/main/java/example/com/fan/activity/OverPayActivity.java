@@ -24,7 +24,7 @@ public class OverPayActivity extends InitActivity {
     private TabLayout mTab;
     private List<String> list;
     private List<Fragment> flist;
-    private String title[] = {getRouString(R.string.private_photo), getRouString(R.string.VC), getRouString(R.string.Vr)};
+    private String title[] = {getRouString(R.string.private_photo), getRouString(R.string.VC), getRouString(R.string.Vr),getRouString(R.string.wx_number)};
 
     @Override
     protected void click() {
@@ -62,7 +62,7 @@ public class OverPayActivity extends InitActivity {
     }
 
     private void setNavi() {
-        for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < 4; i++) {
             OverPayFragment rf = new OverPayFragment();
             flist.add(rf);
             rf.setTag(i);

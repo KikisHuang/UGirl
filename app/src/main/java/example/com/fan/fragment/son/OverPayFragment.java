@@ -20,9 +20,11 @@ import java.util.List;
 import example.com.fan.R;
 import example.com.fan.adapter.OverPay2Adapter;
 import example.com.fan.adapter.OverPayAdapter;
+import example.com.fan.adapter.OverPayWxAdapter;
 import example.com.fan.base.sign.save.SPreferences;
 import example.com.fan.bean.OverPayBean;
 import example.com.fan.bean.OverPayVideoVrBean;
+import example.com.fan.bean.OverPayWxBean;
 import example.com.fan.fragment.BaseFragment;
 import example.com.fan.mylistener.ItemClickListener;
 import example.com.fan.mylistener.ShareRequestListener;
@@ -34,6 +36,7 @@ import okhttp3.Call;
 import static example.com.fan.utils.IntentUtils.goHomePage;
 import static example.com.fan.utils.IntentUtils.goPhotoPage;
 import static example.com.fan.utils.IntentUtils.goPlayerPage;
+import static example.com.fan.utils.IntentUtils.goPrivatePhotoPage;
 import static example.com.fan.utils.JsonUtils.getCode;
 import static example.com.fan.utils.JsonUtils.getJsonAr;
 import static example.com.fan.utils.ShareUtils.ShareApp;
@@ -51,6 +54,7 @@ public class OverPayFragment extends BaseFragment implements ItemClickListener, 
     private OverPay2Adapter adapter2;
     private List<OverPayBean> rlist;
     private List<OverPayVideoVrBean> vlist;
+    private List<OverPayWxBean> wxlist;
     private StaggeredGridLayoutManager mLayoutManager;
     private ItemClickListener listener;
     private TwoParamaListener tlistener;
@@ -59,6 +63,7 @@ public class OverPayFragment extends BaseFragment implements ItemClickListener, 
     private FrameLayout no_data;
     private int tag;
     private int pagesize = 999;
+    private OverPayWxAdapter adapter3;
 
     public void setTag(int tag) {
         this.tag = tag;
@@ -81,7 +86,59 @@ public class OverPayFragment extends BaseFragment implements ItemClickListener, 
             case 2:
                 Create2("5");
                 break;
+            case 3:
+                wxlist = new ArrayList<>();
+                Create3();
+                break;
         }
+    }
+
+    private void Create3() {
+        OkHttpUtils
+                .get()
+                .url(MzFinal.URl + MzFinal.GETMYMODELWXBYPAGE)
+                .addParams(MzFinal.KEY, SPreferences.getUserToken())
+                .addParams(MzFinal.PAGE, "0")
+                .addParams(MzFinal.SIZE, String.valueOf(pagesize))
+                .tag(this)
+                .build()
+                .execute(new StringCallback() {
+                    @Override
+                    public void onError(Call call, Exception e, int id) {
+                        ToastUtil.toast2_bottom(getActivity(), "网络不顺畅...");
+                    }
+
+                    @Override
+                    public void onResponse(String response, int id) {
+                        try {
+                            int code = getCode(response);
+                            if (code == 1) {
+                                JSONArray ar = getJsonAr(response);
+                                wxlist.clear();
+                                for (int i = 0; i < ar.length(); i++) {
+                                    OverPayWxBean ob = new Gson().fromJson(String.valueOf(ar.optJSONObject(i)), OverPayWxBean.class);
+                                    wxlist.add(ob);
+                                }
+                                if (adapter3 != null) {
+                                    adapter3.notifyDataSetChanged();
+                                    Log.i(TAG, "notifyDataSetChanged");
+                                } else {
+                                    adapter3 = new OverPayWxAdapter(getActivity(), wxlist);
+                                    listView.setAdapter(adapter3);
+                                    Log.i(TAG, "setAdapter");
+                                }
+                                listView.setVisibility(View.VISIBLE);
+                                recyclerView.setVisibility(View.GONE);
+
+                                no_data.setBackgroundResource(R.color.white);
+                            } else
+                                ToastUtil.ToastErrorMsg(getActivity(), response, code);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
+
     }
 
     private void Create2(String type) {
@@ -204,6 +261,7 @@ public class OverPayFragment extends BaseFragment implements ItemClickListener, 
     protected void click() {
 
     }
+
     @Override
     protected void init() {
         listener = this;
@@ -229,12 +287,13 @@ public class OverPayFragment extends BaseFragment implements ItemClickListener, 
     @Override
     public void onItemClickListener(int position, String id) {
         if (LoginStatusQuery()) {
-
+            Log.i(TAG, "typeFlag ====== " + position);
             switch (position) {
                 case 0:
                     goPhotoPage(getActivity(), id, 0);
                     break;
-                case 1:
+                case -2:
+                    goPrivatePhotoPage(getActivity(), id, 0);
                     break;
                 case 2:
                     goHomePage(getActivity(), id);

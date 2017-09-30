@@ -17,7 +17,8 @@ import com.bumptech.glide.load.resource.bitmap.CenterCrop;
 import java.util.List;
 
 import example.com.fan.R;
-import example.com.fan.bean.StoreBean;
+import example.com.fan.bean.VrBean;
+import example.com.fan.mylistener.TwoParamaListener;
 import example.com.fan.utils.DeviceUtils;
 import example.com.fan.utils.GlideCircleTransform;
 import example.com.fan.view.GlideRoundTransform;
@@ -30,8 +31,9 @@ import static example.com.fan.utils.SynUtils.getTAG;
  */
 public class RcModelAdapter extends RecyclerView.Adapter<RcModelAdapter.ViewHolder> {
     private static final String TAG = getTAG(RcModelAdapter.class);
-    private List<StoreBean> mDataset;
+    private List<VrBean> mDataset;
     private Context context;
+    private TwoParamaListener tlistener;
 
     // Provide a reference to the views for each data item
     // Complex data items may need more than one view per item, anda
@@ -52,10 +54,10 @@ public class RcModelAdapter extends RecyclerView.Adapter<RcModelAdapter.ViewHold
     }
 
     // Provide a suitable constructor (depends on the kind of dataset)
-    public RcModelAdapter(Context context, List<StoreBean> myDataset) {
+    public RcModelAdapter(Context context, List<VrBean> myDataset, TwoParamaListener tlistener) {
         this.context = context.getApplicationContext();
         this.mDataset = myDataset;
-
+        this.tlistener = tlistener;
     }
 
     // Create new views (invoked by the layout manager)
@@ -89,14 +91,20 @@ public class RcModelAdapter extends RecyclerView.Adapter<RcModelAdapter.ViewHold
         holder.home_layout2.setLayoutParams(lp1);
         holder.cover_img.setLayoutParams(lp);
 
+        holder.cover_img.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                tlistener.onGoPlayPage(mDataset.get(position).getUser_id(),mDataset.get(position).getFlag());
+            }
+        });
         try {
             Glide.with(context)
-                    .load(mDataset.get(position).getMcOfficialSellShoppingMall().getCoverPath())
+                    .load(mDataset.get(position).getCoverPath())
                     .transform(new CenterCrop(context), new GlideRoundTransform(context))
                     .into(holder.cover_img);
 
             Glide.with(context)
-                    .load(mDataset.get(position).getMcOfficialSellShoppingMall().getCoverPath())
+                    .load(mDataset.get(position).getUser_headImgUrl())
                     .transform(new GlideCircleTransform(context, 1, getRouColors(R.color.white)))
                     .into(holder.icon_img);
         } catch (Exception e) {

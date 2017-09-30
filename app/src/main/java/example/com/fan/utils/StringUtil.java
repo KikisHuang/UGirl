@@ -14,7 +14,7 @@ public class StringUtil {
      */
     public static String checkNull(String str) {
         if (str == null || str.length() == 0 || "".equals(str.trim())) {
-            return "无";
+            return "";
         }
         return str.trim();
     }

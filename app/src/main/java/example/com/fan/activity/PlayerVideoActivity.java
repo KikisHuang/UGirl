@@ -82,7 +82,7 @@ public class PlayerVideoActivity extends AppCompatActivity implements View.OnCli
     private String userId = "";
     private VideoPlayBean vb;
     private editeListener elistener;
-
+    private int type_flag = 99;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -137,6 +137,7 @@ public class PlayerVideoActivity extends AppCompatActivity implements View.OnCli
 
     private void receive() {
         id = getIntent().getStringExtra("play_id");
+        type_flag = Integer.parseInt(getIntent().getStringExtra("type_flag"));
     }
 
     private void getComment(String type) {
@@ -220,6 +221,9 @@ public class PlayerVideoActivity extends AppCompatActivity implements View.OnCli
                                      * 判断视频是否是收费;
                                      */
                                     if (vb.getMcPublishVideoUrls().get(0).getNeedMoney()) {
+                                        if(type_flag==4){
+
+                                        }
                                         if (MyAppcation.VipFlag)
                                             getAccredit(vb.getMcPublishVideoUrls().get(0).getPath(), vb);
                                         else {
@@ -238,7 +242,10 @@ public class PlayerVideoActivity extends AppCompatActivity implements View.OnCli
                                                 }
                                             }).show();
                                         }
+                                    if(type_flag==6){
 
+
+                                    }
                                     } else {
                                         //设置标题;
                                         mJcVideoPlayerStandard.setUp(vb.getMcPublishVideoUrls().get(0).getPath()

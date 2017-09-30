@@ -41,5 +41,13 @@ public class mcPublishImgUrls {
 
     private String basePath;
     private String id;
+    private String publishRecordId;
 
+    public String getPublishRecordId() {
+        return publishRecordId;
+    }
+
+    public void setPublishRecordId(String publishRecordId) {
+        this.publishRecordId = publishRecordId;
+    }
 }

@@ -105,7 +105,7 @@ public class OverPayAdapter extends RecyclerView.Adapter<OverPayAdapter.ViewHold
         holder.home_icon2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                listener.onItemClickListener(0,mDataset.get(position).getId());
+                listener.onItemClickListener(mDataset.get(position).getTypeFlag(),mDataset.get(position).getId());
             }
         });
         holder.icon_name.setText(mDataset.get(position).getUser_name());

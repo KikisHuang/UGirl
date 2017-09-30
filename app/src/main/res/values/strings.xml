@@ -102,6 +102,7 @@
     <string name="phone_login">您上次使用的是手机号登录</string>
     <string name="qq_login">您上次使用的是QQ登录 </string>
     <string name="wx_login">您上次使用的是微信登录 </string>
+    <string name="wx_number">微信</string>
     <string name="RichScan">你的邀请码：</string>
     <string name="statement_title">用户服务条款 - 免责声明：</string>
     <string name="statement">\n\n\n

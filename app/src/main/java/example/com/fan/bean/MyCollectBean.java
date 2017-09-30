@@ -36,9 +36,19 @@ public class MyCollectBean {
 
     private String userName;
     private String userHeadImgUrl;
+    private int typeFlag;
+
+    public int getTypeFlag() {
+        return typeFlag;
+    }
+
+    public void setTypeFlag(int typeFlag) {
+        this.typeFlag = typeFlag;
+    }
 
     private String userId;
     private String mcPublishRecord;
+
 
     public String getMcPublishRecord() {
         return mcPublishRecord;

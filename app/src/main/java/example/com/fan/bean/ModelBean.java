@@ -18,6 +18,15 @@ public class ModelBean {
     private String typeId;
     private String typeName;
     private int typeFlag;
+    private List<mcPublishImgUrls> imgs;
+
+    public List<example.com.fan.bean.mcPublishImgUrls> getImgs() {
+        return imgs;
+    }
+
+    public void setImgs(List<example.com.fan.bean.mcPublishImgUrls> imgs) {
+        this.imgs = imgs;
+    }
 
     public int getTypeFlag() {
         return typeFlag;

@@ -55,6 +55,7 @@ public class MyPrivatePhotoActivity extends InitActivity implements SpringListen
     protected void init() {
         setContentView(R.layout.my_private_layout);
         setTitles(this, "我的私照");
+        id = getIntent().getStringExtra("MyPrivate_ID");
         listener = this;
         listview = f(R.id.listView);
         springview = f(R.id.springview);

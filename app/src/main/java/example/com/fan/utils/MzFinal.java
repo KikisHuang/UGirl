@@ -33,9 +33,11 @@ public class MzFinal {
     public static final String CONTENT = "content";
     public static final String typeFlag = "typeFlag";
 
+    public static String MYID = "";
+
     public static final String br = "<br />";
     //支付宝支付接口存放数组;
-    public static String[] Alis = {MzFinal.ALIPAYCROWDFUNDING, MzFinal.ALIPAYOFFICIALSELL, MzFinal.ALIPAYPHOTO, MzFinal.ALIPAYVIP};
+    public static String[] Alis = {MzFinal.ALIPAYCROWDFUNDING, MzFinal.ALIPAYOFFICIALSELL, MzFinal.ALIPAYPHOTO, MzFinal.ALIPAYVIP,MzFinal.ALIPAYMODELWX};
 
 
     //尤女映画、支付宝APPID;
@@ -117,6 +119,8 @@ public class MzFinal {
     public static final int AUCTION = 3;  // 拍卖
     public static final int VIDEO = 4; // 视频
     public static final int VRVIDEO = 5;  // VR视频
+    public static final int PRIVATEVIDEO = -3;  // 私密视频
+    public static final int PRIVATE_PHOTO = -2;  // 私密照片
 
     /**
      * 收藏接口
@@ -396,7 +400,6 @@ public class MzFinal {
     /**
      * 支付宝专辑支付接口
      */
-
     public static final String ALIPAYPHOTO = "order/aliPayPhoto.app";
     /**
      * 支付宝VIP支付接口
@@ -406,6 +409,14 @@ public class MzFinal {
      * 微信VIP支付接口
      */
     public static final String WXPAYVIP = "order/wxPayVIP.app";
+    /**
+     * 购买模特微信号,支付宝接口;
+     */
+    public static final String ALIPAYMODELWX = "order/aliPayModelWx.app";
+    /**
+     * 购买模特微信号,微信接口;
+     */
+    public static final String WXPAYMODELWX = "order/wxPayModelWx.app";
     /**
      * 获取分享接口
      */
@@ -446,7 +457,7 @@ public class MzFinal {
     /**
      * 获取模特微信号和价格;
      */
-    public static final String GETWXPRICE = "v2_model/getWXPrice.app key=KEY ";
+    public static final String GETWXPRICE = "v2_model/getWXPrice.app";
     /**
      * 设置模特微信号和价格;
      */
@@ -455,6 +466,16 @@ public class MzFinal {
      * 获取私密模特列表 ;
      */
     public static final String GETMODELBYPAGE = "v2_model/getModelByPage.app";
+
+    /**
+     * 已购买微信列表接口;
+     */
+    public static final String GETMYMODELWXBYPAGE = "order/getMyModelWXByPage.app";
+    /**
+     * 获取指定模特的微信号或价格 ;
+     */
+    public static final String GETMODELWX = "v2_model/getModelWX.app";
+
     /**
      * 获取私密模特信息 ;
      */

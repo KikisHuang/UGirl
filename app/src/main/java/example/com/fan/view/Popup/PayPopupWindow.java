@@ -19,7 +19,7 @@ import static example.com.fan.utils.SynUtils.getTAG;
 
 /**
  * Created by lian on 2017/3/29.
- * 余额不足充值页面,popupWindows实现;
+ * 充值页面,popupWindows实现;
  */
 public class PayPopupWindow {
     private static final String TAG = getTAG(PayPopupWindow.class);

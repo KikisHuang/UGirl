@@ -57,6 +57,7 @@ import static example.com.fan.utils.AnimationUtil.ShakeAnima;
 import static example.com.fan.utils.IntentUtils.goBuyGoodsPage;
 import static example.com.fan.utils.IntentUtils.goPhotoPage;
 import static example.com.fan.utils.IntentUtils.goPlayerPage;
+import static example.com.fan.utils.IntentUtils.goPrivatePhotoPage;
 import static example.com.fan.utils.JsonUtils.getCode;
 import static example.com.fan.utils.JsonUtils.getJsonOb;
 import static example.com.fan.utils.SynUtils.Login;
@@ -538,6 +539,12 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
                     break;
                 case MzFinal.VRVIDEO:
                     goPlayerPage(this, id, 5);
+                    break;
+                case MzFinal.PRIVATE_PHOTO:
+                    goPrivatePhotoPage(this, id, 0);
+                    break;
+                case MzFinal.PRIVATEVIDEO:
+                    goPlayerPage(this, id, -3);
                     break;
             }
         } else

@@ -74,7 +74,7 @@ public class UploadWeChatActivity extends InitActivity implements View.OnClickLi
                             JSONObject ob = getJsonOb(response);
                             if (code == 1) {
                                 ModeInfoBean mb = new Gson().fromJson(String.valueOf(ob), ModeInfoBean.class);
-                                wechat_ed.setText(mb.getMcUser().getWx());
+                                wechat_ed.setText(mb.getWx());
                                 String p = "0";
                                 if (cleanNull(mb.getWxPrice()))
                                     price_ed.setText(p);

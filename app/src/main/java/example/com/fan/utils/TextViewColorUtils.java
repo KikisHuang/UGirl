@@ -22,6 +22,20 @@ public class TextViewColorUtils {
     }
 
     /**
+     * 改变字体颜色方法3;
+     *
+     * @param tv    view控件;
+     * @param cstr  改变的字符串；
+     * @param ostr  不改变的字符串;
+     * @param color 改变字符串的颜色;
+     */
+    public static void setTextColor3(TextView tv, String cstr, String ostr, String color) {
+
+        String str = ostr + "<font color='" + color + "'>" + cstr + "</font>";
+        tv.setText(Html.fromHtml(str));
+    }
+
+    /**
      * 改变字体颜色方法(同时缩小不改变颜色字符串的字体大小);
      *
      * @param tv

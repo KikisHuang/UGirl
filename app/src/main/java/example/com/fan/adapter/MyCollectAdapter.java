@@ -163,7 +163,7 @@ public class MyCollectAdapter extends RecyclerView.Adapter<MyCollectAdapter.View
             holder.home_icon.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    listener.onItemClickListener(position, mDataset.get(position).getMcPublishRecord());
+                    listener.onItemClickListener(mDataset.get(position).getTypeFlag(), mDataset.get(position).getMcPublishRecord());
                 }
             });
         }

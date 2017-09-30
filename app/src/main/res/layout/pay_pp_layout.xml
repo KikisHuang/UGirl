@@ -31,7 +31,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="充会员更优惠还送豪礼，单期购买需要6元"
+                android:text="充会员更优惠还送豪礼，单期购买需要0元"
                 android:textColor="@color/black"
                 android:textSize="12dp" />
 

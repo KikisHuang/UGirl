@@ -104,11 +104,11 @@ public class MyPrivatePhotoAdapter extends BaseAdapter {
         date_tv.setText(getMonthAndDay(list.get(position).getCreateTime()));
 
         item_topic_image_layout.setVisibility(View.VISIBLE);
-        if (list.get(position).getMcPublishImgUrls().size() > 6) {
+        if (list.get(position).getImgs().size() > 6) {
             top.setVisibility(View.VISIBLE);
             mid.setVisibility(View.VISIBLE);
             bottom.setVisibility(View.VISIBLE);
-        } else if (list.get(position).getMcPublishImgUrls().size() > 3) {
+        } else if (list.get(position).getImgs().size() > 3) {
             top.setVisibility(View.VISIBLE);
             mid.setVisibility(View.VISIBLE);
             bottom.setVisibility(View.GONE);
@@ -195,60 +195,60 @@ public class MyPrivatePhotoAdapter extends BaseAdapter {
             });
         }
         hideImg();
-        LinearLayout.LayoutParams params = getLayoutParams(list.get(position).getMcPublishImgUrls().size());
+        LinearLayout.LayoutParams params = getLayoutParams(list.get(position).getImgs().size());
 
-        for (int i = 0; i < list.get(position).getMcPublishImgUrls().size(); i++) {
-            Log.i(TAG, "position ===" + position + "size ===" + list.get(position).getMcPublishImgUrls().size());
+        for (int i = 0; i < list.get(position).getImgs().size(); i++) {
+            Log.i(TAG, "position ===" + position + "size ===" + list.get(position).getImgs().size());
             switch (i) {
                 case 0:
                     imageView1.setVisibility(View.VISIBLE);
                     imageView1.setLayoutParams(params);
-                    setBitmap(list.get(position).getMcPublishImgUrls().get(i).getPath(), imageView1);
+                    setBitmap(list.get(position).getImgs().get(i).getPath(), imageView1);
                     break;
                 case 1:
                     imageView2.setVisibility(View.VISIBLE);
                     imageView2.setLayoutParams(params);
-                    setBitmap(list.get(position).getMcPublishImgUrls().get(i).getPath(), imageView2);
+                    setBitmap(list.get(position).getImgs().get(i).getPath(), imageView2);
                     break;
                 case 2:
 
                     imageView3.setVisibility(View.VISIBLE);
                     imageView3.setLayoutParams(params);
-                    setBitmap(list.get(position).getMcPublishImgUrls().get(i).getPath(), imageView3);
+                    setBitmap(list.get(position).getImgs().get(i).getPath(), imageView3);
 
                     break;
                 case 3:
 
                     imageView4.setVisibility(View.VISIBLE);
                     imageView4.setLayoutParams(params);
-                    setBitmap(list.get(position).getMcPublishImgUrls().get(i).getPath(), imageView4);
+                    setBitmap(list.get(position).getImgs().get(i).getPath(), imageView4);
                     break;
                 case 4:
 
                     imageView5.setVisibility(View.VISIBLE);
                     imageView5.setLayoutParams(params);
-                    setBitmap(list.get(position).getMcPublishImgUrls().get(i).getPath(), imageView5);
+                    setBitmap(list.get(position).getImgs().get(i).getPath(), imageView5);
 
                     break;
                 case 5:
                     imageView6.setVisibility(View.VISIBLE);
                     imageView6.setLayoutParams(params);
-                    setBitmap(list.get(position).getMcPublishImgUrls().get(i).getPath(), imageView6);
+                    setBitmap(list.get(position).getImgs().get(i).getPath(), imageView6);
                     break;
                 case 6:
                     imageView7.setVisibility(View.VISIBLE);
                     imageView7.setLayoutParams(params);
-                    setBitmap(list.get(position).getMcPublishImgUrls().get(i).getPath(), imageView7);
+                    setBitmap(list.get(position).getImgs().get(i).getPath(), imageView7);
                     break;
                 case 7:
                     imageView8.setVisibility(View.VISIBLE);
                     imageView8.setLayoutParams(params);
-                    setBitmap(list.get(position).getMcPublishImgUrls().get(i).getPath(), imageView8);
+                    setBitmap(list.get(position).getImgs().get(i).getPath(), imageView8);
                     break;
                 case 8:
                     imageView9.setVisibility(View.VISIBLE);
                     imageView9.setLayoutParams(params);
-                    setBitmap(list.get(position).getMcPublishImgUrls().get(i).getPath(), imageView9);
+                    setBitmap(list.get(position).getImgs().get(i).getPath(), imageView9);
                     break;
             }
         }

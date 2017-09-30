@@ -88,6 +88,7 @@ public class IntentUtils {
         intent.putExtra("photo_id", id);
         startPage(context, intent);
     }
+
     /**
      * 照片查看器页面2（个人私照版,不判断vip）;
      *
@@ -115,6 +116,7 @@ public class IntentUtils {
         intent.putExtra("user_id", id);
         startPage(context, intent);
     }
+
     /**
      * 模特个人主页2页面;
      *
@@ -249,6 +251,7 @@ public class IntentUtils {
         Intent intent = new Intent(context, LoginActivity.class);
         startPage(context, intent);
     }
+
     /**
      * 认证页面;
      *
@@ -381,7 +384,7 @@ public class IntentUtils {
      *
      * @param context 上下文;
      * @param id
-     * @param flag    视频vr标识符  4=video  5=vr
+     * @param flag    视频vr标识符  4=video  5=vr   -3=私密video
      */
     public static void goPlayerPage(Context context, String id, int flag) {
         Intent intent = new Intent();
@@ -389,6 +392,13 @@ public class IntentUtils {
             case 4:
                 intent.setClass(context, PlayerVideoActivity.class);
                 intent.putExtra("play_id", id);
+                intent.putExtra("type_flag", String.valueOf(flag));
+                startPage(context, intent);
+                break;
+            case -3:
+                intent.setClass(context, PlayerVideoActivity.class);
+                intent.putExtra("play_id", id);
+                intent.putExtra("type_flag", String.valueOf(flag));
                 startPage(context, intent);
                 break;
             case 5:
@@ -456,9 +466,11 @@ public class IntentUtils {
      * 我的私照页面;
      *
      * @param context 上下文;
+     * @param MYID
      */
-    public static void goMyPrivatePhotoPage(Context context) {
+    public static void goMyPrivatePhotoPage(Context context, String MYID) {
         Intent intent = new Intent(context, MyPrivatePhotoActivity.class);
+        intent.putExtra("MyPrivate_ID", MYID);
         startPage(context, intent);
     }
 

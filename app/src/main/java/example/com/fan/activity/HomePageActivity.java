@@ -25,6 +25,7 @@ import example.com.fan.adapter.FindAdapter;
 import example.com.fan.base.sign.save.SPreferences;
 import example.com.fan.bean.ModeInfoBean;
 import example.com.fan.bean.ModelBean;
+import example.com.fan.bean.OverPayWxBean;
 import example.com.fan.mylistener.ItemClickListener;
 import example.com.fan.mylistener.ShareRequestListener;
 import example.com.fan.mylistener.TwoParamaListener;
@@ -32,6 +33,7 @@ import example.com.fan.utils.DeviceUtils;
 import example.com.fan.utils.GlideCircleTransform;
 import example.com.fan.utils.MzFinal;
 import example.com.fan.utils.ToastUtil;
+import example.com.fan.view.Popup.WeChatNumPayPopupWindow;
 import example.com.fan.view.PullToZoomListView;
 import okhttp3.Call;
 
@@ -43,6 +45,8 @@ import static example.com.fan.utils.JsonUtils.getJsonAr;
 import static example.com.fan.utils.JsonUtils.getJsonInt;
 import static example.com.fan.utils.JsonUtils.getJsonOb;
 import static example.com.fan.utils.ShareUtils.ShareApp;
+import static example.com.fan.utils.StringUtil.checkNull;
+import static example.com.fan.utils.StringUtil.cleanNull;
 import static example.com.fan.utils.SynUtils.Login;
 import static example.com.fan.utils.SynUtils.LoginStatusQuery;
 import static example.com.fan.utils.SynUtils.getRouColors;
@@ -70,10 +74,15 @@ public class HomePageActivity extends BaseActivity implements ItemClickListener,
     private ShareRequestListener slistener;
     private int page = 999;
     private String cover = "";
+    private LinearLayout private_chat_layout, add_wechat_layout, private_quiz_layout, attention_layout;
+    private String wxPrice = "";
+    private String headImgUrl = "";
+    private boolean isPay = false;
 
     protected void click() {
         home_page_finish.setOnClickListener(this);
         attention_tv.setOnClickListener(this);
+        add_wechat_layout.setOnClickListener(this);
     }
 
     @Override
@@ -148,13 +157,15 @@ public class HomePageActivity extends BaseActivity implements ItemClickListener,
 
                                 ModeInfoBean mib = new Gson().fromJson(String.valueOf(ob), ModeInfoBean.class);
 
+                                headImgUrl = mib.getHeadImgUrl();
+
                                 bwh_tv.setText("三围\n" + mib.getUpperMeasurement() + "/" + mib.getInMeasurement() + "/" + mib.getLowerMeasurement());
                                 height_tv.setText("身高\n" + mib.getHeight());
                                 city_tv.setText("城市\n" + mib.getMcUser().getResidentCity());
                                 model_name.setText(mib.getRealName());
-                                cover = mib.getCoverPath();
+                                cover = checkNull(mib.getCoverPath());
                                 follwCount.setText(mib.getMcUser().getFollwCount() + " 人已关注她");
-//                    headImg = mib.getMcUser().getHeadImgUrl();
+
                                 if (mib.isFolllw())
                                     attention_tv.setText(getRouString(R.string.unattention));
                                 else
@@ -169,6 +180,43 @@ public class HomePageActivity extends BaseActivity implements ItemClickListener,
                             } else
                                 ToastUtil.ToastErrorMsg(HomePageActivity.this, response, code);
                             getDetails();
+                        } catch (Exception e) {
+
+                        }
+                    }
+                });
+
+
+        /**
+         * 获取模特微信是否已购买信息;
+         */
+        OkHttpUtils
+                .get()
+                .url(MzFinal.URl + MzFinal.GETMODELWX)
+                .addParams(MzFinal.KEY, SPreferences.getUserToken())
+                .addParams(MzFinal.ID, user_id)
+                .tag(this)
+                .build()
+                .execute(new StringCallback() {
+                    @Override
+                    public void onError(Call call, Exception e, int id) {
+                        ToastUtil.toast2_bottom(HomePageActivity.this, "网络不顺畅...");
+                    }
+
+                    @Override
+                    public void onResponse(String response, int id) {
+                        try {
+                            int code = getCode(response);
+                            JSONObject ob = getJsonOb(response);
+                            if (code == 1) {
+                                OverPayWxBean opb = new Gson().fromJson(String.valueOf(ob), OverPayWxBean.class);
+                                if (cleanNull(opb.getWx()))
+                                    isPay = false;
+                                else
+                                    isPay = true;
+                                wxPrice = opb.getWxPrice();
+                            } else
+                                ToastUtil.ToastErrorMsg(HomePageActivity.this, response, code);
                         } catch (Exception e) {
 
                         }
@@ -234,6 +282,12 @@ public class HomePageActivity extends BaseActivity implements ItemClickListener,
         top = inflater.inflate(R.layout.home_page_top, null);
         home_page_icon = (ImageView) top.findViewById(R.id.home_page_icon);
 
+
+        private_chat_layout = f(R.id.private_chat_layout);
+        add_wechat_layout = f(R.id.add_wechat_layout);
+        private_quiz_layout = f(R.id.private_quiz_layout);
+        attention_layout = f(R.id.attention_layout);
+
         attention_tv = (TextView) top.findViewById(R.id.attention_tv);
         model_name = (TextView) top.findViewById(R.id.model_name);
         city_tv = (TextView) top.findViewById(R.id.city_tv);
@@ -273,13 +327,18 @@ public class HomePageActivity extends BaseActivity implements ItemClickListener,
                 break;
             case R.id.attention_tv:
                 if (LoginStatusQuery()) {
-                    if (!cover.isEmpty())
-                        Attention();
+                    Attention();
                 } else
                     Login(this);
 
                 break;
+            case R.id.add_wechat_layout:
+                if (isPay) {
+                    WeChatNumPayPopupWindow wp = new WeChatNumPayPopupWindow(this);
+                    wp.ScreenPopupWindow(LayoutInflater.from(this).inflate(R.layout.home_page_activity_layout, null), user_id, headImgUrl, wxPrice, model_name.getText().toString());
+                }
 
+                break;
         }
 
     }
