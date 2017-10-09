@@ -8,8 +8,8 @@ import java.util.TimerTask;
 
 import example.com.fan.activity.BuygoodsActivity;
 import example.com.fan.fragment.PageFragment;
+import example.com.fan.fragment.StoreFragment;
 import example.com.fan.fragment.VRFragment;
-import example.com.fan.fragment.son.ModelFragment;
 import example.com.fan.fragment.son.StoreFragment2;
 
 import static example.com.fan.utils.SynUtils.getTAG;
@@ -56,8 +56,8 @@ public class PageTopTask extends TimerTask {
                     if (BuygoodsActivity.polistener != null)
                         BuygoodsActivity.polistener.onIncrease();
                 if (flag == 4)
-                    if (ModelFragment.polistener != null)
-                        ModelFragment.polistener.onIncrease();
+                    if (StoreFragment.polistener != null)
+                        StoreFragment.polistener.onIncrease();
                 try {
                 if (handler != null)
                     handler.sendEmptyMessage(1);

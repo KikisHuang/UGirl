@@ -10,103 +10,19 @@
 
     <include layout="@layout/title_layout"></include>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:orientation="horizontal">
+    <include
+        android:id="@+id/hint_layout"
+        layout="@layout/hint_layout_include"></include>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="2dp"
-            android:text="*"
-            android:textColor="@color/red1" />
+    <include
+        android:id="@+id/phone_verify_layout"
+        layout="@layout/phone_verify_layout_include"></include>
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="完成【实名认证】才可成为模特，成为模特后可发布专辑私照，私密视频等。"
-            android:textColor="@color/black"
-            android:textSize="13dp" />
-    </LinearLayout>
+    <include
+        android:id="@+id/phone_code_layout"
+        layout="@layout/phone_code_layout_include"></include>
 
-    <EditText
-        android:id="@+id/renz_name"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:background="@drawable/edit_layout"
-        android:hint="真实姓名"
-        android:textColor="@color/black"
-        android:padding="10dp"
-        android:textSize="13dp" />
-
-    <EditText
-        android:id="@+id/renz_acode"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:background="@drawable/edit_layout"
-        android:hint="身份证号"
-        android:inputType="text"
-        android:textColor="@color/black"
-        android:maxLength="18"
-        android:padding="10dp"
-        android:textSize="13dp" />
-    <EditText
-        android:id="@+id/contact_ed"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:background="@drawable/edit_layout"
-        android:hint="联系方式"
-        android:inputType="text"
-        android:textColor="@color/black"
-        android:maxLength="18"
-        android:padding="10dp"
-        android:textSize="13dp" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:orientation="horizontal">
-
-        <ImageView
-            android:id="@+id/ren_icon1"
-            android:layout_width="0dp"
-            android:layout_height="150dp"
-            android:layout_marginRight="5dp"
-            android:layout_weight="1"
-            android:scaleType="fitXY"
-            android:src="@mipmap/sfz1" />
-
-        <ImageView
-            android:id="@+id/ren_icon2"
-            android:layout_width="0dp"
-            android:layout_height="150dp"
-            android:layout_marginLeft="5dp"
-            android:layout_weight="1"
-            android:scaleType="fitXY"
-            android:src="@mipmap/sfz2" />
-
-    </LinearLayout>
-
-    <example.com.fan.view.RippleView
-        android:id="@+id/renz_btn"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_gravity="center|bottom"
-        android:layout_marginBottom="10dp"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
-        android:layout_marginTop="20dp"
-        android:background="@drawable/layout_them_bg"
-        android:gravity="center"
-        android:text="@string/attestation"
-        android:textColor="@color/white"
-        ripple:alphaFactor="0.5"
-        ripple:hover="false"
-        ripple:rippleColor="@color/white" />
+    <include
+        android:id="@+id/fill_in_layout"
+        layout="@layout/fill_in_layout_include"></include>
 </LinearLayout>

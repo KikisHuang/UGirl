@@ -64,5 +64,5 @@
             android:textSize="13dp" />
     </RelativeLayout>
 
-    <TextView style="@style/line_styles_5" />
+    <TextView style="@style/line_styles_ove_w" />
 </LinearLayout>

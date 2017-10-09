@@ -1,24 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
-    android:orientation="vertical">
+    android:background="@color/white">
 
-    <android.support.design.widget.TabLayout
-        android:id="@+id/tab_layout"
+    <com.liaoinstan.springview.widget.SpringView
+        android:id="@+id/springview1"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:background="@color/white"
-        app:tabIndicatorColor="@color/content5"
-        app:tabSelectedTextColor="@color/black"
-        app:tabTextAppearance="@style/TabLayoutTextStyle"
-        app:tabTextColor="@color/gray3" />
+        android:layout_height="match_parent">
+        <example.com.fan.view.DirectionListView
+            android:id="@+id/listView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:divider="@null"></example.com.fan.view.DirectionListView>
+    </com.liaoinstan.springview.widget.SpringView>
 
-    <example.com.fan.view.CustomViewPager
-        android:id="@+id/viewPager"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="3dp"></example.com.fan.view.CustomViewPager>
-</LinearLayout>
+</FrameLayout>

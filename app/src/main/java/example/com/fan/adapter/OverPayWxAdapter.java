@@ -15,7 +15,6 @@ import java.util.List;
 
 import example.com.fan.R;
 import example.com.fan.bean.OverPayWxBean;
-import example.com.fan.mylistener.ItemClickListener;
 import example.com.fan.utils.GlideCacheUtil;
 import example.com.fan.utils.OverallViewHolder;
 import jp.wasabeef.glide.transformations.CropCircleTransformation;
@@ -31,7 +30,6 @@ public class OverPayWxAdapter extends BaseAdapter {
     private Context context;
     private List<OverPayWxBean> blist;
     private LayoutInflater inflater;
-    private ItemClickListener listener;
 
     public OverPayWxAdapter(Context context, List<OverPayWxBean> blist) {
         this.blist = blist;

@@ -13,12 +13,31 @@ public class ModelBean {
 
     private String coverPath;
 
+    public String getHeadImgUrl() {
+        return headImgUrl;
+    }
+
+    public void setHeadImgUrl(String headImgUrl) {
+        this.headImgUrl = headImgUrl;
+    }
+
+    public String getModelInfo() {
+        return modelInfo;
+    }
+
+    public void setModelInfo(String modelInfo) {
+        this.modelInfo = modelInfo;
+    }
+
+    private String headImgUrl;
+    private String modelInfo;
     private String createTime;
     private String seeCount;
     private String typeId;
     private String typeName;
     private int typeFlag;
     private List<mcPublishImgUrls> imgs;
+
 
     public List<example.com.fan.bean.mcPublishImgUrls> getImgs() {
         return imgs;

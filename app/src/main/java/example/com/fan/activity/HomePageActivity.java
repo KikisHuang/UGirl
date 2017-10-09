@@ -26,6 +26,7 @@ import example.com.fan.base.sign.save.SPreferences;
 import example.com.fan.bean.ModeInfoBean;
 import example.com.fan.bean.ModelBean;
 import example.com.fan.bean.OverPayWxBean;
+import example.com.fan.mylistener.ChangeUserInfoListener;
 import example.com.fan.mylistener.ItemClickListener;
 import example.com.fan.mylistener.ShareRequestListener;
 import example.com.fan.mylistener.TwoParamaListener;
@@ -57,7 +58,7 @@ import static example.com.fan.utils.SynUtils.getTAG;
  * Created by lian on 2017/5/31.
  * 模特个人主页;
  */
-public class HomePageActivity extends BaseActivity implements ItemClickListener, View.OnClickListener, TwoParamaListener, ShareRequestListener {
+public class HomePageActivity extends BaseActivity implements ItemClickListener, ChangeUserInfoListener, View.OnClickListener, TwoParamaListener, ShareRequestListener {
 
     private static final String TAG = getTAG(HomePageActivity.class);
 
@@ -72,6 +73,7 @@ public class HomePageActivity extends BaseActivity implements ItemClickListener,
     private ItemClickListener listener;
     private TwoParamaListener tlistener;
     private ShareRequestListener slistener;
+    public static ChangeUserInfoListener uplistener;
     private int page = 999;
     private String cover = "";
     private LinearLayout private_chat_layout, add_wechat_layout, private_quiz_layout, attention_layout;
@@ -187,6 +189,12 @@ public class HomePageActivity extends BaseActivity implements ItemClickListener,
                 });
 
 
+        if (LoginStatusQuery())
+            ModelWx();
+
+    }
+
+    private void ModelWx() {
         /**
          * 获取模特微信是否已购买信息;
          */
@@ -214,6 +222,7 @@ public class HomePageActivity extends BaseActivity implements ItemClickListener,
                                     isPay = false;
                                 else
                                     isPay = true;
+
                                 wxPrice = opb.getWxPrice();
                             } else
                                 ToastUtil.ToastErrorMsg(HomePageActivity.this, response, code);
@@ -278,6 +287,7 @@ public class HomePageActivity extends BaseActivity implements ItemClickListener,
         listener = this;
         slistener = this;
         tlistener = this;
+        uplistener = this;
         LayoutInflater inflater = getLayoutInflater();
         top = inflater.inflate(R.layout.home_page_top, null);
         home_page_icon = (ImageView) top.findViewById(R.id.home_page_icon);
@@ -333,10 +343,17 @@ public class HomePageActivity extends BaseActivity implements ItemClickListener,
 
                 break;
             case R.id.add_wechat_layout:
-                if (isPay) {
-                    WeChatNumPayPopupWindow wp = new WeChatNumPayPopupWindow(this);
-                    wp.ScreenPopupWindow(LayoutInflater.from(this).inflate(R.layout.home_page_activity_layout, null), user_id, headImgUrl, wxPrice, model_name.getText().toString());
-                }
+                if (LoginStatusQuery()) {
+                    if (!isPay && Integer.valueOf(wxPrice) > 0) {
+                        WeChatNumPayPopupWindow wp = new WeChatNumPayPopupWindow(this);
+                        wp.ScreenPopupWindow(LayoutInflater.from(this).inflate(R.layout.home_page_activity_layout, null), user_id, headImgUrl, wxPrice, model_name.getText().toString());
+                    } else if (Integer.valueOf(wxPrice) == 0)
+                        ToastUtil.toast2_bottom(this, "该模特不愿意透露微信号");
+                    else
+                        ToastUtil.toast2_bottom(this, "已购买了Ta的微信");
+
+                } else
+                    Login(HomePageActivity.this);
 
                 break;
         }
@@ -396,6 +413,7 @@ public class HomePageActivity extends BaseActivity implements ItemClickListener,
         tlistener = null;
         listener = null;
         slistener = null;
+        uplistener = null;
     }
 
     @Override
@@ -410,5 +428,11 @@ public class HomePageActivity extends BaseActivity implements ItemClickListener,
     @Override
     public void onShare(String userid, String name, String info, String id) {
         ShareApp(HomePageActivity.this, userid, name, info, id);
+    }
+
+    @Override
+    public void onUpDataUserInfo() {
+        if (LoginStatusQuery())
+            ModelWx();
     }
 }

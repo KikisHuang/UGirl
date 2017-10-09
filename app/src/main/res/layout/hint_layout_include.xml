@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:ripple="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <!-- 立即绑定布局-->
+    <RelativeLayout
+        android:id="@+id/hint_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="10dp"
+        >
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/renz_btn"
+            android:layout_marginBottom="10dp"
+            android:gravity="center"
+            android:text="绑定实名手机号才能使用该功能"
+            android:textColor="@color/black"
+            android:textSize="20dp" />
+
+        <example.com.fan.view.RippleView
+            android:id="@+id/renz_btn"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_centerInParent="true"
+            android:layout_gravity="center|bottom"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/green_bt_normal"
+            android:gravity="center"
+            android:text="@string/now_binding"
+            android:textColor="@color/white"
+            android:textSize="15dp"
+            ripple:alphaFactor="0.5"
+            ripple:hover="false"
+            ripple:rippleColor="@color/white" />
+    </RelativeLayout>
+</LinearLayout>

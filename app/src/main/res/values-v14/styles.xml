@@ -126,6 +126,12 @@
         <item name="android:background">@color/white</item>
 
     </style>
+    <style name="line_styles_ove_h2">
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_width">1dp</item>
+        <item name="android:background">@color/gray00</item>
+
+    </style>
 
     <style name="fifty">
         <item name="android:height">50dp</item>

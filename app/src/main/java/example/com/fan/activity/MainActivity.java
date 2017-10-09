@@ -358,7 +358,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
             case R.id.four_img:
                 setSelected(four_img);
                 four();
-                title.setVisibility(View.GONE);
+                title.setVisibility(View.VISIBLE);
+                TitleInit(getRouString(R.string.private1));
                 break;
             case R.id.five_img:
                 setSelected(five_img);
@@ -532,7 +533,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
                     ft = getSupportFragmentManager().beginTransaction();
                     setSelected(four_img);
                     four();
-                    title.setVisibility(View.GONE);
+                    title.setVisibility(View.VISIBLE);
+                    TitleInit(getRouString(R.string.private1));
                     break;
                 case MzFinal.VIDEO:
                     goPlayerPage(this, id, 4);

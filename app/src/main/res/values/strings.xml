@@ -2,6 +2,7 @@
     <string name="app_name">尤女郎</string>
     <string name="appfinish">再按一次退出应用</string>
     <string name="private_photo">私照</string>
+    <string name="private1">私密</string>
     <string name="ranking">排行榜</string>
     <string name="find_find">发现</string>
     <string name="page">尤女郎</string>
@@ -173,6 +174,10 @@ Copyright  2012\n
     <string name="send_hb">发红包</string>
     <string name="confirm">确定</string>
     <string name="sales">专辑销量：</string>
+    <string name="now_binding">立即绑定</string>
+    <string name="next_step">下一步</string>
+    <string name="bangdin">绑定</string>
+    <string name="moods_index">人气指数：</string>
 
 
     <dimen name="size1">1px</dimen>

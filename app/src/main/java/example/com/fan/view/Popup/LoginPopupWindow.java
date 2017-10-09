@@ -29,6 +29,7 @@ import java.util.Map;
 import example.com.fan.MyAppcation;
 import example.com.fan.R;
 import example.com.fan.activity.BaseActivity;
+import example.com.fan.activity.HomePageActivity;
 import example.com.fan.base.sign.save.SPreferences;
 import example.com.fan.fragment.MyFragment;
 import example.com.fan.mylistener.AccreditListener;
@@ -369,6 +370,8 @@ public class LoginPopupWindow implements View.OnClickListener, AccreditListener 
                                 saveLoginWay(getRouString(R.string.phone_login));
                                 if (MyFragment.fragment != null)
                                     MyFragment.fragment.onUpDataUserInfo();
+                                if (HomePageActivity.uplistener != null)
+                                    HomePageActivity.uplistener.onUpDataUserInfo();
 
                                 popupWindow.dismiss();
                             } else
@@ -418,6 +421,7 @@ public class LoginPopupWindow implements View.OnClickListener, AccreditListener 
         ed1.requestFocus();
     }
 
+    //微信、QQ登录回调;
     @Override
     public void onSucceed(String accessToken, String openid, String url) {
 //        mShareAPI.getPlatformInfo(((Activity) context), platform, getUMDataListener(context));
@@ -428,7 +432,7 @@ public class LoginPopupWindow implements View.OnClickListener, AccreditListener 
                 .url(MzFinal.URl + url)
                 .addParams("openId", openid)
                 .addParams("accessToken", accessToken)
-                .addParams("oauth_consumer_key",MyAppcation.QQID)
+                .addParams("oauth_consumer_key", MyAppcation.QQID)
                 .addParams("channelCode", MyAppcation.CHANNEL)
                 .build()
                 .execute(new StringCallback() {
@@ -450,6 +454,9 @@ public class LoginPopupWindow implements View.OnClickListener, AccreditListener 
                                 SaveLoginWay(login_flag);
                                 if (MyFragment.fragment != null)
                                     MyFragment.fragment.onUpDataUserInfo();
+                                if (HomePageActivity.uplistener != null)
+                                    HomePageActivity.uplistener.onUpDataUserInfo();
+
                                 popupWindow.dismiss();
                             } else
                                 ToastUtil.ToastErrorMsg(context, response, code);
