@@ -17,6 +17,34 @@ public class ModeInfoBean {
 
     private int height;
 
+    public int getPhotoCount() {
+        return photoCount;
+    }
+
+    public void setPhotoCount(int photoCount) {
+        this.photoCount = photoCount;
+    }
+
+    public int getVideoCount() {
+        return videoCount;
+    }
+
+    public void setVideoCount(int videoCount) {
+        this.videoCount = videoCount;
+    }
+
+    public int getSumOrder() {
+        return sumOrder;
+    }
+
+    public void setSumOrder(int sumOrder) {
+        this.sumOrder = sumOrder;
+    }
+
+    private int photoCount;
+    private int videoCount;
+    private int sumOrder;
+
     private int inMeasurement;
 
     private int lowerMeasurement;

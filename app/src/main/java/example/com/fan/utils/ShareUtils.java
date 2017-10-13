@@ -2,12 +2,16 @@ package example.com.fan.utils;
 
 import android.app.Activity;
 import android.content.Context;
+import android.os.Environment;
 
 import com.umeng.socialize.ShareAction;
 import com.umeng.socialize.bean.SHARE_MEDIA;
 import com.umeng.socialize.media.UMImage;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
+
+import java.io.File;
+import java.io.FileOutputStream;
 
 import example.com.fan.R;
 import example.com.fan.base.sign.save.SPreferences;
@@ -101,5 +105,56 @@ public class ShareUtils {
                         }
                     });
         }
+    }
+
+    /**
+     * 系统分享通用方法;
+     *
+     * @param context  上下文
+     * @param imgurl   图片url
+     * @param listener 获取路径回调接口
+     *
+     *
+    String path = id;
+    Intent imageIntent = new Intent(Intent.ACTION_SEND);
+    imageIntent.setType("image/jpeg");
+    imageIntent.putExtra(Intent.EXTRA_STREAM, Uri.parse(path));
+    startActivity(Intent.createChooser(imageIntent, "分享"));
+     */
+    public static void getSystemShare(final Context context, String imgurl, final ShareListener listener) {
+     /*   if (listener != null) {
+            RequestOptions options = new RequestOptions();
+            Glide.with(context).asBitmap().asbyte.load(imgurl).into(new SimpleTarget<byte[]>() {
+                @Override
+                public void onResourceReady(byte[] resource, Transition<? super byte[]> transition) {
+                    try {
+                        savaFileToSD(System.currentTimeMillis() + ".jpeg", resource, listener);
+                    } catch (Exception e) {
+                        listener.onFail();
+                        e.printStackTrace();
+                    }
+                }
+            });
+        }*/
+    }
+    //往SD卡写入文件的方法
+    public static void savaFileToSD(String filename, byte[] bytes, ShareListener listener) throws Exception {
+        //如果手机已插入sd卡,且app具有读写sd卡的权限
+        if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
+            String filePath = Environment.getExternalStorageDirectory().getCanonicalPath() + "/YouGridShare";
+            File dir1 = new File(filePath);
+            if (!dir1.exists()) {
+                dir1.mkdirs();
+            }
+            filename = filePath + "/" + filename;
+            //这里就不要用openFileOutput了,那个是往手机内存中写数据的
+            FileOutputStream output = new FileOutputStream(filename);
+            output.write(bytes);
+            //将bytes写入到输出流中
+            output.close();
+            //关闭输出流
+            listener.onSucceed(filename);
+        } else
+            listener.onFail();
     }
 }

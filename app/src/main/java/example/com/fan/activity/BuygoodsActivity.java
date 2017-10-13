@@ -17,8 +17,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.SimpleTarget;
+import com.bumptech.glide.request.transition.Transition;
 import com.davemorrissey.labs.subscaleview.ImageSource;
 import com.davemorrissey.labs.subscaleview.ImageViewState;
 import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView;
@@ -175,11 +175,17 @@ public class BuygoodsActivity extends InitActivity implements View.OnClickListen
                 Glide.with(getApplicationContext())
                         .load(str.getPath()).downloadOnly(new SimpleTarget<File>() {
                     @Override
+                    public void onResourceReady(File resource, Transition<? super File> transition) {
+                        // 将保存的图片地址给SubsamplingScaleImageView,这里注意设置ImageViewState设置初始显示比例
+                        im.setImage(ImageSource.uri(Uri.fromFile(resource)), new ImageViewState(0F, new PointF(0, 0), 0));
+                    }
+
+                  /*  @Override
                     public void onResourceReady(File resource, GlideAnimation<? super File> glideAnimation) {
                         // 将保存的图片地址给SubsamplingScaleImageView,这里注意设置ImageViewState设置初始显示比例
                         im.setImage(ImageSource.uri(Uri.fromFile(resource)), new ImageViewState(0F, new PointF(0, 0), 0));
 
-                    }
+                    }*/
                 });
             } catch (Exception e) {
                 Log.i(TAG, "Glide You cannot start a load for a destroyed activity");

@@ -45,6 +45,7 @@ import example.com.fan.view.ViewPagerScroller;
 import okhttp3.Call;
 
 import static example.com.fan.utils.DeviceUtils.BannerHeight;
+import static example.com.fan.utils.GlideImgUtils.getRequestOptions;
 import static example.com.fan.utils.IntentUtils.goHomePage;
 import static example.com.fan.utils.IntentUtils.goPlayerPage;
 import static example.com.fan.utils.IntentUtils.goVideoOfVrPage;
@@ -159,8 +160,8 @@ public class VRFragment extends BaseFragment implements SpringListener, ItemClic
                             if (code == 1) {
                                 JSONArray ar = getJsonAr(response);
                                 try {
-                                    Glide.with(getActivity().getApplicationContext()).load(ar.get(0)).override(480, 350).into(video_cover);
-                                    Glide.with(getActivity().getApplicationContext()).load(ar.get(1)).override(480, 350).into(vr_cover);
+                                    Glide.with(getActivity().getApplicationContext()).load(ar.get(0)).apply(getRequestOptions(false, 480, 350,false)).into(video_cover);
+                                    Glide.with(getActivity().getApplicationContext()).load(ar.get(1)).apply(getRequestOptions(false, 480, 350,false)).into(vr_cover);
                                 } catch (Exception e) {
                                     Log.i(TAG, "Glide You cannot start a load for a destroyed activity");
                                 }

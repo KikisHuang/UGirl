@@ -30,9 +30,9 @@ import example.com.fan.utils.DeviceUtils;
 import example.com.fan.utils.MzFinal;
 import example.com.fan.utils.SpringUtils;
 import example.com.fan.utils.ToastUtil;
-import jp.wasabeef.glide.transformations.CropCircleTransformation;
 import okhttp3.Call;
 
+import static example.com.fan.utils.GlideImgUtils.getRequestOptions;
 import static example.com.fan.utils.IntentUtils.goHomePage;
 import static example.com.fan.utils.JsonUtils.getCode;
 import static example.com.fan.utils.JsonUtils.getJsonAr;
@@ -68,7 +68,7 @@ public class AttentionActivity extends InitActivity implements SpringListener, I
                 .url(MzFinal.URl + MzFinal.GETMYFOLLOW)
                 .addParams(MzFinal.KEY, SPreferences.getUserToken())
                 .addParams(MzFinal.PAGE, String.valueOf(page))
-                .addParams(MzFinal.SIZE, String.valueOf(page+20))
+                .addParams(MzFinal.SIZE, String.valueOf(page + 20))
                 .tag(this)
                 .build()
                 .execute(new StringCallback() {
@@ -165,7 +165,8 @@ public class AttentionActivity extends InitActivity implements SpringListener, I
         lp.setMargins(0, 0, 15, 0);
         ImageView img = new ImageView(AttentionActivity.this);
         try {
-            Glide.with(getApplicationContext()).load(cb.getMcUser().getHeadImgUrl()).override(45, 45).bitmapTransform(new CropCircleTransformation(AttentionActivity.this)).crossFade(500).into(img);
+            Glide.with(getApplicationContext()).load(cb.getMcUser().getHeadImgUrl()).apply(getRequestOptions(false, 45, 45,true)).into(img);
+
         } catch (Exception e) {
             Log.i(TAG, "Glide You cannot start a load for a destroyed activity");
         }

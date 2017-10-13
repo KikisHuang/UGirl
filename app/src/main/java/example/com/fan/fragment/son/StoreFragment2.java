@@ -49,10 +49,10 @@ import example.com.fan.utils.MzFinal;
 import example.com.fan.utils.ToastUtil;
 import example.com.fan.utils.homeViewPageUtils;
 import example.com.fan.view.ViewPagerScroller;
-import jp.wasabeef.glide.transformations.CropCircleTransformation;
 import okhttp3.Call;
 
 import static example.com.fan.utils.DeviceUtils.BannerHeight;
+import static example.com.fan.utils.GlideImgUtils.getRequestOptions;
 import static example.com.fan.utils.IntentUtils.goBuyCrowdPage;
 import static example.com.fan.utils.IntentUtils.goBuyGoodsPage;
 import static example.com.fan.utils.IntentUtils.goCrowdPage;
@@ -274,7 +274,7 @@ public class StoreFragment2 extends BaseFragment implements SpringListener, Crow
             ImageView im = new ImageView(context);
             im.setLayoutParams(lp1);
             try {
-                Glide.with(context.getApplicationContext()).load(data.get(i).getHeadImgUrl()).override(100, 100).bitmapTransform(new CropCircleTransformation(context)).crossFade(100).into(im);
+                Glide.with(context.getApplicationContext()).load(data.get(i).getHeadImgUrl()).apply(getRequestOptions(false, 100, 100,true)).into(im);
             } catch (Exception e) {
                 Log.i(TAG, "Glide You cannot start a load for a destroyed activity");
             }

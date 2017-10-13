@@ -9,20 +9,25 @@
     tools:context=".activity.AttestationActivity">
 
     <include layout="@layout/title_layout"></include>
-
+    <!-- 完善基础信息-->
+    <include
+        android:id="@+id/over_info_layout"
+        layout="@layout/over_info_layout_include"></include>
+    <!-- 立即绑定-->
     <include
         android:id="@+id/hint_layout"
         layout="@layout/hint_layout_include"></include>
-
+    <!-- 获取验证码-->
     <include
         android:id="@+id/phone_verify_layout"
         layout="@layout/phone_verify_layout_include"></include>
-
+    <!-- 填写验证码-->
     <include
         android:id="@+id/phone_code_layout"
         layout="@layout/phone_code_layout_include"></include>
-
+    <!-- 填写提现账户-->
     <include
         android:id="@+id/fill_in_layout"
         layout="@layout/fill_in_layout_include"></include>
+
 </LinearLayout>

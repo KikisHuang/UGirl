@@ -24,6 +24,7 @@ import example.com.fan.mylistener.ItemClickListener;
 import example.com.fan.utils.DeviceUtils;
 import example.com.fan.view.RippleView;
 
+import static example.com.fan.utils.GlideImgUtils.getRequestOptions;
 import static example.com.fan.utils.SynUtils.getTAG;
 
 /**
@@ -171,8 +172,7 @@ public class MyCollectAdapter extends RecyclerView.Adapter<MyCollectAdapter.View
 
             Glide.with(context)
                     .load(mDataset.get(position).getCoverPath())
-                    .crossFade(200)
-                    .centerCrop()
+                    .apply(getRequestOptions(true, 0, 0,false))
                     .into(holder.home_icon);
         } catch (Exception e) {
             Log.i(TAG, "Glide You cannot start a load for a destroyed activity");

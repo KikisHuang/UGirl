@@ -20,8 +20,8 @@ import example.com.fan.mylistener.ShareRequestListener;
 import example.com.fan.mylistener.TwoParamaListener;
 import example.com.fan.utils.DeviceUtils;
 import example.com.fan.utils.OverallViewHolder;
-import jp.wasabeef.glide.transformations.CropCircleTransformation;
 
+import static example.com.fan.utils.GlideImgUtils.getRequestOptions;
 import static example.com.fan.utils.SynUtils.getRouString;
 import static example.com.fan.utils.SynUtils.getTAG;
 
@@ -97,15 +97,11 @@ public class VrAdapter extends BaseAdapter {
             Glide.with(context)
                     .load(list.get(position).getCoverPath())
                     .thumbnail(0.1f)
-                    .crossFade(200)
                     .into(cover_img);
 
             Glide.with(context)
                     .load(list.get(position).getUser_headImgUrl())
-                    .centerCrop()
-                    .bitmapTransform(new CropCircleTransformation(context))
-                    .crossFade(200)
-                    .override(50, 50)
+                    .apply(getRequestOptions(false, 50, 50,true))
                     .into(icon_img);
         } catch (Exception e) {
 

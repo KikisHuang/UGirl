@@ -16,7 +16,9 @@ import android.widget.ImageView;
 
 import example.com.fan.R;
 
-
+/**
+ * 圆角img
+ */
 public  class RoundAngleImageView extends ImageView {
 
     private Paint paint;

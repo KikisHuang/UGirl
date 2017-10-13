@@ -32,7 +32,6 @@ import static example.com.fan.base.sign.save.SPreferences.saveInViCode;
 import static example.com.fan.base.sign.save.SPreferences.saveLoginWay;
 import static example.com.fan.utils.IntentUtils.goRegisterPage;
 import static example.com.fan.utils.JsonUtils.getCode;
-import static example.com.fan.utils.SynUtils.Finish;
 import static example.com.fan.utils.SynUtils.SaveLoginWay;
 import static example.com.fan.utils.SynUtils.getRouColors;
 import static example.com.fan.utils.SynUtils.getRouString;

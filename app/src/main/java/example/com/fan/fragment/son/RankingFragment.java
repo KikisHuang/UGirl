@@ -26,9 +26,9 @@ import example.com.fan.fragment.BaseFragment;
 import example.com.fan.mylistener.ItemClickListener;
 import example.com.fan.utils.MzFinal;
 import example.com.fan.utils.ToastUtil;
-import jp.wasabeef.glide.transformations.CropCircleTransformation;
 import okhttp3.Call;
 
+import static example.com.fan.utils.GlideImgUtils.getRequestOptions;
 import static example.com.fan.utils.IntentUtils.goHomePage;
 import static example.com.fan.utils.IntentUtils.goPhotoPage;
 import static example.com.fan.utils.JsonUtils.getCode;
@@ -129,36 +129,36 @@ public class RankingFragment extends BaseFragment implements ItemClickListener, 
 
             if (tag <= 1) {
                 if (rlist.size() > 0) {
-                    Glide.with(getActivity().getApplicationContext()).load(rlist.get(0).getHeadImgUrl()).bitmapTransform(new CropCircleTransformation(getActivity())).crossFade(1000).into(img0);
+                    Glide.with(getActivity().getApplicationContext()).load(rlist.get(0).getHeadImgUrl()).apply(getRequestOptions(false, 0, 0,true)).into(img0);
                     tv0.setText(rlist.get(0).getName());
                     num0.setText(getRouString(R.string.subscription) + rlist.get(0).getFollwCount() + "万");
                 }
 
                 if (rlist.size() > 1) {
-                    Glide.with(getActivity().getApplicationContext()).load(rlist.get(1).getHeadImgUrl()).bitmapTransform(new CropCircleTransformation(getActivity())).crossFade(1000).into(img1);
+                    Glide.with(getActivity().getApplicationContext()).load(rlist.get(1).getHeadImgUrl()).apply(getRequestOptions(false, 0, 0,true)).into(img1);
                     tv1.setText(rlist.get(1).getName());
                     num1.setText(getRouString(R.string.subscription) + rlist.get(1).getFollwCount() + "万");
                 }
 
                 if (rlist.size() > 2) {
-                    Glide.with(getActivity().getApplicationContext()).load(rlist.get(2).getHeadImgUrl()).bitmapTransform(new CropCircleTransformation(getActivity())).crossFade(1000).into(img2);
+                    Glide.with(getActivity().getApplicationContext()).load(rlist.get(2).getHeadImgUrl()).apply(getRequestOptions(false, 0, 0,true)).into(img2);
                     tv2.setText(rlist.get(2).getName());
                     num2.setText(getRouString(R.string.subscription) + rlist.get(2).getFollwCount() + "万");
                 }
             } else {
                 if (rlist.size() > 0) {
-                    Glide.with(getActivity().getApplicationContext()).load(rlist.get(0).getHeadImgUrl()).bitmapTransform(new CropCircleTransformation(getActivity())).crossFade(1000).into(img0);
+                    Glide.with(getActivity().getApplicationContext()).load(rlist.get(0).getHeadImgUrl()).apply(getRequestOptions(false, 0, 0,true)).into(img0);
                     tv0.setText(rlist.get(0).getName());
                     num0.setText("被" + rlist.get(0).getFollwCount() + "人" + getRouString(R.string.attention));
                 }
 
                 if (rlist.size() > 1) {
-                    Glide.with(getActivity().getApplicationContext()).load(rlist.get(1).getHeadImgUrl()).bitmapTransform(new CropCircleTransformation(getActivity())).crossFade(1000).into(img1);
+                    Glide.with(getActivity().getApplicationContext()).load(rlist.get(1).getHeadImgUrl()).apply(getRequestOptions(false, 0, 0,true)).into(img1);
                     tv1.setText(rlist.get(1).getName());
                     num1.setText("被" + rlist.get(1).getFollwCount() + "人" + getRouString(R.string.attention));
                 }
                 if (rlist.size() > 2) {
-                    Glide.with(getActivity().getApplicationContext()).load(rlist.get(2).getHeadImgUrl()).bitmapTransform(new CropCircleTransformation(getActivity())).crossFade(1000).into(img2);
+                    Glide.with(getActivity().getApplicationContext()).load(rlist.get(2).getHeadImgUrl()).apply(getRequestOptions(false, 0, 0,true)).into(img2);
                     tv2.setText(rlist.get(2).getName());
                     num2.setText("被" + rlist.get(2).getFollwCount() + "人" + getRouString(R.string.attention));
                 }

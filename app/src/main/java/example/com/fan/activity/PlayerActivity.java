@@ -20,6 +20,7 @@ import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.google.gson.Gson;
 import com.utovr.player.UVEventListener;
 import com.utovr.player.UVInfoListener;
@@ -55,9 +56,9 @@ import example.com.fan.utils.ToastUtil;
 import example.com.fan.view.Popup.CommentEditPopupWindow;
 import example.com.fan.view.dialog.AlertDialog;
 import jp.wasabeef.glide.transformations.BlurTransformation;
-import jp.wasabeef.glide.transformations.CropCircleTransformation;
 import okhttp3.Call;
 
+import static example.com.fan.utils.GlideImgUtils.getRequestOptions;
 import static example.com.fan.utils.IntentUtils.goHomePage;
 import static example.com.fan.utils.IntentUtils.goPayPage;
 import static example.com.fan.utils.JsonUtils.getCode;
@@ -65,7 +66,6 @@ import static example.com.fan.utils.JsonUtils.getJsonAr;
 import static example.com.fan.utils.JsonUtils.getJsonInt;
 import static example.com.fan.utils.JsonUtils.getJsonOb;
 import static example.com.fan.utils.JsonUtils.getJsonSring;
-import static example.com.fan.utils.SynUtils.Finish;
 import static example.com.fan.utils.SynUtils.KswitchWay;
 import static example.com.fan.utils.SynUtils.ParseK;
 import static example.com.fan.utils.SynUtils.getRouColors;
@@ -171,7 +171,7 @@ public class PlayerActivity extends InitActivity implements UVPlayerCallBack, Pl
                                 video_title.setText(vb.getName());
                                 player_number.setText("已播放" + vb.getSeeCount() + "次");
                                 try {
-                                    Glide.with(PlayerActivity.this).load(vb.getJoinUser().getHeadImgUrl()).centerCrop().override(150, 150).bitmapTransform(new CropCircleTransformation(PlayerActivity.this)).crossFade(200).into(video_icon);
+                                    Glide.with(PlayerActivity.this).load(vb.getJoinUser().getHeadImgUrl()).apply(getRequestOptions(true, 150, 150,true)).into(video_icon);
                                 } catch (Exception e) {
                                     Log.i(TAG, "Glide You cannot start a load for a destroyed activity");
                                 }
@@ -207,11 +207,17 @@ public class PlayerActivity extends InitActivity implements UVPlayerCallBack, Pl
                                 }
 //                        Path = "http://fns-video-public.oss-cn-hangzhou.aliyuncs.com/960p.mp4";
                                 try {
-                                    Glide.with(getApplicationContext()).load(vb.getCoverPath()).bitmapTransform(new BlurTransformation(PlayerActivity.this, 25)).crossFade(200).into(cover_img);
-                                    Glide.with(getApplicationContext()).load(vb.getJoinUser().getHeadImgUrl()).centerCrop().override(250, 250).bitmapTransform(new BlurTransformation(PlayerActivity.this, 25)).crossFade(200).into(cover_img);
-                                    Glide.with(getApplicationContext()).load(vb.getCoverPath()).override(350, 350).crossFade(200).into(panorama_img);
-                                    Glide.with(getApplicationContext()).load(vb.getCoverPath()).centerCrop().override(350, 350).crossFade(200).into(glasses_img1);
-                                    Glide.with(getApplicationContext()).load(vb.getCoverPath()).centerCrop().override(350, 350).crossFade(200).into(glasses_img2);
+                                    RequestOptions options = new RequestOptions();
+                                    options.bitmapTransform(new BlurTransformation(PlayerActivity.this, 25));
+
+                                    RequestOptions options1 = new RequestOptions();
+                                    options1.bitmapTransform(new BlurTransformation(PlayerActivity.this, 25)).centerCrop().override(250,250);
+
+                                    Glide.with(getApplicationContext()).load(vb.getCoverPath()).apply(options).into(cover_img);
+                                    Glide.with(getApplicationContext()).load(vb.getJoinUser().getHeadImgUrl()).apply(options1).into(cover_img);
+                                    Glide.with(getApplicationContext()).load(vb.getCoverPath()).apply(getRequestOptions(false, 350, 350,true)).into(panorama_img);
+                                    Glide.with(getApplicationContext()).load(vb.getCoverPath()).apply(getRequestOptions(true, 350, 350,true)).into(glasses_img1);
+                                    Glide.with(getApplicationContext()).load(vb.getCoverPath()).apply(getRequestOptions(true, 350, 350,true)).into(glasses_img2);
                                 } catch (Exception e) {
                                     Log.i(TAG, "Glide You cannot start a load for a destroyed activity");
                                 }
@@ -371,7 +377,7 @@ public class PlayerActivity extends InitActivity implements UVPlayerCallBack, Pl
         lp1.rightMargin = DeviceUtils.dip2px(this, 5);
         ImageView im = new ImageView(this);
         try {
-            Glide.with(getApplicationContext()).load(rb.getCoverPath()).centerCrop().override(600, 360).into(im);
+            Glide.with(getApplicationContext()).load(rb.getCoverPath()).apply(getRequestOptions(true, 600, 360,false)).into(im);
         } catch (Exception e) {
             Log.i(TAG, "Glide You cannot start a load for a destroyed activity");
         }

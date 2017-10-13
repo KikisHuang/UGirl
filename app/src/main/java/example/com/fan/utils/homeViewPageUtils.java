@@ -18,8 +18,8 @@ import example.com.fan.R;
 import example.com.fan.bean.GalleryBean;
 import example.com.fan.bean.McOfficialSellImgUrls;
 import example.com.fan.bean.PageTopBannerBean;
-import jp.wasabeef.glide.transformations.BlurTransformation;
 
+import static example.com.fan.utils.GlideImgUtils.getRequestOptions;
 import static example.com.fan.utils.SynUtils.getTAG;
 
 /**
@@ -550,13 +550,12 @@ public class homeViewPageUtils {
         if (flag) {
             Glide.with(context)
                     .load(str)
-                    .centerCrop()
-                    .bitmapTransform(new BlurTransformation(context, 35))
+                    .apply(getRequestOptions(false, 320,320,false))
                     .into(img);
         } else {
             Glide.with(context)
                     .load(str)
-                    .override(320, 320)
+                    .apply(getRequestOptions(false, 320,320,false))
                     .into(img);
         }
     }

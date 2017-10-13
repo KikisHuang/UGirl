@@ -16,8 +16,8 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.GlideBuilder;
 import com.bumptech.glide.load.DecodeFormat;
-import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.SimpleTarget;
+import com.bumptech.glide.request.transition.Transition;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
 
@@ -200,9 +200,10 @@ public class WelcomeActivity extends InitActivity implements PositionAddListener
                         try {
                             int code = getCode(response);
                             if (code == 1) {
-                                Glide.with(getApplicationContext()).load(new JSONObject(response).optString("data")).asBitmap().into(new SimpleTarget<Bitmap>() {
+
+                                Glide.with(getApplicationContext()).asBitmap().load(new JSONObject(response).optString("data")).into(new SimpleTarget<Bitmap>() {
                                     @Override
-                                    public void onResourceReady(final Bitmap resource, GlideAnimation<? super Bitmap> glideAnimation) {
+                                    public void onResourceReady(final Bitmap resource, Transition<? super Bitmap> transition) {
                                         handler.post(mrunnable = new Runnable() {
                                             @Override
                                             public void run() {
@@ -243,7 +244,7 @@ public class WelcomeActivity extends InitActivity implements PositionAddListener
      */
     private void GlideModuleConfig() {
         MyGlideModule GlideConfig = new MyGlideModule();
-        GlideBuilder builder = new GlideBuilder(this);
+        GlideBuilder builder = new GlideBuilder();
         int width = DeviceUtils.getRatio(this, true);
         int height = DeviceUtils.getRatio(this, false);
         Log.i(TAG, "Phone Ratio ===" + height + " x " + width);

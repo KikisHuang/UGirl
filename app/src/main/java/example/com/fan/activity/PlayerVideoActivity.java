@@ -42,9 +42,9 @@ import example.com.fan.utils.ShareUtils;
 import example.com.fan.utils.ToastUtil;
 import example.com.fan.view.Popup.CommentEditPopupWindow;
 import example.com.fan.view.dialog.AlertDialog;
-import jp.wasabeef.glide.transformations.CropCircleTransformation;
 import okhttp3.Call;
 
+import static example.com.fan.utils.GlideImgUtils.getRequestOptions;
 import static example.com.fan.utils.IntentUtils.goHomePage;
 import static example.com.fan.utils.IntentUtils.goPayPage;
 import static example.com.fan.utils.JsonUtils.getCode;
@@ -53,6 +53,7 @@ import static example.com.fan.utils.JsonUtils.getJsonInt;
 import static example.com.fan.utils.JsonUtils.getJsonOb;
 import static example.com.fan.utils.JsonUtils.getJsonSring;
 import static example.com.fan.utils.JsonUtils.getKeyMap;
+import static example.com.fan.utils.StringUtil.cleanNull;
 import static example.com.fan.utils.SynUtils.KswitchWay;
 import static example.com.fan.utils.SynUtils.ParseK;
 import static example.com.fan.utils.SynUtils.getRouColors;
@@ -211,7 +212,7 @@ public class PlayerVideoActivity extends AppCompatActivity implements View.OnCli
                                 video_title.setText(vb.getName());
                                 player_number.setText("已播放" + vb.getSeeCount() + "次");
                                 try {
-                                    Glide.with(PlayerVideoActivity.this).load(vb.getJoinUser().getHeadImgUrl()).centerCrop().override(150, 150).bitmapTransform(new CropCircleTransformation(PlayerVideoActivity.this)).crossFade(200).into(video_icon);
+                                    Glide.with(PlayerVideoActivity.this).load(vb.getJoinUser().getHeadImgUrl()).apply(getRequestOptions(true, 150, 150,true)).into(video_icon);
                                 } catch (Exception e) {
                                     Log.i(TAG, "Glide You cannot start a load for a destroyed activity");
                                 }
@@ -221,31 +222,30 @@ public class PlayerVideoActivity extends AppCompatActivity implements View.OnCli
                                      * 判断视频是否是收费;
                                      */
                                     if (vb.getMcPublishVideoUrls().get(0).getNeedMoney()) {
-                                        if(type_flag==4){
 
+                                        if (type_flag == -3) {
+                                            getAccredit(vb.getMcPublishVideoUrls().get(0).getPath(), vb, type_flag);
+                                        } else {
+
+                                            if (MyAppcation.VipFlag)
+                                                getAccredit(vb.getMcPublishVideoUrls().get(0).getPath(), vb, type_flag);
+                                            else {
+
+                                                new AlertDialog(PlayerVideoActivity.this).builder().setTitle("提示").setCancelable(false).setMsg("成为会员才能看哦，更多精彩细节等着你!\n\n").setNegativeButton("下次再说", new View.OnClickListener() {
+                                                    @Override
+                                                    public void onClick(View v) {
+                                                        finish();
+                                                    }
+                                                }).setPositiveButton("成为会员", new View.OnClickListener() {
+                                                    @Override
+                                                    public void onClick(View v) {
+
+                                                        goPayPage(PlayerVideoActivity.this);
+                                                        finish();
+                                                    }
+                                                }).show();
+                                            }
                                         }
-                                        if (MyAppcation.VipFlag)
-                                            getAccredit(vb.getMcPublishVideoUrls().get(0).getPath(), vb);
-                                        else {
-
-                                            new AlertDialog(PlayerVideoActivity.this).builder().setTitle("提示").setCancelable(false).setMsg("成为会员才能看哦，更多精彩细节等着你!\n\n").setNegativeButton("下次再说", new View.OnClickListener() {
-                                                @Override
-                                                public void onClick(View v) {
-                                                    finish();
-                                                }
-                                            }).setPositiveButton("成为会员", new View.OnClickListener() {
-                                                @Override
-                                                public void onClick(View v) {
-
-                                                    goPayPage(PlayerVideoActivity.this);
-                                                    finish();
-                                                }
-                                            }).show();
-                                        }
-                                    if(type_flag==6){
-
-
-                                    }
                                     } else {
                                         //设置标题;
                                         mJcVideoPlayerStandard.setUp(vb.getMcPublishVideoUrls().get(0).getPath()
@@ -257,7 +257,7 @@ public class PlayerVideoActivity extends AppCompatActivity implements View.OnCli
                                     admire_num.setText(KswitchWay(vb.getLikesCount()));
                                     share_num.setText(KswitchWay(vb.getShareCount()));
                                     try {
-                                        Glide.with(getApplicationContext()).load(vb.getCoverPath()).override(1920, 1080).crossFade(200).into(mJcVideoPlayerStandard.thumbImageView);
+                                        Glide.with(getApplicationContext()).load(vb.getCoverPath()).apply(getRequestOptions(false, 1920, 1080,false)).into(mJcVideoPlayerStandard.thumbImageView);
                                     } catch (Exception e) {
                                         Log.i(TAG, "Glide You cannot start a load for a destroyed activity");
                                     }
@@ -320,8 +320,9 @@ public class PlayerVideoActivity extends AppCompatActivity implements View.OnCli
      *
      * @param path
      * @param vb
+     * @param type_flag
      */
-    private void getAccredit(final String path, final VideoPlayBean vb) {
+    private void getAccredit(final String path, final VideoPlayBean vb, final int type_flag) {
         final String url = path.substring(path.lastIndexOf("/") + 1, path.length());
         Map<String, String> map = getKeyMap();
         map.put("videoName", url);
@@ -345,13 +346,27 @@ public class PlayerVideoActivity extends AppCompatActivity implements View.OnCli
                     public void onResponse(String response, int id) {
                         try {
                             int code = getCode(response);
-                            if (code == 1) {
-                                Path = getJsonSring(response);
-                                //设置标题;
-                                mJcVideoPlayerStandard.setUp(getJsonSring(response)
-                                        , JZVideoPlayerStandard.SCREEN_LAYOUT_NORMAL, "");
-                            } else
-                                ToastUtil.ToastErrorMsg(PlayerVideoActivity.this, response, code);
+                            if (type_flag == -3) {
+                                if (cleanNull(getJsonSring(response))) {
+
+
+                                } else {
+                                    Path = getJsonSring(response);
+                                    //设置标题;
+                                    mJcVideoPlayerStandard.setUp(getJsonSring(response)
+                                            , JZVideoPlayerStandard.SCREEN_LAYOUT_NORMAL, "");
+                                }
+                            } else {
+
+                                if (code == 1) {
+                                    Path = getJsonSring(response);
+                                    //设置标题;
+                                    mJcVideoPlayerStandard.setUp(getJsonSring(response)
+                                            , JZVideoPlayerStandard.SCREEN_LAYOUT_NORMAL, "");
+                                } else
+                                    ToastUtil.ToastErrorMsg(PlayerVideoActivity.this, response, code);
+                            }
+
                         } catch (Exception e) {
 
                         }
@@ -372,7 +387,7 @@ public class PlayerVideoActivity extends AppCompatActivity implements View.OnCli
         lp1.rightMargin = DeviceUtils.dip2px(this, 5);
         ImageView im = new ImageView(this);
         try {
-            Glide.with(getApplicationContext()).load(rb.getCoverPath()).centerCrop().override(600, 360).into(im);
+            Glide.with(getApplicationContext()).load(rb.getCoverPath()).apply(getRequestOptions(true, 600, 360,false)).into(im);
         } catch (Exception e) {
             Log.i(TAG, "Glide You cannot start a load for a destroyed activity");
         }

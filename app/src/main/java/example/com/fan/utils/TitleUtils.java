@@ -1,7 +1,6 @@
 package example.com.fan.utils;
 
 import android.app.Activity;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -118,8 +117,18 @@ public class TitleUtils {
      * @param ac
      */
     public static void hideTitle(Activity ac) {
-        View view = LayoutInflater.from(ac).inflate(R.layout.title_layout, null);
+        RelativeLayout view  = (RelativeLayout) ac.findViewById(R.id.main_title_layout);
         view.setVisibility(View.GONE);
+    }
+
+    /**
+     * 标题显示;
+     *
+     * @param ac
+     */
+    public static void ShowTitle(Activity ac) {
+        RelativeLayout view  = (RelativeLayout) ac.findViewById(R.id.main_title_layout);
+        view.setVisibility(View.VISIBLE);
     }
 
     /**
@@ -151,7 +160,7 @@ public class TitleUtils {
         ImageView search = (ImageView) ac.findViewById(R.id.search_img);
         TextView mtv = (TextView) ac.findViewById(R.id.title_tv);
         if (flag) {
-            TitleAnima(ac,title,flag,mtv,slide,search);
+            TitleAnima(ac, title, flag, mtv, slide, search);
             if (tag == 0) {
                 mimg.setVisibility(View.VISIBLE);
                 mtv.setVisibility(View.GONE);
@@ -162,7 +171,7 @@ public class TitleUtils {
                 mtv.setText(name);
             }
         } else {
-            TitleAnima(ac,title,flag,mtv,slide,search);
+            TitleAnima(ac, title, flag, mtv, slide, search);
             if (tag == 0) {
                 mimg.setVisibility(View.VISIBLE);
                 mtv.setVisibility(View.GONE);

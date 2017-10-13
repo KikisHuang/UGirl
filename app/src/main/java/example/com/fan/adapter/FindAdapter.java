@@ -21,9 +21,9 @@ import example.com.fan.mylistener.ShareRequestListener;
 import example.com.fan.mylistener.TwoParamaListener;
 import example.com.fan.utils.DeviceUtils;
 import example.com.fan.utils.OverallViewHolder;
-import jp.wasabeef.glide.transformations.CropCircleTransformation;
 
 import static example.com.fan.utils.DateUtils.getMonthAndDay;
+import static example.com.fan.utils.GlideImgUtils.getRequestOptions;
 import static example.com.fan.utils.SynUtils.getRouColors;
 import static example.com.fan.utils.SynUtils.getRouString;
 import static example.com.fan.utils.SynUtils.getTAG;
@@ -104,7 +104,7 @@ public class FindAdapter extends BaseAdapter {
 
 
         try {
-            Glide.with(context).load(list.get(position).getJoinUser().getHeadImgUrl()).bitmapTransform(new CropCircleTransformation(context)).override(50, 50).crossFade(300).into(icon_logo);
+            Glide.with(context).load(list.get(position).getJoinUser().getHeadImgUrl()).apply(getRequestOptions(false, 50, 50,true)).into(icon_logo);
 
         } catch (Exception e) {
             Log.i(TAG, "Glide You cannot start a load for a destroyed activity");
@@ -270,8 +270,7 @@ public class FindAdapter extends BaseAdapter {
         try {
             Glide.with(context)
                     .load(str)
-                    .centerCrop()
-                    .override(150, 150)
+                    .apply(getRequestOptions(true, 150, 150,false))
                     .into(img);
         } catch (Exception e) {
             Log.i(TAG, "Glide You cannot start a load for a destroyed activity");

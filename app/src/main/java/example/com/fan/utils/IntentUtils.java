@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 
+import example.com.fan.activity.Account_detailsActivity;
 import example.com.fan.activity.AttentionActivity;
 import example.com.fan.activity.AttestationActivity;
 import example.com.fan.activity.BuyCrowdActivity;
@@ -38,14 +39,18 @@ import example.com.fan.activity.PrivatePhotoActivity;
 import example.com.fan.activity.ProjectIncomeActivity;
 import example.com.fan.activity.RankingActivity;
 import example.com.fan.activity.RegisterActivity;
+import example.com.fan.activity.SGamerActivity;
 import example.com.fan.activity.SearchActivity;
 import example.com.fan.activity.SettingActivity;
 import example.com.fan.activity.StoreActivity;
+import example.com.fan.activity.SuperUserPhotoOfVideoActivity;
 import example.com.fan.activity.TaskActivity;
+import example.com.fan.activity.TimeSelectActivity;
 import example.com.fan.activity.UnReadActivity;
 import example.com.fan.activity.UploadPhotoActivity;
 import example.com.fan.activity.UploadPrivatePhotoActivity;
 import example.com.fan.activity.UploadWeChatActivity;
+import example.com.fan.activity.UserPhotoOfVideoUpLoadActivity;
 import example.com.fan.activity.VideoAndVrSonActivity;
 import example.com.fan.activity.VipActivity;
 import example.com.fan.bean.MyOrderBean;
@@ -142,6 +147,33 @@ public class IntentUtils {
     }
 
     /**
+     * 活动、商城页面;
+     *
+     * @param context 上下文;
+     */
+    public static void goUserPhotoOfVideoLoadPage(Context context, int flag,String FilePath) {
+
+        Intent intent = new Intent(context, UserPhotoOfVideoUpLoadActivity.class);
+        intent.putExtra("photo_of_video_flag", "" + flag);
+        intent.putExtra("photo_of_video_FilePath", "" + FilePath);
+        startPage(context, intent);
+    }
+
+    /**
+     * 超级玩家批量照片、视频选择页面;
+     *
+     * @param context 上下文;
+     *                0相册
+     *                1视频
+     */
+    public static void goSuperPhotoVideoPage(Context context, int flag) {
+
+        Intent intent = new Intent(context, SuperUserPhotoOfVideoActivity.class);
+        intent.putExtra("Photo_of_Video_flag", flag + "");
+        startPage(context, intent);
+    }
+
+    /**
      * 众筹页面;
      *
      * @param context 上下文;
@@ -180,6 +212,17 @@ public class IntentUtils {
 
         Intent intent = new Intent(context, BuyCrowdActivity.class);
         intent.putExtra("b_id", id);
+        startPage(context, intent);
+    }
+
+    /**
+     * 超级用户页面;
+     *
+     * @param context 上下文;
+     */
+    public static void goSGamerPage(Context context) {
+
+        Intent intent = new Intent(context, SGamerActivity.class);
         startPage(context, intent);
     }
 
@@ -256,10 +299,25 @@ public class IntentUtils {
      * 认证页面;
      *
      * @param context 上下文;
+     * @param tag     布局显示标识符;
      */
-    public static void goRzPage(Context context) {
+    public static void goRzPage(Context context, int tag) {
 
         Intent intent = new Intent(context, AttestationActivity.class);
+        intent.putExtra("attesta_tag", tag + "");
+        startPage(context, intent);
+    }
+
+    /**
+     * 选择器页面;
+     *
+     * @param context 上下文;
+     * @param tag     布局显示标识符;
+     */
+    public static void goSelectPage(Context context, int tag) {
+
+        Intent intent = new Intent(context, TimeSelectActivity.class);
+        intent.putExtra("select_tag", tag + "");
         startPage(context, intent);
     }
 
@@ -365,6 +423,18 @@ public class IntentUtils {
      */
     public static void goOverPayPage(Context context) {
         Intent intent = new Intent(context, OverPayActivity.class);
+        startPage(context, intent);
+    }
+
+    /**
+     * 已购买页面;
+     *
+     * @param context 上下文;
+     *                requestCode 186
+     */
+    public static void goAccountDetailsPage(Context context, int flag) {
+        Intent intent = new Intent(context, Account_detailsActivity.class);
+        intent.putExtra("account_details_flag", flag + "");
         startPage(context, intent);
     }
 

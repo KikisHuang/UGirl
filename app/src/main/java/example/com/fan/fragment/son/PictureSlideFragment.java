@@ -4,14 +4,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
-import android.view.View;
-import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.bumptech.glide.load.resource.drawable.GlideDrawable;
-import com.bumptech.glide.request.animation.GlideAnimation;
-import com.bumptech.glide.request.target.GlideDrawableImageViewTarget;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
 
@@ -27,6 +21,7 @@ import okhttp3.Call;
 import uk.co.senab.photoview.PhotoView;
 import uk.co.senab.photoview.PhotoViewAttacher;
 
+import static example.com.fan.utils.GlideImgUtils.getRequestOptions;
 import static example.com.fan.utils.JsonUtils.getCode;
 import static example.com.fan.utils.JsonUtils.getJsonSring;
 import static example.com.fan.utils.SynUtils.getTAG;
@@ -41,7 +36,7 @@ public class PictureSlideFragment extends BaseFragment implements PayRefreshList
     private PhotoViewAttacher photoViewAttacher;
     private boolean need;
     private String id = "";
-    private ImageView load_img;
+    //    private ImageView load_img;
     private GestureDetector.OnDoubleTapListener gest;
     public static PayRefreshListener PayListener;
 
@@ -95,8 +90,8 @@ public class PictureSlideFragment extends BaseFragment implements PayRefreshList
 
     private void getData() {
 
-        load_img.setVisibility(View.VISIBLE);
-        Glide.with(getActivity().getApplicationContext()).load(R.drawable.loading_gif).asGif().diskCacheStrategy(DiskCacheStrategy.SOURCE).into(load_img);
+//        load_img.setVisibility(View.VISIBLE);
+//        Glide.with(getActivity().getApplicationContext()).load(R.drawable.loading_gif).asGif().diskCacheStrategy(DiskCacheStrategy.SOURCE).into(load_img);
 
         /**
          * 收费图片从oss中获取;
@@ -178,6 +173,10 @@ public class PictureSlideFragment extends BaseFragment implements PayRefreshList
 
             Glide.with(getActivity().getApplicationContext())
                     .load(url)
+                    .apply(getRequestOptions(true, 0, 0,false).error(R.drawable.load_fail_img)).into(imageView);
+
+      /*      Glide.with(getActivity().getApplicationContext())
+                    .load(url)
                     .error(R.drawable.load_fail_img)
                     .centerCrop()
                     .into(new GlideDrawableImageViewTarget(imageView) {
@@ -186,7 +185,7 @@ public class PictureSlideFragment extends BaseFragment implements PayRefreshList
                             super.onResourceReady(resource, animation);
                             load_img.setVisibility(View.GONE);
                         }
-                    });
+                    });*/
 //            }
         } catch (Exception e) {
             Log.i(TAG, "Glide You cannot start a load for a destroyed activity");
@@ -210,7 +209,7 @@ public class PictureSlideFragment extends BaseFragment implements PayRefreshList
     @Override
     protected void init() {
         imageView = (PhotoView) view.findViewById(R.id.iv_main_pic);
-        load_img = (ImageView) view.findViewById(R.id.load_img);
+//        load_img = (ImageView) view.findViewById(R.id.load_img);
         photoViewAttacher = new PhotoViewAttacher(imageView);
         PayListener = this;
 

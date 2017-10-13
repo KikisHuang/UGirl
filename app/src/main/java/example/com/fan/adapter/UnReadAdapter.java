@@ -16,8 +16,8 @@ import java.util.List;
 import example.com.fan.R;
 import example.com.fan.bean.UnReadBean;
 import example.com.fan.utils.OverallViewHolder;
-import jp.wasabeef.glide.transformations.CropCircleTransformation;
 
+import static example.com.fan.utils.GlideImgUtils.getRequestOptions;
 import static example.com.fan.utils.SynUtils.getTAG;
 
 /**
@@ -76,9 +76,7 @@ public class UnReadAdapter extends BaseAdapter {
         try {
             Glide.with(context)
                     .load(list.get(position).getJoinUser().getHeadImgUrl())
-                    .centerCrop()
-                    .bitmapTransform(new CropCircleTransformation(context))
-                    .crossFade(200)
+                    .apply(getRequestOptions(true, 0, 0,true))
                     .into(head_img);
         } catch (Exception e) {
             Log.i(TAG, "Glide You cannot start a load for a destroyed activity");

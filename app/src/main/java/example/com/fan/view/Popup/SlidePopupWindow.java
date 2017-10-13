@@ -29,9 +29,9 @@ import example.com.fan.bean.UserInfoBean;
 import example.com.fan.utils.DeviceUtils;
 import example.com.fan.utils.MzFinal;
 import example.com.fan.utils.ToastUtil;
-import jp.wasabeef.glide.transformations.CropCircleTransformation;
 import okhttp3.Call;
 
+import static example.com.fan.utils.GlideImgUtils.getRequestOptions;
 import static example.com.fan.utils.IntentUtils.goHelpPage;
 import static example.com.fan.utils.IntentUtils.goLoginPage;
 import static example.com.fan.utils.IntentUtils.goOverPayPage;
@@ -141,9 +141,10 @@ public class SlidePopupWindow implements View.OnClickListener {
                                     MyAppcation.myInvitationCode = ub.getMyInvitationCode();
                                     try {
                                         if (ub.getHeadImgUrl() == null)
-                                            Glide.with(mContext.getApplicationContext()).load(R.mipmap.test_icon).override(350, 350).bitmapTransform(new CropCircleTransformation(mContext.getApplicationContext())).into(user_icon);
+                                            Glide.with(mContext.getApplicationContext()).load(R.mipmap.test_icon).apply(getRequestOptions(false, 350, 350,true))
+                                                    .into(user_icon);
                                         else
-                                            Glide.with(mContext.getApplicationContext()).load(ub.getHeadImgUrl()).override(350, 350).bitmapTransform(new CropCircleTransformation(mContext.getApplicationContext())).into(user_icon);
+                                            Glide.with(mContext.getApplicationContext()).load(ub.getHeadImgUrl()).apply(getRequestOptions(false, 350, 350,true)).into(user_icon);
                                     } catch (Exception e) {
                                         Log.i(TAG, "Glide You cannot start a load for a destroyed activity");
                                     }

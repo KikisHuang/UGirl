@@ -47,9 +47,9 @@ import example.com.fan.view.BigPhotoViewPager;
 import example.com.fan.view.Popup.CommentEditPopupWindow;
 import example.com.fan.view.Popup.PayPopupWindow;
 import example.com.fan.view.SmartScrollView;
-import jp.wasabeef.glide.transformations.CropCircleTransformation;
 import okhttp3.Call;
 
+import static example.com.fan.utils.GlideImgUtils.getRequestOptions;
 import static example.com.fan.utils.IntentUtils.goHomePage;
 import static example.com.fan.utils.JsonUtils.getCode;
 import static example.com.fan.utils.JsonUtils.getJsonAr;
@@ -126,7 +126,7 @@ public class PrivatePhotoActivity extends InitActivity implements View.OnClickLi
             CommentView.add(view);
             tv.setText(commentlist.get(i).getInfo());
             try {
-                Glide.with(getApplicationContext()).load(commentlist.get(i).getUserHeadImgUrl()).bitmapTransform(new CropCircleTransformation(this)).crossFade(300).override(60, 60).into(im);
+                Glide.with(getApplicationContext()).load(commentlist.get(i).getUserHeadImgUrl()).apply(getRequestOptions(false, 60, 60,true)).into(im);
             } catch (Exception e) {
                 Log.i(TAG, "Glide You cannot start a load for a destroyed activity");
             }
@@ -459,7 +459,7 @@ public class PrivatePhotoActivity extends InitActivity implements View.OnClickLi
                                 admire_num.setText(KswitchWay(urlList.get(0).getLikesCount()));
                                 share_num.setText(KswitchWay(urlList.get(0).getShareCount()));
                                 try {
-                                    Glide.with(getApplicationContext()).load(urlList.get(0).getJoinUser().getHeadImgUrl()).override(50, 50).bitmapTransform(new CropCircleTransformation(PrivatePhotoActivity.this)).crossFade(300).into(title_right_icon);
+                                    Glide.with(getApplicationContext()).load(urlList.get(0).getJoinUser().getHeadImgUrl()).apply(getRequestOptions(false, 50, 50,true)).into(title_right_icon);
                                 } catch (Exception e) {
                                     Log.i(TAG, "Glide You cannot start a load for a destroyed activity");
                                 }

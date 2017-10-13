@@ -12,6 +12,25 @@ public class ModelBean {
     private int commentCount;
 
     private String coverPath;
+    private int sumCount;
+
+    public long getSumPrice() {
+        return sumPrice;
+    }
+
+    public void setSumPrice(long sumPrice) {
+        this.sumPrice = sumPrice;
+    }
+
+    private long sumPrice;
+
+    public int getSumCount() {
+        return sumCount;
+    }
+
+    public void setSumCount(int sumCount) {
+        this.sumCount = sumCount;
+    }
 
     public String getHeadImgUrl() {
         return headImgUrl;

@@ -11,6 +11,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 
 import java.util.List;
 
@@ -21,6 +22,7 @@ import example.com.fan.utils.DeviceUtils;
 import example.com.fan.utils.GlideCacheUtil;
 import example.com.fan.utils.OverallViewHolder;
 
+import static example.com.fan.utils.GlideImgUtils.getRequestOptions;
 import static example.com.fan.utils.SynUtils.getTAG;
 
 /**
@@ -77,7 +79,10 @@ public class BottomGridAdapter extends BaseAdapter {
             }
         });
         try {
-            Glide.with(context).load(blist.get(position).getCoverPath()).fitCenter().into(grid_img);
+
+            RequestOptions options = new RequestOptions();
+            options.fitCenter();
+            Glide.with(context).load(blist.get(position).getCoverPath()).apply(options).into(grid_img);
         } catch (Exception e) {
             Log.i(TAG, "Glide You cannot start a load for a destroyed activity");
         }

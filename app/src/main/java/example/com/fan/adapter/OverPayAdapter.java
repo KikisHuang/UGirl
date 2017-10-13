@@ -22,9 +22,9 @@ import example.com.fan.bean.OverPayBean;
 import example.com.fan.mylistener.ItemClickListener;
 import example.com.fan.utils.DeviceUtils;
 import example.com.fan.utils.MzFinal;
-import jp.wasabeef.glide.transformations.CropCircleTransformation;
 
 import static example.com.fan.utils.DateUtils.getDate;
+import static example.com.fan.utils.GlideImgUtils.getRequestOptions;
 import static example.com.fan.utils.SynUtils.getTAG;
 
 /**
@@ -113,16 +113,12 @@ public class OverPayAdapter extends RecyclerView.Adapter<OverPayAdapter.ViewHold
         try {
             Glide.with(context)
                     .load(mDataset.get(position).getCoverPath())
-                    .centerCrop()
+                    .apply(getRequestOptions(true, 0, 0,false))
                     .thumbnail(0.1f)
-                    .crossFade(1000)
                     .into(holder.home_icon2);
             Glide.with(context)
                     .load(mDataset.get(position).getUser_headImgUrl())
-                    .centerCrop()
-                    .bitmapTransform(new CropCircleTransformation(context))
-                    .crossFade(300)
-                    .override(50, 50)
+                    .apply(getRequestOptions(true, 50, 50,true))
                     .into(holder.icon_logo);
         } catch (Exception e) {
             Log.i(TAG, "Glide You cannot start a load for a destroyed activity");

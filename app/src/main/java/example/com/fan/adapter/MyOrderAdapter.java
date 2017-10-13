@@ -19,6 +19,7 @@ import example.com.fan.bean.MyOrderBean;
 import example.com.fan.mylistener.MyOrderDetailsListener;
 import example.com.fan.utils.OverallViewHolder;
 
+import static example.com.fan.utils.GlideImgUtils.getRequestOptions;
 import static example.com.fan.utils.SynUtils.getRouColors;
 import static example.com.fan.utils.SynUtils.getTAG;
 
@@ -132,7 +133,7 @@ public class MyOrderAdapter extends BaseAdapter {
         }
 
         try {
-            Glide.with(context).load(blist.get(position).getImg()).override(100, 100).centerCrop().crossFade(200).into(order_img);
+            Glide.with(context).load(blist.get(position).getImg()).apply(getRequestOptions(true, 100, 100,false)).into(order_img);
         } catch (Exception e) {
             Log.i(TAG, "Glide You cannot start a load for a destroyed activity");
         }

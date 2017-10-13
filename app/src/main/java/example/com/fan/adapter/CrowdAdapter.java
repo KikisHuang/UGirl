@@ -24,9 +24,9 @@ import example.com.fan.mylistener.homepageListener;
 import example.com.fan.utils.MzFinal;
 import example.com.fan.utils.OverallViewHolder;
 import example.com.fan.utils.TextViewColorUtils;
-import jp.wasabeef.glide.transformations.CropCircleTransformation;
 
 import static example.com.fan.utils.DateUtils.daysBetween;
+import static example.com.fan.utils.GlideImgUtils.getRequestOptions;
 import static example.com.fan.utils.SynUtils.getTAG;
 
 /**
@@ -98,8 +98,8 @@ public class CrowdAdapter extends BaseAdapter {
 
         final mcCrowdFundingTargets data = list.get(0).getMcCrowdFundingTargets().get(position);
         try {
-            Glide.with(context).load(data.getHeadImgUrl()).bitmapTransform(new CropCircleTransformation(context)).crossFade(300).into(top_icon);
-            Glide.with(context).load(data.getCoverPath()).crossFade(300).into(content_img);
+            Glide.with(context).load(data.getHeadImgUrl()).apply(getRequestOptions(false, 0, 0,true)).into(top_icon);
+            Glide.with(context).load(data.getCoverPath()).into(content_img);
         } catch (Exception e) {
             Log.i(TAG, "Glide You cannot start a load for a destroyed activity");
         }
@@ -177,7 +177,7 @@ public class CrowdAdapter extends BaseAdapter {
     private void supportNumberinit(ImageView img, int pos) {
         img.setVisibility(View.VISIBLE);
         try {
-            Glide.with(context).load(tlist.get(pos).getHeadImgUrl()).centerCrop().override(40, 50).bitmapTransform(new CropCircleTransformation(context)).crossFade(300).into(img);
+            Glide.with(context).load(tlist.get(pos).getHeadImgUrl()).apply(getRequestOptions(true, 40, 50,true)).into(img);
         } catch (Exception e) {
             Log.i(TAG, "Glide You cannot start a load for a destroyed activity");
         }

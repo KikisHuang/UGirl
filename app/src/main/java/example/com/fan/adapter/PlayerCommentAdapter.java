@@ -16,8 +16,8 @@ import java.util.List;
 import example.com.fan.R;
 import example.com.fan.bean.CommentBean;
 import example.com.fan.utils.OverallViewHolder;
-import jp.wasabeef.glide.transformations.CropCircleTransformation;
 
+import static example.com.fan.utils.GlideImgUtils.getRequestOptions;
 import static example.com.fan.utils.SynUtils.getTAG;
 
 /**
@@ -63,7 +63,7 @@ public class PlayerCommentAdapter extends BaseAdapter {
         TextView comment_content = OverallViewHolder.ViewHolder.get(root, R.id.comment_content);
 
         try {
-            Glide.with(context).load(list.get(position).getUserHeadImgUrl()).override(50, 50).bitmapTransform(new CropCircleTransformation(context)).crossFade(500).into(comment_icon);
+            Glide.with(context).load(list.get(position).getUserHeadImgUrl()).apply(getRequestOptions(false, 50, 50,true)).into(comment_icon);
         } catch (Exception e) {
             Log.i(TAG, "Glide You cannot start a load for a destroyed activity");
         }

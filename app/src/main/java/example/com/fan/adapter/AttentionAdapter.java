@@ -18,8 +18,8 @@ import example.com.fan.R;
 import example.com.fan.bean.AttentBean;
 import example.com.fan.mylistener.ItemClickListener;
 import example.com.fan.utils.OverallViewHolder;
-import jp.wasabeef.glide.transformations.CropCircleTransformation;
 
+import static example.com.fan.utils.GlideImgUtils.getRequestOptions;
 import static example.com.fan.utils.SynUtils.getTAG;
 
 /**
@@ -69,7 +69,7 @@ public class AttentionAdapter extends BaseAdapter {
         TextView cancel_tv = OverallViewHolder.ViewHolder.get(root, R.id.cancel_tv);
 
         try {
-            Glide.with(context).load(list.get(position).getHeadImgUrl()).override(80, 80).bitmapTransform(new CropCircleTransformation(context)).crossFade(300).into(at_icon);
+            Glide.with(context).load(list.get(position).getHeadImgUrl()).apply(getRequestOptions(false, 80, 80,true)).into(at_icon);
 
         } catch (Exception e) {
             Log.i(TAG, "Glide You cannot start a load for a destroyed activity");

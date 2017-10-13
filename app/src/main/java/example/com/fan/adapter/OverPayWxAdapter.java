@@ -17,8 +17,8 @@ import example.com.fan.R;
 import example.com.fan.bean.OverPayWxBean;
 import example.com.fan.utils.GlideCacheUtil;
 import example.com.fan.utils.OverallViewHolder;
-import jp.wasabeef.glide.transformations.CropCircleTransformation;
 
+import static example.com.fan.utils.GlideImgUtils.getRequestOptions;
 import static example.com.fan.utils.SynUtils.getTAG;
 import static example.com.fan.utils.TextViewColorUtils.setTextColor3;
 
@@ -69,7 +69,7 @@ public class OverPayWxAdapter extends BaseAdapter {
         pay_Time.setText(blist.get(position).getPayTime());
         setTextColor3(wx,blist.get(position).getWx(),"Ta的微信号：","#ec83c8");
         try {
-            Glide.with(context).load(blist.get(position).getHeadImgUrl()).bitmapTransform(new CropCircleTransformation(context)).into(headimg);
+            Glide.with(context).load(blist.get(position).getHeadImgUrl()).apply(getRequestOptions(false, 0, 0,true)).into(headimg);
         } catch (Exception e) {
             Log.i(TAG, "Glide You cannot start a load for a destroyed activity");
         }

@@ -70,7 +70,7 @@
     <ImageView
         android:layout_width="30dp"
         android:layout_height="30dp"
-        android:src="@mipmap/question_icon"
+        android:src="@mipmap/question_icon1"
         />
 
         <example.com.fan.view.RippleView

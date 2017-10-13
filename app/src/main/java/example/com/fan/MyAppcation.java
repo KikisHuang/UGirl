@@ -1,6 +1,8 @@
 package example.com.fan;
 
-import android.app.Application;
+import android.content.Context;
+import android.support.multidex.MultiDex;
+import android.support.multidex.MultiDexApplication;
 import android.util.Log;
 
 import com.umeng.analytics.AnalyticsConfig;
@@ -22,7 +24,7 @@ import static example.com.fan.utils.SynUtils.getOverID;
 /**
  * Created by lian on 2017/5/2.
  */
-public class MyAppcation extends Application {
+public class MyAppcation extends MultiDexApplication {
     //    private static final String TAG = getTAG(MyAppcation.class);
     private static final String TAG = "MyAppcation";
     public static String CHANNEL;
@@ -128,4 +130,9 @@ public class MyAppcation extends Application {
         OkHttpUtils.initClient(okHttpClient);
     }
 
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(base);
+        MultiDex.install(this) ;
+    }
 }

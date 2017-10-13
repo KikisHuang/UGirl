@@ -21,9 +21,9 @@ import example.com.fan.mylistener.ItemClickListener;
 import example.com.fan.utils.DeviceUtils;
 import example.com.fan.utils.GlideCacheUtil;
 import example.com.fan.utils.OverallViewHolder;
-import jp.wasabeef.glide.transformations.CropCircleTransformation;
 
 import static example.com.fan.utils.DateUtils.getMonthAndDay;
+import static example.com.fan.utils.GlideImgUtils.getRequestOptions;
 import static example.com.fan.utils.StringUtil.cleanNull;
 import static example.com.fan.utils.SynUtils.getRouString;
 import static example.com.fan.utils.SynUtils.getTAG;
@@ -127,7 +127,7 @@ public class ModelAdapter extends BaseAdapter {
                         listener.onItemClickListener(-3, blist.get(position).getModelId());
                     }
                 });
-                Glide.with(context).load(blist.get(position).getCoverPath()).bitmapTransform(new CropCircleTransformation(context)).into(video_img);
+                Glide.with(context).load(blist.get(position).getCoverPath()).apply(getRequestOptions(false, 0, 0,true)).into(video_img);
 
                 break;
         }
@@ -138,7 +138,7 @@ public class ModelAdapter extends BaseAdapter {
             }
         });
         try {
-            Glide.with(context).load(blist.get(position).getHeadImgUrl()).bitmapTransform(new CropCircleTransformation(context)).into(user_icon);
+            Glide.with(context).load(blist.get(position).getHeadImgUrl()).apply(getRequestOptions(false, 0, 0,true)).into(user_icon);
 
         } catch (Exception e) {
             Log.i(TAG, "Glide You cannot start a load for a destroyed activity");
@@ -247,8 +247,7 @@ public class ModelAdapter extends BaseAdapter {
         try {
             Glide.with(context)
                     .load(str)
-                    .centerCrop()
-                    .override(150, 150)
+                    .apply(getRequestOptions(true, 150, 150,false))
                     .into(img);
         } catch (Exception e) {
             Log.i(TAG, "Glide You cannot start a load for a destroyed activity");

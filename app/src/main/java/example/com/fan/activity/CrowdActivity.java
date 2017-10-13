@@ -35,9 +35,9 @@ import example.com.fan.utils.MzFinal;
 import example.com.fan.utils.TextViewColorUtils;
 import example.com.fan.utils.TitleUtils;
 import example.com.fan.utils.ToastUtil;
-import jp.wasabeef.glide.transformations.CropCircleTransformation;
 import okhttp3.Call;
 
+import static example.com.fan.utils.GlideImgUtils.getRequestOptions;
 import static example.com.fan.utils.IntentUtils.goHomePage;
 import static example.com.fan.utils.IntentUtils.goProjectIncomePage;
 import static example.com.fan.utils.JsonUtils.getCode;
@@ -228,7 +228,7 @@ public class CrowdActivity extends InitActivity implements homepageListener, Ite
             ImageView im = new ImageView(context);
             im.setLayoutParams(lp1);
             try {
-                Glide.with(getApplicationContext()).load(cb.getMcCrowdFundingTargets().get(i).getHeadImgUrl()).override(100, 100).bitmapTransform(new CropCircleTransformation(context)).into(im);
+                Glide.with(getApplicationContext()).load(cb.getMcCrowdFundingTargets().get(i).getHeadImgUrl()).apply(getRequestOptions(false, 100, 100,true)).into(im);
 
             } catch (Exception e) {
                 Log.i(TAG, "Glide You cannot start a load for a destroyed activity");

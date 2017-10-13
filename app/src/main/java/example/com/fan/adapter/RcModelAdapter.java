@@ -11,19 +11,13 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.resource.bitmap.CenterCrop;
-
 import java.util.List;
 
 import example.com.fan.R;
 import example.com.fan.bean.VrBean;
 import example.com.fan.mylistener.TwoParamaListener;
 import example.com.fan.utils.DeviceUtils;
-import example.com.fan.utils.GlideCircleTransform;
-import example.com.fan.view.GlideRoundTransform;
 
-import static example.com.fan.utils.SynUtils.getRouColors;
 import static example.com.fan.utils.SynUtils.getTAG;
 
 /**
@@ -94,19 +88,11 @@ public class RcModelAdapter extends RecyclerView.Adapter<RcModelAdapter.ViewHold
         holder.cover_img.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                tlistener.onGoPlayPage(mDataset.get(position).getUser_id(),mDataset.get(position).getFlag());
+                tlistener.onGoPlayPage(mDataset.get(position).getUser_id(), mDataset.get(position).getFlag());
             }
         });
         try {
-            Glide.with(context)
-                    .load(mDataset.get(position).getCoverPath())
-                    .transform(new CenterCrop(context), new GlideRoundTransform(context))
-                    .into(holder.cover_img);
 
-            Glide.with(context)
-                    .load(mDataset.get(position).getUser_headImgUrl())
-                    .transform(new GlideCircleTransform(context, 1, getRouColors(R.color.white)))
-                    .into(holder.icon_img);
         } catch (Exception e) {
             Log.i(TAG, "Glide You cannot start a load for a destroyed activity");
         }

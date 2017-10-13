@@ -2,17 +2,17 @@ package example.com.fan.utils;
 
 import android.content.Context;
 
-import com.bumptech.glide.Glide;
 import com.bumptech.glide.GlideBuilder;
-import com.bumptech.glide.module.GlideModule;
+import com.bumptech.glide.annotation.GlideModule;
+import com.bumptech.glide.module.AppGlideModule;
 
 import static example.com.fan.utils.SynUtils.getTAG;
 
 /**
  * Created by lian on 2017/5/18.
  */
-
-public class MyGlideModule implements GlideModule {
+@GlideModule
+public class MyGlideModule extends AppGlideModule {
 
     private static final String TAG = getTAG(MyGlideModule.class);
 
@@ -26,8 +26,8 @@ public class MyGlideModule implements GlideModule {
         builder.setDiskCache(new DiskLruCacheFactory(diskCachePath, diskCacheSize));*/
     }
 
-    @Override
+   /* @Override
     public void registerComponents(Context context, Glide glide) {
 
-    }
+    }*/
 }

@@ -37,7 +37,7 @@ public class MzFinal {
 
     public static final String br = "<br />";
     //支付宝支付接口存放数组;
-    public static String[] Alis = {MzFinal.ALIPAYCROWDFUNDING, MzFinal.ALIPAYOFFICIALSELL, MzFinal.ALIPAYPHOTO, MzFinal.ALIPAYVIP,MzFinal.ALIPAYMODELWX};
+    public static String[] Alis = {MzFinal.ALIPAYCROWDFUNDING, MzFinal.ALIPAYOFFICIALSELL, MzFinal.ALIPAYPHOTO, MzFinal.ALIPAYVIP, MzFinal.ALIPAYMODELWX};
 
 
     //尤女映画、支付宝APPID;
@@ -53,7 +53,7 @@ public class MzFinal {
     public static final String xiaoketang = "wx0703fd5e9c59b6b0";
 
     /**
-     * <p>
+     * <p/>
      * 尤女映画 WECHAT：wxc5790f30f6da0d43
      * 尤女映画 QQ：101409825
      */
@@ -483,6 +483,34 @@ public class MzFinal {
     /**
      * 根据模特获取他/她所属的私密照片或私密视频接口 ;
      */
-    public static final String GETPUBLISHRECORDBYMODEL2 = "v2_model/getPublishRecordByModel.app ";
+    public static final String GETPUBLISHRECORDBYMODEL2 = "v2_model/getPublishRecordByModel.app";
+    /**
+     * 申请模特认证接口 ;
+     */
+    public static final String MODELAPPLY = "user/modelApply.app";
+    /**
+     * 获取我的账号信息接口 ;
+     */
+    public static final String GETMYACCOUNT = "v2_model/getMyAccount.app";
+    /**
+     * 绑定、修改手机号的验证码接口 ;
+     */
+    public static final String CREATEMODIFYPHONECODE = "common/createModifyPhoneCode.app";
+    /**
+     * 检测用户是否绑定过手机接口 ;
+     */
+    public static final String CHECKPHONE = "user/checkPhone.app";
+    /**
+     * 修改/绑定用户手机号码 接口 ;
+     */
+    public static final String MODIFYPHONE = "user/modifyPhone.app";
+    /**
+     * 获取我的账提现明细接口 ;
+     */
+    public static final String GETCASHDETAILS = "v2_model/getCashDetails.app";
+    /**
+     * 获取我的提现明细接口 ;
+     */
+    public static final String GETMYCASHDETAILS = "v2_cash/getMyCashDetails.app";
 
 }

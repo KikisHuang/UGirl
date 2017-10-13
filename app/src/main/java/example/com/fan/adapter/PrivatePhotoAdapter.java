@@ -23,8 +23,8 @@ import example.com.fan.mylistener.ItemClickListener;
 import example.com.fan.mylistener.ShareRequestListener;
 import example.com.fan.utils.DeviceUtils;
 import example.com.fan.view.YuanJiaoImageView;
-import jp.wasabeef.glide.transformations.CropCircleTransformation;
 
+import static example.com.fan.utils.GlideImgUtils.getRequestOptions;
 import static example.com.fan.utils.SynUtils.getTAG;
 
 /**
@@ -129,17 +129,13 @@ public class PrivatePhotoAdapter extends RecyclerView.Adapter<PrivatePhotoAdapte
             if (!mDataset.get(position).getCoverPath().equals(holder.home_icon2.getTag(R.id.home_icon2))) {
                 Glide.with(context)
                         .load(mDataset.get(position).getCoverPath())
-                        .crossFade(200)
                         .into(holder.home_icon2);
                 holder.home_icon2.setTag(R.id.home_icon2, mDataset.get(position).getCoverPath());
             }
 
             Glide.with(context)
                     .load(mDataset.get(position).getUser_headImgUrl())
-                    .centerCrop()
-                    .bitmapTransform(new CropCircleTransformation(context))
-                    .crossFade(200)
-                    .override(50, 50)
+                    .apply(getRequestOptions(true, 50, 50,true))
                     .into(holder.icon_logo);
         } catch (Exception e) {
             Log.i(TAG, "Glide You cannot start a load for a destroyed activity");

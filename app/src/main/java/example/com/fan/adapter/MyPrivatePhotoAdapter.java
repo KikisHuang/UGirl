@@ -19,9 +19,9 @@ import example.com.fan.bean.ModelBean;
 import example.com.fan.mylistener.ItemClickListener;
 import example.com.fan.utils.DeviceUtils;
 import example.com.fan.utils.OverallViewHolder;
-import jp.wasabeef.glide.transformations.CropCircleTransformation;
 
 import static example.com.fan.utils.DateUtils.getMonthAndDay;
+import static example.com.fan.utils.GlideImgUtils.getRequestOptions;
 import static example.com.fan.utils.SynUtils.KswitchWay;
 import static example.com.fan.utils.SynUtils.getRouColors;
 import static example.com.fan.utils.SynUtils.getRouString;
@@ -98,7 +98,7 @@ public class MyPrivatePhotoAdapter extends BaseAdapter {
         type_tv.setTextColor(getRouColors(R.color.cherry1));
         sales_tv.setText(getRouString(R.string.sales) + KswitchWay(list.get(position).getSellCount()));
 
-        Glide.with(context).load(list.get(position).getModelCoverPath()).bitmapTransform(new CropCircleTransformation(context)).into(icon_logo);
+        Glide.with(context).load(list.get(position).getModelCoverPath()).apply(getRequestOptions(false, 0, 0,true)).into(icon_logo);
 
         name_tv.setText(list.get(position).getModelRealName());
         date_tv.setText(getMonthAndDay(list.get(position).getCreateTime()));
@@ -172,8 +172,7 @@ public class MyPrivatePhotoAdapter extends BaseAdapter {
         try {
             Glide.with(context)
                     .load(str)
-                    .centerCrop()
-                    .override(150, 150)
+                    .apply(getRequestOptions(true, 150, 150,false))
                     .into(img);
         } catch (Exception e) {
             Log.i(TAG, "Glide You cannot start a load for a destroyed activity");

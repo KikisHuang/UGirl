@@ -1,6 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <resources>
 
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="bar_grey">#393a3e</color>
+    <color name="color_f6">#f6f6f6</color>
+    <color name="transparent">#00000000</color>
+    <color name="blue">#7D7DFF</color>
+    <color name="color_fa">#fafafa</color>
+    <color name="divider">#B6B6B6</color>
+    <color name="color_c51">#f94c51</color>
+    <color name="color_green">#43c117</color>
+
+
     <!-- 辅助、内容、标签、关键字  -->
     <color name="content1">#999999</color>
     <!-- 主要文字、评论  -->
@@ -131,6 +144,7 @@
     <color name="cherry">#fc4094</color>
     <color name="cherry1">#fc4094</color>
     <color name="cherry2">#ec83c8</color>
+    <color name="cherry3">#f63354</color>
     <color name="home_bottom1">#666666</color>
     <color name="theme_color">#fee262</color>
     <color name="btn_red">#fc6676</color>
@@ -163,4 +177,55 @@
     <color name="actionsheet_blue">#037BFF</color>
     <color name="actionsheet_red">#FD4A2E</color>
     <color name="actionsheet_gray">#8F8F8F</color>
+
+
+    <!-- Photo Themes Colors -->
+    <color name="theme_white_primary">#FFFFFF</color>
+    <color name="theme_white_dark">#FFFFFF</color>
+    <color name="theme_white_accent">#000000</color>
+
+    <color name="theme_blue_primary">#2196F3</color>
+    <color name="theme_blue_dark">#1976D2</color>
+    <color name="theme_blue_accent">#FF4081</color>
+
+    <color name="theme_orange_primary">#FF5722</color>
+    <color name="theme_orange_dark">#E64A19</color>
+    <color name="theme_light_blue_accent">#FF4081</color>
+
+    <color name="theme_cyan_primary">#00BCD4</color>
+    <color name="theme_cyan_dark">#0097A7</color>
+    <color name="theme_cyan_accent">#FF4081</color>
+
+    <color name="theme_green_primary">#4CAF50</color>
+    <color name="theme_green_dark">#388E3C</color>
+    <color name="theme_green_accent">#FF4081</color>
+
+    <color name="theme_teal_primary">#009688</color>
+    <color name="theme_teal_dark">#00796B</color>
+    <color name="theme_teal_accent">#FF4081</color>
+
+    <color name="theme_red_primary">#da4336</color>
+    <color name="theme_red_dark">#b93221</color>
+    <color name="theme_red_accent">#3D5AFE</color>
+
+    <color name="theme_pink_primary">#E91E63</color>
+    <color name="theme_pink_dark">#C2185B</color>
+    <color name="theme_pink_accent">#3D5AFE</color>
+
+    <color name="theme_purple_primary">#673AB7</color>
+    <color name="theme_purple_dark">#512DA8</color>
+    <color name="theme_purple_accent">#FF4081</color>
+
+    <color name="theme_grey_primary">#616161</color>
+    <color name="theme_grey_dark">#424242</color>
+    <color name="theme_grey_accent">#00E676</color>
+
+    <color name="theme_black_primary">#2A2A2F</color>
+    <color name="theme_black_dark">#151515</color>
+    <color name="theme_black_accent">#FF4081</color>
+
+    <color name="theme_brown_primary">#785447</color>
+    <color name="theme_brown_dark">#5C3F36</color>
+    <color name="theme_blown_accent">#785447</color>
+
 </resources>

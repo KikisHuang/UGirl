@@ -59,13 +59,13 @@ import example.com.fan.view.Popup.CodePopupWindow;
 import example.com.fan.view.ViewPagerScroller;
 import example.com.fan.view.WrapContentHeightViewPager;
 import example.com.fan.view.dialog.AlertDialog;
-import jp.wasabeef.glide.transformations.CropCircleTransformation;
 import okhttp3.Call;
 
 import static com.sina.weibo.sdk.utils.ImageUtils.isWifi;
 import static example.com.fan.base.sign.save.SPreferences.getInViCode;
 import static example.com.fan.base.sign.save.SPreferences.saveInViCode;
 import static example.com.fan.utils.DeviceUtils.getWindowWidth;
+import static example.com.fan.utils.GlideImgUtils.getRequestOptions;
 import static example.com.fan.utils.IntentUtils.goHomePage;
 import static example.com.fan.utils.IntentUtils.goRankingPage;
 import static example.com.fan.utils.IntentUtils.goSearchPage;
@@ -399,17 +399,17 @@ public class PageFragment extends BaseFragment implements View.OnClickListener, 
                 switch (i) {
                     case 0:
                         im = ranking_img0;
-                        Glide.with(getActivity().getApplicationContext()).load(rklist.get(i).getHeadImgUrl()).centerCrop().bitmapTransform(new CropCircleTransformation(getActivity())).crossFade(300).into(im);
+                        Glide.with(getActivity().getApplicationContext()).load(rklist.get(i).getHeadImgUrl()).apply(getRequestOptions(true, 0, 0,true)).into(im);
 
                         break;
                     case 1:
                         im = ranking_img1;
-                        Glide.with(getActivity().getApplicationContext()).load(rklist.get(i).getHeadImgUrl()).centerCrop().bitmapTransform(new CropCircleTransformation(getActivity())).crossFade(300).into(im);
+                        Glide.with(getActivity().getApplicationContext()).load(rklist.get(i).getHeadImgUrl()).apply(getRequestOptions(true, 0, 0,true)).into(im);
 
                         break;
                     case 2:
                         im = ranking_img2;
-                        Glide.with(getActivity().getApplicationContext()).load(rklist.get(i).getHeadImgUrl()).centerCrop().bitmapTransform(new CropCircleTransformation(getActivity())).crossFade(300).into(im);
+                        Glide.with(getActivity().getApplicationContext()).load(rklist.get(i).getHeadImgUrl()).apply(getRequestOptions(true, 0, 0,true)).into(im);
 
                         break;
                 }

@@ -27,7 +27,6 @@
     <uses-permission android:name="android.permission.WAKE_LOCK" />
 
 
-
     <uses-permission android:name="android.permission.RECEIVE_USER_PRESENT" />
     <uses-permission android:name="android.permission.WRITE_SETTINGS" />
     <uses-permission android:name="android.permission.VIBRATE" />
@@ -60,14 +59,13 @@
     </service>
 
     <application
-        android:name="example.com.fan.MyAppcation"
+        android:name=".MyAppcation"
         android:allowBackup="true"
         android:icon="@mipmap/logo"
         android:label="@string/app_name"
         android:largeHeap="true"
         android:supportsRtl="true"
-        android:theme="@style/Theme.AppCompat.Light.NoActionBar"
-        >
+        android:theme="@style/Theme.AppCompat.Light.NoActionBar">
 
         <!-- 主页面 -->
         <activity
@@ -81,15 +79,15 @@
         <activity
             android:name="example.com.fan.activity.WelcomeActivity"
             android:screenOrientation="portrait">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <!-- 排行榜页面 -->
         <activity
             android:name="example.com.fan.activity.RankingActivity"
+            android:screenOrientation="portrait"></activity>
+        <!-- 超级用户上传视频、图集页面 -->
+        <activity
+            android:name="example.com.fan.activity.UserPhotoOfVideoUpLoadActivity"
             android:screenOrientation="portrait"></activity>
         <!-- 关注页面 -->
         <activity
@@ -106,6 +104,10 @@
         <!-- 热门模特页面 -->
         <activity
             android:name="example.com.fan.activity.HostModelActivity"
+            android:screenOrientation="portrait"></activity>
+        <!-- 账户明细页面 -->
+        <activity
+            android:name="example.com.fan.activity.Account_detailsActivity"
             android:screenOrientation="portrait"></activity>
         <!-- 个人信息修改页面 -->
         <activity
@@ -148,18 +150,15 @@
         <!-- 上传照片页面 -->
         <activity
             android:name="example.com.fan.activity.UploadPhotoActivity"
-            android:screenOrientation="portrait">
-        </activity>
+            android:screenOrientation="portrait"></activity>
         <!-- 认证页面 -->
         <activity
             android:name="example.com.fan.activity.AttestationActivity"
-            android:screenOrientation="portrait">
-        </activity>
+            android:screenOrientation="portrait"></activity>
         <!-- 新的订单页面 -->
         <activity
             android:name="example.com.fan.activity.NewsOrderActivity"
-            android:screenOrientation="portrait">
-        </activity>
+            android:screenOrientation="portrait"></activity>
         <!-- 测试页面 -->
         <activity
             android:name="example.com.fan.activity.TestActivity"
@@ -167,6 +166,11 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar">
 
+        </activity>
+        <!-- 选择器页面 -->
+        <activity
+            android:name="example.com.fan.activity.TimeSelectActivity"
+            android:screenOrientation="portrait">
         </activity>
         <!-- 商品详情页面 -->
         <activity
@@ -284,6 +288,21 @@
         <activity
             android:name="example.com.fan.activity.OutSideActivity"
             android:screenOrientation="portrait"></activity>
+        <!-- 超级玩家页面 -->
+        <activity
+            android:name="example.com.fan.activity.SGamerActivity"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <!-- 超级玩家页面 -->
+        <activity
+            android:name=".activity.SuperUserPhotoOfVideoActivity"
+            android:screenOrientation="portrait">
+        </activity>
 
         <!--  微信-->
         <activity
@@ -370,7 +389,7 @@
             android:permission="android.permission.BIND_JOB_SERVICE" />
         <meta-data
             android:name="example.com.fan.utils.MyGlideModule"
-            android:value="GlideModule" />
+            android:value="AppGlideModule" />
 
         <provider
             android:name="android.support.v4.content.FileProvider"

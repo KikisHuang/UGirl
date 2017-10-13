@@ -178,6 +178,17 @@ Copyright  2012\n
     <string name="next_step">下一步</string>
     <string name="bangdin">绑定</string>
     <string name="moods_index">人气指数：</string>
+    <string name="comment_apply">提交申请</string>
+    <string name="verify">确认</string>
+    <string name="apply_for_super_user">申请成为超级玩家</string>
+    <string name="my_production">我的作品</string>
+    <string name="income">收入</string>
+    <string name="photo">相册</string>
+    <string name="unaudit">未审核</string>
+    <string name="audit">审核</string>
+    <string name="refuse">拒绝</string>
+    <string name="unissue">未发布</string>
+    <string name="issue">已发布</string>
 
 
     <dimen name="size1">1px</dimen>

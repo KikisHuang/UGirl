@@ -18,8 +18,8 @@ import example.com.fan.R;
 import example.com.fan.bean.SearchBean;
 import example.com.fan.mylistener.SearchItemListener;
 import example.com.fan.utils.OverallViewHolder;
-import jp.wasabeef.glide.transformations.CropCircleTransformation;
 
+import static example.com.fan.utils.GlideImgUtils.getRequestOptions;
 import static example.com.fan.utils.SynUtils.getRouString;
 import static example.com.fan.utils.SynUtils.getTAG;
 
@@ -71,9 +71,7 @@ public class SearchAdapter extends BaseAdapter {
         try {
             Glide.with(context)
                     .load(list.get(position).getCoverPath())
-                    .override(100, 100)
-                    .bitmapTransform(new CropCircleTransformation(context))
-                    .crossFade(200)
+                    .apply(getRequestOptions(false, 100, 100,true))
                     .into(icon_img);
         } catch (Exception e) {
             Log.i(TAG, "Glide You cannot start a load for a destroyed activity");

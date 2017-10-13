@@ -10,6 +10,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.google.gson.Gson;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
@@ -38,6 +39,7 @@ import example.com.fan.view.Popup.WeChatNumPayPopupWindow;
 import example.com.fan.view.PullToZoomListView;
 import okhttp3.Call;
 
+import static example.com.fan.utils.GlideImgUtils.getRequestOptions;
 import static example.com.fan.utils.IntentUtils.goPhotoPage;
 import static example.com.fan.utils.IntentUtils.goPlayerPage;
 import static example.com.fan.utils.IntentUtils.goPrivatePhotoPage;
@@ -98,7 +100,7 @@ public class HomePageActivity extends BaseActivity implements ItemClickListener,
         ImageView img = listView.getHeaderView();
         img.setScaleType(ImageView.ScaleType.CENTER_CROP);
         try {
-            Glide.with(getApplicationContext()).load(cover).override(1296, 1080).into(img);
+            Glide.with(getApplicationContext()).load(cover).apply(getRequestOptions(false, 1296, 1080,false)).into(img);
         } catch (Exception e) {
             Log.i(TAG, "Glide You cannot start a load for a destroyed activity");
         }
@@ -174,7 +176,9 @@ public class HomePageActivity extends BaseActivity implements ItemClickListener,
                                     attention_tv.setText(getRouString(R.string.attention) + "Ta");
 
                                 try {
-                                    Glide.with(getApplicationContext()).load(mib.getMcUser().getHeadImgUrl()).transform(new GlideCircleTransform(HomePageActivity.this, 1, getRouColors(R.color.white))).crossFade(200).into(home_page_icon);
+                                    RequestOptions options = new RequestOptions();
+                                    options.transform(new GlideCircleTransform(HomePageActivity.this, 1, getRouColors(R.color.white)));
+                                    Glide.with(getApplicationContext()).load(mib.getMcUser().getHeadImgUrl()).apply(options).into(home_page_icon);
 
                                 } catch (Exception e) {
                                     Log.i(TAG, "Glide You cannot start a load for a destroyed activity");

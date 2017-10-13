@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:ripple="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@null"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/lucency_black"
+        android:gravity="left"
+        android:orientation="vertical"
+        android:padding="10dp"
+        android:paddingTop="10dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="40dp"
+            android:layout_marginBottom="19dp"
+            android:text="投稿功能目前仅对超级玩家开发，请提供一张手写“尤女郎”举牌照申请成为超级玩家"
+            android:textColor="@color/white"
+            android:textSize="18dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:text=">超级玩家投稿1张图片奖励1元红包"
+            android:textColor="@color/white"
+            android:textSize="14dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=">超级玩家可微信提现"
+            android:textColor="@color/white"
+            android:textSize="14dp" />
+
+        <TextView
+            android:id="@+id/wx_number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=">每1部视频投稿奖励5元红包，可微信提现"
+            android:textColor="@color/white"
+            android:textSize="14dp" />
+
+        <ImageView
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="50dp"
+            android:src="@drawable/test_icon2" />
+
+        <example.com.fan.view.RippleView
+            android:id="@+id/apply_for_button"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_centerInParent="true"
+            android:layout_gravity="center|bottom"
+            android:layout_marginBottom="20dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="30dp"
+            android:background="@drawable/cherry_corner6"
+            android:gravity="center"
+            android:text="@string/apply_for_super_user"
+            android:textColor="@color/white"
+            android:textSize="17dp"
+            ripple:alphaFactor="0.5"
+            ripple:hover="false"
+            ripple:rippleColor="@color/white" />
+
+        <ImageView
+            android:id="@+id/close_img"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center|bottom"
+            android:src="@mipmap/close_icon" />
+    </LinearLayout>
+
+</FrameLayout>

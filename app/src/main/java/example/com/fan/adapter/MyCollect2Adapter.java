@@ -20,8 +20,8 @@ import example.com.fan.fragment.son.MyCollectFragment;
 import example.com.fan.mylistener.DeleteListener;
 import example.com.fan.mylistener.ItemClickListener;
 import example.com.fan.utils.OverallViewHolder;
-import jp.wasabeef.glide.transformations.CropCircleTransformation;
 
+import static example.com.fan.utils.GlideImgUtils.getRequestOptions;
 import static example.com.fan.utils.SynUtils.getTAG;
 
 /**
@@ -79,14 +79,12 @@ public class MyCollect2Adapter extends BaseAdapter {
         try {
             Glide.with(context)
                     .load(list.get(position).getCoverPath())
-                    .centerCrop()
+                    .apply(getRequestOptions(true, 0, 0,false))
                     .thumbnail(0.1f)
                     .into(cover_img);
             Glide.with(context)
                     .load(list.get(position).getUserHeadImgUrl())
-                    .centerCrop()
-                    .bitmapTransform(new CropCircleTransformation(context))
-                    .override(50, 50)
+                    .apply(getRequestOptions(true, 50, 50,true))
                     .into(nike_icon);
         } catch (Exception e) {
             Log.i(TAG, "Glide You cannot start a load for a destroyed activity");

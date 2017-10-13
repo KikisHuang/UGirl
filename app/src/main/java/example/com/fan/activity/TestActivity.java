@@ -2,13 +2,14 @@ package example.com.fan.activity;
 
 import android.annotation.TargetApi;
 import android.os.Build;
+import android.util.Log;
 import android.view.View;
-import android.widget.TextView;
+import android.widget.Button;
+import android.widget.ImageView;
 
-import example.com.fan.MyAppcation;
 import example.com.fan.R;
-import example.com.fan.utils.ToastUtil;
 
+import static example.com.fan.utils.SynUtils.getRingDuring;
 import static example.com.fan.utils.SynUtils.getTAG;
 
 /**
@@ -17,22 +18,25 @@ import static example.com.fan.utils.SynUtils.getTAG;
  */
 public class TestActivity extends InitActivity implements View.OnClickListener {
     private static final String TAG = getTAG(TestActivity.class);
-    private TextView textview;
+    private Button share_bt;
+    private ImageView img;
 
     @Override
     protected void click() {
-        textview.setOnClickListener(this);
+        share_bt.setOnClickListener(this);
     }
 
     @Override
     protected void init() {
         setContentView(R.layout.test_layout);
-        textview = f(R.id.textview);
-
+        share_bt = f(R.id.share_bt);
+        img = f(R.id.img);
     }
 
     @Override
     protected void initData() {
+
+
     }
 
 
@@ -40,10 +44,9 @@ public class TestActivity extends InitActivity implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.textview:
-                ToastUtil.toast2_bottom(this, MyAppcation.CHANNEL);
+            case R.id.share_bt:
+                Log.i(TAG, "时长 ===== " + getRingDuring("/storage/emulated/0/video/6dianban.mp4"));
                 break;
         }
     }
-
 }

@@ -31,9 +31,9 @@ import example.com.fan.utils.DeviceUtils;
 import example.com.fan.utils.MzFinal;
 import example.com.fan.utils.ToastUtil;
 import example.com.fan.view.Popup.CommentEditPopupWindow;
-import jp.wasabeef.glide.transformations.CropCircleTransformation;
 import okhttp3.Call;
 
+import static example.com.fan.utils.GlideImgUtils.getRequestOptions;
 import static example.com.fan.utils.JsonUtils.getCode;
 import static example.com.fan.utils.JsonUtils.getJsonAr;
 import static example.com.fan.utils.SpringUtils.SpringViewInit;
@@ -172,9 +172,9 @@ public class CommentFragment extends BaseFragment implements editeListener, Spri
             ImageView img = new ImageView(getActivity());
             try {
                 if (cb.getHeadImgUrl().isEmpty() || cb.getHeadImgUrl() == null)
-                    Glide.with(getActivity().getApplicationContext()).load(R.mipmap.test_icon).override(45, 45).bitmapTransform(new CropCircleTransformation(getActivity())).crossFade(500).into(img);
+                    Glide.with(getActivity().getApplicationContext()).load(R.mipmap.test_icon).apply(getRequestOptions(false, 45, 45,true)).into(img);
                 else
-                    Glide.with(getActivity().getApplicationContext()).load(cb.getHeadImgUrl()).override(45, 45).bitmapTransform(new CropCircleTransformation(getActivity())).crossFade(500).into(img);
+                    Glide.with(getActivity().getApplicationContext()).load(cb.getHeadImgUrl()).apply(getRequestOptions(false, 45, 45,true)).into(img);
             } catch (Exception e) {
                 Log.i(TAG, "Glide You cannot start a load for a destroyed activity");
             }

@@ -32,11 +32,11 @@ import example.com.fan.utils.MzFinal;
 import example.com.fan.utils.ToastUtil;
 import example.com.fan.view.RippleView;
 import example.com.fan.view.dialog.ActionSheetDialog;
-import jp.wasabeef.glide.transformations.CropCircleTransformation;
 import okhttp3.Call;
 
 import static example.com.fan.base.sign.save.SPreferences.getInViCode;
 import static example.com.fan.base.sign.save.SPreferences.saveInViCode;
+import static example.com.fan.utils.GlideImgUtils.getRequestOptions;
 import static example.com.fan.utils.JsonUtils.NullDispose;
 import static example.com.fan.utils.JsonUtils.getCode;
 import static example.com.fan.utils.JsonUtils.getJsonOb;
@@ -196,9 +196,9 @@ public class PersonalInfoActivity extends InitActivity implements View.OnClickLi
         info_name.setText(receiveName);
         try {
             if (!getIntent().getStringExtra("person_icon").isEmpty())
-                Glide.with(getApplicationContext()).load(getIntent().getStringExtra("person_icon")).bitmapTransform(new CropCircleTransformation(this)).into(user_icon);
+                Glide.with(getApplicationContext()).load(getIntent().getStringExtra("person_icon")).apply(getRequestOptions(false, 0, 0,true)).into(user_icon);
             else
-                Glide.with(getApplicationContext()).load(R.mipmap.test_icon).bitmapTransform(new CropCircleTransformation(this)).into(user_icon);
+                Glide.with(getApplicationContext()).load(R.mipmap.test_icon).apply(getRequestOptions(false, 0, 0,true)).into(user_icon);
 
         } catch (Exception e) {
             Log.i(TAG, "Glide You cannot start a load for a destroyed activity");
@@ -226,19 +226,6 @@ public class PersonalInfoActivity extends InitActivity implements View.OnClickLi
                 break;
             case R.id.user_icon:
                 PhotoPictureDialog(this, true, 101);
-             /*   new ActionSheetDialog(this).builder().
-                        addSheetItem("相册", ActionSheetDialog.SheetItemColor.Blue, new ActionSheetDialog.OnSheetItemClickListener() {
-                            @Override
-                            public void onClick(int which) {
-                                goUploadPhotoPage(PersonalInfoActivity.this, "0", Cut);
-                            }
-                        }).addSheetItem("相机", ActionSheetDialog.SheetItemColor.Blue, new ActionSheetDialog.OnSheetItemClickListener() {
-                    @Override
-                    public void onClick(int which) {
-                        goUploadPhotoPage(PersonalInfoActivity.this, "1", Cut);
-                    }
-                }).show();
-*/
                 break;
             case R.id.clear_img:
                 info_name.setText("");
@@ -412,7 +399,7 @@ public class PersonalInfoActivity extends InitActivity implements View.OnClickLi
                             Cancle();
                             if (code == 1) {
                                 try {
-                                    Glide.with(getApplicationContext()).load(path).bitmapTransform(new CropCircleTransformation(PersonalInfoActivity.this)).crossFade(300).into(user_icon);
+                                    Glide.with(getApplicationContext()).load(path).apply(getRequestOptions(false, 0, 0,true)).into(user_icon);
                                 } catch (Exception e) {
                                     Log.i(TAG, "Glide You cannot start a load for a destroyed activity");
                                 }

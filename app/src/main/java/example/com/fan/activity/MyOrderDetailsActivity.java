@@ -23,6 +23,7 @@ import example.com.fan.utils.MzFinal;
 import example.com.fan.utils.ToastUtil;
 import okhttp3.Call;
 
+import static example.com.fan.utils.GlideImgUtils.getRequestOptions;
 import static example.com.fan.utils.JsonUtils.NullDispose;
 import static example.com.fan.utils.JsonUtils.getCode;
 import static example.com.fan.utils.JsonUtils.getJsonOb;
@@ -78,7 +79,7 @@ public class MyOrderDetailsActivity extends InitActivity {
         }
         order_state.setText(state);
         try {
-            Glide.with(this).load(mb.getImg()).override(100, 100).centerCrop().crossFade(200).into(order_img);
+            Glide.with(this).load(mb.getImg()).apply(getRequestOptions(true, 100, 100,false)).into(order_img);
         } catch (Exception e) {
             Log.i(TAG, "Glide You cannot start a load for a destroyed activity");
         }

@@ -16,8 +16,8 @@ import com.bumptech.glide.Glide;
 
 import example.com.fan.R;
 import example.com.fan.utils.MzFinal;
-import jp.wasabeef.glide.transformations.CropCircleTransformation;
 
+import static example.com.fan.utils.GlideImgUtils.getRequestOptions;
 import static example.com.fan.utils.SynUtils.getTAG;
 
 
@@ -94,7 +94,7 @@ public class WeChatNumPayPopupWindow implements View.OnClickListener {
         price_tv.setText("她的微信号价格为" + price + "元哦！！");
 
         model_name.setText(name);
-        Glide.with(context).load(iconUrl).bitmapTransform(new CropCircleTransformation(context)).into(head_img);
+        Glide.with(context).load(iconUrl).apply(getRequestOptions(false, 0, 0,true)).into(head_img);
     }
 
     /**

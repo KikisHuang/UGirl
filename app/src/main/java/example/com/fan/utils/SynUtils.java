@@ -12,17 +12,24 @@ import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.content.res.Resources;
 import android.content.res.XmlResourceParser;
+import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
+import android.media.MediaMetadataRetriever;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Build;
+import android.os.Environment;
 import android.os.Handler;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.telephony.TelephonyManager;
+import android.text.SpannableString;
+import android.text.Spanned;
+import android.text.style.ForegroundColorSpan;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
@@ -30,15 +37,21 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
+import com.sina.weibo.sdk.utils.LogUtil;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.text.DecimalFormat;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Timer;
 import java.util.UUID;
@@ -708,12 +721,12 @@ public class SynUtils {
                 addSheetItem("相册", ActionSheetDialog.SheetItemColor.Blue, new ActionSheetDialog.OnSheetItemClickListener() {
                     @Override
                     public void onClick(int which) {
-                        goUploadPhotoPage(context, "0",Cut, page);
+                        goUploadPhotoPage(context, "0", Cut, page);
                     }
                 }).addSheetItem("相机", ActionSheetDialog.SheetItemColor.Blue, new ActionSheetDialog.OnSheetItemClickListener() {
             @Override
             public void onClick(int which) {
-                goUploadPhotoPage(context, "1",Cut,page);
+                goUploadPhotoPage(context, "1", Cut, page);
             }
         }).show();
     }
@@ -723,5 +736,95 @@ public class SynUtils {
             activity.finishAfterTransition();
         else
             activity.finish();
+    }
+
+    public static void ChangeTextViewColors(String content, String color, int start, int end, TextView tv) {
+        SpannableString spannableString = new SpannableString(content);
+        spannableString.setSpan(new ForegroundColorSpan(Color.parseColor(color)), start, end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        tv.setText(spannableString);
+    }
+
+    /**
+     * 随机抓取视频帧数图片;
+     *
+     * @param filePath
+     * @return
+     */
+    public static Bitmap getVideoThumbnail(String filePath, int timeMs) {
+        Bitmap bitmap = null;
+        try {
+            MediaMetadataRetriever retriever = new MediaMetadataRetriever();
+            retriever.setDataSource(filePath);
+            for (long i = timeMs; i < getRingDuring(filePath); i += 1000) {
+                bitmap = retriever.getFrameAtTime(i * 1000, MediaMetadataRetriever.OPTION_CLOSEST_SYNC);
+                if (bitmap != null) {
+                    retriever.release();
+                    break;
+                }
+            }
+        } catch (Exception e) {
+            return null;
+        }
+        return bitmap;
+    }
+
+    /**
+     * 获取视频毫秒;
+     *
+     * @param mUri
+     * @return
+     */
+    public static int getRingDuring(String mUri) {
+        String duration = null;
+        android.media.MediaMetadataRetriever mmr = new android.media.MediaMetadataRetriever();
+
+        try {
+            if (mUri != null) {
+                HashMap<String, String> headers = null;
+                if (headers == null) {
+                    headers = new HashMap<String, String>();
+                    headers.put("User-Agent", "Mozilla/5.0 (Linux; U; Android 4.4.2; zh-CN; MW-KW-001 Build/JRO03C) AppleWebKit/533.1 (KHTML, like Gecko) Version/4.0 UCBrowser/1.0.0.001 U4/0.8.0 Mobile Safari/533.1");
+                }
+                mmr.setDataSource(mUri, headers);
+            }
+
+            duration = mmr.extractMetadata(android.media.MediaMetadataRetriever.METADATA_KEY_DURATION);
+        } catch (Exception ex) {
+        } finally {
+            mmr.release();
+        }
+        LogUtil.e("ryan", "duration " + duration);
+        return Integer.valueOf(duration);
+    }
+
+    /**
+     * 将bitmap保存到本地;
+     *
+     * @param bmp
+     * @return File
+     */
+    public static String saveImage(Bitmap bmp) {
+        File appDir = new File(Environment.getExternalStorageDirectory(), "Boohee");
+        if (!appDir.exists()) {
+            appDir.mkdir();
+        }
+        String fileName = System.currentTimeMillis() + ".jpg";
+        File file = new File(appDir, fileName);
+        try {
+            FileOutputStream fos = new FileOutputStream(file);
+            bmp.compress(Bitmap.CompressFormat.JPEG, 100, fos);
+            fos.flush();
+            fos.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+            return null;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        } catch (Exception e) {
+            return null;
+        }
+
+        return appDir + "/" + fileName;
     }
 }

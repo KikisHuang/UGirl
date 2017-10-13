@@ -36,9 +36,9 @@ import example.com.fan.utils.TitleUtils;
 import example.com.fan.utils.ToastUtil;
 import example.com.fan.view.Popup.AliWechatPopupWindow;
 import example.com.fan.view.dialog.AlertDialog;
-import jp.wasabeef.glide.transformations.CropCircleTransformation;
 import okhttp3.Call;
 
+import static example.com.fan.utils.GlideImgUtils.getRequestOptions;
 import static example.com.fan.utils.IntentUtils.goPersonInfoPage;
 import static example.com.fan.utils.JsonUtils.getCode;
 import static example.com.fan.utils.JsonUtils.getJsonOb;
@@ -243,7 +243,7 @@ public class PayActivity extends InitActivity implements PayRefreshListener {
         tv.setLayoutParams(lp2);
 
         try {
-            Glide.with(getApplicationContext()).load(mcVipDescribes.getIconUrl()).bitmapTransform(new CropCircleTransformation(this)).crossFade(200).into(img);
+            Glide.with(getApplicationContext()).load(mcVipDescribes.getIconUrl()).apply(getRequestOptions(false, 0, 0,true)).into(img);
         } catch (Exception e) {
             Log.i(TAG, "Glide You cannot start a load for a destroyed activity");
         }

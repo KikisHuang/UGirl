@@ -18,8 +18,8 @@ import example.com.fan.R;
 import example.com.fan.bean.RankingBean;
 import example.com.fan.mylistener.ItemClickListener;
 import example.com.fan.utils.OverallViewHolder;
-import jp.wasabeef.glide.transformations.CropCircleTransformation;
 
+import static example.com.fan.utils.GlideImgUtils.getRequestOptions;
 import static example.com.fan.utils.SynUtils.getRouString;
 import static example.com.fan.utils.SynUtils.getTAG;
 
@@ -76,7 +76,7 @@ public class RankingAdapter extends BaseAdapter {
         if (position > 2) {
             ranking_layout.setVisibility(View.VISIBLE);
             try {
-                Glide.with(context).load(list.get(position).getHeadImgUrl()).bitmapTransform(new CropCircleTransformation(context)).crossFade(1000).into(nike_icon);
+                Glide.with(context).load(list.get(position).getHeadImgUrl()).apply(getRequestOptions(false, 0, 0,true)).into(nike_icon);
 
             } catch (Exception e) {
                 Log.i(TAG, "Glide You cannot start a load for a destroyed activity");

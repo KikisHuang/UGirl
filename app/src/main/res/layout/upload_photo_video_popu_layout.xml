@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:ripple="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@null"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:gravity="left"
+        android:orientation="vertical"
+        android:padding="10dp"
+        android:paddingTop="10dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center|left"
+            android:layout_marginBottom="5dp"
+            android:layout_marginTop="40dp"
+            android:text="制作好打赏相册活视频，"
+            android:textColor="@color/content4"
+            android:textSize="17dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="分享到"
+                android:textColor="@color/black"
+                android:textSize="18dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="微博"
+                android:textColor="@color/cherry3"
+                android:textSize="18dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="或"
+                android:textColor="@color/black"
+                android:textSize="18dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="朋友圈"
+                android:textColor="@color/cherry3"
+                android:textSize="18dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="能赚更多钱哟"
+                android:textColor="@color/black"
+                android:textSize="18dp" />
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="严禁上传违法违规信息，一经发现立即删除作品并立即封号处理"
+            android:textColor="@color/content4"
+            android:textSize="12dp"
+
+            />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="80dp"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/photo_img"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:src="@mipmap/photo_cherry_icon" />
+
+            <ImageView
+                android:id="@+id/video_img"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="60dp"
+                android:src="@mipmap/video_cherry_icon" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <FrameLayout
+        android:id="@+id/close_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center|bottom"
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/cherry_corner7"
+        android:paddingLeft="7dp"
+        android:paddingRight="7dp">
+
+        <ImageView
+            android:id="@+id/close_img"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@mipmap/delete_icon3" />
+    </FrameLayout>
+</FrameLayout>

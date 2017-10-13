@@ -2,6 +2,7 @@ package example.com.fan.fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
@@ -30,35 +31,33 @@ import example.com.fan.utils.DeviceUtils;
 import example.com.fan.utils.ListenerManager;
 import example.com.fan.utils.MzFinal;
 import example.com.fan.utils.ToastUtil;
+import example.com.fan.view.Popup.ApplySuperUserPopupWindow;
 import example.com.fan.view.Popup.PayPopupWindow;
 import example.com.fan.view.Popup.SharePopupWindow;
-import jp.wasabeef.glide.transformations.CropCircleTransformation;
 import okhttp3.Call;
 
 import static example.com.fan.utils.BannerUtils.goBannerPage;
+import static example.com.fan.utils.GlideImgUtils.getRequestOptions;
 import static example.com.fan.utils.IntentUtils.goAttentionPage;
 import static example.com.fan.utils.IntentUtils.goLoginPage;
 import static example.com.fan.utils.IntentUtils.goMyCollectPage;
 import static example.com.fan.utils.IntentUtils.goMyOrderPage;
-import static example.com.fan.utils.IntentUtils.goMyPrivatePhotoPage;
-import static example.com.fan.utils.IntentUtils.goMyVideoPage;
 import static example.com.fan.utils.IntentUtils.goOverPayPage;
 import static example.com.fan.utils.IntentUtils.goPayPage;
 import static example.com.fan.utils.IntentUtils.goPersonInfoPage2;
 import static example.com.fan.utils.IntentUtils.goRegisterPage;
-import static example.com.fan.utils.IntentUtils.goRzPage;
+import static example.com.fan.utils.IntentUtils.goSGamerPage;
 import static example.com.fan.utils.IntentUtils.goSettingPage;
 import static example.com.fan.utils.IntentUtils.goStorePage;
 import static example.com.fan.utils.IntentUtils.goUnReadPage;
-import static example.com.fan.utils.IntentUtils.goUpPrivatePhotoPage;
 import static example.com.fan.utils.IntentUtils.goVipPage;
-import static example.com.fan.utils.IntentUtils.goWeChatPage;
 import static example.com.fan.utils.JsonUtils.getCode;
 import static example.com.fan.utils.JsonUtils.getJsonAr;
 import static example.com.fan.utils.JsonUtils.getJsonOb;
 import static example.com.fan.utils.StringUtil.cleanNull;
 import static example.com.fan.utils.SynUtils.Login;
 import static example.com.fan.utils.SynUtils.LoginStatusQuery;
+import static example.com.fan.utils.SynUtils.getRouString;
 import static example.com.fan.utils.SynUtils.getSex;
 import static example.com.fan.utils.SynUtils.getTAG;
 import static example.com.fan.utils.SynUtils.getUserVip;
@@ -70,14 +69,17 @@ import static example.com.fan.utils.TextViewColorUtils.setTextColor1;
  */
 public class MyFragment extends BaseFragment implements View.OnClickListener, ChangeUserInfoListener, OverallRefreshListener {
     private static final String TAG = getTAG(MyFragment.class);
-    private TextView attention_tv, account_tv, rank_tv, login_tv, register_tv, user_name, acoount_line;
+    private TextView attention_tv, account_tv, rank_tv, login_tv, register_tv, user_name, acoount_line, super_tv;
     private ImageView user_icon, ad_img;
-    private RelativeLayout rl_layout1, rl_layout2, rl_layout3, rl_layout4, rl_layout5, rl_layout6, rl_layout7, rl_layout8, login_rl, rl_layout33;
-    private RelativeLayout rl_layout10, rl_layout11, rl_layout12, rl_layout13;
+    private RelativeLayout rl_layout0, rl_layout1, rl_layout2, rl_layout3, rl_layout4, rl_layout5, rl_layout6, rl_layout7, rl_layout8, login_rl, rl_layout33;
+    //    private RelativeLayout rl_layout10, rl_layout11, rl_layout12, rl_layout13;
     private LinearLayout unlogin_ll, account_number_layout, compile_layout;
     public static MyFragment fragment;
     private List<UserInfoBean> info;
-    private TextView upload_private, upload_video;
+    //    private TextView upload_private, upload_video;
+    private Button apply_for_bt;
+    private ImageView more_icon0;
+
 
     @Override
     protected int initContentView() {
@@ -153,6 +155,7 @@ public class MyFragment extends BaseFragment implements View.OnClickListener, Ch
         register_tv.setOnClickListener(this);
         compile_layout.setOnClickListener(this);
 
+        rl_layout0.setOnClickListener(this);
         rl_layout1.setOnClickListener(this);
         rl_layout2.setOnClickListener(this);
         rl_layout3.setOnClickListener(this);
@@ -163,13 +166,13 @@ public class MyFragment extends BaseFragment implements View.OnClickListener, Ch
         rl_layout8.setOnClickListener(this);
         rl_layout33.setOnClickListener(this);
 
-        rl_layout10.setOnClickListener(this);
-        rl_layout11.setOnClickListener(this);
-        rl_layout12.setOnClickListener(this);
-        rl_layout13.setOnClickListener(this);
+//        rl_layout10.setOnClickListener(this);
+//        rl_layout11.setOnClickListener(this);
+//        rl_layout12.setOnClickListener(this);
+//        rl_layout13.setOnClickListener(this);
 
-        upload_video.setOnClickListener(this);
-        upload_private.setOnClickListener(this);
+//        upload_video.setOnClickListener(this);
+//        upload_private.setOnClickListener(this);
     }
 
     private void getData() {
@@ -235,19 +238,27 @@ public class MyFragment extends BaseFragment implements View.OnClickListener, Ch
                                     UserInfoBean ub = new Gson().fromJson(String.valueOf(ob), UserInfoBean.class);
                                     info.add(ub);
 
-                                    if (ub.getModelFlag() == 1)
+                                    if (ub.getModelFlag() == 1) {
                                         MzFinal.MODELFLAG = true;
-                                    else
+                                        more_icon0.setVisibility(View.VISIBLE);
+                                        apply_for_bt.setVisibility(View.GONE);
+                                        super_tv.setText(getRouString(R.string.my_production));
+                                    } else {
                                         MzFinal.MODELFLAG = false;
+                                        more_icon0.setVisibility(View.GONE);
+                                        apply_for_bt.setVisibility(View.VISIBLE);
+                                        super_tv.setText(getRouString(R.string.apply_for_super_user));
+                                    }
+
                                     MzFinal.MYID = ub.getId();
                                     setTextColor1(account_tv, info.get(0).getBalance() + MzFinal.br, "我的账户", "#FF4D87");
                                     setTextColor1(rank_tv, info.get(0).getCommentLevel() + MzFinal.br, "等级", "#000000");
                                     MyAppcation.UserIcon = ub.getHeadImgUrl();
                                     MyAppcation.myInvitationCode = ub.getMyInvitationCode();
                                     if (info.get(0).getHeadImgUrl() == null)
-                                        Glide.with(getActivity().getApplicationContext()).load(R.mipmap.test_icon).bitmapTransform(new CropCircleTransformation(getActivity())).into(user_icon);
+                                        Glide.with(getActivity().getApplicationContext()).load(R.mipmap.test_icon).apply(getRequestOptions(false, 0, 0,true)).into(user_icon);
                                     else
-                                        Glide.with(getActivity().getApplicationContext()).load(info.get(0).getHeadImgUrl()).bitmapTransform(new CropCircleTransformation(getActivity())).into(user_icon);
+                                        Glide.with(getActivity().getApplicationContext()).load(info.get(0).getHeadImgUrl()).apply(getRequestOptions(false, 0, 0,true)).into(user_icon);
                                     if (cleanNull(info.get(0).getName()))
                                         user_name.setText("");
                                     else
@@ -286,15 +297,18 @@ public class MyFragment extends BaseFragment implements View.OnClickListener, Ch
 
         account_number_layout = (LinearLayout) view.findViewById(R.id.account_number_layout);
         compile_layout = (LinearLayout) view.findViewById(R.id.compile_layout);
-
+        apply_for_bt = (Button) view.findViewById(R.id.apply_for_bt);
+        super_tv = (TextView) view.findViewById(R.id.super_tv);
+        more_icon0 = (ImageView) view.findViewById(R.id.more_icon0);
         user_icon = (ImageView) view.findViewById(R.id.user_icon);
         user_name = (TextView) view.findViewById(R.id.user_name);
 
-        upload_private = (TextView) view.findViewById(R.id.upload_private);
-        upload_video = (TextView) view.findViewById(R.id.upload_video);
+    /*    upload_private = (TextView) view.findViewById(R.id.upload_private);
+        upload_video = (TextView) view.findViewById(R.id.upload_video);*/
 
         ad_img = (ImageView) view.findViewById(R.id.ad_img);
 
+        rl_layout0 = (RelativeLayout) view.findViewById(R.id.rl_layout0);
         rl_layout1 = (RelativeLayout) view.findViewById(R.id.rl_layout1);
         rl_layout2 = (RelativeLayout) view.findViewById(R.id.rl_layout2);
         rl_layout3 = (RelativeLayout) view.findViewById(R.id.rl_layout3);
@@ -304,10 +318,10 @@ public class MyFragment extends BaseFragment implements View.OnClickListener, Ch
         rl_layout7 = (RelativeLayout) view.findViewById(R.id.rl_layout7);
         rl_layout8 = (RelativeLayout) view.findViewById(R.id.rl_layout8);
 
-        rl_layout10 = (RelativeLayout) view.findViewById(R.id.rl_layout10);
-        rl_layout11 = (RelativeLayout) view.findViewById(R.id.rl_layout11);
-        rl_layout12 = (RelativeLayout) view.findViewById(R.id.rl_layout12);
-        rl_layout13 = (RelativeLayout) view.findViewById(R.id.rl_layout13);
+//        rl_layout10 = (RelativeLayout) view.findViewById(R.id.rl_layout10);
+//        rl_layout11 = (RelativeLayout) view.findViewById(R.id.rl_layout11);
+//        rl_layout12 = (RelativeLayout) view.findViewById(R.id.rl_layout12);
+//        rl_layout13 = (RelativeLayout) view.findViewById(R.id.rl_layout13);
 
         login_rl = (RelativeLayout) view.findViewById(R.id.login_rl);
         unlogin_ll = (LinearLayout) view.findViewById(R.id.unlogin_ll);
@@ -424,7 +438,16 @@ public class MyFragment extends BaseFragment implements View.OnClickListener, Ch
             case R.id.rl_layout8:
                 goSettingPage(getActivity());
                 break;
-            //我的私照
+            case R.id.rl_layout0:
+                if (MzFinal.MODELFLAG)
+                    goSGamerPage(getActivity());
+                else {
+                    ApplySuperUserPopupWindow aps = new ApplySuperUserPopupWindow(getActivity());
+                    aps.ScreenPopupWindow();
+                }
+                break;
+
+         /*   //我的私照
             case R.id.rl_layout10:
                 if (MzFinal.MODELFLAG) {
                     goMyPrivatePhotoPage(getActivity(),MzFinal.MYID);
@@ -463,14 +486,9 @@ public class MyFragment extends BaseFragment implements View.OnClickListener, Ch
                 } else
                     GoRenzPage();
 
-                break;
+                break;*/
 
         }
-    }
-
-    private void GoRenzPage() {
-        ToastUtil.toast2_bottom(getActivity(), "此页面为模特用户页面，实名认证后才可进入！");
-        goRzPage(getActivity());
     }
 
     @Override

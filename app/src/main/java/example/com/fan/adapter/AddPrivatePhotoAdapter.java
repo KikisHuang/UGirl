@@ -18,6 +18,8 @@ import example.com.fan.mylistener.addImgListener;
 import example.com.fan.utils.DeviceUtils;
 import example.com.fan.utils.OverallViewHolder;
 
+import static example.com.fan.utils.GlideImgUtils.getRequestOptions;
+
 /**
  * Created by Administrator on 2017/9/17.
  */
@@ -65,7 +67,7 @@ public class AddPrivatePhotoAdapter extends BaseAdapter {
         FrameLayout.LayoutParams lp = new FrameLayout.LayoutParams(w, w);
         img.setLayoutParams(lp);
         if (position == 0) {
-            Glide.with(context).load(R.mipmap.add_icon1).centerCrop().into(img);
+            Glide.with(context).load(R.mipmap.add_icon1).apply(getRequestOptions(true, 0, 0,false)).into(img);
             img.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

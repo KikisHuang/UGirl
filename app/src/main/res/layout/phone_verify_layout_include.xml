@@ -72,11 +72,13 @@
             <TextView style="@style/line_styles_ove_h2" />
 
             <EditText
+                android:id="@+id/phone_ed"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:layout_weight="1"
                 android:background="@color/white"
+                android:inputType="phone"
                 android:hint="请填写手机号"
                 android:textColor="@color/black"
                 android:textColorHint="@color/content6"
@@ -87,7 +89,7 @@
         <TextView style="@style/line_styles_ove_w" />
 
         <example.com.fan.view.RippleView
-            android:id="@+id/commint_button"
+            android:id="@+id/phone_next_button"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_centerInParent="true"

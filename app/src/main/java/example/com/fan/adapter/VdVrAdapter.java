@@ -18,8 +18,8 @@ import example.com.fan.bean.VrVideoBean;
 import example.com.fan.mylistener.ItemClickListener;
 import example.com.fan.mylistener.ShareRequestListener;
 import example.com.fan.utils.OverallViewHolder;
-import jp.wasabeef.glide.transformations.CropCircleTransformation;
 
+import static example.com.fan.utils.GlideImgUtils.getRequestOptions;
 import static example.com.fan.utils.SynUtils.getTAG;
 
 /**
@@ -72,8 +72,9 @@ public class VdVrAdapter extends BaseAdapter {
             
         try {
            cover_img.setScaleType(ImageView.ScaleType.FIT_XY);
-            Glide.with(context).load(blist.get(position).getUser_headImgUrl()).override(100, 100).bitmapTransform(new CropCircleTransformation(context)).crossFade(500).into(icon_img);
-            Glide.with(context).load(blist.get(position).getCoverPath()).override(800, 480).into(cover_img);
+            Glide.with(context).load(blist.get(position).getUser_headImgUrl()).apply(getRequestOptions(false, 100, 100,true))
+                    .into(icon_img);
+            Glide.with(context).load(blist.get(position).getCoverPath()).apply(getRequestOptions(false, 800, 480,false)).into(cover_img);
         } catch (Exception e) {
             Log.i(TAG, "Glide You cannot start a load for a destroyed activity");
         }

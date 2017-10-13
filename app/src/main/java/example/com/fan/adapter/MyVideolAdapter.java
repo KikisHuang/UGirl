@@ -19,6 +19,7 @@ import example.com.fan.R;
 import example.com.fan.bean.StoreBean;
 import example.com.fan.utils.DeviceUtils;
 
+import static example.com.fan.utils.GlideImgUtils.getRequestOptions;
 import static example.com.fan.utils.SynUtils.getTAG;
 
 /**
@@ -86,7 +87,7 @@ public class MyVideolAdapter extends RecyclerView.Adapter<MyVideolAdapter.ViewHo
 
             Glide.with(context)
                     .load(mDataset.get(position).getMcOfficialSellShoppingMall().getCoverPath())
-                    .centerCrop()
+                    .apply(getRequestOptions(true, 0, 0,false))
                     .into(holder.cover_img);
 
         } catch (Exception e) {
