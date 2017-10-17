@@ -56,7 +56,7 @@ import static example.com.fan.utils.JsonUtils.getCode;
 import static example.com.fan.utils.JsonUtils.getJsonAr;
 import static example.com.fan.utils.JsonUtils.getJsonOb;
 import static example.com.fan.utils.JsonUtils.getJsonSring;
-import static example.com.fan.utils.ShareUtils.ShareApp;
+import static example.com.fan.utils.ShareUtils.getSystemShare;
 import static example.com.fan.utils.SynUtils.KswitchWay;
 import static example.com.fan.utils.SynUtils.ParseK;
 import static example.com.fan.utils.SynUtils.getTAG;
@@ -489,8 +489,9 @@ public class PhotoActivity extends InitActivity implements View.OnClickListener,
         switch (v.getId()) {
             case R.id.share_fl:
                 if (urlList.size() > 0)
-                    ShareApp(this, urlList.get(0).getJoinUser().getId(), urlList.get(0).getJoinUser().getName(), urlList.get(0).getInfo(), urlList.get(0).getId());
-                break;
+//                    ShareApp(this, urlList.get(0).getJoinUser().getId(), urlList.get(0).getJoinUser().getName(), urlList.get(0).getInfo(), urlList.get(0).getId());
+                    getSystemShare(PhotoActivity.this,id);
+                    break;
             case R.id.admire_fl:
                 likePhoto();
                 break;

@@ -18,7 +18,6 @@ public class MzFinal {
 //    public static final String URl = "http://fnsandroid2.mozu123.com/mcFnsInterface/";
 //    public static final String URl = "http://fnsandroid3.mozu123.com/mcFnsInterface/";
 
-
     /**
      * 全局广告触摸时间变量;
      */
@@ -37,7 +36,7 @@ public class MzFinal {
 
     public static final String br = "<br />";
     //支付宝支付接口存放数组;
-    public static String[] Alis = {MzFinal.ALIPAYCROWDFUNDING, MzFinal.ALIPAYOFFICIALSELL, MzFinal.ALIPAYPHOTO, MzFinal.ALIPAYVIP, MzFinal.ALIPAYMODELWX};
+    public static String[] Alis = {MzFinal.ALIPAYCROWDFUNDING, MzFinal.ALIPAYOFFICIALSELL, MzFinal.ALIPAYPHOTO, MzFinal.ALIPAYVIP, MzFinal.ALIPAYMODELWX, MzFinal.ALIPAYRECHARGE};
 
 
     //尤女映画、支付宝APPID;
@@ -265,6 +264,10 @@ public class MzFinal {
      */
     public static final String GETVIPBYTYPE = "vip/getVIPByType.app";
     /**
+     * 虚拟币充值接口
+     */
+    public static final String GETRECHARGEBYPAGE = "v2_recharge/getRechargeByPage.app";
+    /**
      * 获取收藏私照接口
      */
     public static final String GETMYCOLLECTIONPHOTO = "photo/getMyCollectionPhoto.app";
@@ -409,6 +412,16 @@ public class MzFinal {
      * 微信VIP支付接口
      */
     public static final String WXPAYVIP = "order/wxPayVIP.app";
+
+    /**
+     * 虚拟币支付宝支付接口
+     */
+    public static final String ALIPAYRECHARGE = "order/aliPayRecharge.app";
+    /**
+     * 虚拟币微信支付接口
+     */
+    public static final String WXPAYRECHARGE = "order/wxPayRecharge.app";
+
     /**
      * 购买模特微信号,支付宝接口;
      */
@@ -450,6 +463,10 @@ public class MzFinal {
      * 新增私照图片;
      */
     public static final String ADDPHOTOIMG = "photo/addPhotoIMG.app";
+    /**
+     * 上传私密视频;
+     */
+    public static final String ADDPRIVATEVIDEO = "video/addPrivateVideo.app";
     /**
      * 发布专辑;
      */
@@ -512,5 +529,49 @@ public class MzFinal {
      * 获取我的提现明细接口 ;
      */
     public static final String GETMYCASHDETAILS = "v2_cash/getMyCashDetails.app";
+    /**
+     * 申请提现接口 ;
+     */
+    public static final String APPLYCASH = "v2_cash/applyCash.app";
+    /**
+     * 删除私密视频接口 ;
+     */
+    public static final String DELETEPRIVATEVIDEO = "video/deletePrivateVideo.app";
+    /**
+     * 删除私密视频接口 ;
+     */
+    public static final String DELETEPRIVATEPHOTO = "photo/deletePrivatePhoto.app";
+    /**
+     * 更新设置模特背景图接口 ;
+     */
+    public static final String UPDATEBACKGROUND = "v2_model/updateBackground.app";
+    /**
+     * 获取所有私密照片/私密视频的类型接口 ;
+     */
+    public static final String GETALLTYPE = "privateType/getALLType.app";
+    /**
+     * 检测模特申请接口 ;
+     */
+    public static final String CHECKAPPLY = "user/checkApply.app";
+    /**
+     * 分享图片接口 ;
+     */
+    public static final String SHAREQCIMAGE = "share/getShareQCImage.app";
+    /**
+     * 私密视频购买接口 ;
+     */
+    public static final String PAYPRIVATEVIDEO = "order/payPrivateVideo.app";
+    /**
+     * 私密照片购买接口 ;
+     */
+    public static final String PAYPRIVATEPHOTO = "order/payPrivatePhoto.app";
+    /**
+     * 检测指定类型有没有权限接口 ;
+     */
+    public static final String CHECKTYPEPERMISSION = "privateType/checkTypePermission.app";
+    /**
+     * 根据类型获取所属的私照或视频接口 ;
+     */
+    public static final String GETPUBLISHRECORDBYTYPE = "privateType/getPublishRecordByType.app";
 
 }

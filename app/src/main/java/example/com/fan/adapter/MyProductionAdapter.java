@@ -19,6 +19,7 @@ import java.util.List;
 import example.com.fan.R;
 import example.com.fan.bean.ModelBean;
 import example.com.fan.mylistener.ItemClickListener;
+import example.com.fan.mylistener.SuperUseDeleteListener;
 import example.com.fan.utils.DeviceUtils;
 import example.com.fan.utils.GlideCacheUtil;
 import example.com.fan.utils.OverallViewHolder;
@@ -38,13 +39,15 @@ public class MyProductionAdapter extends BaseAdapter {
     private List<ModelBean> blist;
     private LayoutInflater inflater;
     private ItemClickListener listener;
+    private SuperUseDeleteListener delete;
 
 
-    public MyProductionAdapter(Context context, List<ModelBean> blist, ItemClickListener hlistener) {
+    public MyProductionAdapter(Context context, List<ModelBean> blist, ItemClickListener hlistener, SuperUseDeleteListener delete) {
         this.blist = blist;
         this.context = context.getApplicationContext();
         this.inflater = LayoutInflater.from(context);
         this.listener = hlistener;
+        this.delete = delete;
     }
 
     @Override
@@ -111,6 +114,12 @@ public class MyProductionAdapter extends BaseAdapter {
                 delete_tv.setVisibility(View.VISIBLE);
                 break;
         }
+        delete_tv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                delete.onDelete(blist.get(position).getTypeFlag(), blist.get(position).getId());
+            }
+        });
         seecount_tv.setText(blist.get(position).getSeeCount() + "次浏览");
         give_tv.setText(blist.get(position).getSumCount() + "人打赏");
         money_tv.setText("￥" + blist.get(position).getSumPrice());
@@ -139,7 +148,7 @@ public class MyProductionAdapter extends BaseAdapter {
                         listener.onItemClickListener(-3, blist.get(position).getId());
                     }
                 });
-                Glide.with(context).load(blist.get(position).getCoverPath()).apply(getRequestOptions(false, 0, 0,true)).into(video_img);
+                Glide.with(context).load(blist.get(position).getCoverPath()).apply(getRequestOptions(false, 0, 0, false)).into(video_img);
 
                 break;
         }
@@ -150,7 +159,7 @@ public class MyProductionAdapter extends BaseAdapter {
             }
         });
         try {
-            Glide.with(context).load(blist.get(position).getHeadImgUrl()).apply(getRequestOptions(false, 0, 0,true)).into(user_icon);
+            Glide.with(context).load(blist.get(position).getHeadImgUrl()).apply(getRequestOptions(false, 0, 0, true)).into(user_icon);
 
         } catch (Exception e) {
             Log.i(TAG, "Glide You cannot start a load for a destroyed activity");

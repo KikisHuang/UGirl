@@ -31,14 +31,17 @@ public class VideoPhotoAdapter extends RecyclerView.Adapter<VideoPhotoAdapter.Vi
     private Context context;
     private VideoImgSettingListener listener;
     private List<VideoImgBean> data;
-    int num;
+    private int num;
 
     public VideoPhotoAdapter(Context context, List<VideoImgBean> list, VideoImgSettingListener listener) {
         this.context = context.getApplicationContext();
         this.inflater = LayoutInflater.from(context);
         this.data = list;
-        num = 0;
         this.listener = listener;
+    }
+
+    public void setTag(int num) {
+        num = num;
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {
@@ -88,21 +91,20 @@ public class VideoPhotoAdapter extends RecyclerView.Adapter<VideoPhotoAdapter.Vi
         holder.img.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                for (int i = 0; i < data.size(); i++) {
-                    if (data.get(i).getSelectFlag())
-                        num++;
-                }
-                if (num >= 3) {
-                    ToastUtil.toast2_bottom(context, "最多只能选择3张图片哦!!");
-                } else {
+
                     if (data.get(position).getSelectFlag() == false) {
-                        Glide.with(context).load(R.mipmap.on_icon).into(holder.select_img);
-                        listener.onSelect(position, data.get(position).getFilePath());
+                        if (num >= 3) {
+                            ToastUtil.toast2_bottom(context, "最多只能选择3张图片哦!!");
+                        } else {
+                            Glide.with(context).load(R.mipmap.on_icon).into(holder.select_img);
+                            listener.onSelect(position, data.get(position).getFilePath());
+                            num++;
+                        }
                     } else {
                         Glide.with(context).load(R.mipmap.off_icon).into(holder.select_img);
                         listener.onCancle(position, data.get(position).getFilePath());
+                        num--;
                     }
-                }
 
             }
         });

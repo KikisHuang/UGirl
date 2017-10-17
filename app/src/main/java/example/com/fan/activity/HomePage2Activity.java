@@ -44,7 +44,7 @@ import static example.com.fan.utils.JsonUtils.getCode;
 import static example.com.fan.utils.JsonUtils.getJsonAr;
 import static example.com.fan.utils.JsonUtils.getJsonInt;
 import static example.com.fan.utils.JsonUtils.getJsonOb;
-import static example.com.fan.utils.ShareUtils.ShareApp;
+import static example.com.fan.utils.ShareUtils.getSystemShare;
 import static example.com.fan.utils.SynUtils.Login;
 import static example.com.fan.utils.SynUtils.LoginStatusQuery;
 import static example.com.fan.utils.SynUtils.getRouColors;
@@ -89,7 +89,7 @@ public class HomePage2Activity extends BaseActivity implements ItemClickListener
         ImageView img = listView.getHeaderView();
         img.setScaleType(ImageView.ScaleType.CENTER_CROP);
         try {
-            Glide.with(getApplicationContext()).load(cover).apply(getRequestOptions(false, 1296, 1080,false)).into(img);
+            Glide.with(getApplicationContext()).load(cover).apply(getRequestOptions(false, 1296, 1080, false)).into(img);
         } catch (Exception e) {
             Log.i(TAG, "Glide You cannot start a load for a destroyed activity");
         }
@@ -355,6 +355,7 @@ public class HomePage2Activity extends BaseActivity implements ItemClickListener
 
     @Override
     public void onShare(String userid, String name, String info, String id) {
-        ShareApp(HomePage2Activity.this, userid, name, info, id);
+//        ShareApp(HomePage2Activity.this, userid, name, info, id);
+        getSystemShare(HomePage2Activity.this, id);
     }
 }

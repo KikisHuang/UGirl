@@ -3,18 +3,32 @@ package example.com.fan.activity;
 import android.content.Intent;
 import android.util.Log;
 
+import com.google.gson.Gson;
 import com.luck.picture.lib.PictureSelector;
 import com.luck.picture.lib.compress.Luban;
 import com.luck.picture.lib.config.PictureConfig;
 import com.luck.picture.lib.config.PictureMimeType;
 import com.luck.picture.lib.entity.LocalMedia;
+import com.zhy.http.okhttp.OkHttpUtils;
+import com.zhy.http.okhttp.callback.StringCallback;
+
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import example.com.fan.R;
+import example.com.fan.base.sign.save.SPreferences;
+import example.com.fan.bean.MirrorBean;
+import example.com.fan.bean.mcPublishImgUrls;
+import example.com.fan.utils.MzFinal;
+import example.com.fan.utils.ToastUtil;
+import okhttp3.Call;
 
 import static example.com.fan.utils.IntentUtils.goUserPhotoOfVideoLoadPage;
+import static example.com.fan.utils.IntentUtils.goUserPhotoOfVideoLoadPage2;
+import static example.com.fan.utils.JsonUtils.getCode;
+import static example.com.fan.utils.JsonUtils.getJsonOb;
 import static example.com.fan.utils.SynUtils.getTAG;
 
 
@@ -24,7 +38,10 @@ import static example.com.fan.utils.SynUtils.getTAG;
 public class SuperUserPhotoOfVideoActivity extends InitActivity {
     private final static String TAG = getTAG(SuperUserPhotoOfVideoActivity.class);
     private List<LocalMedia> selectList = new ArrayList<>();
-    int flag;
+    private int flag;
+    private String SpecialId = "";
+    private int chargeNumber = 0;
+    private List<mcPublishImgUrls> list;
 
     @Override
     protected void click() {
@@ -36,7 +53,8 @@ public class SuperUserPhotoOfVideoActivity extends InitActivity {
         flag = Integer.parseInt(getIntent().getStringExtra("Photo_of_Video_flag"));
         switch (flag) {
             case 0:
-                Photo();
+                getData();
+//                Photo();
                 break;
             case 1:
                 Video();
@@ -45,6 +63,55 @@ public class SuperUserPhotoOfVideoActivity extends InitActivity {
                 finish();
                 break;
         }
+    }
+
+    private void getData() {
+        /**
+         * 获取未完成私密照片;
+         */
+        OkHttpUtils
+                .get()
+                .url(MzFinal.URl + MzFinal.GETOLDPRIVATEPHOTO)
+                .addParams(MzFinal.KEY, SPreferences.getUserToken())
+                .tag(this)
+                .build()
+                .execute(new StringCallback() {
+                    @Override
+                    public void onError(Call call, Exception e, int id) {
+                        ToastUtil.toast2_bottom(SuperUserPhotoOfVideoActivity.this, "网络不顺畅...");
+                    }
+
+                    @Override
+                    public void onResponse(String response, int id) {
+                        try {
+                            int code = getCode(response);
+                            JSONObject ar = getJsonOb(response);
+                            if (code == 1) {
+                                list = new ArrayList<>();
+                                Log.i(TAG, "GETOLDPRIVATEPHOTO" + response);
+                                if (ar.optJSONArray("mcPublishImgUrls").length() > 0) {
+
+                                    MirrorBean mb = new Gson().fromJson(String.valueOf(getJsonOb(response)), MirrorBean.class);
+                                    SpecialId = mb.getId();
+                                    chargeNumber = ar.optInt("hidePosition");
+
+                                    for (int i = 0; i < mb.getMcPublishImgUrls().size(); i++) {
+                                        mcPublishImgUrls mpiu = mb.getMcPublishImgUrls().get(i);
+                                        list.add(mpiu);
+                                    }
+                                }
+                                goUserPhotoOfVideoLoadPage2(SuperUserPhotoOfVideoActivity.this, 3, list.get(0).getPath(), list, SpecialId, chargeNumber);
+                                finish();
+                            } else if (code == 0)
+                                Photo();
+                            else
+                                ToastUtil.ToastErrorMsg(SuperUserPhotoOfVideoActivity.this, response, code);
+
+                        } catch (Exception e) {
+
+                        }
+                    }
+                });
     }
 
     @Override
@@ -108,7 +175,7 @@ public class SuperUserPhotoOfVideoActivity extends InitActivity {
                     selectList = PictureSelector.obtainMultipleResult(data);
                     Log.i(TAG, "原图路径===" + selectList.get(0).getPath());
                     Log.i(TAG, "压缩后路径===" + selectList.get(0).getCompressPath());
-                    goUserPhotoOfVideoLoadPage(this, 0, selectList.get(0).getPath());
+                    goUserPhotoOfVideoLoadPage(this, 0, selectList.get(0).getPath(), selectList);
                     finish();
                     // 例如 LocalMedia 里面返回三种path
                     // 1.media.getPath(); 为原图path
@@ -121,7 +188,7 @@ public class SuperUserPhotoOfVideoActivity extends InitActivity {
                     selectList = PictureSelector.obtainMultipleResult(data);
                     Log.i(TAG, "原图路径===" + selectList.get(0).getPath());
                     Log.i(TAG, "压缩后路径===" + selectList.get(0).getCompressPath());
-                    goUserPhotoOfVideoLoadPage(this, 1, selectList.get(0).getPath());
+                    goUserPhotoOfVideoLoadPage(this, 1, selectList.get(0).getPath(), selectList);
                     finish();
                     break;
             }

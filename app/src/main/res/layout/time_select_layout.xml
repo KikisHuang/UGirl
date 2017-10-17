@@ -1,14 +1,14 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:ripple="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="horizontal">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
     <LinearLayout
         android:id="@+id/time_layout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:background="@color/white"
         android:orientation="vertical">
 
@@ -16,48 +16,91 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
+            android:layout_marginTop="50dp"
             android:orientation="horizontal">
 
-            <example.com.fan.view.WheelView
-                android:id="@+id/wheelView1"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:layout_marginTop="10dp"></example.com.fan.view.WheelView>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center"
+                >
+                <TextView
+                    android:id="@+id/title_1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=""
+                    android:textColor="@color/black"
+                    android:textSize="13dp"
+                    />
+                <example.com.fan.view.WheelView
+                    android:id="@+id/wheelView1"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_marginTop="10dp"></example.com.fan.view.WheelView>
 
+            </LinearLayout>
 
-            <example.com.fan.view.WheelView
-                android:id="@+id/wheelView2"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:layout_marginTop="10dp"></example.com.fan.view.WheelView>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="vertical">
+                <TextView
+                    android:id="@+id/title_2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=""
+                    android:textColor="@color/black"
+                    android:textSize="13dp"
+                    />
+                <example.com.fan.view.WheelView
+                    android:id="@+id/wheelView2"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_marginTop="10dp"></example.com.fan.view.WheelView>
 
+            </LinearLayout>
 
-            <example.com.fan.view.WheelView
-                android:id="@+id/wheelView3"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:layout_marginTop="10dp"></example.com.fan.view.WheelView>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="vertical">
+                <TextView
+                    android:id="@+id/title_3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=""
+                    android:textColor="@color/black"
+                    android:textSize="13dp"
+                    />
+                <example.com.fan.view.WheelView
+                    android:id="@+id/wheelView3"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_marginTop="10dp"></example.com.fan.view.WheelView>
+            </LinearLayout>
         </LinearLayout>
 
-        <example.com.fan.view.RippleView
-            android:id="@+id/verify_button"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_centerInParent="true"
-            android:layout_gravity="center|bottom"
-            android:layout_marginBottom="10dp"
-            android:layout_marginLeft="15dp"
-            android:layout_marginRight="15dp"
-            android:layout_marginTop="20dp"
-            android:background="@drawable/green_bt_normal"
-            android:gravity="center"
-            android:text="@string/verify"
-            android:textColor="@color/white"
-            android:textSize="15dp"
-            ripple:alphaFactor="0.5"
-            ripple:hover="false"
-            ripple:rippleColor="@color/white" />
     </LinearLayout>
 
-
-</LinearLayout>
+    <example.com.fan.view.RippleView
+        android:id="@+id/verify_button"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_centerInParent="true"
+        android:layout_gravity="center|bottom"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/green_bt_normal"
+        android:gravity="center"
+        android:text="@string/verify"
+        android:textColor="@color/white"
+        android:textSize="15dp"
+        ripple:alphaFactor="0.5"
+        ripple:hover="false"
+        ripple:rippleColor="@color/white" />
+</FrameLayout>

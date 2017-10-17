@@ -13,6 +13,16 @@ public class ModelBean {
 
     private String coverPath;
     private int sumCount;
+    private String headImgUrl;
+    private String modelInfo;
+    private String createTime;
+    private String seeCount;
+    private String typeId;
+    private String typeName;
+    private int typeFlag;
+    private List<mcPublishImgUrls> imgs;
+
+
 
     public long getSumPrice() {
         return sumPrice;
@@ -48,14 +58,7 @@ public class ModelBean {
         this.modelInfo = modelInfo;
     }
 
-    private String headImgUrl;
-    private String modelInfo;
-    private String createTime;
-    private String seeCount;
-    private String typeId;
-    private String typeName;
-    private int typeFlag;
-    private List<mcPublishImgUrls> imgs;
+
 
 
     public List<example.com.fan.bean.mcPublishImgUrls> getImgs() {

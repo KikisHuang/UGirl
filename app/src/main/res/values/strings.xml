@@ -189,6 +189,7 @@ Copyright  2012\n
     <string name="refuse">拒绝</string>
     <string name="unissue">未发布</string>
     <string name="issue">已发布</string>
+    <string name="privacy">私密</string>
 
 
     <dimen name="size1">1px</dimen>

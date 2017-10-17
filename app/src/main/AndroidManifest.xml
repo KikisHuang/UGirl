@@ -79,7 +79,11 @@
         <activity
             android:name="example.com.fan.activity.WelcomeActivity"
             android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <!-- 排行榜页面 -->
         <activity
@@ -101,6 +105,10 @@
         <activity
             android:name="example.com.fan.activity.IconCutActivity"
             android:screenOrientation="portrait"></activity>
+        <!-- 私密类型页面 -->
+        <activity
+            android:name="example.com.fan.activity.PrivateTypeActivity"
+            android:screenOrientation="portrait"></activity>
         <!-- 热门模特页面 -->
         <activity
             android:name="example.com.fan.activity.HostModelActivity"
@@ -112,7 +120,8 @@
         <!-- 个人信息修改页面 -->
         <activity
             android:name="example.com.fan.activity.PersonalInfoActivity"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.Translucentr">
 
         </activity>
         <!-- Vip页面 -->
@@ -170,8 +179,7 @@
         <!-- 选择器页面 -->
         <activity
             android:name="example.com.fan.activity.TimeSelectActivity"
-            android:screenOrientation="portrait">
-        </activity>
+            android:screenOrientation="portrait"></activity>
         <!-- 商品详情页面 -->
         <activity
             android:name="example.com.fan.activity.BuygoodsActivity"
@@ -292,17 +300,16 @@
         <activity
             android:name="example.com.fan.activity.SGamerActivity"
             android:screenOrientation="portrait">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <!-- 超级玩家页面 -->
         <activity
             android:name=".activity.SuperUserPhotoOfVideoActivity"
-            android:screenOrientation="portrait">
-        </activity>
+            android:screenOrientation="portrait"></activity>
+        <!-- 打赏金额设置页面 -->
+        <activity
+            android:name=".activity.AwardActivity"
+            android:screenOrientation="portrait"></activity>
 
         <!--  微信-->
         <activity
@@ -394,6 +401,16 @@
         <provider
             android:name="android.support.v4.content.FileProvider"
             android:authorities="example.com.fan.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
+
+        <provider
+            android:name=".MyFileProvider"
+            android:authorities="${applicationId}.provider"
             android:exported="false"
             android:grantUriPermissions="true">
             <meta-data

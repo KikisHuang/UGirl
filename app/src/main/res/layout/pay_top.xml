@@ -9,6 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:orientation="horizontal"
+        android:gravity="center|left"
         android:padding="10dp">
 
         <TextView
@@ -20,9 +21,9 @@
             android:textSize="13dp" />
 
         <ImageView
-            android:layout_width="50dp"
+            android:layout_width="30dp"
             android:layout_height="wrap_content"
-            android:src="@mipmap/test_icon" />
+            android:src="@mipmap/gold_icon" />
 
         <TextView
             android:id="@+id/balance_tv"
@@ -55,6 +56,15 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         >
-
+    </LinearLayout>
+    <TextView
+        style="@style/pay_style"
+        android:text="尤币充值" />
+    <LinearLayout
+        android:id="@+id/virtual_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        >
     </LinearLayout>
 </LinearLayout>

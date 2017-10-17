@@ -16,6 +16,7 @@ import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.media.MediaMetadataRetriever;
+import android.media.MediaPlayer;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
@@ -39,7 +40,6 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.sina.weibo.sdk.utils.LogUtil;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
 
@@ -51,7 +51,6 @@ import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.text.DecimalFormat;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Timer;
 import java.util.UUID;
@@ -452,6 +451,26 @@ public class SynUtils {
     }
 
     /**
+     * 过万简略显示方法;
+     *
+     * @param num
+     * @return
+     */
+    public static String WswitchWay(double num) {
+        DecimalFormat df = new DecimalFormat("######0.0");
+        DecimalFormat df1 = new DecimalFormat("######0");
+
+        String a = "";
+        if (num > 10000) {
+            double c = num / 10000;
+            a = String.valueOf(df.format(c)) + "万";
+        } else
+            a = String.valueOf(df1.format(num));
+
+        return a;
+    }
+
+    /**
      * 过千解析方法;
      *
      * @param str
@@ -750,12 +769,12 @@ public class SynUtils {
      * @param filePath
      * @return
      */
-    public static Bitmap getVideoThumbnail(String filePath, int timeMs) {
+    public static Bitmap getVideoThumbnail(String filePath, int timeMs, int len) {
         Bitmap bitmap = null;
         try {
             MediaMetadataRetriever retriever = new MediaMetadataRetriever();
             retriever.setDataSource(filePath);
-            for (long i = timeMs; i < getRingDuring(filePath); i += 1000) {
+            for (long i = timeMs; i < len; i += 1000) {
                 bitmap = retriever.getFrameAtTime(i * 1000, MediaMetadataRetriever.OPTION_CLOSEST_SYNC);
                 if (bitmap != null) {
                     retriever.release();
@@ -775,27 +794,74 @@ public class SynUtils {
      * @return
      */
     public static int getRingDuring(String mUri) {
-        String duration = null;
-        android.media.MediaMetadataRetriever mmr = new android.media.MediaMetadataRetriever();
-
+        MediaPlayer mediaPlayer = new MediaPlayer();
+        int time = 0;
         try {
-            if (mUri != null) {
-                HashMap<String, String> headers = null;
-                if (headers == null) {
-                    headers = new HashMap<String, String>();
-                    headers.put("User-Agent", "Mozilla/5.0 (Linux; U; Android 4.4.2; zh-CN; MW-KW-001 Build/JRO03C) AppleWebKit/533.1 (KHTML, like Gecko) Version/4.0 UCBrowser/1.0.0.001 U4/0.8.0 Mobile Safari/533.1");
-                }
-                mmr.setDataSource(mUri, headers);
-            }
+            mediaPlayer.setDataSource(mUri);
 
-            duration = mmr.extractMetadata(android.media.MediaMetadataRetriever.METADATA_KEY_DURATION);
-        } catch (Exception ex) {
-        } finally {
-            mmr.release();
+            mediaPlayer.prepare();
+            time = mediaPlayer.getDuration();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-        LogUtil.e("ryan", "duration " + duration);
-        return Integer.valueOf(duration);
+        Log.i(TAG, " time ====" + time);
+        return time;
     }
+
+    /**
+     * 删除文件夹所有文件;
+     *
+     * @param pPath
+     * @return
+     */
+    //删除文件夹和文件夹里面的文件
+    public static void deleteDir(final String pPath) {
+        Log.i(TAG, "删除文件路径 ===" + pPath);
+        File dir = new File(pPath);
+        deleteDirWihtFile(dir);
+    }
+
+    public static void deleteDirWihtFile(File dir) {
+        if (dir == null || !dir.exists() || !dir.isDirectory())
+            return;
+        for (File file : dir.listFiles()) {
+            if (file.isFile())
+                file.delete(); // 删除所有文件
+            else if (file.isDirectory())
+                deleteDirWihtFile(file); // 递规的方式删除文件夹
+        }
+        dir.delete();// 删除目录本身
+    }
+
+//    /**
+//     * 获取视频毫秒;
+//     *
+//     * @param mUri
+//     * @return
+//     */
+//    public static int getRingDuring(String mUri) {
+//        String duration = null;
+//        android.media.MediaMetadataRetriever mmr = new android.media.MediaMetadataRetriever();
+//
+//        try {
+//            if (mUri != null) {
+//                HashMap<String, String> headers = null;
+//                if (headers == null) {
+//                    headers = new HashMap<String, String>();
+//                    headers.put("User-Agent", "Mozilla/5.0 (Linux; U; Android 4.4.2; zh-CN; MW-KW-001 Build/JRO03C) AppleWebKit/533.1 (KHTML, like Gecko) Version/4.0 UCBrowser/1.0.0.001 U4/0.8.0 Mobile Safari/533.1");
+//                }
+//                mmr.setDataSource(mUri, headers);
+//            }
+//
+//            duration = mmr.extractMetadata(android.media.MediaMetadataRetriever.METADATA_KEY_DURATION);
+//        } catch (Exception ex) {
+//            Log.i(TAG," MediaMetadataRetriever Error ===="+ex);
+//        } finally {
+//            mmr.release();
+//        }
+//        LogUtil.e("ryan", "duration " + duration);
+//        return Integer.valueOf(duration);
+//    }
 
     /**
      * 将bitmap保存到本地;

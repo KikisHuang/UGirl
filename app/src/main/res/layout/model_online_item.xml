@@ -82,12 +82,15 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:orientation="vertical"
-        android:paddingLeft="55dp">
+        android:paddingLeft="55dp"
+        >
 
         <FrameLayout
             android:id="@+id/video_layout"
             android:layout_width="200dp"
-            android:layout_height="200dp">
+            android:layout_height="200dp"
+            android:visibility="gone"
+            >
 
             <ImageView
                 android:id="@+id/video_img"
@@ -109,7 +112,9 @@
             android:layout_height="wrap_content"
             android:layout_marginRight="17dp"
             android:orientation="vertical"
-            android:paddingLeft="2dp">
+            android:paddingLeft="2dp"
+            android:visibility="gone"
+            >
 
             <LinearLayout
                 android:id="@+id/top_img_layout"

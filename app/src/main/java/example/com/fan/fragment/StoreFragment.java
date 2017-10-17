@@ -11,13 +11,16 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 
+import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
 import com.liaoinstan.springview.widget.SpringView;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
 
 import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,9 +28,11 @@ import java.util.List;
 import example.com.fan.R;
 import example.com.fan.adapter.ModelAdapter;
 import example.com.fan.adapter.PageTopBannerAdapter;
+import example.com.fan.base.sign.save.SPreferences;
 import example.com.fan.bean.ModelBean;
 import example.com.fan.bean.PageTopBannerBean;
 import example.com.fan.bean.PageTopBean;
+import example.com.fan.bean.PrivateTypeBean;
 import example.com.fan.mylistener.ItemClickListener;
 import example.com.fan.mylistener.OverallRefreshListener;
 import example.com.fan.mylistener.PositionAddListener;
@@ -35,19 +40,25 @@ import example.com.fan.mylistener.SpringListener;
 import example.com.fan.utils.DeviceUtils;
 import example.com.fan.utils.ListenerManager;
 import example.com.fan.utils.MzFinal;
+import example.com.fan.utils.ShareUtils;
 import example.com.fan.utils.ToastUtil;
 import example.com.fan.utils.homeViewPageUtils;
 import example.com.fan.view.DirectionListView;
 import example.com.fan.view.ViewPagerScroller;
+import example.com.fan.view.dialog.AlertDialog;
 import okhttp3.Call;
 
 import static example.com.fan.utils.DeviceUtils.BannerHeight;
 import static example.com.fan.utils.IntentUtils.goHomePage;
+import static example.com.fan.utils.IntentUtils.goPayPage;
 import static example.com.fan.utils.IntentUtils.goPlayerPage;
 import static example.com.fan.utils.IntentUtils.goPrivatePhotoPage;
+import static example.com.fan.utils.IntentUtils.goPrivateTypePage;
 import static example.com.fan.utils.JsonUtils.getCode;
 import static example.com.fan.utils.JsonUtils.getJsonAr;
 import static example.com.fan.utils.SpringUtils.SpringViewInit;
+import static example.com.fan.utils.SynUtils.Login;
+import static example.com.fan.utils.SynUtils.LoginStatusQuery;
 import static example.com.fan.utils.SynUtils.getTAG;
 import static example.com.fan.utils.SynUtils.startPlay;
 import static example.com.fan.utils.SynUtils.stopPlay;
@@ -72,7 +83,7 @@ public class StoreFragment extends BaseFragment implements PositionAddListener, 
     private List<PageTopBannerBean> toplist;
 
     private List<ModelBean> rlist;
-    private DirectionListView listView;
+    private ListView listView;
 
     private LinearLayout dot;
     private View top;
@@ -104,13 +115,13 @@ public class StoreFragment extends BaseFragment implements PositionAddListener, 
         polistener = this;
         //注册观察者监听网络;
         ListenerManager.getInstance().registerListtener(this);
-        listView = (DirectionListView) view.findViewById(R.id.listView);
+        listView = (ListView) view.findViewById(R.id.listView);
         springview1 = (SpringView) view.findViewById(R.id.springview1);
         SpringViewInit(springview1, getActivity(), slistener);
         rlist = new ArrayList<>();
         toplist = new ArrayList<>();
 
-        listView.setOnScrollDirectionListener(this);
+//        listView.setOnScrollDirectionListener(this);
         top = getActivity().getLayoutInflater().inflate(R.layout.private_top, null);
         mViewPager = (ViewPager) top.findViewById(R.id.viewPager);
         private_type_layout = (LinearLayout) top.findViewById(R.id.private_type_layout);
@@ -140,20 +151,105 @@ public class StoreFragment extends BaseFragment implements PositionAddListener, 
     @Override
     protected void initData() {
         newInstance();
-        TestScrol();
+        getScrolData();
     }
 
-    private void TestScrol() {
-        for (int i = 0; i < 3; i++) {
-            ImageView im = new ImageView(getActivity());
+    private void getScrolData() {
 
-            LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(DeviceUtils.dip2px(getActivity(), 130), ViewGroup.LayoutParams.MATCH_PARENT);
-            lp.rightMargin = DeviceUtils.dip2px(getActivity(), 5);
-            im.setScaleType(ImageView.ScaleType.CENTER_CROP);
-            im.setImageResource(R.drawable.main_back1);
-            im.setLayoutParams(lp);
-            private_type_layout.addView(im);
-        }
+        /**
+         * 获取所有私密照片/私密视频的类型;
+         */
+        OkHttpUtils
+                .get()
+                .url(MzFinal.URl + MzFinal.GETALLTYPE)
+                .addParams(MzFinal.PAGE, "0")
+                .addParams(MzFinal.SIZE, "20")
+                .build()
+                .execute(new StringCallback() {
+                    @Override
+                    public void onError(Call call, Exception e, int id) {
+                        ToastUtil.toast2_bottom(getActivity(), "网络不顺畅...");
+                    }
+
+                    @Override
+                    public void onResponse(String response, int id) {
+                        try {
+                            int code = getCode(response);
+
+                            if (code == 1) {
+                                JSONArray ar = getJsonAr(response);
+                                for (int i = 0; i < ar.length(); i++) {
+                                    PrivateTypeBean ptb = new Gson().fromJson(String.valueOf(ar.optJSONObject(i)), PrivateTypeBean.class);
+                                    ScrolInit(ptb);
+                                }
+
+                            } else
+                                ToastUtil.ToastErrorMsg(getActivity(), response, code);
+                        } catch (Exception e) {
+
+                        }
+                    }
+                });
+
+    }
+
+    private void ScrolInit(final PrivateTypeBean ptb) {
+        ImageView im = new ImageView(getActivity());
+
+        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(DeviceUtils.dip2px(getActivity(), 130), ViewGroup.LayoutParams.MATCH_PARENT);
+        lp.rightMargin = DeviceUtils.dip2px(getActivity(), 5);
+        im.setScaleType(ImageView.ScaleType.CENTER_CROP);
+        Glide.with(getActivity()).load(ptb.getImgUrl()).into(im);
+        im.setLayoutParams(lp);
+        im.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (LoginStatusQuery()) {
+                    getJurisdiction(ptb.getId(),ptb.getTypeName());
+                } else
+                    Login(getActivity());
+            }
+        });
+        private_type_layout.addView(im);
+    }
+
+    private void getJurisdiction(final String type, final String name) {
+        /**
+         * 获取跳转权限;
+         */
+        OkHttpUtils
+                .get()
+                .url(MzFinal.URl + MzFinal.CHECKTYPEPERMISSION)
+                .addParams(MzFinal.KEY, SPreferences.getUserToken())
+                .addParams("typeId", type)
+                .build()
+                .execute(new StringCallback() {
+                    @Override
+                    public void onError(Call call, Exception e, int id) {
+                        ToastUtil.toast2_bottom(getActivity(), "网络不顺畅...");
+                    }
+
+                    @Override
+                    public void onResponse(String response, int id) {
+                        try {
+                            int code = getCode(response);
+                            if (code == 1) {
+                                goPrivateTypePage(getActivity(), type,name);
+                            } else if (code == -1) {
+                                new AlertDialog(getActivity()).builder().setCancelable(true).setTitle("提示").setMsg(new JSONObject(response).optString("erroMsg") + "\n\n").setPositiveButton("前往购买", new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        goPayPage(getActivity());
+                                    }
+                                }).show();
+                            } else
+                                ToastUtil.ToastErrorMsg(getActivity(), response, code);
+                        } catch (Exception e) {
+                            Log.i(TAG, "" + e);
+                        }
+                    }
+                });
+
     }
 
     public void newInstance() {
@@ -232,10 +328,13 @@ public class StoreFragment extends BaseFragment implements PositionAddListener, 
     }
 
     private void getData(final boolean b) {
-
+        /**
+         * 获取所有类型私密视频、私照;
+         */
         OkHttpUtils
                 .get()
                 .url(MzFinal.URl + MzFinal.GETPRIVATERECORD)
+                .addParams(MzFinal.KEY, SPreferences.getUserToken())
                 .addParams(MzFinal.PAGE, String.valueOf(page))
                 .addParams(MzFinal.SIZE, String.valueOf(page + 20))
                 .build()
@@ -372,10 +471,29 @@ public class StoreFragment extends BaseFragment implements PositionAddListener, 
                 goHomePage(getActivity(), id);
                 break;
             case -2:
-                goPrivatePhotoPage(getActivity(), id, 0);
+                if (LoginStatusQuery()) {
+                    goPrivatePhotoPage(getActivity(), id, 0);
+                } else
+                    Login(getActivity());
                 break;
             case -3:
-                goPlayerPage(getActivity(), id, -3);
+                if (LoginStatusQuery()) {
+                    goPlayerPage(getActivity(), id, -3);
+                } else
+                    Login(getActivity());
+                break;
+            case 112:
+                if (LoginStatusQuery()) {
+                    ShareUtils.getSystemShare(getActivity(), id);
+                } else
+                    Login(getActivity());
+
+                break;
+            case 113:
+                if (LoginStatusQuery()) {
+                    ShareUtils.getSystemShare(getActivity(), id);
+                } else
+                    Login(getActivity());
                 break;
         }
     }

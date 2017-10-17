@@ -235,6 +235,7 @@ public class UploadPrivatePhotoActivity extends InitActivity implements View.OnC
 
                             } else
                                 ToastUtil.ToastErrorMsg(UploadPrivatePhotoActivity.this, response, code);
+
                         } catch (Exception e) {
 
                         }

@@ -39,7 +39,7 @@ import static example.com.fan.utils.IntentUtils.goPlayerPage;
 import static example.com.fan.utils.IntentUtils.goPrivatePhotoPage;
 import static example.com.fan.utils.JsonUtils.getCode;
 import static example.com.fan.utils.JsonUtils.getJsonAr;
-import static example.com.fan.utils.ShareUtils.ShareApp;
+import static example.com.fan.utils.ShareUtils.getSystemShare;
 import static example.com.fan.utils.SynUtils.Login;
 import static example.com.fan.utils.SynUtils.LoginStatusQuery;
 import static example.com.fan.utils.SynUtils.getTAG;
@@ -310,6 +310,7 @@ public class OverPayFragment extends BaseFragment implements ItemClickListener, 
 
     @Override
     public void onShare(String userid, String name, String info, String id) {
-        ShareApp(getActivity(), userid, name, info, id);
+//        ShareApp(getActivity(), userid, name, info, id);
+        getSystemShare(getActivity(),id);
     }
 }

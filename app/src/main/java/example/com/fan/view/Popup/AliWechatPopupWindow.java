@@ -19,7 +19,7 @@ import static example.com.fan.utils.SynUtils.getTAG;
 
 /**
  * Created by lian on 2017/3/29.
- * 微信支付宝弹窗,popupWindows实现;
+ * 支付宝、微信支付宝弹窗,popupWindows实现;
  */
 public class AliWechatPopupWindow implements View.OnClickListener {
     private static final String TAG = getTAG(AliWechatPopupWindow.class);

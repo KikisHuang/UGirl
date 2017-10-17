@@ -88,10 +88,10 @@ public class ToastUtil {
                 MyFragment.fragment.onUpDataUserInfo();
             ToastUtil.toast2_bottom(context, getCodeStatusMsg(code));
         } else {
-            if (getCodeStatusMsg(code) == null) {
+//            if (getCodeStatusMsg(code) == null) {
                 ToastUtil.toast2_bottom(context, new JSONObject(src).optString("erroMsg"));
-            } else
-                ToastUtil.toast2_bottom(context, getCodeStatusMsg(code));
+//            } else
+//                ToastUtil.toast2_bottom(context, getCodeStatusMsg(code));
         }
     }
 }

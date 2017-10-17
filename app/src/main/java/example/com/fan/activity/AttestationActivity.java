@@ -23,6 +23,7 @@ import example.com.fan.R;
 import example.com.fan.base.sign.save.SPreferences;
 import example.com.fan.fragment.MyFragment;
 import example.com.fan.fragment.sgamer.WithdrawFragment;
+import example.com.fan.mylistener.AttestationListener;
 import example.com.fan.mylistener.onPhotoCutListener;
 import example.com.fan.utils.MzFinal;
 import example.com.fan.utils.ToastUtil;
@@ -38,7 +39,7 @@ import static example.com.fan.utils.TitleUtils.setTitles;
 /**
  * Created by lian on 2017/9/28.
  */
-public class AttestationActivity extends InitActivity implements View.OnClickListener, onPhotoCutListener {
+public class AttestationActivity extends InitActivity implements View.OnClickListener, onPhotoCutListener, AttestationListener {
     private static final String TAG = getTAG(AttestationActivity.class);
 
     private LinearLayout hint_layout, phone_verify_layout, phone_code_layout, fill_in_layout, over_info_layout;
@@ -51,11 +52,11 @@ public class AttestationActivity extends InitActivity implements View.OnClickLis
     private EditText city_ed, BWH_ed, height_ed, wx_ed, phone_ed;
     private ImageView back_img;
     private File file = null;
-    private String city;
-    private String province;
-    private String B;
-    private String W;
-    private String H;
+    private String filePath = "";
+    private String province = "";
+    private String B = "";
+    private String W = "";
+    private String H = "";
     private TextView phone2_tv, time_tv;
 
     private EditText alipay_account_ed, alipay_name_ed, code_ed;
@@ -64,30 +65,17 @@ public class AttestationActivity extends InitActivity implements View.OnClickLis
     private int page = 60;
     private Runnable regisRunnable;
     private boolean sflag;
+    public static AttestationListener alistener;
+    public static onPhotoCutListener listener;
 
     @Override
     protected void click() {
-        switch (tag) {
-            case 0:
-                break;
-            case 1:
-                //1234
-                break;
-            case 2:
-                break;
-            case 3:
-                break;
-            case 4:
-                //423
-
-                break;
-        }
     }
 
     private void ChangeInit() {
+
         alipay_account_ed = f(R.id.alipay_account_ed);
         alipay_name_ed = f(R.id.alipay_name_ed);
-
         next_step_button = f(R.id.next_step_button);
         phone_next_button = f(R.id.phone_next_button);
         bangdin_phone_button = f(R.id.bangdin_phone_button);
@@ -128,7 +116,8 @@ public class AttestationActivity extends InitActivity implements View.OnClickLis
 
     //完善信息初始化;
     private void OverInfoInit() {
-
+        alistener = this;
+        listener = this;
         commint_button = f(R.id.commint_button);
         upload_layout = f(R.id.upload_layout);
         city_layout = f(R.id.city_layout);
@@ -140,10 +129,12 @@ public class AttestationActivity extends InitActivity implements View.OnClickLis
         BWH_ed = f(R.id.BWH_ed);
         height_ed = f(R.id.height_ed);
         wx_ed = f(R.id.wx_ed);
-        back_img = f(R.id.back_img);
+        back_img = f(R.id.back_img1);
 
         commint_button.setOnClickListener(this);
         upload_layout.setOnClickListener(this);
+        BWH_ed.setOnClickListener(this);
+        height_ed.setOnClickListener(this);
 
         city_layout.setOnClickListener(this);
         BWH_layout.setOnClickListener(this);
@@ -230,13 +221,13 @@ public class AttestationActivity extends InitActivity implements View.OnClickLis
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.city_layout:
+         /*   case R.id.city_layout:
                 goSelectPage(this, 2);
-                break;
-            case R.id.BWH_layout:
+                break;*/
+            case R.id.BWH_ed:
                 goSelectPage(this, 3);
                 break;
-            case R.id.height_layout:
+            case R.id.height_ed:
                 goSelectPage(this, 1);
                 break;
             case R.id.upload_layout:
@@ -415,7 +406,7 @@ public class AttestationActivity extends InitActivity implements View.OnClickLis
                 .url(MzFinal.URl + MzFinal.MODELAPPLY)
                 .addParams(MzFinal.KEY, SPreferences.getUserToken())
                 .addParams("residentProvince", province)
-                .addParams("residentCity", city)
+                .addParams("residentCity", city_ed.getText().toString())
                 .addParams("upperMeasurement", B)
                 .addParams("inMeasurement", W)
                 .addParams("lowerMeasurement", H)
@@ -435,7 +426,7 @@ public class AttestationActivity extends InitActivity implements View.OnClickLis
                         try {
                             int code = getCode(response);
                             if (code == 1) {
-                                ToastUtil.toast2_bottom(AttestationActivity.this, "修改成功!");
+                                ToastUtil.toast2_bottom(AttestationActivity.this, "已成功申请模特认证,等待审核！！");
                                 finish();
                             } else
                                 ToastUtil.ToastErrorMsg(AttestationActivity.this, response, code);
@@ -457,6 +448,10 @@ public class AttestationActivity extends InitActivity implements View.OnClickLis
             handler = null;
             sflag = false;
         }
+        if (alistener != null)
+            alistener = null;
+        if (listener != null)
+            listener = null;
     }
 
     @Override
@@ -468,9 +463,25 @@ public class AttestationActivity extends InitActivity implements View.OnClickLis
     public void PhotoLBitmapistener(String path, Bitmap bitmap, int page) {
         bitmap.recycle();
         if (page == 103) {
+            filePath = path;
             file = new File(path);
             Glide.with(this).load(file).into(back_img);
         }
 
+    }
+
+    @Override
+    public void onBWHResult(String b, String w, String h) {
+        B = b;
+        W = w;
+        H = h;
+        Log.i(TAG, B + "-" + "-" + W + "-" + H);
+        BWH_ed.setText(B + " - " + W + " - " + H);
+    }
+
+    @Override
+    public void onHeightResult(String h) {
+        Log.i(TAG, "height ==" + h);
+        height_ed.setText(h);
     }
 }

@@ -2,13 +2,22 @@ package example.com.fan.utils;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Environment;
+import android.util.Log;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.target.SimpleTarget;
+import com.bumptech.glide.request.transition.Transition;
 import com.umeng.socialize.ShareAction;
 import com.umeng.socialize.bean.SHARE_MEDIA;
 import com.umeng.socialize.media.UMImage;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
+
+import org.json.JSONObject;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -18,10 +27,17 @@ import example.com.fan.base.sign.save.SPreferences;
 import example.com.fan.mylistener.ShareListener;
 import okhttp3.Call;
 
+import static example.com.fan.utils.JsonUtils.getCode;
+import static example.com.fan.utils.SynUtils.getTAG;
+import static example.com.fan.utils.SynUtils.saveImage;
+
 /**
  * Created by lian on 2017/5/25.
  */
 public class ShareUtils {
+    private static final String TAG = getTAG(ShareUtils.class);
+    private static long time = 0;
+
     /**
      * 分享通用方法;
      *
@@ -35,7 +51,6 @@ public class ShareUtils {
         /**
          * 获取分享路径;
          */
-
         OkHttpUtils
                 .get()
                 .url(MzFinal.URl + MzFinal.GETSHAREURL)
@@ -107,36 +122,56 @@ public class ShareUtils {
         }
     }
 
-    /**
-     * 系统分享通用方法;
-     *
-     * @param context  上下文
-     * @param imgurl   图片url
-     * @param listener 获取路径回调接口
-     *
-     *
-    String path = id;
-    Intent imageIntent = new Intent(Intent.ACTION_SEND);
-    imageIntent.setType("image/jpeg");
-    imageIntent.putExtra(Intent.EXTRA_STREAM, Uri.parse(path));
-    startActivity(Intent.createChooser(imageIntent, "分享"));
-     */
-    public static void getSystemShare(final Context context, String imgurl, final ShareListener listener) {
-     /*   if (listener != null) {
-            RequestOptions options = new RequestOptions();
-            Glide.with(context).asBitmap().asbyte.load(imgurl).into(new SimpleTarget<byte[]>() {
-                @Override
-                public void onResourceReady(byte[] resource, Transition<? super byte[]> transition) {
-                    try {
-                        savaFileToSD(System.currentTimeMillis() + ".jpeg", resource, listener);
-                    } catch (Exception e) {
-                        listener.onFail();
-                        e.printStackTrace();
-                    }
-                }
-            });
-        }*/
+    public static void getSystemShare(final Context context, String id) {
+        if (System.currentTimeMillis() - time > 2000) {
+            time = System.currentTimeMillis();
+            try {
+                /**
+                 * 获取所有类型私密视频、私照;
+                 */
+                OkHttpUtils
+                        .post()
+                        .url(MzFinal.URl + MzFinal.SHAREQCIMAGE)
+                        .addParams(MzFinal.KEY, SPreferences.getUserToken())
+                        .addParams(MzFinal.ID, id)
+                        .build()
+                        .execute(new StringCallback() {
+                            @Override
+                            public void onError(Call call, Exception e, int id) {
+                                ToastUtil.toast2_bottom(context, "网络不顺畅...");
+                            }
+
+                            @Override
+                            public void onResponse(String response, int id) {
+                                try {
+                                    int code = getCode(response);
+                                    if (code == 1) {
+                                        Log.i(TAG, "response =====" + response);
+                                        Glide.with(context.getApplicationContext()).asBitmap().load(new JSONObject(response).optString("data")).into(new SimpleTarget<Bitmap>() {
+                                            @Override
+                                            public void onResourceReady(final Bitmap resource, Transition<? super Bitmap> transition) {
+
+                                                String path = saveImage(resource);
+                                                Intent imageIntent = new Intent(Intent.ACTION_SEND);
+                                                imageIntent.setType("image/jpeg");
+                                                imageIntent.putExtra(Intent.EXTRA_STREAM, Uri.parse(path));
+                                                context.startActivity(Intent.createChooser(imageIntent, "分享"));
+
+                                            }
+                                        });
+                                    } else
+                                        ToastUtil.ToastErrorMsg(context, response, code);
+                                } catch (Exception e) {
+                                    Log.i(TAG, "" + e);
+                                }
+                            }
+                        });
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
     }
+
     //往SD卡写入文件的方法
     public static void savaFileToSD(String filename, byte[] bytes, ShareListener listener) throws Exception {
         //如果手机已插入sd卡,且app具有读写sd卡的权限

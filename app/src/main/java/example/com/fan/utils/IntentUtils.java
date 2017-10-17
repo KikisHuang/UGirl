@@ -8,9 +8,16 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 
+import com.luck.picture.lib.entity.LocalMedia;
+
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+
 import example.com.fan.activity.Account_detailsActivity;
 import example.com.fan.activity.AttentionActivity;
 import example.com.fan.activity.AttestationActivity;
+import example.com.fan.activity.AwardActivity;
 import example.com.fan.activity.BuyCrowdActivity;
 import example.com.fan.activity.BuygoodsActivity;
 import example.com.fan.activity.ChoicenessActivity;
@@ -36,6 +43,7 @@ import example.com.fan.activity.PhotoActivity;
 import example.com.fan.activity.PlayerActivity;
 import example.com.fan.activity.PlayerVideoActivity;
 import example.com.fan.activity.PrivatePhotoActivity;
+import example.com.fan.activity.PrivateTypeActivity;
 import example.com.fan.activity.ProjectIncomeActivity;
 import example.com.fan.activity.RankingActivity;
 import example.com.fan.activity.RegisterActivity;
@@ -54,6 +62,7 @@ import example.com.fan.activity.UserPhotoOfVideoUpLoadActivity;
 import example.com.fan.activity.VideoAndVrSonActivity;
 import example.com.fan.activity.VipActivity;
 import example.com.fan.bean.MyOrderBean;
+import example.com.fan.bean.mcPublishImgUrls;
 
 import static example.com.fan.utils.SynUtils.getTAG;
 
@@ -147,15 +156,52 @@ public class IntentUtils {
     }
 
     /**
-     * 活动、商城页面;
+     * 打赏价格设置页面;
      *
-     * @param context 上下文;
+     * @param context    上下文;
+     * @param selectList
      */
-    public static void goUserPhotoOfVideoLoadPage(Context context, int flag,String FilePath) {
+    public static void goAwardPage(Context context, int flag, List<String> selectList) {
+
+        Intent intent = new Intent(context, AwardActivity.class);
+        intent.putExtra("award_flag", flag + "");
+        if (selectList != null)
+            intent.putStringArrayListExtra("award_selectLists", (ArrayList<String>) selectList);
+        ((Activity) context).startActivityForResult(intent, 7744);
+//        startPage(context, intent);
+    }
+
+    /**
+     * 超级玩家批量照片、视频上传页面;
+     *
+     * @param context    上下文;
+     * @param selectList
+     */
+    public static void goUserPhotoOfVideoLoadPage(Context context, int flag, String FilePath, List<LocalMedia> selectList) {
 
         Intent intent = new Intent(context, UserPhotoOfVideoUpLoadActivity.class);
         intent.putExtra("photo_of_video_flag", "" + flag);
         intent.putExtra("photo_of_video_FilePath", "" + FilePath);
+        intent.putExtra("selectLists", (Serializable) selectList);
+        startPage(context, intent);
+    }
+
+    /**
+     * 超级玩家批量照片、视频上传页面2;
+     *
+     * @param context      上下文;
+     * @param selectList
+     * @param specialId
+     * @param chargeNumber
+     */
+    public static void goUserPhotoOfVideoLoadPage2(Context context, int flag, String FilePath, List<mcPublishImgUrls> selectList, String specialId, int chargeNumber) {
+
+        Intent intent = new Intent(context, UserPhotoOfVideoUpLoadActivity.class);
+        intent.putExtra("photo_of_video_flag", "" + flag);
+        intent.putExtra("photo_of_video_FilePath", "" + FilePath);
+        intent.putExtra("photo_specialId", "" + specialId);
+        intent.putExtra("photo_of_chargeNumber", "" + chargeNumber);
+        intent.putExtra("mcPublishImgUrls", (Serializable) selectList);
         startPage(context, intent);
     }
 
@@ -223,6 +269,19 @@ public class IntentUtils {
     public static void goSGamerPage(Context context) {
 
         Intent intent = new Intent(context, SGamerActivity.class);
+        startPage(context, intent);
+    }
+    /**
+     * 超级用户页面;
+     *
+     * @param context 上下文;
+     * @param typeId
+     */
+    public static void goPrivateTypePage(Context context, String typeId, String name) {
+
+        Intent intent = new Intent(context, PrivateTypeActivity.class);
+        intent.putExtra("private_type_typeId", typeId);
+        intent.putExtra("private_type_name", name);
         startPage(context, intent);
     }
 

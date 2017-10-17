@@ -111,7 +111,7 @@ public class UploadPhotoActivity extends Activity implements CutPhotoListener, D
             Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
             if (takePictureIntent.resolveActivity(this.getPackageManager()) != null) {//判断是否有相机应用
                 File imagePath = new File(iRootPath, System.currentTimeMillis() + ".jpg");
-                Uri photoURI = getUriForFile(this, this.getPackageName() + ".fileprovider", imagePath);
+                Uri photoURI = getUriForFile(this, this.getPackageName() + ".provider", imagePath);
 
                 SharedPreferences preferences = this.getSharedPreferences(
                         "PicturesUri", Context.MODE_PRIVATE);
@@ -235,6 +235,8 @@ public class UploadPhotoActivity extends Activity implements CutPhotoListener, D
             PersonalInfoActivity.listener.PhotoLBitmapistener(url, bitmap,page);
         if (UploadPrivatePhotoActivity.listener != null)
             UploadPrivatePhotoActivity.listener.PhotoLBitmapistener(url, bitmap,page);
+        if (AttestationActivity.listener != null)
+            AttestationActivity.listener.PhotoLBitmapistener(url, bitmap,page);
         finish();
     }
 

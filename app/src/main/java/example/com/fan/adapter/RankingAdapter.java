@@ -20,6 +20,7 @@ import example.com.fan.mylistener.ItemClickListener;
 import example.com.fan.utils.OverallViewHolder;
 
 import static example.com.fan.utils.GlideImgUtils.getRequestOptions;
+import static example.com.fan.utils.SynUtils.WswitchWay;
 import static example.com.fan.utils.SynUtils.getRouString;
 import static example.com.fan.utils.SynUtils.getTAG;
 
@@ -64,11 +65,11 @@ public class RankingAdapter extends BaseAdapter {
         if (root == null)
             root = inflater.inflate(R.layout.ranking_item, null);
 
-        ImageView nike_icon = OverallViewHolder.ViewHolder.get(root,R.id.nike_icon);
-        TextView nike_name = OverallViewHolder.ViewHolder.get(root,R.id.nike_name);
-        TextView number_tv = OverallViewHolder.ViewHolder.get(root,R.id.number_tv);
-        TextView sub_number = OverallViewHolder.ViewHolder.get(root,R.id.sub_number);
-        LinearLayout ranking_layout = OverallViewHolder.ViewHolder.get(root,R.id.ranking_layout);
+        ImageView nike_icon = OverallViewHolder.ViewHolder.get(root, R.id.nike_icon);
+        TextView nike_name = OverallViewHolder.ViewHolder.get(root, R.id.nike_name);
+        TextView number_tv = OverallViewHolder.ViewHolder.get(root, R.id.number_tv);
+        TextView sub_number = OverallViewHolder.ViewHolder.get(root, R.id.sub_number);
+        LinearLayout ranking_layout = OverallViewHolder.ViewHolder.get(root, R.id.ranking_layout);
 
         /**
          * 将前三隐藏;
@@ -76,24 +77,27 @@ public class RankingAdapter extends BaseAdapter {
         if (position > 2) {
             ranking_layout.setVisibility(View.VISIBLE);
             try {
-                Glide.with(context).load(list.get(position).getHeadImgUrl()).apply(getRequestOptions(false, 0, 0,true)).into(nike_icon);
+                Glide.with(context).load(list.get(position).getHeadImgUrl()).apply(getRequestOptions(false, 0, 0, true)).into(nike_icon);
 
             } catch (Exception e) {
                 Log.i(TAG, "Glide You cannot start a load for a destroyed activity");
             }
-                nike_name.setText(list.get(position).getName());
+            nike_name.setText(list.get(position).getName());
             number_tv.setText("NO." + String.valueOf(position + 1));
-            if (tag <= 1)
-                sub_number.setText(getRouString(R.string.subscription) + list.get(position).getFollwCount() + "万");
-            else
-                sub_number.setText("被" + list.get(position).getFollwCount() + "人" + getRouString(R.string.attention));
+            if (tag <= 1) {
+                if (tag == 0)
+                    sub_number.setText("");
+                else
+                    sub_number.setText(getRouString(R.string.subscription) + WswitchWay(Double.parseDouble(list.get(position).getFollwCount())));
+            } else
+                sub_number.setText("被" + WswitchWay(Double.parseDouble(list.get(position).getFollwCount())) + "人" + getRouString(R.string.attention));
         } else {
             ranking_layout.setVisibility(View.GONE);
         }
         ranking_layout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                listener.onItemClickListener(tag,list.get(position).getId());
+                listener.onItemClickListener(tag, list.get(position).getId());
             }
         });
 

@@ -24,10 +24,10 @@
                 android:id="@+id/user_icon"
                 android:layout_width="100dp"
                 android:layout_height="match_parent"
-                android:src="@mipmap/test_icon"
-                android:transitionName="transition_morph_view"
+                android:src="@mipmap/test_icon"   />
+                <!--android:transitionName="transition_morph_view"-->
 
-                />
+
 
             <TextView
                 android:id="@+id/user_name"

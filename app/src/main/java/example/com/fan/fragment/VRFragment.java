@@ -51,7 +51,7 @@ import static example.com.fan.utils.IntentUtils.goPlayerPage;
 import static example.com.fan.utils.IntentUtils.goVideoOfVrPage;
 import static example.com.fan.utils.JsonUtils.getCode;
 import static example.com.fan.utils.JsonUtils.getJsonAr;
-import static example.com.fan.utils.ShareUtils.ShareApp;
+import static example.com.fan.utils.ShareUtils.getSystemShare;
 import static example.com.fan.utils.SpringUtils.SpringViewInit;
 import static example.com.fan.utils.SynUtils.Login;
 import static example.com.fan.utils.SynUtils.LoginStatusQuery;
@@ -424,7 +424,8 @@ public class VRFragment extends BaseFragment implements SpringListener, ItemClic
 
     @Override
     public void onShare(String userid, String name, String info, String id) {
-        ShareApp(getActivity(), userid, name, info, id);
+//        ShareApp(getActivity(), userid, name, info, id);
+        getSystemShare(getActivity(),id);
     }
 
     @Override

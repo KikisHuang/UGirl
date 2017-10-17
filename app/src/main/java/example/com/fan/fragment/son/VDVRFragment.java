@@ -28,7 +28,7 @@ import static example.com.fan.utils.IntentUtils.goHomePage;
 import static example.com.fan.utils.IntentUtils.goPlayerPage;
 import static example.com.fan.utils.JsonUtils.getCode;
 import static example.com.fan.utils.JsonUtils.getJsonAr;
-import static example.com.fan.utils.ShareUtils.ShareApp;
+import static example.com.fan.utils.ShareUtils.getSystemShare;
 import static example.com.fan.utils.SynUtils.getTAG;
 
 /**
@@ -209,6 +209,7 @@ public class VDVRFragment extends BaseFragment implements SpringListener, ItemCl
 
     @Override
     public void onShare(String userid, String name, String info, String id) {
-        ShareApp(getActivity(), userid, name, info, id);
+//        ShareApp(getActivity(), userid, name, info, id);
+        getSystemShare(getActivity(),id);
     }
 }

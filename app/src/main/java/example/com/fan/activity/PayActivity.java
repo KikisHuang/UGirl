@@ -29,6 +29,7 @@ import example.com.fan.bean.McVipDescribes;
 import example.com.fan.bean.PayBean;
 import example.com.fan.bean.PayDetailBean;
 import example.com.fan.bean.UserInfoBean;
+import example.com.fan.bean.VirtualBean;
 import example.com.fan.mylistener.PayRefreshListener;
 import example.com.fan.utils.DeviceUtils;
 import example.com.fan.utils.MzFinal;
@@ -41,6 +42,7 @@ import okhttp3.Call;
 import static example.com.fan.utils.GlideImgUtils.getRequestOptions;
 import static example.com.fan.utils.IntentUtils.goPersonInfoPage;
 import static example.com.fan.utils.JsonUtils.getCode;
+import static example.com.fan.utils.JsonUtils.getJsonAr;
 import static example.com.fan.utils.JsonUtils.getJsonOb;
 import static example.com.fan.utils.JsonUtils.getJsonSring;
 import static example.com.fan.utils.SynUtils.getRouColors;
@@ -54,7 +56,7 @@ public class PayActivity extends InitActivity implements PayRefreshListener {
     private static final String TAG = getTAG(PayActivity.class);
     //布局list;
     private List<PayDetailBean> dlist;
-    private LinearLayout top_ll, bottom_ll;
+    private LinearLayout top_ll, bottom_ll, virtual_layout;
     private TextView balance_tv;
     private AliWechatPopupWindow aw;
     public static PayRefreshListener paylistener;
@@ -145,6 +147,64 @@ public class PayActivity extends InitActivity implements PayRefreshListener {
                     });
 
         }
+        /**
+         * 获取虚拟币套餐;
+         */
+        OkHttpUtils
+                .get()
+                .url(MzFinal.URl + MzFinal.GETRECHARGEBYPAGE)
+                .tag(this)
+                .build()
+                .execute(new StringCallback() {
+                    @Override
+                    public void onError(Call call, Exception e, int id) {
+                        ToastUtil.toast2_bottom(PayActivity.this, "网络不顺畅...");
+                    }
+
+                    @Override
+                    public void onResponse(String response, int id) {
+                        try {
+                            int code = getCode(response);
+                            if (code == 1) {
+                                JSONArray ar = getJsonAr(response);
+                                for (int i = 0; i < ar.length(); i++) {
+                                    VirtualBean ub = new Gson().fromJson(String.valueOf(ar.optJSONObject(i)), VirtualBean.class);
+                                    CreateVirtualLayouts(ub);
+                                }
+
+                            } else
+                                ToastUtil.ToastErrorMsg(PayActivity.this, response, code);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
+
+    }
+
+    private void CreateVirtualLayouts(final VirtualBean ub) {
+        final View view = LayoutInflater.from(PayActivity.this).inflate(R.layout.pay_virtua_include, null);
+        ImageView im = (ImageView) view.findViewById(R.id.virtua_icon);
+        try {
+            Glide.with(this).load(ub.getImgUrl()).into(im);
+        } catch (Exception e) {
+            Log.i(TAG, "Glide You cannot start a load for a destroyed activity");
+        }
+        TextView title = (TextView) view.findViewById(R.id.virtua_name);
+        TextView content = (TextView) view.findViewById(R.id.virtua_explain);
+        final TextView price = (TextView) view.findViewById(R.id.virtua_price);
+        title.setText(ub.getTitle());
+        content.setText(ub.getInfo());
+        price.setText("￥ " + ub.getPrice());
+
+        price.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                aw = new AliWechatPopupWindow(PayActivity.this, new String[]{MzFinal.ALIPAYRECHARGE, MzFinal.WXPAYRECHARGE});
+                aw.ScreenPopupWindow(view, ub.getId());
+            }
+        });
+        virtual_layout.addView(view);
     }
 
     /**
@@ -175,7 +235,6 @@ public class PayActivity extends InitActivity implements PayRefreshListener {
 
         ca.setCardBackgroundColor(getRouColors(MzFinal.pay_colors[a]));
 
-
         title.setText(pb.getName());
         content.setText(pb.getInfo());
         price.setText("￥ " + pb.getPrice());
@@ -192,8 +251,8 @@ public class PayActivity extends InitActivity implements PayRefreshListener {
         price.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (aw != null)
-                    aw.ScreenPopupWindow(view, pb.getId());
+                aw = new AliWechatPopupWindow(PayActivity.this, new String[]{MzFinal.ALIPAYVIP, MzFinal.WXPAYVIP});
+                aw.ScreenPopupWindow(view, pb.getId());
             }
         });
         details.setOnClickListener(new View.OnClickListener() {
@@ -243,7 +302,7 @@ public class PayActivity extends InitActivity implements PayRefreshListener {
         tv.setLayoutParams(lp2);
 
         try {
-            Glide.with(getApplicationContext()).load(mcVipDescribes.getIconUrl()).apply(getRequestOptions(false, 0, 0,true)).into(img);
+            Glide.with(getApplicationContext()).load(mcVipDescribes.getIconUrl()).apply(getRequestOptions(false, 0, 0, true)).into(img);
         } catch (Exception e) {
             Log.i(TAG, "Glide You cannot start a load for a destroyed activity");
         }
@@ -261,11 +320,11 @@ public class PayActivity extends InitActivity implements PayRefreshListener {
         TitleUtils.setTitles(this, "充值");
         info = new ArrayList<>();
         paylistener = this;
-        aw = new AliWechatPopupWindow(PayActivity.this, new String[]{MzFinal.ALIPAYVIP, MzFinal.WXPAYVIP});
         dlist = new ArrayList<>();
         top_ll = f(R.id.top_ll);
         balance_tv = f(R.id.balance_tv);
         bottom_ll = f(R.id.bottom_ll);
+        virtual_layout = f(R.id.virtual_layout);
     }
 
     @Override
@@ -283,6 +342,7 @@ public class PayActivity extends InitActivity implements PayRefreshListener {
 
     /**
      * 套餐明细隐藏/显示方法;
+     *
      * @param tv view;
      * @param ll 布局;
      */

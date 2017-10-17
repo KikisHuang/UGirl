@@ -17,6 +17,7 @@ import example.com.fan.fragment.BaseFragment;
 import example.com.fan.mylistener.ChangeUserInfoListener;
 import example.com.fan.utils.MzFinal;
 import example.com.fan.utils.ToastUtil;
+import example.com.fan.view.Popup.WithdrawPopupWindow;
 import okhttp3.Call;
 
 import static example.com.fan.utils.IntentUtils.goAccountDetailsPage;
@@ -131,7 +132,7 @@ public class WithdrawFragment extends BaseFragment implements View.OnClickListen
                             JSONObject ob = getJsonOb(response);
                             if (code == 1) {
                                 AccountBean ab = new Gson().fromJson(String.valueOf(ob), AccountBean.class);
-                                money_tv.setText("￥" + String.valueOf(ab.getBalance()));
+                                money_tv.setText(String.valueOf(ab.getBalance()));
 
                                 if (!cleanNull(String.valueOf(ab.getPhone())))
                                     phone_tv.setText(String.valueOf(ab.getPhone()));
@@ -167,6 +168,12 @@ public class WithdrawFragment extends BaseFragment implements View.OnClickListen
                 break;
             case R.id.withdraw_tv:
                 if (BINDING == 1) {
+                    if (Double.valueOf(money_tv.getText().toString()) < 5) {
+                        ToastUtil.toast2_bottom(getActivity(), "账户金额小于5元不能提现..");
+                    } else {
+                        WithdrawPopupWindow ww = new WithdrawPopupWindow(getActivity(), money_tv.getText().toString());
+                        ww.ScreenPopupWindow();
+                    }
 
                 } else if (BINDING == 0) {
                     goRzPage(getActivity(), 1);

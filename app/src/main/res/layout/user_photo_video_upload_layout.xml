@@ -10,7 +10,10 @@
         android:layout_height="match_parent"
         android:background="@color/white"
         android:orientation="vertical"
-        android:padding="10dp">
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingBottom="10dp"
+        >
 
         <include layout="@layout/title_layout"></include>
 
@@ -40,6 +43,7 @@
                     android:background="@drawable/white_roundness_corners">
 
                     <ImageView
+                        android:id="@+id/cover_change_img"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:src="@mipmap/photo_icon1" />
@@ -239,7 +243,7 @@
         android:layout_gravity="bottom"
         android:background="@color/cherry3"
         android:gravity="center"
-        android:text="保存"
+        android:text="发布"
         android:textColor="@color/white"
         android:textSize="18dp" />
 
@@ -247,19 +251,25 @@
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:visibility="gone"
-        android:background="@color/white"
         android:layout_marginTop="70dp"
-        ></android.support.v7.widget.RecyclerView>
+        android:background="@color/white"
+        android:visibility="gone"></android.support.v7.widget.RecyclerView>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerView1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="70dp"
+        android:background="@color/white"
+        android:visibility="gone"></android.support.v7.widget.RecyclerView>
 
     <LinearLayout
         android:id="@+id/video_setting_layout"
         android:layout_width="match_parent"
         android:layout_height="70dp"
-        android:orientation="vertical"
         android:background="@color/white"
-        android:visibility="gone"
-        >
+        android:orientation="vertical"
+        android:visibility="gone">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -275,6 +285,7 @@
                 android:src="@mipmap/cherry_return" />
 
             <TextView
+                android:id="@+id/select_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
@@ -301,11 +312,12 @@
             android:background="@drawable/cherry_lucency_back">
 
             <TextView
+                android:id="@+id/tag_tv"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center|left"
                 android:paddingLeft="10dp"
-                android:text="你一共可以选择3张视频图片"
+                android:text="你一共可以选择3张图片"
                 android:textColor="@color/white"
                 android:textSize="12dp" />
         </FrameLayout>

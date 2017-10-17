@@ -7,6 +7,7 @@ import android.support.v4.app.FragmentActivity;
 import android.transition.Transition;
 import android.transition.TransitionInflater;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.Window;
 
 import com.umeng.analytics.MobclickAgent;
@@ -24,7 +25,6 @@ import example.com.fan.utils.pay.ali.alipayTool;
 import static example.com.fan.utils.SynUtils.LoginStatusQuery;
 import static example.com.fan.utils.SynUtils.getTAG;
 import static example.com.fan.utils.SynUtils.getUserVip;
-import static example.com.fan.view.dialog.CustomProgress.Cancle;
 
 /**
  * Created by lian on 2017/6/6.
@@ -123,10 +123,23 @@ public abstract class InitActivity extends FragmentActivity implements alipayToo
     protected void onDestroy() {
         super.onDestroy();
 //        MyAppcation.getRefWatcher(this).watch(this);
-        Cancle();
+//        Cancle();
         Runtime.getRuntime().gc();
     }
 
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+
+        switch (keyCode) {
+            case KeyEvent.KEYCODE_VOLUME_UP:
+                Log.i(TAG,"KEYCODE_VOLUME_UP");
+                break;
+            case KeyEvent.KEYCODE_VOLUME_DOWN:
+                Log.i(TAG,"KEYCODE_VOLUME_DOWN");
+                break;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
 
     @Override
     public void result(int result) {
@@ -141,6 +154,9 @@ public abstract class InitActivity extends FragmentActivity implements alipayToo
             }
             if (PayActivity.paylistener != null)
                 PayActivity.paylistener.onPayRefresh();
+
+            if(PlayerVideoActivity.infoListener!=null)
+                PlayerVideoActivity.infoListener.onUpDataUserInfo();
 
             getUserVip();
         } catch (Exception e) {

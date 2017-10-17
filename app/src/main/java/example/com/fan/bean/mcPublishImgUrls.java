@@ -1,9 +1,11 @@
 package example.com.fan.bean;
 
+import java.io.Serializable;
+
 /**
  * Created by lian on 2017/6/21.
  */
-public class mcPublishImgUrls {
+public class mcPublishImgUrls implements Serializable {
     public String getPath() {
         return path;
     }

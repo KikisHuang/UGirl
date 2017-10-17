@@ -265,7 +265,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
         menu3 = (TextView) three_img.findViewById(R.id.name);
         menu3.setText("VR");
         menu4 = (TextView) four_img.findViewById(R.id.name);
-        menu4.setText(getRouString(R.string.model_status));
+        menu4.setText(getRouString(R.string.privacy));
         menu5 = (TextView) five_img.findViewById(R.id.name);
         menu5.setText(getRouString(R.string.my));
 

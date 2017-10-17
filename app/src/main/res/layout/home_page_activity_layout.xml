@@ -80,6 +80,7 @@
         android:orientation="horizontal"
         android:background="@color/white"
         android:gravity="center"
+        android:visibility="gone"
         >
 
         <LinearLayout

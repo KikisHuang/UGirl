@@ -2,14 +2,12 @@ package example.com.fan.activity;
 
 import android.annotation.TargetApi;
 import android.os.Build;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 
 import example.com.fan.R;
 
-import static example.com.fan.utils.SynUtils.getRingDuring;
 import static example.com.fan.utils.SynUtils.getTAG;
 
 /**
@@ -45,8 +43,9 @@ public class TestActivity extends InitActivity implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.share_bt:
-                Log.i(TAG, "时长 ===== " + getRingDuring("/storage/emulated/0/video/6dianban.mp4"));
+
                 break;
         }
     }
+
 }

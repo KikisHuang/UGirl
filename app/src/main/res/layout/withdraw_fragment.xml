@@ -26,15 +26,30 @@
             android:layout_gravity="center"
             android:layout_marginTop="20dp">
 
-            <TextView
-                android:id="@+id/money_tv"
+            <LinearLayout
+                android:id="@+id/money_ll"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
                 android:layout_gravity="center"
-                android:text="￥0.00"
-                android:textColor="@color/white"
-                android:textSize="27dp" />
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="￥"
+                    android:textColor="@color/white"
+                    android:textSize="27dp"
+                    />
+
+                <TextView
+                    android:id="@+id/money_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="0.00"
+                    android:textColor="@color/white"
+                    android:textSize="27dp" />
+            </LinearLayout>
 
             <TextView
                 android:id="@+id/details_tv"
@@ -42,7 +57,7 @@
                 android:layout_height="22dp"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="15dp"
-                android:layout_toRightOf="@+id/money_tv"
+                android:layout_toRightOf="@+id/money_ll"
                 android:background="@drawable/white_corner2"
                 android:drawableLeft="@mipmap/question_icon"
                 android:gravity="center"

@@ -292,7 +292,6 @@ public class PageFragment extends BaseFragment implements View.OnClickListener, 
                                 for (int i = 0; i < ar.length(); i++) {
                                     RankBean rb = new Gson().fromJson(String.valueOf(ar.getJSONObject(i)), RankBean.class);
                                     rklist.add(rb);
-
                                 }
                                 setRankingIcon();
                             } else
@@ -546,7 +545,7 @@ public class PageFragment extends BaseFragment implements View.OnClickListener, 
         bottom_page.setLayoutParams(lp1);
         ViewPagerScroller scroller1 = new ViewPagerScroller(getActivity());
         scroller1.setScrollDuration(800);
-        scroller1.initViewPagerScroll(bottom_page);//这个是设置切换过渡时间为2秒
+        scroller1.initViewPagerScroll(bottom_page);
 
         /**** 重要部分  ******/
         //clipChild用来定义他的子控件是否要在他应有的边界内进行绘制。 默认情况下，clipChild被设置为true。 也就是不允许进行扩展绘制。
@@ -577,7 +576,7 @@ public class PageFragment extends BaseFragment implements View.OnClickListener, 
         bottom_page.setAdapter(adapter1);
         bottom_page.setOffscreenPageLimit(bottomList.size());
         if (bottomList.size() > 3)
-            bottom_page.setCurrentItem(3);
+            bottom_page.setCurrentItem(2);
         else
             bottom_page.setCurrentItem(1);
 

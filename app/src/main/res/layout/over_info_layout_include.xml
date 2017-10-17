@@ -41,16 +41,10 @@
                 android:layout_weight="1"
                 android:background="@color/white"
                 android:hint="所在城市"
-                android:focusable="false"
                 android:textColor="@color/black"
                 android:textColorHint="@color/content6"
                 android:textSize="13dp" />
 
-            <ImageView
-                android:layout_width="15dp"
-                android:layout_height="15dp"
-                android:layout_gravity="right|center"
-                android:src="@mipmap/more_img3" />
         </LinearLayout>
 
         <TextView style="@style/line_styles_ove_w" />
@@ -65,7 +59,7 @@
             <EditText
                 android:id="@+id/BWH_ed"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_marginLeft="10dp"
                 android:layout_weight="1"
                 android:background="@color/white"
@@ -95,7 +89,7 @@
             <EditText
                 android:id="@+id/height_ed"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_marginLeft="10dp"
                 android:layout_weight="1"
                 android:background="@color/white"
@@ -164,7 +158,7 @@
                 android:textColor="@color/content6"
                 android:textSize="12dp" />
             <ImageView
-                android:id="@+id/back_img"
+                android:id="@+id/back_img1"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:scaleType="centerCrop"

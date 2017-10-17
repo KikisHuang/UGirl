@@ -47,7 +47,7 @@ import static example.com.fan.utils.JsonUtils.getCode;
 import static example.com.fan.utils.JsonUtils.getJsonAr;
 import static example.com.fan.utils.JsonUtils.getJsonInt;
 import static example.com.fan.utils.JsonUtils.getJsonOb;
-import static example.com.fan.utils.ShareUtils.ShareApp;
+import static example.com.fan.utils.ShareUtils.getSystemShare;
 import static example.com.fan.utils.StringUtil.checkNull;
 import static example.com.fan.utils.StringUtil.cleanNull;
 import static example.com.fan.utils.SynUtils.Login;
@@ -431,7 +431,8 @@ public class HomePageActivity extends BaseActivity implements ItemClickListener,
 
     @Override
     public void onShare(String userid, String name, String info, String id) {
-        ShareApp(HomePageActivity.this, userid, name, info, id);
+//        ShareApp(HomePageActivity.this, userid, name, info, id);
+        getSystemShare(HomePageActivity.this,id);
     }
 
     @Override

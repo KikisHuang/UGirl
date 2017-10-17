@@ -36,10 +36,10 @@ android {
     buildToolsVersion "24.0.0"
     defaultConfig {
         applicationId "example.com.fan"
-//        minSdkVersion 17
-        minSdkVersion 21
-//        targetSdkVersion 20
-        targetSdkVersion 22
+        minSdkVersion 17
+//        minSdkVersion 21
+        targetSdkVersion 20
+//        targetSdkVersion 22
         versionCode 31
         versionName "1.3"
         multiDexEnabled true
@@ -55,6 +55,7 @@ android {
     }
 
     productFlavors {
+
         //尤女郎市场渠道;
         vivo {
             manifestPlaceholders = [UMENG_CHANNEL_VALUE: "1f2720441bbd"]

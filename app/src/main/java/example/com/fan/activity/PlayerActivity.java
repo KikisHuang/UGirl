@@ -51,7 +51,6 @@ import example.com.fan.mylistener.editeListener;
 import example.com.fan.utils.DeviceUtils;
 import example.com.fan.utils.MzFinal;
 import example.com.fan.utils.PlayerUtils;
-import example.com.fan.utils.ShareUtils;
 import example.com.fan.utils.ToastUtil;
 import example.com.fan.view.Popup.CommentEditPopupWindow;
 import example.com.fan.view.dialog.AlertDialog;
@@ -66,6 +65,7 @@ import static example.com.fan.utils.JsonUtils.getJsonAr;
 import static example.com.fan.utils.JsonUtils.getJsonInt;
 import static example.com.fan.utils.JsonUtils.getJsonOb;
 import static example.com.fan.utils.JsonUtils.getJsonSring;
+import static example.com.fan.utils.ShareUtils.getSystemShare;
 import static example.com.fan.utils.SynUtils.KswitchWay;
 import static example.com.fan.utils.SynUtils.ParseK;
 import static example.com.fan.utils.SynUtils.getRouColors;
@@ -854,7 +854,8 @@ public class PlayerActivity extends InitActivity implements UVPlayerCallBack, Pl
                 break;
             case R.id.share_fl:
                 if (!userId.isEmpty())
-                    ShareUtils.ShareApp(PlayerActivity.this, userId, vb.getName(), vb.getInfo(), vb.getId());
+//                    ShareUtils.ShareApp(PlayerActivity.this, userId, vb.getName(), vb.getInfo(), vb.getId());
+                    getSystemShare(PlayerActivity.this,vb.getId());
                 break;
             case R.id.video_tool_imgFullscreen:
                 if (mCtrl != null) {

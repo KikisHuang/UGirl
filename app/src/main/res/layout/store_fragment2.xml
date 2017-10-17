@@ -8,11 +8,11 @@
         android:id="@+id/springview1"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <example.com.fan.view.DirectionListView
+        <ListView
             android:id="@+id/listView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:divider="@null"></example.com.fan.view.DirectionListView>
+            android:divider="@null"></ListView>
     </com.liaoinstan.springview.widget.SpringView>
 
 </FrameLayout>

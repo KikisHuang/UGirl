@@ -1,11 +1,20 @@
 package example.com.fan.fragment.son;
 
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.DataSource;
+import com.bumptech.glide.load.engine.GlideException;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.target.Target;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
 
@@ -16,6 +25,7 @@ import example.com.fan.fragment.BaseFragment;
 import example.com.fan.mylistener.PayRefreshListener;
 import example.com.fan.utils.MzFinal;
 import example.com.fan.utils.ToastUtil;
+import example.com.fan.view.Popup.PaytwoPopupWindow;
 import okhttp3.Call;
 import uk.co.senab.photoview.PhotoView;
 import uk.co.senab.photoview.PhotoViewAttacher;
@@ -35,9 +45,13 @@ public class PictureSlideFragment2 extends BaseFragment implements PayRefreshLis
     private PhotoViewAttacher photoViewAttacher;
     private boolean need;
     private String id = "";
-//    private ImageView load_img;
+    //    private ImageView load_img;
     private GestureDetector.OnDoubleTapListener gest;
     public static PayRefreshListener PayListener;
+    private Button buy_bt;
+    private String base = "";
+    private ImageView load_img;
+    private String price = "";
 
     /**
      * 动态创建Fragment,防止OOM;
@@ -46,17 +60,19 @@ public class PictureSlideFragment2 extends BaseFragment implements PayRefreshLis
      * @param base      OSS路径
      * @param needMoney 收费标识符
      * @param id        专辑id
+     * @param price
      * @return
      */
-    public static PictureSlideFragment2 newInstance(String path, String base, boolean needMoney, String id) {
+    public static PictureSlideFragment2 newInstance(String path, String base, boolean needMoney, String id, String price) {
 
-        if (!MzFinal.isPay && needMoney) {
-            if (PrivatePhotoActivity.tlistener != null)
-                PrivatePhotoActivity.tlistener.CloseOfOpenTouch(false);
-        }
+//        if (!MzFinal.isPay && needMoney) {
+//            if (PrivatePhotoActivity.tlistener != null)
+//                PrivatePhotoActivity.tlistener.CloseOfOpenTouch(false);
+//        }
 
         PictureSlideFragment2 f = new PictureSlideFragment2();
         Bundle args = new Bundle();
+
         /**
          * 判断服务端返回的收费标识符，选择路径;
          */
@@ -65,8 +81,11 @@ public class PictureSlideFragment2 extends BaseFragment implements PayRefreshLis
         else
             args.putString("url", path);
 
+
         args.putString("id", id);
+        args.putString("base", path);
         args.putBoolean("needMoney", needMoney);
+        args.putString("price", price);
 
         f.setArguments(args);
         Log.i(TAG, "getNeedMoney ======" + needMoney);
@@ -77,9 +96,11 @@ public class PictureSlideFragment2 extends BaseFragment implements PayRefreshLis
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        url = getArguments() != null ? getArguments().getString("url") : "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1494050810732&di=12648ae1cfe05df8bf586bd65c60961f&imgtype=0&src=http%3A%2F%2Fres2.esf.leju.com%2Fesf_www%2Fstatics%2Fimages%2Fdefault-img%2Fdetail.png";
+        url = getArguments() != null ? getArguments().getString("url") : "";
         need = getArguments() != null ? getArguments().getBoolean("needMoney") : false;
         id = getArguments() != null ? getArguments().getString("id") : "";
+        base = getArguments() != null ? getArguments().getString("base") : "";
+        price = getArguments() != null ? getArguments().getString("price") : "";
     }
 
     @Override
@@ -89,9 +110,8 @@ public class PictureSlideFragment2 extends BaseFragment implements PayRefreshLis
 
     private void getData() {
 
-//        load_img.setVisibility(View.VISIBLE);
-//        Glide.with(getActivity().getApplicationContext()).load(R.drawable.loading_gif).asGif().diskCacheStrategy(DiskCacheStrategy.SOURCE).into(load_img);
-
+        Glide.with(getActivity()).asGif().load(R.drawable.loading_gif).into(load_img);
+        load_img.setVisibility(View.VISIBLE);
         /**
          * 收费图片从oss中获取;
          */
@@ -119,17 +139,13 @@ public class PictureSlideFragment2 extends BaseFragment implements PayRefreshLis
                                 int code = getCode(response);
                                 if (code == 1) {
                                     /**
-                                     * 收费判断,如未购买并且不等于vip,ViewPager禁止滑动并且弹窗;
+                                     * 收费判断,如未购买,ViewPager禁止滑动并且弹窗;
                                      */
-                                    if (PrivatePhotoActivity.tlistener != null)
-                                        PrivatePhotoActivity.tlistener.CloseOfOpenTouch(true);
-
                                     ReadImg(getJsonSring(response));
-
+                                    buy_bt.setVisibility(View.GONE);
                                 } else if (code == 0) {
-                                    if (PrivatePhotoActivity.tlistener != null)
-                                        PrivatePhotoActivity.tlistener.CloseOfOpenTouch(false);
-                                    ReadImg(url);
+                                    buy_bt.setVisibility(View.VISIBLE);
+                                    ReadImg(base);
                                 } else
                                     ToastUtil.ToastErrorMsg(getActivity(), response, code);
                             } catch (Exception e) {
@@ -139,8 +155,8 @@ public class PictureSlideFragment2 extends BaseFragment implements PayRefreshLis
                     });
 
         } else {
-            if (PrivatePhotoActivity.tlistener != null)
-                PrivatePhotoActivity.tlistener.CloseOfOpenTouch(true);
+            /*if (PrivatePhotoActivity.tlistener != null)
+                PrivatePhotoActivity.tlistener.CloseOfOpenTouch(true);*/
             ReadImg(url);
         }
     }
@@ -152,38 +168,21 @@ public class PictureSlideFragment2 extends BaseFragment implements PayRefreshLis
      */
     private void ReadImg(String url) {
         try {
-//            int w = getRatio(getActivity(), true);
-//            int h = getRatio(getActivity(), false);
-//            Log.i(TAG, "根据屏幕宽度显示的分辨率==== w =" + w + " h =" + h);
-//            if (w > 1080 && h > 1920) {
-//                Glide.with(getActivity().getApplicationContext())
-//                        .load(url)
-//                        .crossFade(200)
-//                        .error(R.drawable.load_fail_img)
-//                        .centerCrop()
-//                        .into(new GlideDrawableImageViewTarget(imageView) {
-//                            @Override
-//                            public void onResourceReady(GlideDrawable resource, GlideAnimation<? super GlideDrawable> animation) {
-//                                super.onResourceReady(resource, animation);
-//                                load_img.setVisibility(View.GONE);
-//                            }
-//                        });
-//            } else {
             Glide.with(getActivity().getApplicationContext())
                     .load(url)
-                    .apply(getRequestOptions(true, 0, 0,false).error(R.drawable.load_fail_img)).into(imageView);
-        /*    Glide.with(getActivity().getApplicationContext())
-                    .load(url)
-                    .error(R.drawable.load_fail_img)
-                    .centerCrop()
-                    .into(new GlideDrawableImageViewTarget(imageView) {
+                    .listener(new RequestListener<Drawable>() {
                         @Override
-                        public void onResourceReady(GlideDrawable resource, GlideAnimation<? super GlideDrawable> animation) {
-                            super.onResourceReady(resource, animation);
-                            load_img.setVisibility(View.GONE);
+                        public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
+                            return false;
                         }
-                    });*/
-//            }
+
+                        @Override
+                        public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
+                            load_img.setVisibility(View.GONE);
+                            return false;
+                        }
+                    })
+                    .apply(getRequestOptions(true, 0, 0, false).error(R.drawable.load_fail_img)).into(imageView);
         } catch (Exception e) {
             Log.i(TAG, "Glide You cannot start a load for a destroyed activity");
         }
@@ -191,6 +190,13 @@ public class PictureSlideFragment2 extends BaseFragment implements PayRefreshLis
 
     @Override
     protected void click() {
+        buy_bt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                PaytwoPopupWindow pyp = new PaytwoPopupWindow(getActivity(), String.valueOf(price), id,0);
+                pyp.ScreenPopupWindow(load_img);
+            }
+        });
     }
 
     @Override
@@ -206,7 +212,8 @@ public class PictureSlideFragment2 extends BaseFragment implements PayRefreshLis
     @Override
     protected void init() {
         imageView = (PhotoView) view.findViewById(R.id.iv_main_pic);
-//        load_img = (ImageView) view.findViewById(R.id.load_img);
+        buy_bt = (Button) view.findViewById(R.id.buy_bt);
+        load_img = (ImageView) view.findViewById(R.id.load_img);
         photoViewAttacher = new PhotoViewAttacher(imageView);
         PayListener = this;
 
@@ -273,10 +280,6 @@ public class PictureSlideFragment2 extends BaseFragment implements PayRefreshLis
     @Override
     public void onPayRefresh() {
         getData();
-        ErrorListen();
     }
 
-    private void ErrorListen() {
-
-    }
 }

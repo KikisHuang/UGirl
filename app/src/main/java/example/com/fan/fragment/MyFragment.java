@@ -54,6 +54,7 @@ import static example.com.fan.utils.IntentUtils.goVipPage;
 import static example.com.fan.utils.JsonUtils.getCode;
 import static example.com.fan.utils.JsonUtils.getJsonAr;
 import static example.com.fan.utils.JsonUtils.getJsonOb;
+import static example.com.fan.utils.JsonUtils.getJsonSring;
 import static example.com.fan.utils.StringUtil.cleanNull;
 import static example.com.fan.utils.SynUtils.Login;
 import static example.com.fan.utils.SynUtils.LoginStatusQuery;
@@ -165,6 +166,7 @@ public class MyFragment extends BaseFragment implements View.OnClickListener, Ch
         rl_layout7.setOnClickListener(this);
         rl_layout8.setOnClickListener(this);
         rl_layout33.setOnClickListener(this);
+        apply_for_bt.setOnClickListener(this);
 
 //        rl_layout10.setOnClickListener(this);
 //        rl_layout11.setOnClickListener(this);
@@ -243,6 +245,7 @@ public class MyFragment extends BaseFragment implements View.OnClickListener, Ch
                                         more_icon0.setVisibility(View.VISIBLE);
                                         apply_for_bt.setVisibility(View.GONE);
                                         super_tv.setText(getRouString(R.string.my_production));
+
                                     } else {
                                         MzFinal.MODELFLAG = false;
                                         more_icon0.setVisibility(View.GONE);
@@ -256,9 +259,9 @@ public class MyFragment extends BaseFragment implements View.OnClickListener, Ch
                                     MyAppcation.UserIcon = ub.getHeadImgUrl();
                                     MyAppcation.myInvitationCode = ub.getMyInvitationCode();
                                     if (info.get(0).getHeadImgUrl() == null)
-                                        Glide.with(getActivity().getApplicationContext()).load(R.mipmap.test_icon).apply(getRequestOptions(false, 0, 0,true)).into(user_icon);
+                                        Glide.with(getActivity().getApplicationContext()).load(R.mipmap.test_icon).apply(getRequestOptions(false, 0, 0, true)).into(user_icon);
                                     else
-                                        Glide.with(getActivity().getApplicationContext()).load(info.get(0).getHeadImgUrl()).apply(getRequestOptions(false, 0, 0,true)).into(user_icon);
+                                        Glide.with(getActivity().getApplicationContext()).load(info.get(0).getHeadImgUrl()).apply(getRequestOptions(false, 0, 0, true)).into(user_icon);
                                     if (cleanNull(info.get(0).getName()))
                                         user_name.setText("");
                                     else
@@ -439,12 +442,22 @@ public class MyFragment extends BaseFragment implements View.OnClickListener, Ch
                 goSettingPage(getActivity());
                 break;
             case R.id.rl_layout0:
-                if (MzFinal.MODELFLAG)
-                    goSGamerPage(getActivity());
-                else {
-                    ApplySuperUserPopupWindow aps = new ApplySuperUserPopupWindow(getActivity());
-                    aps.ScreenPopupWindow();
-                }
+                if (LoginStatusQuery()) {
+                    if (MzFinal.MODELFLAG)
+                        goSGamerPage(getActivity());
+                    else
+                        getAuditStatus();
+                } else
+                    Login(getActivity());
+                break;
+            case R.id.apply_for_bt:
+                if (LoginStatusQuery()) {
+                    if (MzFinal.MODELFLAG)
+                        goSGamerPage(getActivity());
+                    else
+                        getAuditStatus();
+                } else
+                    Login(getActivity());
                 break;
 
          /*   //我的私照
@@ -489,6 +502,42 @@ public class MyFragment extends BaseFragment implements View.OnClickListener, Ch
                 break;*/
 
         }
+    }
+
+    private void getAuditStatus() {
+        /**
+         * 审核状态判断;
+         */
+        OkHttpUtils
+                .get()
+                .url(MzFinal.URl + MzFinal.CHECKAPPLY)
+                .addParams(MzFinal.KEY, SPreferences.getUserToken())
+                .tag(this)
+                .build()
+                .execute(new StringCallback() {
+                    @Override
+                    public void onError(Call call, Exception e, int id) {
+                        ToastUtil.toast2_bottom(getActivity(), "网络不顺畅...");
+                    }
+
+                    @Override
+                    public void onResponse(String response, int id) {
+                        try {
+                            int code = getCode(response);
+                            int data = Integer.parseInt(getJsonSring(response));
+                            if (data == 1) {
+                                ApplySuperUserPopupWindow aps = new ApplySuperUserPopupWindow(getActivity());
+                                aps.ScreenPopupWindow();
+                            } else if (data == 0)
+                                ToastUtil.toast2_bottom(getActivity(), "正在审核中...");
+                            else
+                                ToastUtil.ToastErrorMsg(getActivity(), response, code);
+                        } catch (Exception e) {
+
+                        }
+                    }
+                });
+
     }
 
     @Override
