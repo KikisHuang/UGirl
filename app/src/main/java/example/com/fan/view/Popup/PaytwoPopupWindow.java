@@ -17,17 +17,17 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import example.com.fan.R;
-import example.com.fan.activity.PlayerVideoActivity;
-import example.com.fan.activity.PrivatePhotoActivity;
 import example.com.fan.base.sign.save.SPreferences;
 import example.com.fan.bean.UserInfoBean;
 import example.com.fan.fragment.son.PictureSlideFragment2;
+import example.com.fan.mylistener.PrivatePhotoTwoListener;
 import example.com.fan.utils.DeviceUtils;
 import example.com.fan.utils.MzFinal;
 import example.com.fan.utils.ToastUtil;
 import okhttp3.Call;
 
 import static example.com.fan.utils.IntentUtils.goPayPage;
+import static example.com.fan.utils.IntentUtils.goPlayerPage;
 import static example.com.fan.utils.JsonUtils.getCode;
 import static example.com.fan.utils.JsonUtils.getJsonOb;
 import static example.com.fan.utils.SynUtils.getTAG;
@@ -49,13 +49,15 @@ public class PaytwoPopupWindow implements View.OnClickListener {
     private String id = "";
     //1私密视频,0私照;
     private int tag;
+    private PrivatePhotoTwoListener payListener;
 
-    public PaytwoPopupWindow(Context context, String price, String id, int tag) {
+    public PaytwoPopupWindow(Context context, String price, String id, int tag, PrivatePhotoTwoListener payListener) {
         this.price = price;
         this.context = context;
         this.id = id;
         this.tag = tag;
         this.flag = 99;
+        this.payListener = payListener;
     }
 
     public void ScreenPopupWindow(View vv) {
@@ -182,16 +184,22 @@ public class PaytwoPopupWindow implements View.OnClickListener {
                     }
 
                     @Override
-                    public void onResponse(String response, int id) {
+                    public void onResponse(String response, int idd) {
                         try {
                             int code = getCode(response);
                             if (code == 1) {
-                                if (PlayerVideoActivity.infoListener != null && tag == 1)
-                                    PlayerVideoActivity.infoListener.onUpDataUserInfo();
+                                if (tag == 1) {
+                                    goPlayerPage(context, id, -3);
+                                }
 
-                                if (PictureSlideFragment2.PayListener != null && PrivatePhotoActivity.tlistener != null && tag == 0) {
+                                if (payListener != null && tag == 0) {
                                     MzFinal.isPay = true;
-                                    PictureSlideFragment2.PayListener.onPayRefresh();
+                                    //刷新当前页面;
+                                    payListener.onPay();
+                                    //刷新预加载页面;
+                                    if (PictureSlideFragment2.PayListener != null)
+                                        PictureSlideFragment2.PayListener.onPayRefresh();
+
                                 }
                                 ToastUtil.toast2_bottom(context, "购买成功！！");
                                 popupWindow.dismiss();

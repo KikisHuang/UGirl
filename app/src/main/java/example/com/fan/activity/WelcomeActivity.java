@@ -252,7 +252,7 @@ public class WelcomeActivity extends InitActivity implements PositionAddListener
             builder.setDecodeFormat(DecodeFormat.PREFER_ARGB_8888);
             Log.i(TAG, "PREFER_ARGB_8888");
         } else {
-            builder.setDecodeFormat(DecodeFormat.PREFER_RGB_565);
+            builder.setDecodeFormat(DecodeFormat.PREFER_ARGB_8888);
             Log.i(TAG, "PREFER_RGB_565");
         }
         GlideConfig.applyOptions(this, builder);

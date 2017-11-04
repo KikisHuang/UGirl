@@ -10,6 +10,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
+import example.com.fan.MyAppcation;
 import example.com.fan.R;
 import example.com.fan.adapter.HostModelAdapter;
 import example.com.fan.fragment.son.MyCollectFragment;
@@ -70,11 +71,16 @@ public class MyCollectActivity extends InitActivity implements View.OnClickListe
             public void onPageSelected(int position) {
                 mpos = position;
                 if (position < 2) {
-                    search_tv.setVisibility(View.VISIBLE);
-                    if (((MyCollectFragment) flist.get(position)).delete_tv.getVisibility() == View.GONE)
-                        search_tv.setText("选择");
-                    else
-                        search_tv.setText("取消");
+                    try {
+                        search_tv.setVisibility(View.VISIBLE);
+                        if (((MyCollectFragment) flist.get(position)).delete_tv.getVisibility() == View.GONE)
+                            search_tv.setText("选择");
+                        else
+                            search_tv.setText("取消");
+                    } catch (Exception e) {
+                        if(MyAppcation.crashHandler!=null)
+                        MyAppcation.crashHandler.uncaughtException(new Thread(), e);
+                    }
                 } else
                     search_tv.setVisibility(View.GONE);
             }

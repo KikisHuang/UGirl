@@ -2,6 +2,7 @@ package example.com.fan.activity;
 
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
+import android.view.KeyEvent;
 
 import com.google.gson.Gson;
 import com.zhy.http.okhttp.OkHttpUtils;
@@ -48,6 +49,12 @@ public class ChoicenessActivity extends BaseActivity {
         }
     }
 
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        finish();
+        return false;
+
+    }
 
     private void setNavi() {
         mTab.setupWithViewPager(pr_viewPager);

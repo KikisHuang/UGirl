@@ -17,7 +17,7 @@ import java.util.List;
 
 import example.com.fan.R;
 import example.com.fan.bean.ModelBean;
-import example.com.fan.mylistener.ItemClickListener;
+import example.com.fan.mylistener.StoreItemClickListener;
 import example.com.fan.utils.DeviceUtils;
 import example.com.fan.utils.OverallViewHolder;
 
@@ -35,12 +35,12 @@ public class ModelAdapter extends BaseAdapter {
     private Context context;
     private List<ModelBean> blist;
     private LayoutInflater inflater;
-    private ItemClickListener listener;
+    private StoreItemClickListener listener;
     private LinearLayout item_topic_image_layout, top, mid, bottom;
     private ImageView imageView1, imageView2, imageView3, imageView4, imageView5, imageView6, imageView7, imageView8, imageView9;
 
 
-    public ModelAdapter(Context context, List<ModelBean> blist, ItemClickListener hlistener) {
+    public ModelAdapter(Context context, List<ModelBean> blist, StoreItemClickListener hlistener) {
         this.blist = blist;
         this.context = context.getApplicationContext();
         this.inflater = LayoutInflater.from(context);
@@ -120,7 +120,7 @@ public class ModelAdapter extends BaseAdapter {
                 share_img.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        listener.onItemClickListener(112,blist.get(position).getId());
+                        listener.onItemClickListener(112, blist.get(position).getId(), position);
                     }
                 });
                 break;
@@ -131,14 +131,14 @@ public class ModelAdapter extends BaseAdapter {
                 video_layout.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        listener.onItemClickListener(-3, blist.get(position).getId());
+                        listener.onItemClickListener(-3, blist.get(position).getId(), position);
                     }
                 });
                 Glide.with(context).load(blist.get(position).getCoverPath()).apply(getRequestOptions(false, 0, 0, false)).into(video_img);
                 share_img.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        listener.onItemClickListener(113,blist.get(position).getId());
+                        listener.onItemClickListener(113, blist.get(position).getId(), position);
                     }
                 });
                 break;
@@ -146,7 +146,7 @@ public class ModelAdapter extends BaseAdapter {
         user_icon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                listener.onItemClickListener(1002, blist.get(position).getModelId());
+                listener.onItemClickListener(1002, blist.get(position).getModelId(), position);
             }
         });
         try {
@@ -163,71 +163,74 @@ public class ModelAdapter extends BaseAdapter {
             item_topic_image_layout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    listener.onItemClickListener(-2, blist.get(position).getId());
+                    listener.onItemClickListener(-2, blist.get(position).getId(), position);
                 }
             });
         }
         hideImg();
-        if (blist.get(position).getImgs() != null) {
+        try {
+            if (blist.get(position).getImgs() != null) {
 
+                LinearLayout.LayoutParams params = getLayoutParams(blist.get(position).getImgs().size());
 
-            LinearLayout.LayoutParams params = getLayoutParams(blist.get(position).getImgs().size());
+                for (int i = 0; i < blist.get(position).getImgs().size(); i++) {
+                    Log.i(TAG, "position ===" + position + "size ===" + blist.get(position).getImgs().size());
+                    switch (i) {
+                        case 0:
+                            imageView1.setVisibility(View.VISIBLE);
+                            imageView1.setLayoutParams(params);
+                            setBitmap(blist.get(position).getImgs().get(i).getPath(), imageView1);
+                            break;
+                        case 1:
+                            imageView2.setVisibility(View.VISIBLE);
+                            imageView2.setLayoutParams(params);
+                            setBitmap(blist.get(position).getImgs().get(i).getPath(), imageView2);
+                            break;
+                        case 2:
 
-            for (int i = 0; i < blist.get(position).getImgs().size(); i++) {
-                Log.i(TAG, "position ===" + position + "size ===" + blist.get(position).getImgs().size());
-                switch (i) {
-                    case 0:
-                        imageView1.setVisibility(View.VISIBLE);
-                        imageView1.setLayoutParams(params);
-                        setBitmap(blist.get(position).getImgs().get(i).getPath(), imageView1);
-                        break;
-                    case 1:
-                        imageView2.setVisibility(View.VISIBLE);
-                        imageView2.setLayoutParams(params);
-                        setBitmap(blist.get(position).getImgs().get(i).getPath(), imageView2);
-                        break;
-                    case 2:
+                            imageView3.setVisibility(View.VISIBLE);
+                            imageView3.setLayoutParams(params);
+                            setBitmap(blist.get(position).getImgs().get(i).getPath(), imageView3);
 
-                        imageView3.setVisibility(View.VISIBLE);
-                        imageView3.setLayoutParams(params);
-                        setBitmap(blist.get(position).getImgs().get(i).getPath(), imageView3);
+                            break;
+                        case 3:
 
-                        break;
-                    case 3:
+                            imageView4.setVisibility(View.VISIBLE);
+                            imageView4.setLayoutParams(params);
+                            setBitmap(blist.get(position).getImgs().get(i).getPath(), imageView4);
+                            break;
+                        case 4:
 
-                        imageView4.setVisibility(View.VISIBLE);
-                        imageView4.setLayoutParams(params);
-                        setBitmap(blist.get(position).getImgs().get(i).getPath(), imageView4);
-                        break;
-                    case 4:
+                            imageView5.setVisibility(View.VISIBLE);
+                            imageView5.setLayoutParams(params);
+                            setBitmap(blist.get(position).getImgs().get(i).getPath(), imageView5);
 
-                        imageView5.setVisibility(View.VISIBLE);
-                        imageView5.setLayoutParams(params);
-                        setBitmap(blist.get(position).getImgs().get(i).getPath(), imageView5);
-
-                        break;
-                    case 5:
-                        imageView6.setVisibility(View.VISIBLE);
-                        imageView6.setLayoutParams(params);
-                        setBitmap(blist.get(position).getImgs().get(i).getPath(), imageView6);
-                        break;
-                    case 6:
-                        imageView7.setVisibility(View.VISIBLE);
-                        imageView7.setLayoutParams(params);
-                        setBitmap(blist.get(position).getImgs().get(i).getPath(), imageView7);
-                        break;
-                    case 7:
-                        imageView8.setVisibility(View.VISIBLE);
-                        imageView8.setLayoutParams(params);
-                        setBitmap(blist.get(position).getImgs().get(i).getPath(), imageView8);
-                        break;
-                    case 8:
-                        imageView9.setVisibility(View.VISIBLE);
-                        imageView9.setLayoutParams(params);
-                        setBitmap(blist.get(position).getImgs().get(i).getPath(), imageView9);
-                        break;
+                            break;
+                        case 5:
+                            imageView6.setVisibility(View.VISIBLE);
+                            imageView6.setLayoutParams(params);
+                            setBitmap(blist.get(position).getImgs().get(i).getPath(), imageView6);
+                            break;
+                        case 6:
+                            imageView7.setVisibility(View.VISIBLE);
+                            imageView7.setLayoutParams(params);
+                            setBitmap(blist.get(position).getImgs().get(i).getPath(), imageView7);
+                            break;
+                        case 7:
+                            imageView8.setVisibility(View.VISIBLE);
+                            imageView8.setLayoutParams(params);
+                            setBitmap(blist.get(position).getImgs().get(i).getPath(), imageView8);
+                            break;
+                        case 8:
+                            imageView9.setVisibility(View.VISIBLE);
+                            imageView9.setLayoutParams(params);
+                            setBitmap(blist.get(position).getImgs().get(i).getPath(), imageView9);
+                            break;
+                    }
                 }
             }
+        } catch (Exception e) {
+            Log.i(TAG,"Error ===="+e);
         }
     }
 
@@ -262,7 +265,7 @@ public class ModelAdapter extends BaseAdapter {
         try {
             Glide.with(context)
                     .load(str)
-                    .apply(getRequestOptions(true, 150, 150, false))
+                    .apply(getRequestOptions(true, 0, 0, false))
                     .into(img);
         } catch (Exception e) {
             Log.i(TAG, "Glide You cannot start a load for a destroyed activity");

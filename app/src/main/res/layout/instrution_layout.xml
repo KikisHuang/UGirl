@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include layout="@layout/title_layout"></include>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/white"
+            android:orientation="vertical"
+            android:padding="10dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:gravity="center"
+                android:text="私密照片上传指南"
+                android:textColor="@color/cherry3"
+                android:textSize="18dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="10dp"
+                android:text="上传6张照片以后即可生成专辑。"
+                android:textColor="@color/black"
+                android:textSize="13dp" />
+
+            <ImageView
+                android:id="@+id/s1_img"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp" />
+
+            <TextView
+                style="@style/line_styles_5"
+                android:layout_marginTop="10dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="10dp"
+                android:text="选择私照封面，输入专辑说明，设置价格后，即可发布专辑。"
+                android:textColor="@color/black"
+                android:textSize="13dp" />
+
+            <ImageView
+                android:id="@+id/s2_img"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp" />
+
+            <TextView
+                style="@style/line_styles_5"
+                android:layout_marginTop="10dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="10dp"
+                android:text="设置从第几张图片开始收费（金额不能为0），收费的图片玩家必须支付相应金额才可查看，专辑第一张必须为免费供玩家体验。"
+                android:textColor="@color/black"
+                android:textSize="13dp" />
+
+            <ImageView
+                android:id="@+id/s3_img"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp" />
+
+            <TextView
+                style="@style/line_styles_5"
+                android:layout_marginTop="10dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="10dp"
+                android:text="私密照片的打赏金额设置后不可修改，打赏设置完毕后点击发布即可。"
+                android:textColor="@color/black"
+                android:textSize="13dp" />
+
+            <ImageView
+                android:id="@+id/s4_img"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp" />
+
+            <TextView
+                style="@style/line_styles_5"
+                android:layout_marginTop="10dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="10dp"
+                android:text="发布成功后在我的作品页面查看，专辑需要经过我们的审核专辑才可上架，审核中的专辑用户可以删除，审核通过后专辑将无法删除。"
+                android:textColor="@color/black"
+                android:textSize="13dp" />
+
+            <ImageView
+                android:id="@+id/s5_img"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp" />
+
+            <TextView
+                style="@style/line_styles_5"
+                android:layout_marginTop="10dp" />
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:gravity="center"
+                android:text="私密视频上传指南"
+                android:textColor="@color/cherry3"
+                android:textSize="18dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="10dp"
+                android:text="只能选择时间大于10秒小于60秒的视频上传。"
+                android:textColor="@color/black"
+                android:textSize="13dp" />
+
+            <ImageView
+                android:id="@+id/v1_img"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp" />
+
+            <TextView
+                style="@style/line_styles_5"
+                android:layout_marginTop="10dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="10dp"
+                android:text="选择私密视频封面，输入私密视频说明，设置价格后，即可发布私密视频。"
+                android:textColor="@color/black"
+                android:textSize="13dp" />
+
+            <ImageView
+                android:id="@+id/v2_img"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp" />
+
+        </LinearLayout>
+
+    </ScrollView>
+</LinearLayout>

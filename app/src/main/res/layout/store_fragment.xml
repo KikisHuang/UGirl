@@ -8,16 +8,6 @@
 
     <include layout="@layout/title_layout"></include>
 
-    <android.support.design.widget.TabLayout
-        android:id="@+id/tab_layout"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:background="@color/white"
-        app:tabIndicatorColor="@color/content5"
-        app:tabSelectedTextColor="@color/black"
-        app:tabTextAppearance="@style/TabLayoutTextStyle"
-        app:tabTextColor="@color/gray3" />
-
     <example.com.fan.view.CustomViewPager
         android:id="@+id/viewPager"
         android:layout_width="match_parent"

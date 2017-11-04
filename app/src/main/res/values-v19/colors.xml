@@ -84,10 +84,11 @@
     <color name="gray7">#C6C6C6</color>
     <color name="gray8">#EBEBEB</color>
     <color name="gray9">#F7F7F7</color>
+    <color name="graye6">#E6E6E6</color>
     <color name="gray99">#999999</color>
 
 
-    <color name="bottom_color">#ff3a94</color>
+    <color name="bottom_color">#eda0f2</color>
     <color name="bottom_color_un">#929292</color>
 
 

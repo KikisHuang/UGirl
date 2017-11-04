@@ -62,12 +62,14 @@ public class AwardActivity extends InitActivity implements AwardListener, View.O
     private String SpecialId;
     private int Size = 0;
     private int UpSize = 0;
+    private ImageView close_img;
 
     @Override
     protected void click() {
         reduce_layout.setOnClickListener(this);
         add_layout.setOnClickListener(this);
         commit_bt.setOnClickListener(this);
+        close_img.setOnClickListener(this);
     }
 
     @Override
@@ -81,9 +83,9 @@ public class AwardActivity extends InitActivity implements AwardListener, View.O
         commit_bt = f(R.id.commit_bt);
         tag_one_tv = f(R.id.tag_one_tv);
         len_tv = f(R.id.len_tv);
+        close_img = f(R.id.close_img);
         viewPager = f(R.id.viewPager);
         page_layout = f(R.id.page_layout);
-        SeekBarsetListener();
 
         if (flag == 0) {
             listener = this;
@@ -96,10 +98,16 @@ public class AwardActivity extends InitActivity implements AwardListener, View.O
             setPageListener();
         }
         if (flag == 1) {
+            Pro = Integer.parseInt(getIntent().getStringExtra("award_price"));
+            price_sb.setProgress(Pro);
+            price_tv.setText("￥" + Pro);
+
             viewPager.setVisibility(View.GONE);
             tag_one_tv.setVisibility(View.GONE);
             len_tv.setVisibility(View.GONE);
         }
+
+        SeekBarsetListener();
     }
 
     private void SeekBarsetListener() {
@@ -216,9 +224,12 @@ public class AwardActivity extends InitActivity implements AwardListener, View.O
                     price_sb.setProgress(Pro);
                 }
                 break;
+            case R.id.close_img:
+                finish();
+                break;
             case R.id.commit_bt:
                 if (flag == 0) {
-                    if (chargeNumber != 0 || Pro != 0)
+                    if (chargeNumber != 0 && Pro != 0)
                         SettingImgPostion();
 
                     else if (chargeNumber == 0)
@@ -232,7 +243,7 @@ public class AwardActivity extends InitActivity implements AwardListener, View.O
                         ToastUtil.toast2_bottom(this, "请设置价格!!");
                     else {
                         Intent intent = new Intent();
-                        Log.i(TAG,"AW price  ==="+Pro);
+                        Log.i(TAG, "AW price  ===" + Pro);
                         intent.putExtra("price", String.valueOf(Pro));
                         setResult(100, intent);
                         ToastUtil.toast2_bottom(AwardActivity.this, "设置成功!");
@@ -323,7 +334,7 @@ public class AwardActivity extends InitActivity implements AwardListener, View.O
                                     Intent intent = new Intent();
                                     intent.putExtra("SpecialId", SpecialId);
                                     intent.putExtra("chargeNumber", chargeNumber + "");
-                                    intent.putExtra("price",String.valueOf(Pro));
+                                    intent.putExtra("price", String.valueOf(Pro));
                                     setResult(111, intent);
                                     finish();
                                 } else

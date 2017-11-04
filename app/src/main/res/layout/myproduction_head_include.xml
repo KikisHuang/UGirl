@@ -20,8 +20,7 @@
             android:layout_height="200dp"
             android:gravity="center"
             android:orientation="vertical"
-            android:visibility="gone"
-            >
+            android:visibility="gone">
 
             <ImageView
                 android:layout_width="35dp"
@@ -111,4 +110,46 @@
 
     </LinearLayout>
 
+    <LinearLayout
+        android:id="@+id/bottom_null_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:gravity="center|bottom"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/account_back_icon" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="30dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="你还没有任何作品哦" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp"
+                android:text="点击下方按钮，制作打赏作品，分享赚钱"
+                android:textSize="12dp" />
+        </LinearLayout>
+
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="70dp"
+            android:layout_gravity="bottom|center"
+            android:layout_marginBottom="10dp"
+            android:src="@mipmap/down_icon" />
+    </LinearLayout>
 </LinearLayout>

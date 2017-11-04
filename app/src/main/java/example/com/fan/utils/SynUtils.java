@@ -62,12 +62,14 @@ import example.com.fan.MyAppcation;
 import example.com.fan.R;
 import example.com.fan.base.sign.save.SPreferences;
 import example.com.fan.view.Popup.LoginPopupWindow;
+import example.com.fan.view.Popup.PaytwoPopupWindow;
 import example.com.fan.view.dialog.ActionSheetDialog;
 import okhttp3.Call;
 
 import static example.com.fan.base.sign.save.SPreferences.getUserUUID;
 import static example.com.fan.base.sign.save.SPreferences.saveLoginWay;
 import static example.com.fan.base.sign.save.SPreferences.saveUserUUID;
+import static example.com.fan.utils.IntentUtils.goPlayerPage;
 import static example.com.fan.utils.IntentUtils.goUploadPhotoPage;
 import static example.com.fan.utils.JsonUtils.getCode;
 import static example.com.fan.utils.MzFinal.getAPPID;
@@ -258,6 +260,43 @@ public class SynUtils {
                         }
                     });
         }
+    }
+
+    /**
+     * 私密视频权限通用方法;
+     */
+    public static void PrivateVideoCheckPay(final Context context, final View v, final String ids, final String price) {
+        /**
+         * 获取所有类型私密视频、私照;
+         */
+        OkHttpUtils
+                .get()
+                .url(MzFinal.URl + MzFinal.CHECKPAY)
+                .addParams(MzFinal.KEY, SPreferences.getUserToken())
+                .addParams(MzFinal.ID, ids)
+                .build()
+                .execute(new StringCallback() {
+                    @Override
+                    public void onError(Call call, Exception e, int id) {
+                        ToastUtil.toast2_bottom(context, "网络不顺畅...");
+                    }
+
+                    @Override
+                    public void onResponse(String response, int id) {
+                        try {
+                            int code = getCode(response);
+                            if (code == 1) {
+                                goPlayerPage(context, ids, -3);
+                            } else if (code == -1) {
+                                PaytwoPopupWindow pyp = new PaytwoPopupWindow(context, price, ids, 1, null);
+                                pyp.ScreenPopupWindow(v);
+                            } else
+                                ToastUtil.ToastErrorMsg(context, response, code);
+                        } catch (Exception e) {
+                            Log.i(TAG, "" + e);
+                        }
+                    }
+                });
     }
 
     /**
@@ -477,17 +516,20 @@ public class SynUtils {
      * @return
      */
     public static String ParseK(String str, boolean add) {
-        if (add) {
-            if (str.indexOf("k") != -1)
-                return KswitchWay(Double.valueOf(Double.valueOf(str.replace("k", "")) * 1000 + 1));
-            else
-                return String.valueOf(Integer.valueOf(str.replace("k", "")) + 1);
-        } else {
-            if (str.indexOf("k") != -1)
-                return KswitchWay(Double.valueOf(Double.valueOf(str.replace("k", "")) * 1000 - 1));
-            else
-                return String.valueOf(Integer.valueOf(str.replace("k", "")) - 1);
+        if (str.length() > 0) {
+            if (add) {
+                if (str.indexOf("k") != -1)
+                    return KswitchWay(Double.valueOf(Double.valueOf(str.replace("k", "")) * 1000 + 1));
+                else
+                    return String.valueOf(Integer.valueOf(str.replace("k", "")) + 1);
+            } else {
+                if (str.indexOf("k") != -1)
+                    return KswitchWay(Double.valueOf(Double.valueOf(str.replace("k", "")) * 1000 - 1));
+                else
+                    return String.valueOf(Integer.valueOf(str.replace("k", "")) - 1);
+            }
         }
+        return "";
     }
 
     /**
@@ -688,7 +730,7 @@ public class SynUtils {
      * @param tabs     TabLayout
      * @param leftDip  左边距
      * @param rightDip 右边距
-     *                 <p/>
+     *                 <p>
      *                 使用方法
      * @Override public void onStart() {
      * super.onStart();
@@ -751,9 +793,9 @@ public class SynUtils {
     }
 
     public static void Finish(Activity activity) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
+    /*    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
             activity.finishAfterTransition();
-        else
+        else*/
             activity.finish();
     }
 
@@ -893,4 +935,6 @@ public class SynUtils {
 
         return appDir + "/" + fileName;
     }
+
+
 }

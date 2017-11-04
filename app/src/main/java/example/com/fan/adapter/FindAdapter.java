@@ -17,6 +17,7 @@ import java.util.List;
 import example.com.fan.R;
 import example.com.fan.bean.ModelBean;
 import example.com.fan.mylistener.ItemClickListener;
+import example.com.fan.mylistener.PrivateVideoListener;
 import example.com.fan.mylistener.ShareRequestListener;
 import example.com.fan.mylistener.TwoParamaListener;
 import example.com.fan.utils.DeviceUtils;
@@ -39,19 +40,21 @@ public class FindAdapter extends BaseAdapter {
     private ItemClickListener listener;
     private TwoParamaListener tlistener;
     private ShareRequestListener slistener;
+    private PrivateVideoListener plistener;
     private LinearLayout item_topic_image_layout, top, bottom, mid;
     private ImageView imageView1, imageView2, imageView3, imageView4, imageView5, imageView6, imageView7, imageView8, imageView9;
     private ImageView icon_logo, share_img, video_cover;
     private TextView name_tv, type_tv, date_tv, content_tv, attention_tv;
     private boolean homeflag;
 
-    public FindAdapter(Context context, List<ModelBean> list, ItemClickListener listener, TwoParamaListener tlistener, ShareRequestListener slistener, boolean homeflag) {
+    public FindAdapter(Context context, List<ModelBean> list, ItemClickListener listener, TwoParamaListener tlistener, ShareRequestListener slistener, PrivateVideoListener plistener, boolean homeflag) {
         this.context = context.getApplicationContext();
         this.list = list;
         this.listener = listener;
         this.tlistener = tlistener;
         this.slistener = slistener;
         this.homeflag = homeflag;
+        this.plistener = plistener;
         inflater = LayoutInflater.from(context);
     }
 
@@ -109,14 +112,14 @@ public class FindAdapter extends BaseAdapter {
         } catch (Exception e) {
             Log.i(TAG, "Glide You cannot start a load for a destroyed activity");
         }
-        name_tv.setText(list.get(position).getName());
+        name_tv.setText(list.get(position).getJoinUser().getName());
         date_tv.setText(getMonthAndDay(list.get(position).getCreateTime()));
         content_tv.setText(list.get(position).getInfo());
 
         share_img.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                slistener.onShare(list.get(position).getJoinUser().getId(), list.get(position).getName(), list.get(position).getInfo(), list.get(position).getMcSettingPublishType().getId());
+                slistener.onShare(list.get(position).getJoinUser().getId(), list.get(position).getJoinUser().getName(), list.get(position).getInfo(), list.get(position).getId());
             }
         });
         if (!homeflag) {
@@ -228,7 +231,8 @@ public class FindAdapter extends BaseAdapter {
                 video_cover.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        tlistener.onGoPlayPage(list.get(position).getId(), 4);
+
+                        plistener.onPrivateVideo(-3,list.get(position).getId(), String.valueOf(list.get(position).getPrice()));
 
                     }
                 });
@@ -270,7 +274,7 @@ public class FindAdapter extends BaseAdapter {
         try {
             Glide.with(context)
                     .load(str)
-                    .apply(getRequestOptions(true, 150, 150,false))
+                    .apply(getRequestOptions(true, 0, 0,false))
                     .into(img);
         } catch (Exception e) {
             Log.i(TAG, "Glide You cannot start a load for a destroyed activity");

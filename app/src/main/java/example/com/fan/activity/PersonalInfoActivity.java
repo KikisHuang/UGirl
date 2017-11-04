@@ -8,7 +8,6 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.balysv.materialmenu.MaterialMenuView;
@@ -34,8 +33,6 @@ import example.com.fan.view.RippleView;
 import example.com.fan.view.dialog.ActionSheetDialog;
 import okhttp3.Call;
 
-import static example.com.fan.base.sign.save.SPreferences.getInViCode;
-import static example.com.fan.base.sign.save.SPreferences.saveInViCode;
 import static example.com.fan.utils.GlideImgUtils.getRequestOptions;
 import static example.com.fan.utils.JsonUtils.NullDispose;
 import static example.com.fan.utils.JsonUtils.getCode;
@@ -53,13 +50,13 @@ import static example.com.fan.view.dialog.CustomProgress.Show;
  */
 public class PersonalInfoActivity extends InitActivity implements View.OnClickListener, onPhotoCutListener {
     private static final String TAG = getTAG(PersonalInfoActivity.class);
-    private EditText info_name, phone_tv, wx_tv, invite_tv;
+    private EditText info_name, phone_tv, wx_tv/*, invite_tv*/;
     private ImageView clear_img, sex_icon, user_icon;
     private TextView info_sex, address_tv;
     private RippleView submit_info;
     public static onPhotoCutListener listener;
     private String receiveSex, receiveName, receiveAdd, addressPhone, wechat;
-    private LinearLayout invite_ll;
+//    private LinearLayout invite_ll;
 
 
     @Override
@@ -72,8 +69,13 @@ public class PersonalInfoActivity extends InitActivity implements View.OnClickLi
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
-        Finish(this);
-        return false;
+        if (keyCode == KeyEvent.KEYCODE_DEL)
+            return true;
+        else if (keyCode == KeyEvent.KEYCODE_BACK) {
+            Finish(this);
+            return super.onKeyDown(keyCode, event);
+        } else
+            return super.onKeyDown(keyCode, event);
     }
 
     private void getAddress() {
@@ -130,9 +132,9 @@ public class PersonalInfoActivity extends InitActivity implements View.OnClickLi
         address_tv = f(R.id.address_tv);
         submit_info = f(R.id.submit_info);
         user_icon = f(R.id.user_icon);
-        invite_tv = f(R.id.invite_tv);
+//        invite_tv = f(R.id.invite_tv);
         info_sex = f(R.id.info_sex);
-        invite_ll = f(R.id.invite_ll);
+//        invite_ll = f(R.id.invite_ll);
         clear_img = f(R.id.clear_img);
         sex_icon = f(R.id.sex_icon);
         info_name = f(R.id.info_name);
@@ -140,10 +142,10 @@ public class PersonalInfoActivity extends InitActivity implements View.OnClickLi
         wx_tv = f(R.id.wx_tv);
         //第一次进入不弹出软键盘;
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
-        if (getInViCode()) {
+      /*  if (getInViCode()) {
             invite_ll.setVisibility(View.VISIBLE);
             saveInViCode(false);
-        }
+        }*/
 
     }
 
@@ -196,9 +198,9 @@ public class PersonalInfoActivity extends InitActivity implements View.OnClickLi
         info_name.setText(receiveName);
         try {
             if (!getIntent().getStringExtra("person_icon").isEmpty())
-                Glide.with(getApplicationContext()).load(getIntent().getStringExtra("person_icon")).apply(getRequestOptions(false, 0, 0,true)).into(user_icon);
+                Glide.with(getApplicationContext()).load(getIntent().getStringExtra("person_icon")).apply(getRequestOptions(false, 0, 0, true)).into(user_icon);
             else
-                Glide.with(getApplicationContext()).load(R.mipmap.test_icon).apply(getRequestOptions(false, 0, 0,true)).into(user_icon);
+                Glide.with(getApplicationContext()).load(R.mipmap.test_icon).apply(getRequestOptions(false, 0, 0, true)).into(user_icon);
 
         } catch (Exception e) {
             Log.i(TAG, "Glide You cannot start a load for a destroyed activity");
@@ -237,8 +239,8 @@ public class PersonalInfoActivity extends InitActivity implements View.OnClickLi
                 String addphone = phone_tv.getText().toString().trim();
                 String wx = wx_tv.getText().toString().trim();
 
-                if (!invite_tv.getText().toString().trim().isEmpty() && getInViCode() && invite_ll.getVisibility() == View.VISIBLE)
-                    submitInVite();
+            /*    if (!invite_tv.getText().toString().trim().isEmpty() && getInViCode() && invite_ll.getVisibility() == View.VISIBLE)
+                    submitInVite();*/
 
                 if (add.equals(receiveAdd) && name.equals(receiveName) && sex.equals(receiveSex) && addphone.equals(addressPhone) && wx.equals(wechat)) {
                     Finish(this);
@@ -255,7 +257,7 @@ public class PersonalInfoActivity extends InitActivity implements View.OnClickLi
                 .get()
                 .url(MzFinal.URl + MzFinal.USEINVITATIONCODE)
                 .addParams(MzFinal.KEY, SPreferences.getUserToken())
-                .addParams("useInvitationCode", invite_tv.getText().toString().trim())
+//                .addParams("useInvitationCode", invite_tv.getText().toString().trim())
                 .tag(this)
                 .build()
                 .execute(new StringCallback() {
@@ -399,7 +401,7 @@ public class PersonalInfoActivity extends InitActivity implements View.OnClickLi
                             Cancle();
                             if (code == 1) {
                                 try {
-                                    Glide.with(getApplicationContext()).load(path).apply(getRequestOptions(false, 0, 0,true)).into(user_icon);
+                                    Glide.with(getApplicationContext()).load(path).apply(getRequestOptions(false, 0, 0, true)).into(user_icon);
                                 } catch (Exception e) {
                                     Log.i(TAG, "Glide You cannot start a load for a destroyed activity");
                                 }

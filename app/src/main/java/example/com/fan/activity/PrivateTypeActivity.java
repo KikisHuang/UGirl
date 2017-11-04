@@ -17,11 +17,12 @@ import example.com.fan.R;
 import example.com.fan.adapter.ModelAdapter;
 import example.com.fan.base.sign.save.SPreferences;
 import example.com.fan.bean.ModelBean;
-import example.com.fan.mylistener.ItemClickListener;
 import example.com.fan.mylistener.SpringListener;
+import example.com.fan.mylistener.StoreItemClickListener;
 import example.com.fan.utils.MzFinal;
 import example.com.fan.utils.ShareUtils;
 import example.com.fan.utils.ToastUtil;
+import example.com.fan.view.Popup.PaytwoPopupWindow;
 import okhttp3.Call;
 
 import static example.com.fan.utils.IntentUtils.goHomePage;
@@ -38,7 +39,7 @@ import static example.com.fan.utils.TitleUtils.setTitles;
 /**
  * Created by lian on 2017/10/17.
  */
-public class PrivateTypeActivity extends InitActivity implements SpringListener, ItemClickListener {
+public class PrivateTypeActivity extends InitActivity implements SpringListener, StoreItemClickListener {
 
     private static final String TAG = getTAG(PrivateTypeActivity.class);
     private List<ModelBean> rlist;
@@ -47,7 +48,7 @@ public class PrivateTypeActivity extends InitActivity implements SpringListener,
     private int page = 0;
     private String typeId = "";
     private ModelAdapter adapter;
-    private ItemClickListener hlistener;
+    private StoreItemClickListener hlistener;
 
     @Override
     protected void click() {
@@ -136,7 +137,7 @@ public class PrivateTypeActivity extends InitActivity implements SpringListener,
     }
 
     @Override
-    public void onItemClickListener(int position, String id) {
+    public void onItemClickListener(int position, String id, int pos) {
         switch (position) {
             case 1002:
                 goHomePage(PrivateTypeActivity.this, id);
@@ -149,7 +150,7 @@ public class PrivateTypeActivity extends InitActivity implements SpringListener,
                 break;
             case -3:
                 if (LoginStatusQuery()) {
-                    goPlayerPage(PrivateTypeActivity.this, id, -3);
+                    CheckPay(id,pos);
                 } else
                     Login(PrivateTypeActivity.this);
                 break;
@@ -167,5 +168,39 @@ public class PrivateTypeActivity extends InitActivity implements SpringListener,
                     Login(PrivateTypeActivity.this);
                 break;
         }
+    }
+    private void CheckPay(final String ids, final int pos) {
+        /**
+         * 获取所有类型私密视频、私照;
+         */
+        OkHttpUtils
+                .get()
+                .url(MzFinal.URl + MzFinal.CHECKPAY)
+                .addParams(MzFinal.KEY, SPreferences.getUserToken())
+                .addParams(MzFinal.ID, ids)
+                .build()
+                .execute(new StringCallback() {
+                    @Override
+                    public void onError(Call call, Exception e, int id) {
+                        ToastUtil.toast2_bottom(PrivateTypeActivity.this, "网络不顺畅...");
+                    }
+
+                    @Override
+                    public void onResponse(String response, int id) {
+                        try {
+                            int code = getCode(response);
+                            if (code == 1) {
+                                goPlayerPage(PrivateTypeActivity.this, ids, -3);
+                            } else if (code == -1){
+                                PaytwoPopupWindow pyp = new PaytwoPopupWindow(PrivateTypeActivity.this, String.valueOf(rlist.get(pos).getPrice()), ids, 1, null);
+                                pyp.ScreenPopupWindow(listView);
+                            }
+                            else
+                                ToastUtil.ToastErrorMsg(PrivateTypeActivity.this, response, code);
+                        } catch (Exception e) {
+                            Log.i(TAG, "" + e);
+                        }
+                    }
+                });
     }
 }

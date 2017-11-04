@@ -21,6 +21,7 @@ import example.com.fan.adapter.FindAdapter;
 import example.com.fan.base.sign.save.SPreferences;
 import example.com.fan.bean.ModelBean;
 import example.com.fan.mylistener.ItemClickListener;
+import example.com.fan.mylistener.PrivateVideoListener;
 import example.com.fan.mylistener.ShareRequestListener;
 import example.com.fan.mylistener.SpringListener;
 import example.com.fan.mylistener.TwoParamaListener;
@@ -39,13 +40,14 @@ import static example.com.fan.utils.JsonUtils.getJsonAr;
 import static example.com.fan.utils.ShareUtils.getSystemShare;
 import static example.com.fan.utils.SynUtils.Login;
 import static example.com.fan.utils.SynUtils.LoginStatusQuery;
+import static example.com.fan.utils.SynUtils.PrivateVideoCheckPay;
 import static example.com.fan.utils.SynUtils.getTAG;
 
 /**
  * Created by lian on 2017/6/1.
  * 最新页面;
  */
-public class NewestActivity extends BaseActivity implements ItemClickListener, SpringListener, TwoParamaListener, ShareRequestListener {
+public class NewestActivity extends BaseActivity implements ItemClickListener, SpringListener, TwoParamaListener, ShareRequestListener,PrivateVideoListener {
     private static final String TAG = getTAG(NewestActivity.class);
     private SpringView springview;
     private ListView listView;
@@ -56,6 +58,7 @@ public class NewestActivity extends BaseActivity implements ItemClickListener, S
     private View top;
     private int page = 0;
     private ShareRequestListener slistener;
+    private PrivateVideoListener plistener;
 
 
     private void addHeader() {
@@ -113,10 +116,10 @@ public class NewestActivity extends BaseActivity implements ItemClickListener, S
                                     ModelBean mb = new Gson().fromJson(String.valueOf(ar.getJSONObject(i)), ModelBean.class);
                                     rlist.add(mb);
                                 }
-                                if (adapter != null) {
+                                if (adapter != null)
                                     adapter.notifyDataSetChanged();
-                                } else {
-                                    adapter = new FindAdapter(NewestActivity.this, rlist, listener, tlistener, slistener, false);
+                                 else {
+                                    adapter = new FindAdapter(NewestActivity.this, rlist, listener, tlistener, slistener, plistener, false);
                                     listView.setAdapter(adapter);
                                 }
                             } else
@@ -136,6 +139,7 @@ public class NewestActivity extends BaseActivity implements ItemClickListener, S
         listener = this;
         tlistener = this;
         slistener = this;
+        plistener = this;
         rlist = new ArrayList<>();
         listView = f(R.id.listView);
         springview = f(R.id.springview);
@@ -156,7 +160,6 @@ public class NewestActivity extends BaseActivity implements ItemClickListener, S
                     goHomePage(NewestActivity.this, id);
                     break;
                 case -3:
-
                     break;
             }
         } else
@@ -194,5 +197,10 @@ public class NewestActivity extends BaseActivity implements ItemClickListener, S
     public void onShare(String userid, String name, String info, String id) {
 //        ShareApp(NewestActivity.this, userid, name, info, id);
         getSystemShare(NewestActivity.this,id);
+    }
+
+    @Override
+    public void onPrivateVideo(int type, String id, String price) {
+        PrivateVideoCheckPay(NewestActivity.this, listView, id, price);
     }
 }

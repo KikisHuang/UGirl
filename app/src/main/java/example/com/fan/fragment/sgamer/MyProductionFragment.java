@@ -33,12 +33,14 @@ import example.com.fan.base.sign.save.SPreferences;
 import example.com.fan.bean.ModeInfoBean;
 import example.com.fan.bean.ModelBean;
 import example.com.fan.fragment.BaseFragment;
+import example.com.fan.mylistener.ChangeUserInfoListener;
 import example.com.fan.mylistener.ItemClickListener;
 import example.com.fan.mylistener.SpringListener;
 import example.com.fan.mylistener.SuperUseDeleteListener;
 import example.com.fan.utils.MzFinal;
 import example.com.fan.utils.SpringUtils;
 import example.com.fan.utils.ToastUtil;
+import example.com.fan.view.dialog.AlertDialog;
 import okhttp3.Call;
 
 import static example.com.fan.utils.FileSizeUtil.getFileOrFilesSize;
@@ -48,6 +50,7 @@ import static example.com.fan.utils.IntentUtils.goPrivatePhotoPage;
 import static example.com.fan.utils.JsonUtils.getCode;
 import static example.com.fan.utils.JsonUtils.getJsonAr;
 import static example.com.fan.utils.JsonUtils.getJsonOb;
+import static example.com.fan.utils.ShareUtils.getSystemShare;
 import static example.com.fan.utils.StringUtil.cleanNull;
 import static example.com.fan.utils.SynUtils.getRouString;
 import static example.com.fan.utils.SynUtils.getTAG;
@@ -59,7 +62,7 @@ import static example.com.fan.view.dialog.CustomProgress.Show;
 /**
  * Created by lian on 2017/10/10.
  */
-public class MyProductionFragment extends BaseFragment implements SpringListener, ItemClickListener, SuperUseDeleteListener, View.OnClickListener {
+public class MyProductionFragment extends BaseFragment implements SpringListener, ItemClickListener, SuperUseDeleteListener, View.OnClickListener, ChangeUserInfoListener {
 
     private static final String TAG = getTAG(MyProductionFragment.class);
     private TextView photo_tv, video_tv, income_tv;
@@ -73,6 +76,8 @@ public class MyProductionFragment extends BaseFragment implements SpringListener
     private SuperUseDeleteListener delete;
     private MyProductionAdapter adapter;
     private LinearLayout null_layout;
+    private LinearLayout bottom_null_layout;
+    public static ChangeUserInfoListener listener;
 
     @Override
     protected int initContentView() {
@@ -90,6 +95,8 @@ public class MyProductionFragment extends BaseFragment implements SpringListener
         top = (LinearLayout) LayoutInflater.from(getActivity()).inflate(R.layout.myproduction_head_include, null);
         rlist = new ArrayList<>();
         hlistener = this;
+        listener = this;
+        delete = this;
         springview = (SpringView) view.findViewById(R.id.springview);
         SpringUtils.SpringViewInit(springview, getActivity(), this);
         listView = (ListView) view.findViewById(R.id.listView);
@@ -98,6 +105,7 @@ public class MyProductionFragment extends BaseFragment implements SpringListener
         video_tv = (TextView) top.findViewById(R.id.video_tv);
         income_tv = (TextView) top.findViewById(R.id.income_tv);
         null_layout = (LinearLayout) top.findViewById(R.id.null_layout);
+        bottom_null_layout = (LinearLayout) top.findViewById(R.id.bottom_null_layout);
 
     }
 
@@ -108,6 +116,9 @@ public class MyProductionFragment extends BaseFragment implements SpringListener
     }
 
     private void getData(final boolean b) {
+        /**
+         * 获取私密模特信息 ;
+         */
         OkHttpUtils
                 .get()
                 .url(MzFinal.URl + MzFinal.GETMODELINFO2)
@@ -146,7 +157,9 @@ public class MyProductionFragment extends BaseFragment implements SpringListener
                         }
                     }
                 });
-
+        /**
+         * 获取模特自己传的私密照片/私密视频
+         */
         OkHttpUtils
                 .get()
                 .url(MzFinal.URl + MzFinal.GETPRIVATERECORD)
@@ -168,25 +181,24 @@ public class MyProductionFragment extends BaseFragment implements SpringListener
                                 if (b)
                                     rlist.clear();
                                 JSONArray ar = getJsonAr(response);
-                                if (ar.length() > 0) {
-                                    listView.setBackgroundResource(R.color.white);
-                                    for (int i = 0; i < ar.length(); i++) {
-                                        ModelBean mb = new Gson().fromJson(String.valueOf(ar.getJSONObject(i)), ModelBean.class);
-                                        rlist.add(mb);
-                                    }
-
-                                    if (adapter != null)
-                                        adapter.notifyDataSetChanged();
-                                    else {
-                                        adapter = new MyProductionAdapter(getActivity(), rlist, hlistener, delete);
-                                        listView.setAdapter(adapter);
-                                    }
-                                    if (listView.getHeaderViewsCount() == 0) {
-                                        listView.addHeaderView(top);
-                                    }
+                                if (ar.length() > 0 && b) {
+                                    bottom_null_layout.setVisibility(View.GONE);
                                 } else if (b && ar.length() <= 0)
-                                    listView.setBackgroundResource(R.drawable.account_back);
+                                    bottom_null_layout.setVisibility(View.VISIBLE);
 
+                                for (int i = 0; i < ar.length(); i++) {
+                                    ModelBean mb = new Gson().fromJson(String.valueOf(ar.getJSONObject(i)), ModelBean.class);
+                                    rlist.add(mb);
+                                }
+                                if (adapter != null)
+                                    adapter.notifyDataSetChanged();
+                                else {
+                                    adapter = new MyProductionAdapter(getActivity(), rlist, hlistener, delete);
+                                    listView.setAdapter(adapter);
+                                }
+                                if (listView.getHeaderViewsCount() == 0) {
+                                    listView.addHeaderView(top);
+                                }
                             } else
                                 ToastUtil.ToastErrorMsg(getActivity(), response, code);
                         } catch (Exception e) {
@@ -221,27 +233,41 @@ public class MyProductionFragment extends BaseFragment implements SpringListener
             case 1002:
                 goHomePage(getActivity(), id);
                 break;
+            case 12322:
+                getSystemShare(getActivity(), id);
+                break;
         }
     }
 
     @Override
-    public void onDelete(int type, String id) {
+    public void onDelete(int type, final String id) {
         switch (type) {
             //私密照;
             case -2:
-                DeleteVideoOfPhoto(id, MzFinal.DELETEPRIVATEPHOTO);
+                new AlertDialog(getActivity()).builder().setTitle("提示").setCancelable(true).setMsg("确定删除吗？").setNegativeButton("取消", null).setPositiveButton("确定", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        DeleteVideoOfPhoto(id, MzFinal.DELETEPRIVATEPHOTO);
+                    }
+                }).show();
                 break;
             //私密视频;
             case -3:
-                DeleteVideoOfPhoto(id, MzFinal.DELETEPRIVATEVIDEO);
+                new AlertDialog(getActivity()).builder().setTitle("提示").setCancelable(true).setMsg("确定删除吗？").setNegativeButton("取消", null).setPositiveButton("确定", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        DeleteVideoOfPhoto(id, MzFinal.DELETEPRIVATEVIDEO);
+                    }
+                }).show();
                 break;
         }
     }
 
 
     private void DeleteVideoOfPhoto(String id, String url) {
+        Show(getActivity(), "删除中..", true, null);
         /**
-         * 删除视频;
+         * 删除视频、私照;
          */
         OkHttpUtils
                 .get()
@@ -254,6 +280,7 @@ public class MyProductionFragment extends BaseFragment implements SpringListener
                     @Override
                     public void onError(Call call, Exception e, int id) {
                         ToastUtil.toast2_bottom(getActivity(), "网络不顺畅...");
+                        Cancle();
                     }
 
                     @Override
@@ -265,8 +292,9 @@ public class MyProductionFragment extends BaseFragment implements SpringListener
                                 getData(true);
                             } else
                                 ToastUtil.ToastErrorMsg(getActivity(), response, code);
+                            Cancle();
                         } catch (Exception e) {
-
+                            Cancle();
                         }
                     }
                 });
@@ -311,7 +339,7 @@ public class MyProductionFragment extends BaseFragment implements SpringListener
     private void UpDataBack(File file) {
         Show(getActivity(), "上传图片中..", false, null);
         /**
-         * 删除视频;
+         * 更新设置模特背景；
          */
         OkHttpUtils
                 .post()
@@ -366,9 +394,16 @@ public class MyProductionFragment extends BaseFragment implements SpringListener
         }
 
     }
+
     @Override
     public void onDestroy() {
         super.onDestroy();
         Cancle();
+        listener = null;
+    }
+
+    @Override
+    public void onUpDataUserInfo() {
+        getData(true);
     }
 }

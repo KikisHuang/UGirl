@@ -99,6 +99,7 @@
     <string name="wx_server">微信客服</string>
     <string name="pay_introduce">充会员更优惠还送豪礼，单期购买需要</string>
     <string name="pay2_introduce">私密照片，单期购买需要</string>
+    <string name="user_private_photo">私密照片</string>
     <string name="pay_introduce2">充会员更优惠还送豪礼</string>
     <string name="phone_login">您上次使用的是手机号登录</string>
     <string name="qq_login">您上次使用的是QQ登录 </string>

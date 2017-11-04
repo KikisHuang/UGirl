@@ -12,11 +12,14 @@ public class MzFinal {
 //  public static final String URl = "http://192.168.1.224:8080/mcFnsInterface/";
 //  public static final String URl = "http://101.37.86.15:8080/mcFnsInterface/";
 
-    public static final String URl = "http://fns.mozu123.com:8080/mcFnsInterface/";
+//  public static final String URl = "http://fns.mozu123.com:8080/mcFnsInterface/";
 
-//    public static final String URl = "http://fnsandroid.mozu123.com/mcFnsInterface/";
-//    public static final String URl = "http://fnsandroid2.mozu123.com/mcFnsInterface/";
-//    public static final String URl = "http://fnsandroid3.mozu123.com/mcFnsInterface/";
+//  public static final String URl = "http://fnsandroid.mozu123.com/mcFnsInterface/";
+//  public static final String URl = "http://fnsandroid2.mozu123.com/mcFnsInterface/";
+//  public static final String URl = "http://fnsandroid3.mozu123.com/mcFnsInterface/";
+    public static final String URl = "http://fnsandroid4.mozu123.com/mcFnsInterface/";
+//  public static final String URl = "http://fnsandroid5.mozu123.com/mcFnsInterface/";
+
 
     /**
      * 全局广告触摸时间变量;
@@ -38,6 +41,14 @@ public class MzFinal {
     //支付宝支付接口存放数组;
     public static String[] Alis = {MzFinal.ALIPAYCROWDFUNDING, MzFinal.ALIPAYOFFICIALSELL, MzFinal.ALIPAYPHOTO, MzFinal.ALIPAYVIP, MzFinal.ALIPAYMODELWX, MzFinal.ALIPAYRECHARGE};
 
+    public static String INSTRUCTION_S1 = "http://fns-system.oss-cn-hangzhou.aliyuncs.com/ViDeoAndPrivatePhotoURL/s1.png";
+    public static String INSTRUCTION_S2 = "http://fns-system.oss-cn-hangzhou.aliyuncs.com/ViDeoAndPrivatePhotoURL/s2.png";
+    public static String INSTRUCTION_S3 = "http://fns-system.oss-cn-hangzhou.aliyuncs.com/ViDeoAndPrivatePhotoURL/s3.png";
+    public static String INSTRUCTION_S4 = "http://fns-system.oss-cn-hangzhou.aliyuncs.com/ViDeoAndPrivatePhotoURL/s4.png";
+    public static String INSTRUCTION_S5 = "http://fns-system.oss-cn-hangzhou.aliyuncs.com/ViDeoAndPrivatePhotoURL/s5.png";
+
+    public static String INSTRUCTION_V1 = "http://fns-system.oss-cn-hangzhou.aliyuncs.com/ViDeoAndPrivatePhotoURL/v1.png";
+    public static String INSTRUCTION_V2 = "http://fns-system.oss-cn-hangzhou.aliyuncs.com/ViDeoAndPrivatePhotoURL/v2.png";
 
     //尤女映画、支付宝APPID;
     public static final String AliAPPID2 = "2017082508371443";
@@ -68,11 +79,13 @@ public class MzFinal {
      */
     public static boolean MODELFLAG = false;
 
+
     //客户端判断;
     public static boolean getAPPID(String pk) {
         if (pk.equals("example.com.yinhua"))
             return true;
-        else return false;
+        else
+            return false;
     }
 
     //微信支付、支付宝支付方式判断;
@@ -84,6 +97,7 @@ public class MzFinal {
         return false;
     }
 
+    public static String[] FAKECITY = {"北京", "上海", "深圳", "广州", "广东", "广西", "沈阳"};
     /**
      * 专辑购买标识符;
      */
@@ -122,7 +136,7 @@ public class MzFinal {
     public static final int PRIVATE_PHOTO = -2;  // 私密照片
 
     /**
-     * 收藏接口
+     * 专辑收藏接口
      */
     public static final String COLLECTIONPHOTO = "photo/collectionPhoto.app";
     /**
@@ -322,7 +336,7 @@ public class MzFinal {
      */
     public static final String GETSELLMODEL = "see/getSellModel.app";
     /**
-     * 获取我最近访问的模特接口
+     * Video Vr封面图接口
      */
     public static final String GETVIDEOMODELCOVER = "common/getVideoModelCover.app";
 
@@ -447,7 +461,7 @@ public class MzFinal {
      */
     public static final String DOWNLOADPATH = "common/getDownloadPath.app";
     /**
-     * 获取我未读的私照 0、视频4、VR 5 接口
+     * 获取我未读的0私照 、4视频、 5VR 、-2私密照片、-3私密视频接口
      */
     public static final String GETNOTREADRECORD = "see/getNotReadRecord.app";
     /**
@@ -573,5 +587,14 @@ public class MzFinal {
      * 根据类型获取所属的私照或视频接口 ;
      */
     public static final String GETPUBLISHRECORDBYTYPE = "privateType/getPublishRecordByType.app";
+    /**
+     * 私密视频购买检测接口 ;
+     */
+    public static final String CHECKPAY = "order/checkPay.app";
+    /**
+     * 分享二维码图片;
+     *
+     */
+    public static final String SHAREQCIMAGEJPG = "share/shareQCImage.jpg";
 
 }

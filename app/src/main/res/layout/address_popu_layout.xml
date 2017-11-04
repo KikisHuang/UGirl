@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@drawable/white_corners"
-    xmlns:ripple="http://schemas.android.com/apk/res/example.com.fan"
+    xmlns:ripple="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
     <TextView

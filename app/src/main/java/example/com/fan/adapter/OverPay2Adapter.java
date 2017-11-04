@@ -117,7 +117,7 @@ public class OverPay2Adapter extends BaseAdapter {
        share_img.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                slistener.onShare(list.get(position).getJoinUser().getId(), list.get(position).getName(), list.get(position).getInfo(), list.get(position).getJoinUser().getId());
+                slistener.onShare(list.get(position).getJoinUser().getId(), list.get(position).getName(), list.get(position).getInfo(), list.get(position).getId());
             }
         });
         return root;

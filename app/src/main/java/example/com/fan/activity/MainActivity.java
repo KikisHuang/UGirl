@@ -215,6 +215,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
                     WelcomeActivity.plistener.onIncrease();
             }
         } catch (Exception e) {
+            Log.i(TAG, "Error ===" + e);
         }
     }
 
@@ -246,7 +247,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
         ilist = new ArrayList<>();
         listener = this;
 
-//        SPreferences.saveUserToken("5e9a!TgpaVOIKNMCf8bteiR/Ro4KywYGLTO4PGbWebzPA1I7yW2LRWDie3Gf/MGlpDMGbQQt1VQW/GSU!s0y");
+        search_img = f(R.id.search_img);
+        findViewById(R.id.back_img).setVisibility(View.INVISIBLE);
+        main_rl = f(R.id.main_rl);
 
         imglist.add(page_img = f(R.id.page_img));
         imglist.add(two_img = f(R.id.two_img));
@@ -293,19 +296,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
         nlist.add(menu5);
 
 //        silide_img = f(R.id.silide_img);
-        search_img = f(R.id.search_img);
-        findViewById(R.id.back_img).setVisibility(View.INVISIBLE);
-        main_rl = f(R.id.main_rl);
-        getWelcomeAction();
-        //测试用JPushAlias;
-/*
-        JPushInterface.setAlias(this, "testAlias", new TagAliasCallback() {
-            @Override
-            public void gotResult(int i, String s, Set<String> set) {
 
-                Log.i(TAG, "Alias code ====" + i);
-            }
-        });*/
+        getWelcomeAction();
     }
 
 
@@ -426,7 +418,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
             ft.show(pageFragment);
             Log.i(TAG, "show");
         }
-        ft.commit();
+        ft.commitAllowingStateLoss();
     }
 
     private void two() {
@@ -440,7 +432,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
             ft.show(twoFragment);
             Log.i(TAG, "show");
         }
-        ft.commit();
+        ft.commitAllowingStateLoss();
     }
 
     private void three() {
@@ -454,8 +446,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
             ft.show(threeFragment);
             Log.i(TAG, "show");
         }
-        ft.commit();
+        ft.commitAllowingStateLoss();
     }
+
 
     private void four() {
         ObjectAnimator anima = ShakeAnima(img4);
@@ -466,7 +459,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
         } else {
             ft.show(fourFragment);
         }
-        ft.commit();
+        ft.commitAllowingStateLoss();
     }
 
     /**
@@ -489,7 +482,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
         } else {
             ft.show(fiveFragment);
         }
-        ft.commit();
+        ft.commitAllowingStateLoss();
     }
 
     @Override

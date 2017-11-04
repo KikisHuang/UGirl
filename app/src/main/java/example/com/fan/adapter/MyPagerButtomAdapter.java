@@ -55,12 +55,15 @@ public class MyPagerButtomAdapter extends PagerAdapter {
             @Override
             public void onClick(View v) {
                 switch (list.get(position).getId()) {
+                    //最新
                     case 1:
                         goNewestPage(context);
                         break;
+                    //热门模特;
                     case 2:
                         goHostModelPage(context);
                         break;
+                    //Vip页面;
                     case 3:
                         if (SynUtils.LoginStatusQuery()) {
                             if (MyAppcation.VipFlag)
@@ -76,12 +79,15 @@ public class MyPagerButtomAdapter extends PagerAdapter {
                         } else
                             Login(context);
                         break;
+                    //VR
                     case -2:
                         goVideoOfVrPage(context, "1");
                         break;
+                    //Video
                     case -3:
                         goVideoOfVrPage(context, "0");
                         break;
+                    //精选图集页面
                     default:
                         goChoicenessPage(context, list.get(position).getTypeName());
                         break;

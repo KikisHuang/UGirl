@@ -26,7 +26,6 @@ import example.com.fan.utils.ToastUtil;
 import okhttp3.Call;
 
 import static example.com.fan.utils.IntentUtils.goUserPhotoOfVideoLoadPage;
-import static example.com.fan.utils.IntentUtils.goUserPhotoOfVideoLoadPage2;
 import static example.com.fan.utils.JsonUtils.getCode;
 import static example.com.fan.utils.JsonUtils.getJsonOb;
 import static example.com.fan.utils.SynUtils.getTAG;
@@ -89,9 +88,9 @@ public class SuperUserPhotoOfVideoActivity extends InitActivity {
                             if (code == 1) {
                                 list = new ArrayList<>();
                                 Log.i(TAG, "GETOLDPRIVATEPHOTO" + response);
-                                if (ar.optJSONArray("mcPublishImgUrls").length() > 0) {
+                                MirrorBean mb = new Gson().fromJson(String.valueOf(getJsonOb(response)), MirrorBean.class);
+                           /*     if (ar.optJSONArray("mcPublishImgUrls").length() > 0) {
 
-                                    MirrorBean mb = new Gson().fromJson(String.valueOf(getJsonOb(response)), MirrorBean.class);
                                     SpecialId = mb.getId();
                                     chargeNumber = ar.optInt("hidePosition");
 
@@ -99,14 +98,48 @@ public class SuperUserPhotoOfVideoActivity extends InitActivity {
                                         mcPublishImgUrls mpiu = mb.getMcPublishImgUrls().get(i);
                                         list.add(mpiu);
                                     }
-                                }
-                                goUserPhotoOfVideoLoadPage2(SuperUserPhotoOfVideoActivity.this, 3, list.get(0).getPath(), list, SpecialId, chargeNumber);
-                                finish();
+                                    goUserPhotoOfVideoLoadPage2(SuperUserPhotoOfVideoActivity.this, 3, list.get(0).getPath(), list, SpecialId, chargeNumber);
+                                    finish();
+                                } else*/
+                                    Delete(mb.getId());
+
                             } else if (code == 0)
                                 Photo();
                             else
                                 ToastUtil.ToastErrorMsg(SuperUserPhotoOfVideoActivity.this, response, code);
 
+                        } catch (Exception e) {
+                            Log.i(TAG, "Error ===" + e);
+                        }
+                    }
+                });
+    }
+
+    private void Delete(String id) {
+        /**
+         * 防止报错，空照片集直接删除;
+         */
+        OkHttpUtils
+                .get()
+                .url(MzFinal.URl + MzFinal.DELETEPRIVATEPHOTO)
+                .addParams(MzFinal.KEY, SPreferences.getUserToken())
+                .addParams("id", id)
+                .tag(this)
+                .build()
+                .execute(new StringCallback() {
+                    @Override
+                    public void onError(Call call, Exception e, int id) {
+                        ToastUtil.toast2_bottom(SuperUserPhotoOfVideoActivity.this, "网络不顺畅...");
+                    }
+                    @Override
+                    public void onResponse(String response, int id) {
+                        try {
+                            int code = getCode(response);
+                            if (code == 1) {
+                                Log.i(TAG,"删除空照片集成功.. ==="+response);
+                                Photo();
+                            } else
+                                ToastUtil.ToastErrorMsg(SuperUserPhotoOfVideoActivity.this, response, code);
                         } catch (Exception e) {
 
                         }

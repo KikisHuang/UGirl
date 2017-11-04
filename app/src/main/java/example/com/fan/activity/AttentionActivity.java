@@ -86,8 +86,10 @@ public class AttentionActivity extends InitActivity implements SpringListener, I
                                     list.clear();
                                 JSONArray ar = getJsonAr(response);
                                 for (int i = 0; i < ar.length(); i++) {
-                                    AttentBean ab = new Gson().fromJson(String.valueOf(ar.getJSONObject(i)), AttentBean.class);
-                                    list.add(ab);
+                                    if (i != ar.length() - 1) {
+                                        AttentBean ab = new Gson().fromJson(String.valueOf(ar.getJSONObject(i)), AttentBean.class);
+                                        list.add(ab);
+                                    }
                                 }
                                 if (adapter != null)
                                     adapter.notifyDataSetChanged();
@@ -165,7 +167,7 @@ public class AttentionActivity extends InitActivity implements SpringListener, I
         lp.setMargins(0, 0, 15, 0);
         ImageView img = new ImageView(AttentionActivity.this);
         try {
-            Glide.with(getApplicationContext()).load(cb.getMcUser().getHeadImgUrl()).apply(getRequestOptions(false, 45, 45,true)).into(img);
+            Glide.with(getApplicationContext()).load(cb.getMcUser().getHeadImgUrl()).apply(getRequestOptions(false, 45, 45, true)).into(img);
 
         } catch (Exception e) {
             Log.i(TAG, "Glide You cannot start a load for a destroyed activity");

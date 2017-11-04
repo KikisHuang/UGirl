@@ -72,10 +72,10 @@ public class UnReadAdapter extends BaseAdapter {
             see = "被浏览"+list.get(position).getSeeCount()+"次";
 
        page_view.setText(see);
-       name.setText(list.get(position).getJoinUser().getName());
+       name.setText(list.get(position).getName());
         try {
             Glide.with(context)
-                    .load(list.get(position).getJoinUser().getHeadImgUrl())
+                    .load(list.get(position).getCoverPath())
                     .apply(getRequestOptions(true, 0, 0,true))
                     .into(head_img);
         } catch (Exception e) {

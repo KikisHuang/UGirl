@@ -27,7 +27,7 @@ public class PhotoPagerAdapter2 extends FragmentStatePagerAdapter {
     public Fragment getItem(int position) {
 
         List<mcPublishImgUrls> list = urlList.get(0).getMcPublishImgUrls();
-        return PictureSlideFragment2.newInstance(list.get(position).getPath(), list.get(position).getBasePath(), list.get(position).getNeedMoney(), id, String.valueOf(urlList.get(0).getPrice()));//返回展示不同网络图片的PictureSlideFragment
+        return PictureSlideFragment2.newInstance(list.get(position).getPath(), list.get(position).getBasePath(), list.get(position).getNeedMoney(), id, String.valueOf(urlList.get(0).getPrice()),list.size());//返回展示不同网络图片的PictureSlideFragment
     }
 
     @Override

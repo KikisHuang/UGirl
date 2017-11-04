@@ -13,6 +13,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.DataSource;
 import com.bumptech.glide.load.engine.GlideException;
 import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.Target;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
@@ -29,7 +30,6 @@ import okhttp3.Call;
 import uk.co.senab.photoview.PhotoView;
 import uk.co.senab.photoview.PhotoViewAttacher;
 
-import static example.com.fan.utils.GlideImgUtils.getRequestOptions;
 import static example.com.fan.utils.JsonUtils.getCode;
 import static example.com.fan.utils.JsonUtils.getJsonSring;
 import static example.com.fan.utils.SynUtils.getTAG;
@@ -44,7 +44,7 @@ public class PictureSlideFragment extends BaseFragment implements PayRefreshList
     private PhotoViewAttacher photoViewAttacher;
     private boolean need;
     private String id = "";
-        private ImageView load_img;
+    private ImageView load_img;
     private GestureDetector.OnDoubleTapListener gest;
     public static PayRefreshListener PayListener;
 
@@ -161,6 +161,8 @@ public class PictureSlideFragment extends BaseFragment implements PayRefreshList
      */
     private void ReadImg(String url) {
         try {
+            RequestOptions op = new RequestOptions();
+            op.centerCrop().error(R.drawable.load_fail_img);
 
             Glide.with(getActivity().getApplicationContext())
                     .load(url).listener(new RequestListener<Drawable>() {
@@ -174,8 +176,7 @@ public class PictureSlideFragment extends BaseFragment implements PayRefreshList
                     load_img.setVisibility(View.GONE);
                     return false;
                 }
-            })
-                    .apply(getRequestOptions(true, 0, 0,false).error(R.drawable.load_fail_img)).into(imageView);
+            }).apply(op).into(imageView);
 
         } catch (Exception e) {
             Log.i(TAG, "Glide You cannot start a load for a destroyed activity");

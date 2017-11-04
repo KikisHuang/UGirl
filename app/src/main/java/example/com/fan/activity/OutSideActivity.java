@@ -13,7 +13,6 @@ import example.com.fan.R;
 import example.com.fan.utils.ToastUtil;
 import example.com.fan.view.OutSideWebViewClient;
 
-import static example.com.fan.utils.SynUtils.Finish;
 import static example.com.fan.utils.SynUtils.getRouString;
 import static example.com.fan.utils.TitleUtils.setTitles;
 import static example.com.fan.view.dialog.CustomProgress.Cancle;
@@ -68,8 +67,7 @@ public class OutSideActivity extends InitActivity {
 
     private void receiver() {
         try {
-//            url = getIntent().getStringExtra("outside_url");
-            url = "http://news.online.sh.cn/news/gb/content/2017-09/05/content_8603221.htm";
+            url = getIntent().getStringExtra("outside_url");
             if (url.isEmpty()) {
                 webView.setVisibility(View.GONE);
                 statement_scroll.setVisibility(View.VISIBLE);

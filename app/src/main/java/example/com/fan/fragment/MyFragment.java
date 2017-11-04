@@ -44,7 +44,7 @@ import static example.com.fan.utils.IntentUtils.goMyCollectPage;
 import static example.com.fan.utils.IntentUtils.goMyOrderPage;
 import static example.com.fan.utils.IntentUtils.goOverPayPage;
 import static example.com.fan.utils.IntentUtils.goPayPage;
-import static example.com.fan.utils.IntentUtils.goPersonInfoPage2;
+import static example.com.fan.utils.IntentUtils.goPersonInfoPage;
 import static example.com.fan.utils.IntentUtils.goRegisterPage;
 import static example.com.fan.utils.IntentUtils.goSGamerPage;
 import static example.com.fan.utils.IntentUtils.goSettingPage;
@@ -255,7 +255,7 @@ public class MyFragment extends BaseFragment implements View.OnClickListener, Ch
 
                                     MzFinal.MYID = ub.getId();
                                     setTextColor1(account_tv, info.get(0).getBalance() + MzFinal.br, "我的账户", "#FF4D87");
-                                    setTextColor1(rank_tv, info.get(0).getCommentLevel() + MzFinal.br, "等级", "#000000");
+//                                    setTextColor1(rank_tv, info.get(0).getCommentLevel() + MzFinal.br, "等级", "#000000");
                                     MyAppcation.UserIcon = ub.getHeadImgUrl();
                                     MyAppcation.myInvitationCode = ub.getMyInvitationCode();
                                     if (info.get(0).getHeadImgUrl() == null)
@@ -281,6 +281,36 @@ public class MyFragment extends BaseFragment implements View.OnClickListener, Ch
                         }
                     });
         }
+
+        /**
+         * 获取vip等级;
+         */
+        OkHttpUtils
+                .get()
+                .url(MzFinal.URl + MzFinal.GETMYVIP)
+                .addParams(MzFinal.KEY, SPreferences.getUserToken())
+                .build()
+                .execute(new StringCallback() {
+                    @Override
+                    public void onError(Call call, Exception e, int id) {
+
+                    }
+
+                    @Override
+                    public void onResponse(String response, int id) {
+                        try {
+                            int code = getCode(response);
+                            JSONObject ob = getJsonOb(response);
+                            if (code == 1)
+                                setTextColor1(rank_tv, ob.optJSONObject("mcVip").optInt("level") + MzFinal.br, "等级", "#000000");
+                            else
+                                setTextColor1(rank_tv, 0 + MzFinal.br, "等级", "#000000");
+
+                        } catch (Exception e) {
+
+                        }
+                    }
+                });
     }
 
     public void init() {
@@ -349,7 +379,7 @@ public class MyFragment extends BaseFragment implements View.OnClickListener, Ch
 
             case R.id.user_icon:
                 if (info.size() > 0)
-                    goPersonInfoPage2(getActivity(), info.get(0).getHeadImgUrl(), info.get(0).getName(), String.valueOf(getSex(info.get(0).getSex())), info.get(0).getWx(), user_icon);
+                    goPersonInfoPage(getActivity(), info.get(0).getHeadImgUrl(), info.get(0).getName(), String.valueOf(getSex(info.get(0).getSex())), info.get(0).getWx());
                 break;
             case R.id.login_tv:
                 goLoginPage(getActivity());
@@ -359,7 +389,7 @@ public class MyFragment extends BaseFragment implements View.OnClickListener, Ch
                 break;
             case R.id.compile_layout:
                 if (info.size() > 0)
-                    goPersonInfoPage2(getActivity(), info.get(0).getHeadImgUrl(), info.get(0).getName(), String.valueOf(getSex(info.get(0).getSex())), info.get(0).getWx(), user_icon);
+                    goPersonInfoPage(getActivity(), info.get(0).getHeadImgUrl(), info.get(0).getName(), String.valueOf(getSex(info.get(0).getSex())), info.get(0).getWx());
                 break;
             case R.id.attention_tv:
                 goAttentionPage(getActivity());
@@ -428,10 +458,10 @@ public class MyFragment extends BaseFragment implements View.OnClickListener, Ch
                     //goTaskPage(getActivity());
                     try {
                         //分享popup;
-                        if (!cleanNull(MyAppcation.myInvitationCode)) {
-                            SharePopupWindow sp = new SharePopupWindow(getActivity(), MyAppcation.myInvitationCode);
-                            sp.ScreenPopupWindow(LayoutInflater.from(getActivity()).inflate(R.layout.my_fragment, null));
-                        }
+//                        if (!cleanNull(MyAppcation.myInvitationCode)) {
+                        SharePopupWindow sp = new SharePopupWindow(getActivity(), MyAppcation.myInvitationCode);
+                        sp.ScreenPopupWindow(LayoutInflater.from(getActivity()).inflate(R.layout.my_fragment, null));
+//                        }
                     } catch (Exception e) {
 
                     }
@@ -459,48 +489,6 @@ public class MyFragment extends BaseFragment implements View.OnClickListener, Ch
                 } else
                     Login(getActivity());
                 break;
-
-         /*   //我的私照
-            case R.id.rl_layout10:
-                if (MzFinal.MODELFLAG) {
-                    goMyPrivatePhotoPage(getActivity(),MzFinal.MYID);
-                } else
-                    GoRenzPage();
-                break;
-            //我的视频
-            case R.id.rl_layout11:
-                if (MzFinal.MODELFLAG) {
-                    goMyVideoPage(getActivity());
-                } else
-                    GoRenzPage();
-                break;
-            //我的微信;
-            case R.id.rl_layout12:
-
-                if (MzFinal.MODELFLAG) {
-                    goWeChatPage(getActivity());
-                } else
-                    GoRenzPage();
-                break;
-            case R.id.rl_layout13:
-
-                break;
-            //上传私照;
-            case R.id.upload_private:
-                if (MzFinal.MODELFLAG) {
-                    goUpPrivatePhotoPage(getActivity());
-                } else
-                    GoRenzPage();
-                break;
-            //上传视频;
-            case R.id.upload_video:
-                if (MzFinal.MODELFLAG) {
-
-                } else
-                    GoRenzPage();
-
-                break;*/
-
         }
     }
 

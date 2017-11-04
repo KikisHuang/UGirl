@@ -77,20 +77,18 @@
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_gravity="bottom"
-        android:orientation="horizontal"
         android:background="@color/white"
         android:gravity="center"
-        android:visibility="gone"
-        >
+        android:orientation="horizontal"
+        android:visibility="gone">
 
         <LinearLayout
             android:id="@+id/attention_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:orientation="vertical"
             android:gravity="center"
-            >
+            android:orientation="vertical">
 
             <ImageView
                 android:layout_width="25dp"
@@ -100,19 +98,19 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="关注"
                 android:layout_marginTop="3dp"
+                android:text="关注"
                 android:textColor="@color/black"
                 android:textSize="11dp" />
         </LinearLayout>
+
         <LinearLayout
             android:id="@+id/private_quiz_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:orientation="vertical"
             android:gravity="center"
-            >
+            android:orientation="vertical">
 
             <ImageView
                 android:layout_width="25dp"
@@ -122,19 +120,19 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="私密提问"
                 android:layout_marginTop="3dp"
+                android:text="私密提问"
                 android:textColor="@color/black"
                 android:textSize="11dp" />
         </LinearLayout>
+
         <LinearLayout
             android:id="@+id/add_wechat_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:orientation="vertical"
             android:gravity="center"
-            >
+            android:orientation="vertical">
 
             <ImageView
                 android:layout_width="25dp"
@@ -144,19 +142,19 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="加微信"
                 android:layout_marginTop="3dp"
+                android:text="加微信"
                 android:textColor="@color/black"
                 android:textSize="11dp" />
         </LinearLayout>
+
         <LinearLayout
             android:id="@+id/private_chat_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:orientation="vertical"
             android:gravity="center"
-            >
+            android:orientation="vertical">
 
             <ImageView
                 android:layout_width="25dp"
@@ -166,10 +164,36 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="私聊"
                 android:layout_marginTop="3dp"
+                android:text="私聊"
                 android:textColor="@color/black"
                 android:textSize="11dp" />
         </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/fake_layout"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:layout_gravity="bottom|right"
+        android:layout_margin="20dp"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:background="@drawable/gray_corner9"
+        android:padding="5dp"
+        >
+
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_gravity="center"
+            android:src="@mipmap/call_icon" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="音视频聊"
+            android:textColor="@color/content4"
+            android:textSize="8dp" />
     </LinearLayout>
 </FrameLayout>

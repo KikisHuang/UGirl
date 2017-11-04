@@ -16,6 +16,7 @@ import cn.jpush.android.api.JPushInterface;
 import example.com.fan.MyAppcation;
 import example.com.fan.R;
 import example.com.fan.base.sign.save.SPreferences;
+import example.com.fan.fragment.MyFragment;
 import example.com.fan.fragment.son.PictureSlideFragment;
 import example.com.fan.fragment.son.PictureSlideFragment2;
 import example.com.fan.utils.GlideCacheUtil;
@@ -61,10 +62,13 @@ public abstract class InitActivity extends FragmentActivity implements alipayToo
     private void CheckLoginToken() {
         if (LoginStatusQuery() && SPreferences.getUserToken().length() <= 31) {
             if (able != null)
+                if(MyAppcation.crashHandler!=null)
                 MyAppcation.crashHandler.uncaughtException(new Thread(), able);
-            else
+            else {
                 able = new Throwable("手动抛出TOKEN异常信息。。。");
-
+                    if(MyAppcation.crashHandler!=null)
+                MyAppcation.crashHandler.uncaughtException(new Thread(), able);
+            }
         }
     }
 
@@ -132,10 +136,10 @@ public abstract class InitActivity extends FragmentActivity implements alipayToo
 
         switch (keyCode) {
             case KeyEvent.KEYCODE_VOLUME_UP:
-                Log.i(TAG,"KEYCODE_VOLUME_UP");
+                Log.i(TAG, "KEYCODE_VOLUME_UP");
                 break;
             case KeyEvent.KEYCODE_VOLUME_DOWN:
-                Log.i(TAG,"KEYCODE_VOLUME_DOWN");
+                Log.i(TAG, "KEYCODE_VOLUME_DOWN");
                 break;
         }
         return super.onKeyDown(keyCode, event);
@@ -148,15 +152,18 @@ public abstract class InitActivity extends FragmentActivity implements alipayToo
                 MzFinal.isPay = true;
                 PictureSlideFragment.PayListener.onPayRefresh();
             }
-            if (PictureSlideFragment2.PayListener != null && PrivatePhotoActivity.tlistener != null) {
+            if (PictureSlideFragment2.PayListener != null) {
                 MzFinal.isPay = true;
                 PictureSlideFragment2.PayListener.onPayRefresh();
             }
             if (PayActivity.paylistener != null)
                 PayActivity.paylistener.onPayRefresh();
 
-            if(PlayerVideoActivity.infoListener!=null)
+            if (PlayerVideoActivity.infoListener != null)
                 PlayerVideoActivity.infoListener.onUpDataUserInfo();
+
+            if (MyFragment.fragment != null)
+                MyFragment.fragment.onUpDataUserInfo();
 
             getUserVip();
         } catch (Exception e) {

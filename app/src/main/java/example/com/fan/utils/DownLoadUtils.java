@@ -146,6 +146,7 @@ public class DownLoadUtils {
             }
             context.startActivity(intent);
         } catch (Exception e) {
+            if(MyAppcation.crashHandler!=null)
             MyAppcation.crashHandler.uncaughtException(new Thread(), e);
         }
     }

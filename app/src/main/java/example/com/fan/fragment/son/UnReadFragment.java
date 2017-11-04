@@ -1,5 +1,8 @@
 package example.com.fan.fragment.son;
 
+import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -29,8 +32,10 @@ import okhttp3.Call;
 
 import static example.com.fan.utils.IntentUtils.goPhotoPage;
 import static example.com.fan.utils.IntentUtils.goPlayerPage;
+import static example.com.fan.utils.IntentUtils.goPrivatePhotoPage;
 import static example.com.fan.utils.JsonUtils.getCode;
 import static example.com.fan.utils.JsonUtils.getJsonAr;
+import static example.com.fan.utils.SynUtils.PrivateVideoCheckPay;
 import static example.com.fan.utils.SynUtils.getTAG;
 
 /**
@@ -46,8 +51,19 @@ public class UnReadFragment extends BaseFragment implements SpringListener {
     private SpringView springview;
     private int page = 0;
 
-    public void setTag(final int tag) {
-        this.tag = tag;
+    public static Fragment setTag(int tag) {
+//        this.tag = tag;
+        UnReadFragment f = new UnReadFragment();
+        Bundle args = new Bundle();
+        args.putInt("tag", tag);
+        f.setArguments(args);
+        return f;
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        tag = getArguments() != null ? getArguments().getInt("tag") : 0;
     }
 
     @Override
@@ -58,13 +74,19 @@ public class UnReadFragment extends BaseFragment implements SpringListener {
     public void newInstance(boolean b) {
         switch (tag) {
             case 0:
-                getUnRead("0",b);
+                getUnRead("0", b);
                 break;
             case 1:
                 getUnRead("4", b);
                 break;
             case 2:
                 getUnRead("5", b);
+                break;
+            case 3:
+                getUnRead("-3", b);
+                break;
+            case 4:
+                getUnRead("-2", b);
                 break;
         }
     }
@@ -78,7 +100,7 @@ public class UnReadFragment extends BaseFragment implements SpringListener {
                 .url(MzFinal.URl + MzFinal.GETNOTREADRECORD)
                 .addParams(MzFinal.KEY, SPreferences.getUserToken())
                 .addParams(MzFinal.PAGE, String.valueOf(page))
-                .addParams(MzFinal.SIZE, String.valueOf(page+20))
+                .addParams(MzFinal.SIZE, String.valueOf(page + 10))
                 .addParams(MzFinal.TYPE, type)
                 .tag(this)
                 .build()
@@ -94,7 +116,7 @@ public class UnReadFragment extends BaseFragment implements SpringListener {
                             int code = getCode(response);
                             if (code == 1) {
                                 if (b)
-                                rlist.clear();
+                                    rlist.clear();
                                 JSONArray ar = getJsonAr(response);
                                 if (ar.length() > 0) {
 
@@ -136,6 +158,13 @@ public class UnReadFragment extends BaseFragment implements SpringListener {
                         case 2:
                             goPlayerPage(getActivity(), rlist.get(position).getId(), 5);
                             break;
+                        case 3:
+                            PrivateVideoCheckPay(getActivity(), listView, rlist.get(position).getId(), String.valueOf(rlist.get(position).getPrice()));
+//                            goPlayerPage(getActivity(), rlist.get(position).getId(), -3);
+                            break;
+                        case 4:
+                            goPrivatePhotoPage(getActivity(), rlist.get(position).getId(), 0);
+                            break;
                     }
                 }
             }
@@ -158,7 +187,7 @@ public class UnReadFragment extends BaseFragment implements SpringListener {
 
     @Override
     public void IsonRefresh(int i) {
-        page = i;
+        page = 0;
         newInstance(true);
     }
 
@@ -170,7 +199,7 @@ public class UnReadFragment extends BaseFragment implements SpringListener {
 
     @Override
     public void IsonLoadmore(int a) {
-        page += a;
+        page += 10;
         newInstance(false);
     }
 }

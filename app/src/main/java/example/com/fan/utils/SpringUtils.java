@@ -2,6 +2,7 @@ package example.com.fan.utils;
 
 import android.app.Activity;
 import android.os.Handler;
+import android.widget.ListView;
 
 import com.liaoinstan.springview.container.MeituanFooter;
 import com.liaoinstan.springview.container.MeituanHeader;
@@ -48,5 +49,20 @@ public class SpringUtils {
                 }, 500);
             }
         });
+    }
+
+    public static void BottomListAutoRefresh(ListView listview){
+      /*  listview.setOnScrollListener(new OnScrollListener(){
+            @Override
+            public void onScrollStateChanged(AbsListView view, int scrollState){
+                // 当不滚动时
+                if (scrollState == OnScrollListener.SCROLL_STATE_IDLE) {
+                    // 判断是否滚动到底部
+                    if (view.getLastVisiblePosition() == view.getCount() - 1) {
+                        //加载更多功能的代码
+                    }
+                }
+            }
+        });*/
     }
 }

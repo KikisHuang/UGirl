@@ -20,8 +20,6 @@ import example.com.fan.R;
 import example.com.fan.bean.ModelBean;
 import example.com.fan.mylistener.ItemClickListener;
 import example.com.fan.mylistener.SuperUseDeleteListener;
-import example.com.fan.utils.DeviceUtils;
-import example.com.fan.utils.GlideCacheUtil;
 import example.com.fan.utils.OverallViewHolder;
 
 import static example.com.fan.utils.DateUtils.getMonthAndDay;
@@ -40,7 +38,12 @@ public class MyProductionAdapter extends BaseAdapter {
     private LayoutInflater inflater;
     private ItemClickListener listener;
     private SuperUseDeleteListener delete;
-
+    private ImageView img1, img2, img3, img4, img5, img6;
+    private ImageView user_icon, share_img, video_img;
+    private TextView name_tv, content_tv, date_tv,seecount_tv,give_tv,status_tv,money_tv,delete_tv;
+    private HorizontalScrollView photo_scroll;
+    private FrameLayout video_layout;
+    private LinearLayout photo_layout;
 
     public MyProductionAdapter(Context context, List<ModelBean> blist, ItemClickListener hlistener, SuperUseDeleteListener delete) {
         this.blist = blist;
@@ -72,30 +75,42 @@ public class MyProductionAdapter extends BaseAdapter {
         if (root == null)
             root = inflater.inflate(R.layout.my_production_item, null);
 
-        ImageView user_icon = OverallViewHolder.ViewHolder.get(root, R.id.user_icon);
-        ImageView share_img = OverallViewHolder.ViewHolder.get(root, R.id.share_img);
-        ImageView video_img = OverallViewHolder.ViewHolder.get(root, R.id.video_img);
+        user_icon = OverallViewHolder.ViewHolder.get(root, R.id.user_icon);
+        share_img = OverallViewHolder.ViewHolder.get(root, R.id.share_img);
+        video_img = OverallViewHolder.ViewHolder.get(root, R.id.video_img);
 
-        TextView name_tv = OverallViewHolder.ViewHolder.get(root, R.id.name_tv);
-        TextView content_tv = OverallViewHolder.ViewHolder.get(root, R.id.content_tv);
-        TextView date_tv = OverallViewHolder.ViewHolder.get(root, R.id.date_tv);
-        TextView type_tv = OverallViewHolder.ViewHolder.get(root, R.id.type_tv);
-        HorizontalScrollView photo_scroll = OverallViewHolder.ViewHolder.get(root, R.id.photo_scroll);
+        img1 = OverallViewHolder.ViewHolder.get(root, R.id.img1);
+        img2 = OverallViewHolder.ViewHolder.get(root, R.id.img2);
+        img3 = OverallViewHolder.ViewHolder.get(root, R.id.img3);
+        img4 = OverallViewHolder.ViewHolder.get(root, R.id.img4);
+        img5 = OverallViewHolder.ViewHolder.get(root, R.id.img5);
+        img6 = OverallViewHolder.ViewHolder.get(root, R.id.img6);
 
-        TextView seecount_tv = OverallViewHolder.ViewHolder.get(root, R.id.seecount_tv);
+        name_tv = OverallViewHolder.ViewHolder.get(root, R.id.name_tv);
+        content_tv = OverallViewHolder.ViewHolder.get(root, R.id.content_tv);
+        date_tv = OverallViewHolder.ViewHolder.get(root, R.id.date_tv);
+        photo_scroll = OverallViewHolder.ViewHolder.get(root, R.id.photo_scroll);
 
-        TextView give_tv = OverallViewHolder.ViewHolder.get(root, R.id.give_tv);
-        TextView status_tv = OverallViewHolder.ViewHolder.get(root, R.id.status_tv);
-        TextView money_tv = OverallViewHolder.ViewHolder.get(root, R.id.money_tv);
-        TextView delete_tv = OverallViewHolder.ViewHolder.get(root, R.id.delete_tv);
+         seecount_tv = OverallViewHolder.ViewHolder.get(root, R.id.seecount_tv);
 
-        FrameLayout video_layout = OverallViewHolder.ViewHolder.get(root, R.id.video_layout);
-        LinearLayout photo_layout = OverallViewHolder.ViewHolder.get(root, R.id.photo_layout);
+         give_tv = OverallViewHolder.ViewHolder.get(root, R.id.give_tv);
+         status_tv = OverallViewHolder.ViewHolder.get(root, R.id.status_tv);
+         money_tv = OverallViewHolder.ViewHolder.get(root, R.id.money_tv);
+         delete_tv = OverallViewHolder.ViewHolder.get(root, R.id.delete_tv);
+
+         video_layout = OverallViewHolder.ViewHolder.get(root, R.id.video_layout);
+         photo_layout = OverallViewHolder.ViewHolder.get(root, R.id.photo_layout);
 
         name_tv.setText(blist.get(position).getModelRealName());
         date_tv.setText(getMonthAndDay(blist.get(position).getCreateTime()));
         content_tv.setText(blist.get(position).getInfo());
 
+        share_img.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                listener.onItemClickListener(12322, blist.get(position).getId());
+            }
+        });
         switch (blist.get(position).getStatus()) {
             case 0:
                 status_tv.setText(getRouString(R.string.unaudit));
@@ -134,9 +149,17 @@ public class MyProductionAdapter extends BaseAdapter {
             //私密照;
             case -2:
                 video_layout.setVisibility(View.GONE);
-                if (blist.get(position).getImgs().size() > 0)
-                    photo_scroll.setVisibility(View.VISIBLE);
-                AddPhoto(photo_layout, position);
+                if (blist.get(position).getImgs() != null) {
+                    try {
+                        if (blist.get(position).getImgs().size() > 0)
+                            photo_scroll.setVisibility(View.VISIBLE);
+
+                        AddPhoto(photo_layout, position);
+                    } catch (Exception e) {
+                        Log.e(TAG, " Error ===" + e);
+                    }
+                }
+
                 break;
             //私密视频;
             case -3:
@@ -164,12 +187,11 @@ public class MyProductionAdapter extends BaseAdapter {
         } catch (Exception e) {
             Log.i(TAG, "Glide You cannot start a load for a destroyed activity");
         }
-        Log.i(TAG, "GlideCache==== " + GlideCacheUtil.getCacheSize(context));
         return root;
     }
 
     private void AddPhoto(LinearLayout photo_layout, final int position) {
-        photo_layout.removeAllViews();
+        hideView();
         if (blist.get(position).getImgs().size() > 0) {
             photo_layout.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -179,19 +201,44 @@ public class MyProductionAdapter extends BaseAdapter {
             });
             for (int i = 0; i < blist.get(position).getImgs().size(); i++) {
                 if (i <= 6) {
-                    ImageView im = new ImageView(context);
-                    im.setScaleType(ImageView.ScaleType.CENTER_CROP);
-                    LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(DeviceUtils.dip2px(context, 110), ViewGroup.LayoutParams.MATCH_PARENT);
-                    lp.rightMargin = DeviceUtils.dip2px(context, 5);
-                    if (i == 6)
-                        Glide.with(context).load(R.mipmap.more_img5).into(im);
-                    else
-                        Glide.with(context).load(blist.get(position).getImgs().get(i).getPath()).into(im);
-                    im.setLayoutParams(lp);
-                    photo_layout.addView(im);
+                    switch (i) {
+                        case 0:
+                            img1.setVisibility(View.VISIBLE);
+                            Glide.with(context).load(blist.get(position).getImgs().get(i).getPath()).into(img1);
+                            break;
+                        case 1:
+                            img2.setVisibility(View.VISIBLE);
+                            Glide.with(context).load(blist.get(position).getImgs().get(i).getPath()).into(img2);
+                            break;
+                        case 2:
+                            img3.setVisibility(View.VISIBLE);
+                            Glide.with(context).load(blist.get(position).getImgs().get(i).getPath()).into(img3);
+                            break;
+                        case 3:
+                            img4.setVisibility(View.VISIBLE);
+                            Glide.with(context).load(blist.get(position).getImgs().get(i).getPath()).into(img4);
+                            break;
+                        case 4:
+                            img5.setVisibility(View.VISIBLE);
+                            Glide.with(context).load(blist.get(position).getImgs().get(i).getPath()).into(img5);
+                            break;
+                        case 5:
+                            img6.setVisibility(View.VISIBLE);
+                            Glide.with(context).load(R.mipmap.more_img5).into(img6);
+                            break;
+                    }
                 } else
                     break;
             }
         }
+    }
+
+    private void hideView() {
+        img1.setVisibility(View.GONE);
+        img2.setVisibility(View.GONE);
+        img3.setVisibility(View.GONE);
+        img4.setVisibility(View.GONE);
+        img5.setVisibility(View.GONE);
+        img6.setVisibility(View.GONE);
     }
 }

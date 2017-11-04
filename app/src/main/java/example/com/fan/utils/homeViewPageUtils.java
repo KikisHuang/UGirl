@@ -276,10 +276,11 @@ public class homeViewPageUtils {
             flag = false;
 
 
-        int width = (int) (DeviceUtils.getWindowWidth(context) * 2.3 / 10);
+//        int width = (int) (DeviceUtils.getWindowWidth(context) * 2.3 / 10);
+        int width = (int) (DeviceUtils.getWindowWidth(context) * 2.8 / 10);
         int height = (int) (width * 2.7);
         Log.i(TAG, "width======" + width);
-        FrameLayout.LayoutParams lp1 = new FrameLayout.LayoutParams(width * 2, height);
+        FrameLayout.LayoutParams lp1 = new FrameLayout.LayoutParams(width * 2-50, height);
         ll.setLayoutParams(lp1);
 
         LinearLayout.LayoutParams params;
@@ -345,16 +346,18 @@ public class homeViewPageUtils {
         ImageView imageView1 = (ImageView) view.findViewById(R.id.three_item_image1);
         ImageView imageView2 = (ImageView) view.findViewById(R.id.three_item_image2);
         ImageView imageView3 = (ImageView) view.findViewById(R.id.three_item_image3);
-        boolean flag;
-        if (blist.get(i).getId() == 3)
+
+        boolean flag = true;
+
+    /*    if (blist.get(i).getId() == 3)
             flag = true;
         else
-            flag = false;
+            flag = false;*/
 
-        int width = (int) (DeviceUtils.getWindowWidth(context) * 2.3 / 10);
+        int width = (int) (DeviceUtils.getWindowWidth(context) * 2.8 / 10);
         int height = (int) (width * 2.7);
         Log.i(TAG, "width======" + width);
-        FrameLayout.LayoutParams lp1 = new FrameLayout.LayoutParams(width * 2, height);
+        FrameLayout.LayoutParams lp1 = new FrameLayout.LayoutParams(width * 2-50, height);
         ll.setLayoutParams(lp1);
 
         LinearLayout.LayoutParams params;
@@ -402,16 +405,16 @@ public class homeViewPageUtils {
         ImageView imageView2 = (ImageView) view.findViewById(R.id.four_item_image2);
         ImageView imageView3 = (ImageView) view.findViewById(R.id.four_item_image3);
         ImageView imageView4 = (ImageView) view.findViewById(R.id.four_item_image4);
-        boolean flag;
-        if (blist.get(i).getId() == 3)
+        boolean flag = true;
+       /* if (blist.get(i).getId() == 3)
             flag = true;
         else
-            flag = false;
+            flag = false;*/
 
-        int width = (int) (DeviceUtils.getWindowWidth(context) * 2.3 / 10);
+        int width = (int) (DeviceUtils.getWindowWidth(context) * 2.8 / 10);
         int height = (int) (width * 2.7);
         Log.i(TAG, "width======" + width);
-        FrameLayout.LayoutParams lp1 = new FrameLayout.LayoutParams(width * 2, height);
+        FrameLayout.LayoutParams lp1 = new FrameLayout.LayoutParams(width * 2-50, height);
         ll.setLayoutParams(lp1);
 
         LinearLayout.LayoutParams params;
@@ -439,13 +442,13 @@ public class homeViewPageUtils {
                 case 2:
 
                     imageView3.setLayoutParams(params);
-                    setBitmap2(blist.get(i).getMcPublishRecords().get(j).getCoverPath(), imageView3, context, flag);
+                    setBitmap2(blist.get(i).getMcPublishRecords().get(j).getCoverPath(), imageView3, context, true);
 
                     break;
                 case 3:
 
                     imageView4.setLayoutParams(params);
-                    setBitmap2(blist.get(i).getMcPublishRecords().get(j).getCoverPath(), imageView4, context, flag);
+                    setBitmap2(blist.get(i).getMcPublishRecords().get(j).getCoverPath(), imageView4, context, true);
                     break;
 
             }
@@ -479,10 +482,10 @@ public class homeViewPageUtils {
         else
             flag = false;
 
-        int width = (int) (DeviceUtils.getWindowWidth(context) * 2.3 / 10);
+        int width = (int) (DeviceUtils.getWindowWidth(context) * 2.8 / 10);
         int height = (int) (width * 2.7);
         Log.i(TAG, "width======" + width);
-        FrameLayout.LayoutParams lp1 = new FrameLayout.LayoutParams(width * 2, height);
+        FrameLayout.LayoutParams lp1 = new FrameLayout.LayoutParams(width * 2-50, height);
         ll.setLayoutParams(lp1);
 
         LinearLayout.LayoutParams params;
@@ -520,7 +523,7 @@ public class homeViewPageUtils {
                     break;
                 case 4:
                     imageView5.setLayoutParams(params);
-                    setBitmap2(blist.get(i).getMcPublishRecords().get(j).getCoverPath(), imageView5, context, flag);
+                    setBitmap2(blist.get(i).getMcPublishRecords().get(j).getCoverPath(), imageView5, context, true);
                     break;
 
             }
@@ -531,12 +534,6 @@ public class homeViewPageUtils {
         tv.setText(title);
     }
 
-//    private static void setBitmap(String str, ImageView img, Context context) {
-//        Glide.with(context)
-//                .load(str)
-//                .override(320,320)
-//                .into(img);
-//    }
 
     /**
      * vip 模糊设置;
@@ -550,21 +547,14 @@ public class homeViewPageUtils {
         if (flag) {
             Glide.with(context)
                     .load(str)
-                    .apply(getRequestOptions(false, 320,320,false))
+                    .apply(getRequestOptions(false, 720, 480, false))
                     .into(img);
         } else {
             Glide.with(context)
                     .load(str)
-                    .apply(getRequestOptions(false, 320,320,false))
+                    .apply(getRequestOptions(false, 320, 320, false))
                     .into(img);
         }
     }
 
-//    private static void setBitmap(String str, ImageView img, Context context) {
-//        Glide.with(context)
-//                .load(str)
-//                .override(320, 320)
-//                .fitCenter()
-//                .into(img);
-//    }
 }

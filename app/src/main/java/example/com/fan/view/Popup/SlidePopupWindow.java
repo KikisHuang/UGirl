@@ -36,7 +36,7 @@ import static example.com.fan.utils.IntentUtils.goHelpPage;
 import static example.com.fan.utils.IntentUtils.goLoginPage;
 import static example.com.fan.utils.IntentUtils.goOverPayPage;
 import static example.com.fan.utils.IntentUtils.goPayPage;
-import static example.com.fan.utils.IntentUtils.goPersonInfoPage2;
+import static example.com.fan.utils.IntentUtils.goPersonInfoPage;
 import static example.com.fan.utils.IntentUtils.goSettingPage;
 import static example.com.fan.utils.JsonUtils.getCode;
 import static example.com.fan.utils.JsonUtils.getJsonOb;
@@ -280,7 +280,7 @@ public class SlidePopupWindow implements View.OnClickListener {
 
         } else {
             if (info != null) {
-                goPersonInfoPage2(mContext, info.getHeadImgUrl(), info.getName(), String.valueOf(getSex(info.getSex())), info.getWx(),user_icon);
+                goPersonInfoPage(mContext, info.getHeadImgUrl(), info.getName(), String.valueOf(getSex(info.getSex())), info.getWx());
 //                backgroundAlpha(1f, mContext);
             }
         }

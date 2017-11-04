@@ -209,7 +209,7 @@ public class VDVRFragment extends BaseFragment implements SpringListener, ItemCl
 
     @Override
     public void onShare(String userid, String name, String info, String id) {
-//        ShareApp(getActivity(), userid, name, info, id);
-        getSystemShare(getActivity(),id);
+//        getSystemShare(getActivity(),id);
+        getSystemShare(getActivity(),"");
     }
 }

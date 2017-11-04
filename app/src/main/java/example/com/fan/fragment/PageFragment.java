@@ -345,7 +345,7 @@ public class PageFragment extends BaseFragment implements View.OnClickListener, 
                                 }
                                 initPageData2();
                                 setBottomPager();
-                                Invitation();
+//                                Invitation();
                             } else
                                 ToastUtil.ToastErrorMsg(getActivity(), response, code);
                         } catch (Exception e) {
@@ -430,7 +430,7 @@ public class PageFragment extends BaseFragment implements View.OnClickListener, 
             polistener = this;
             startPlay(handler, mViewPager, 0);
             Log.i(TAG, "onResume");
-            Invitation();
+//            Invitation();
         } else {
             polistener = null;
             stopPlay();
@@ -445,7 +445,7 @@ public class PageFragment extends BaseFragment implements View.OnClickListener, 
         try {
             polistener = this;
             startPlay(handler, mViewPager, 0);
-            Invitation();
+//            Invitation();
         } catch (Exception e) {
             Log.i(TAG, "Error ==" + e);
         }
@@ -541,8 +541,9 @@ public class PageFragment extends BaseFragment implements View.OnClickListener, 
 //        LinearLayout.LayoutParams lp1 = new LinearLayout.LayoutParams(DeviceUtils.getWindowWidth(getActivity()) * 6 / 10, (int) (getWindowHeight(getActivity()) / 2.1));
         LinearLayout.LayoutParams lp1 = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         lp1.gravity = Gravity.CENTER;
-        lp1.setMargins(0, 80, 0, 70);
+        lp1.setMargins(0, 100, 0, 100);
         bottom_page.setLayoutParams(lp1);
+        bottom_page.setPageMargin(80);
         ViewPagerScroller scroller1 = new ViewPagerScroller(getActivity());
         scroller1.setScrollDuration(800);
         scroller1.initViewPagerScroll(bottom_page);

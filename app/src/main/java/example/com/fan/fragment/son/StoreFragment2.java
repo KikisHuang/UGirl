@@ -134,7 +134,8 @@ public class StoreFragment2 extends BaseFragment implements SpringListener, Crow
                 getData(MzFinal.GETSHOPPINGMALL,true);
                 break;
             case 1:
-                getBanner();
+                getData(MzFinal.GETSHOPPINGMALL,true);
+//                getBanner();
                 break;
 
         }

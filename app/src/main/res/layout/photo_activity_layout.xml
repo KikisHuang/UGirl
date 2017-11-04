@@ -190,7 +190,7 @@
         </LinearLayout>
 
     </LinearLayout>
-    <!-- 遮盖导航布局-->
+     <!--遮盖导航布局-->
     <RelativeLayout
         android:id="@+id/lead_rl"
         android:layout_width="match_parent"

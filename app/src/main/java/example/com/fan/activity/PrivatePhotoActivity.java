@@ -36,7 +36,6 @@ import example.com.fan.bean.MirrorBean;
 import example.com.fan.fragment.son.CommentFragment;
 import example.com.fan.mylistener.CollectListener;
 import example.com.fan.mylistener.PhotoBarListener;
-import example.com.fan.mylistener.TouchCloseListener;
 import example.com.fan.mylistener.editeListener;
 import example.com.fan.utils.AnimationUtil;
 import example.com.fan.utils.DeviceUtils;
@@ -65,19 +64,19 @@ import static example.com.fan.utils.SynUtils.getTAG;
  * Created by lian on 2017/5/5.
  * 照片查看器页面;
  */
-public class PrivatePhotoActivity extends InitActivity implements View.OnClickListener, editeListener, CollectListener, PhotoBarListener, TouchCloseListener {
+public class PrivatePhotoActivity extends InitActivity implements View.OnClickListener, editeListener, CollectListener, PhotoBarListener {
     private static final String TAG = getTAG(PrivatePhotoActivity.class);
     private boolean SCRENNFLAG;
     private BigPhotoViewPager viewPager;
     private List<MirrorBean> urlList;
     private int oldposition;
-    public RelativeLayout photo_top_rl, lead_rl;
+    public RelativeLayout photo_top_rl/*, lead_rl*/;
     public LinearLayout photo_bottom_ll;
     public TextView num_tv;
     private FrameLayout share_fl, admire_fl, collect_fl, comment_fl;
     private TextView comment_ed;
     //评论,收藏,点赞,分享数量;
-    private TextView share_num, admire_num, collect_num, comment_num, lead_tv;
+    private TextView share_num, admire_num, collect_num, comment_num/*, lead_tv*/;
     private int mposition;
     private ImageView title_right_icon;
     private ImageView rt_tv;
@@ -103,7 +102,6 @@ public class PrivatePhotoActivity extends InitActivity implements View.OnClickLi
      * 回调方法;
      */
     public static PhotoBarListener slistener;
-    public static TouchCloseListener tlistener;
     public static editeListener elistener;
     public static CollectListener clistener;
 
@@ -308,7 +306,7 @@ public class PrivatePhotoActivity extends InitActivity implements View.OnClickLi
     protected void click() {
 
         rt_tv.setOnClickListener(this);
-        lead_rl.setOnClickListener(this);
+//        lead_rl.setOnClickListener(this);
         share_fl.setOnClickListener(this);
         admire_fl.setOnClickListener(this);
         collect_fl.setOnClickListener(this);
@@ -341,37 +339,36 @@ public class PrivatePhotoActivity extends InitActivity implements View.OnClickLi
 
             }
         });
-        if (urlList.get(0).getMcPublishImgUrls().get(oldposition).getNeedMoney()) {
+/*        if (urlList.get(0).getMcPublishImgUrls().get(oldposition).getNeedMoney()) {
             Log.i(TAG, "Photo ======" + urlList.get(0).getMcPublishImgUrls().get(oldposition).getNeedMoney());
             viewPager.setScrollble(MzFinal.isPay, clistener);
         } else
-            viewPager.setScrollble(true, clistener);
+            viewPager.setScrollble(true, clistener);*/
         viewPager.setCurrentItem(oldposition);
     }
 
     @Override
     protected void init() {
-        setContentView(R.layout.photo_activity_layout);
+        setContentView(R.layout.privatephoto_activity_layout);
         // 隐藏状态栏
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         ft = fm.beginTransaction();
         elistener = this;
         clistener = this;
         slistener = this;
-        tlistener = this;
 
         commentlist = new ArrayList<>();
         CommentView = new ArrayList<>();
         urlList = new ArrayList<>();
         photo_top_rl = f(R.id.photo_top_rl);
-        lead_rl = f(R.id.lead_rl);
+//        lead_rl = f(R.id.lead_rl);
         photo_bottom_ll = f(R.id.photo_bottom_ll);
         rt_tv = f(R.id.rt_tv);
         num_tv = f(R.id.num_tv);
         bullet_ll = f(R.id.bullet_ll);
         scroll = f(R.id.scroll);
         screnn_img = f(R.id.screnn_img);
-        lead_tv = f(R.id.lead_tv);
+//        lead_tv = f(R.id.lead_tv);
 
         share_num = f(R.id.share_num);
         admire_num = f(R.id.admire_num);
@@ -389,7 +386,7 @@ public class PrivatePhotoActivity extends InitActivity implements View.OnClickLi
         comment_fl = f(R.id.comment_fl);
         comment_ed = f(R.id.comment_ed);
 
-        lead_rl.setVisibility(View.VISIBLE);
+//        lead_rl.setVisibility(View.VISIBLE);
         photo_bottom_ll.setVisibility(View.GONE);
         photo_top_rl.setVisibility(View.GONE);
         screnn_img.setVisibility(View.GONE);
@@ -451,7 +448,7 @@ public class PrivatePhotoActivity extends InitActivity implements View.OnClickLi
                                 MirrorBean mb = new Gson().fromJson(String.valueOf(ar), MirrorBean.class);
                                 urlList.add(mb);
 
-                                lead_tv.setText(mb.getInfo());
+//                                lead_tv.setText(mb.getInfo());
 
                                 MzFinal.isPay = urlList.get(0).getIsPay();
                                 comment_num.setText(KswitchWay(urlList.get(0).getCommentCount()));
@@ -475,7 +472,7 @@ public class PrivatePhotoActivity extends InitActivity implements View.OnClickLi
                             }
 
                         } catch (Exception e) {
-
+                        Log.e(TAG,"Error ==="+e);
                         }
                     }
                 });
@@ -524,11 +521,11 @@ public class PrivatePhotoActivity extends InitActivity implements View.OnClickLi
                 }
                 break;
             case R.id.lead_rl:
-                if (lead_rl.getVisibility() == View.VISIBLE) {
+               /* if (lead_rl.getVisibility() == View.VISIBLE) {
                     lead_rl.setVisibility(View.GONE);
                     HideofShow();
 
-                }
+                }*/
                 break;
 
             case R.id.screnn_img:
@@ -703,7 +700,6 @@ public class PrivatePhotoActivity extends InitActivity implements View.OnClickLi
         elistener = null;
         clistener = null;
         slistener = null;
-        tlistener = null;
         pay.dismiss();
         handler.removeCallbacksAndMessages(mScrollToBottom);
         handler = null;
@@ -761,13 +757,13 @@ public class PrivatePhotoActivity extends InitActivity implements View.OnClickLi
         HideofShow();
     }
 
-    /**
+  /*  *//**
      * 关闭滑动回调方法;
      *
      * @param flag
-     */
+     *//*
     @Override
     public void CloseOfOpenTouch(boolean flag) {
         viewPager.setScrollble(flag, PrivatePhotoActivity.clistener);
-    }
+    }*/
 }

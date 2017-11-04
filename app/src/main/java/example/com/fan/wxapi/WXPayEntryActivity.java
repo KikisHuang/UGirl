@@ -15,7 +15,7 @@ import example.com.fan.MyAppcation;
 import example.com.fan.activity.PayActivity;
 import example.com.fan.activity.PhotoActivity;
 import example.com.fan.activity.PlayerVideoActivity;
-import example.com.fan.activity.PrivatePhotoActivity;
+import example.com.fan.fragment.MyFragment;
 import example.com.fan.fragment.son.PictureSlideFragment;
 import example.com.fan.fragment.son.PictureSlideFragment2;
 import example.com.fan.utils.MzFinal;
@@ -56,7 +56,7 @@ public class WXPayEntryActivity extends Activity implements IWXAPIEventHandler {
                         MzFinal.isPay = true;
                         PictureSlideFragment.PayListener.onPayRefresh();
                     }
-                    if (PictureSlideFragment2.PayListener != null && PrivatePhotoActivity.tlistener != null) {
+                    if (PictureSlideFragment2.PayListener != null ) {
                         MzFinal.isPay = true;
                         PictureSlideFragment2.PayListener.onPayRefresh();
                     }
@@ -65,6 +65,9 @@ public class WXPayEntryActivity extends Activity implements IWXAPIEventHandler {
 
                     if(PlayerVideoActivity.infoListener!=null)
                         PlayerVideoActivity.infoListener.onUpDataUserInfo();
+
+                    if (MyFragment.fragment != null)
+                        MyFragment.fragment.onUpDataUserInfo();
 
                     getUserVip();
                 } catch (Exception e) {

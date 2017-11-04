@@ -9,24 +9,45 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_centerVertical="true"
-        android:scaleType="fitXY" />
+        android:scaleType="fitXY"
+        />
 
-    <Button
-        android:id="@+id/buy_bt"
-        android:layout_width="85dp"
-        android:layout_height="30dp"
-        android:layout_gravity="center|bottom"
-        android:layout_marginBottom="50dp"
-        android:background="@drawable/white_corner1"
-        android:text="购买私密专辑"
-        android:textColor="@color/white"
-        android:textSize="12dp"
+    <LinearLayout
+        android:id="@+id/buy_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:visibility="gone"
+        >
+
+        <TextView
+            android:id="@+id/buy_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginBottom="10dp"
+            android:text=""
+            android:textColor="@color/white"
+            android:textSize="13dp" />
+
+        <Button
+            android:id="@+id/buy_bt"
+            android:layout_width="105dp"
+            android:layout_height="25dp"
+            android:layout_gravity="center"
+            android:background="@drawable/white_corner1"
+            android:layout_marginTop="5dp"
+            android:text=""
+            android:textColor="@color/white"
+            android:textSize="12dp" />
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/load_img"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_gravity="center"
         android:visibility="gone" />
-   <ImageView
-       android:id="@+id/load_img"
-       android:layout_width="40dp"
-       android:layout_height="40dp"
-       android:layout_gravity="center"
-       android:visibility="gone"
-       />
 </FrameLayout>

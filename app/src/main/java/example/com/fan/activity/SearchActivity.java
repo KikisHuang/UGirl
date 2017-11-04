@@ -34,7 +34,6 @@ import okhttp3.Call;
 import static example.com.fan.utils.IntentUtils.goHomePage;
 import static example.com.fan.utils.IntentUtils.goPhotoPage;
 import static example.com.fan.utils.IntentUtils.goPlayerPage;
-import static example.com.fan.utils.IntentUtils.goPrivatePhotoPage;
 import static example.com.fan.utils.JsonUtils.getCode;
 import static example.com.fan.utils.JsonUtils.getJsonAr;
 import static example.com.fan.utils.SynUtils.getTAG;
@@ -121,6 +120,7 @@ public class SearchActivity extends InitActivity implements View.OnClickListener
                         public void onError(Call call, Exception e, int id) {
                             ToastUtil.toast2_bottom(SearchActivity.this, "网络不顺畅...");
                         }
+
                         @Override
                         public void onResponse(String response, int id) {
                             try {
@@ -153,7 +153,7 @@ public class SearchActivity extends InitActivity implements View.OnClickListener
                             }
                         }
                     });
-         }
+        }
 
     }
 
@@ -217,12 +217,13 @@ public class SearchActivity extends InitActivity implements View.OnClickListener
             case 4:
                 goPlayerPage(SearchActivity.this, id, 4);
                 break;
-            case -3:
+  /*          case -3:
+              PrivateVideoCheckPay(SearchActivity.this, listView, tlist.get(pos).getId(), String.valueOf(tlist.get(pos).get));
                 goPlayerPage(SearchActivity.this, id, -3);
                 break;
             case -2:
                 goPrivatePhotoPage(SearchActivity.this, id, 0);
-                break;
+                break;*/
             case 5:
                 goPlayerPage(SearchActivity.this, id, 5);
                 break;

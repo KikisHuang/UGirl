@@ -20,7 +20,9 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
+import example.com.fan.MyAppcation;
 import example.com.fan.R;
 import example.com.fan.adapter.FindAdapter;
 import example.com.fan.base.sign.save.SPreferences;
@@ -29,14 +31,17 @@ import example.com.fan.bean.ModelBean;
 import example.com.fan.bean.OverPayWxBean;
 import example.com.fan.mylistener.ChangeUserInfoListener;
 import example.com.fan.mylistener.ItemClickListener;
+import example.com.fan.mylistener.PrivateVideoListener;
 import example.com.fan.mylistener.ShareRequestListener;
 import example.com.fan.mylistener.TwoParamaListener;
 import example.com.fan.utils.DeviceUtils;
 import example.com.fan.utils.GlideCircleTransform;
 import example.com.fan.utils.MzFinal;
 import example.com.fan.utils.ToastUtil;
+import example.com.fan.view.FakePopupWindow;
 import example.com.fan.view.Popup.WeChatNumPayPopupWindow;
 import example.com.fan.view.PullToZoomListView;
+import example.com.fan.view.dialog.ActionSheetDialog;
 import okhttp3.Call;
 
 import static example.com.fan.utils.GlideImgUtils.getRequestOptions;
@@ -52,15 +57,18 @@ import static example.com.fan.utils.StringUtil.checkNull;
 import static example.com.fan.utils.StringUtil.cleanNull;
 import static example.com.fan.utils.SynUtils.Login;
 import static example.com.fan.utils.SynUtils.LoginStatusQuery;
+import static example.com.fan.utils.SynUtils.PrivateVideoCheckPay;
 import static example.com.fan.utils.SynUtils.getRouColors;
 import static example.com.fan.utils.SynUtils.getRouString;
 import static example.com.fan.utils.SynUtils.getTAG;
+import static example.com.fan.view.dialog.CustomProgress.Cancle;
+import static example.com.fan.view.dialog.CustomProgress.Show;
 
 /**
  * Created by lian on 2017/5/31.
  * 模特个人主页;
  */
-public class HomePageActivity extends BaseActivity implements ItemClickListener, ChangeUserInfoListener, View.OnClickListener, TwoParamaListener, ShareRequestListener {
+public class HomePageActivity extends BaseActivity implements ItemClickListener, ChangeUserInfoListener, View.OnClickListener, TwoParamaListener, ShareRequestListener, PrivateVideoListener {
 
     private static final String TAG = getTAG(HomePageActivity.class);
 
@@ -74,6 +82,7 @@ public class HomePageActivity extends BaseActivity implements ItemClickListener,
     private String user_id = "";
     private ItemClickListener listener;
     private TwoParamaListener tlistener;
+    private PrivateVideoListener plistener;
     private ShareRequestListener slistener;
     public static ChangeUserInfoListener uplistener;
     private int page = 999;
@@ -82,11 +91,14 @@ public class HomePageActivity extends BaseActivity implements ItemClickListener,
     private String wxPrice = "";
     private String headImgUrl = "";
     private boolean isPay = false;
+    private LinearLayout fake_layout;
+
 
     protected void click() {
         home_page_finish.setOnClickListener(this);
         attention_tv.setOnClickListener(this);
         add_wechat_layout.setOnClickListener(this);
+        fake_layout.setOnClickListener(this);
     }
 
     @Override
@@ -100,7 +112,7 @@ public class HomePageActivity extends BaseActivity implements ItemClickListener,
         ImageView img = listView.getHeaderView();
         img.setScaleType(ImageView.ScaleType.CENTER_CROP);
         try {
-            Glide.with(getApplicationContext()).load(cover).apply(getRequestOptions(false, 1296, 1080,false)).into(img);
+            Glide.with(getApplicationContext()).load(cover).apply(getRequestOptions(false, 1296, 1080, false)).into(img);
         } catch (Exception e) {
             Log.i(TAG, "Glide You cannot start a load for a destroyed activity");
         }
@@ -165,7 +177,14 @@ public class HomePageActivity extends BaseActivity implements ItemClickListener,
 
                                 bwh_tv.setText("三围\n" + mib.getUpperMeasurement() + "/" + mib.getInMeasurement() + "/" + mib.getLowerMeasurement());
                                 height_tv.setText("身高\n" + mib.getHeight());
-                                city_tv.setText("城市\n" + mib.getMcUser().getResidentCity());
+                                if (cleanNull(mib.getMcUser().getResidentCity())) {
+                                    Random ra = new Random();
+                                    int a = ra.nextInt(MzFinal.FAKECITY.length);
+                                    city_tv.setText(MzFinal.FAKECITY[a]);
+
+                                } else
+                                    city_tv.setText("城市\n" + mib.getMcUser().getResidentCity());
+
                                 model_name.setText(mib.getRealName());
                                 cover = checkNull(mib.getCoverPath());
                                 follwCount.setText(mib.getMcUser().getFollwCount() + " 人已关注她");
@@ -268,7 +287,8 @@ public class HomePageActivity extends BaseActivity implements ItemClickListener,
                                     rlist.add(mb);
                                 }
 
-                                adapter = new FindAdapter(HomePageActivity.this, rlist, listener, tlistener, slistener, true);
+                                adapter = new FindAdapter(HomePageActivity.this, rlist, listener, tlistener, slistener, plistener, true);
+
                                 Headerinit();
                             } else
                                 ToastUtil.ToastErrorMsg(HomePageActivity.this, response, code);
@@ -292,11 +312,13 @@ public class HomePageActivity extends BaseActivity implements ItemClickListener,
         slistener = this;
         tlistener = this;
         uplistener = this;
+        plistener = this;
+
         LayoutInflater inflater = getLayoutInflater();
         top = inflater.inflate(R.layout.home_page_top, null);
         home_page_icon = (ImageView) top.findViewById(R.id.home_page_icon);
 
-
+        fake_layout = f(R.id.fake_layout);
         private_chat_layout = f(R.id.private_chat_layout);
         add_wechat_layout = f(R.id.add_wechat_layout);
         private_quiz_layout = f(R.id.private_quiz_layout);
@@ -360,8 +382,40 @@ public class HomePageActivity extends BaseActivity implements ItemClickListener,
                     Login(HomePageActivity.this);
 
                 break;
+            case R.id.fake_layout:
+                if (MyAppcation.VipFlag) {
+                    Show(HomePageActivity.this, "连线中...", false, null);
+                    fake_layout.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            ToastUtil.toast2_bottom(HomePageActivity.this, "该模特不在线！！");
+                            Cancle();
+                        }
+                    }, 3000);
+                } else {
+
+                    new ActionSheetDialog(HomePageActivity.this).builder().
+                            addSheetItem("音频", ActionSheetDialog.SheetItemColor.Blue, new ActionSheetDialog.OnSheetItemClickListener() {
+                                @Override
+                                public void onClick(int which) {
+                                    Pop();
+                                }
+                            }).addSheetItem("视频", ActionSheetDialog.SheetItemColor.Blue, new ActionSheetDialog.OnSheetItemClickListener() {
+                        @Override
+                        public void onClick(int which) {
+                            Pop();
+                        }
+                    }).show();
+
+                }
+                break;
         }
 
+    }
+
+    private void Pop() {
+        FakePopupWindow fpw = new FakePopupWindow(HomePageActivity.this, "需要成为高级会员才能进行音、视频聊天");
+        fpw.ScreenPopupWindow(fake_layout);
     }
 
     @Override
@@ -422,7 +476,6 @@ public class HomePageActivity extends BaseActivity implements ItemClickListener,
 
     @Override
     public void onGoPlayPage(String id, int typeFlag) {
-
         if (LoginStatusQuery()) {
             goPlayerPage(HomePageActivity.this, id, typeFlag);
         } else
@@ -432,12 +485,20 @@ public class HomePageActivity extends BaseActivity implements ItemClickListener,
     @Override
     public void onShare(String userid, String name, String info, String id) {
 //        ShareApp(HomePageActivity.this, userid, name, info, id);
-        getSystemShare(HomePageActivity.this,id);
+        getSystemShare(HomePageActivity.this, id);
     }
 
     @Override
     public void onUpDataUserInfo() {
         if (LoginStatusQuery())
             ModelWx();
+    }
+
+
+    @Override
+    public void onPrivateVideo(int type, String id, String price) {
+        if (type == -3)
+            PrivateVideoCheckPay(HomePageActivity.this, listView, id, price);
+
     }
 }

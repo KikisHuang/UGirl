@@ -33,25 +33,23 @@ import example.com.fan.bean.ModelBean;
 import example.com.fan.bean.PageTopBannerBean;
 import example.com.fan.bean.PageTopBean;
 import example.com.fan.bean.PrivateTypeBean;
-import example.com.fan.mylistener.ItemClickListener;
 import example.com.fan.mylistener.OverallRefreshListener;
 import example.com.fan.mylistener.PositionAddListener;
 import example.com.fan.mylistener.SpringListener;
+import example.com.fan.mylistener.StoreItemClickListener;
 import example.com.fan.utils.DeviceUtils;
 import example.com.fan.utils.ListenerManager;
 import example.com.fan.utils.MzFinal;
 import example.com.fan.utils.ShareUtils;
 import example.com.fan.utils.ToastUtil;
 import example.com.fan.utils.homeViewPageUtils;
-import example.com.fan.view.DirectionListView;
+import example.com.fan.view.FakePopupWindow;
+import example.com.fan.view.ListViewScrollListener;
 import example.com.fan.view.ViewPagerScroller;
-import example.com.fan.view.dialog.AlertDialog;
 import okhttp3.Call;
 
 import static example.com.fan.utils.DeviceUtils.BannerHeight;
 import static example.com.fan.utils.IntentUtils.goHomePage;
-import static example.com.fan.utils.IntentUtils.goPayPage;
-import static example.com.fan.utils.IntentUtils.goPlayerPage;
 import static example.com.fan.utils.IntentUtils.goPrivatePhotoPage;
 import static example.com.fan.utils.IntentUtils.goPrivateTypePage;
 import static example.com.fan.utils.JsonUtils.getCode;
@@ -59,6 +57,8 @@ import static example.com.fan.utils.JsonUtils.getJsonAr;
 import static example.com.fan.utils.SpringUtils.SpringViewInit;
 import static example.com.fan.utils.SynUtils.Login;
 import static example.com.fan.utils.SynUtils.LoginStatusQuery;
+import static example.com.fan.utils.SynUtils.PrivateVideoCheckPay;
+import static example.com.fan.utils.SynUtils.getRouString;
 import static example.com.fan.utils.SynUtils.getTAG;
 import static example.com.fan.utils.SynUtils.startPlay;
 import static example.com.fan.utils.SynUtils.stopPlay;
@@ -67,7 +67,7 @@ import static example.com.fan.utils.SynUtils.stopPlay;
 /**
  * Created by lian on 2017/4/22.
  */
-public class StoreFragment extends BaseFragment implements PositionAddListener, SpringListener, ItemClickListener, DirectionListView.OnScrollDirectionListener, OverallRefreshListener {
+public class StoreFragment extends BaseFragment implements PositionAddListener, SpringListener, StoreItemClickListener, OverallRefreshListener {
     private static final String TAG = getTAG(StoreFragment.class);
     private ViewPager mViewPager;
 
@@ -90,7 +90,7 @@ public class StoreFragment extends BaseFragment implements PositionAddListener, 
     public int tag = 0;
     private SpringView springview1;
     private SpringListener slistener;
-    private ItemClickListener hlistener;
+    private StoreItemClickListener hlistener;
     public static PositionAddListener polistener;
     private int page = 0;
 
@@ -121,7 +121,7 @@ public class StoreFragment extends BaseFragment implements PositionAddListener, 
         rlist = new ArrayList<>();
         toplist = new ArrayList<>();
 
-//        listView.setOnScrollDirectionListener(this);
+        listView.setOnScrollListener(new ListViewScrollListener(this,getRouString(R.string.privacy)));
         top = getActivity().getLayoutInflater().inflate(R.layout.private_top, null);
         mViewPager = (ViewPager) top.findViewById(R.id.viewPager);
         private_type_layout = (LinearLayout) top.findViewById(R.id.private_type_layout);
@@ -205,7 +205,7 @@ public class StoreFragment extends BaseFragment implements PositionAddListener, 
             @Override
             public void onClick(View v) {
                 if (LoginStatusQuery()) {
-                    getJurisdiction(ptb.getId(),ptb.getTypeName());
+                    getJurisdiction(ptb.getId(), ptb.getTypeName());
                 } else
                     Login(getActivity());
             }
@@ -234,14 +234,11 @@ public class StoreFragment extends BaseFragment implements PositionAddListener, 
                         try {
                             int code = getCode(response);
                             if (code == 1) {
-                                goPrivateTypePage(getActivity(), type,name);
+                                goPrivateTypePage(getActivity(), type, name);
                             } else if (code == -1) {
-                                new AlertDialog(getActivity()).builder().setCancelable(true).setTitle("提示").setMsg(new JSONObject(response).optString("erroMsg") + "\n\n").setPositiveButton("前往购买", new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View v) {
-                                        goPayPage(getActivity());
-                                    }
-                                }).show();
+
+                                FakePopupWindow fpw = new FakePopupWindow(getActivity(), new JSONObject(response).optString("erroMsg"));
+                                fpw.ScreenPopupWindow(private_type_layout);
                             } else
                                 ToastUtil.ToastErrorMsg(getActivity(), response, code);
                         } catch (Exception e) {
@@ -264,7 +261,7 @@ public class StoreFragment extends BaseFragment implements PositionAddListener, 
         OkHttpUtils
                 .get()
                 .url(MzFinal.URl + MzFinal.GETBANNER)
-                .addParams("showPosition", "3")
+                .addParams("showPosition", "6")
                 .build()
                 .execute(new StringCallback() {
                     @Override
@@ -334,7 +331,6 @@ public class StoreFragment extends BaseFragment implements PositionAddListener, 
         OkHttpUtils
                 .get()
                 .url(MzFinal.URl + MzFinal.GETPRIVATERECORD)
-                .addParams(MzFinal.KEY, SPreferences.getUserToken())
                 .addParams(MzFinal.PAGE, String.valueOf(page))
                 .addParams(MzFinal.SIZE, String.valueOf(page + 20))
                 .build()
@@ -349,10 +345,11 @@ public class StoreFragment extends BaseFragment implements PositionAddListener, 
                         try {
                             int code = getCode(response);
                             if (code == 1) {
-                                if (b)
+                                if (b){
                                     rlist.clear();
-                                JSONArray ar = getJsonAr(response);
+                                }
 
+                                JSONArray ar = getJsonAr(response);
                                 for (int i = 0; i < ar.length(); i++) {
                                     ModelBean mb = new Gson().fromJson(String.valueOf(ar.getJSONObject(i)), ModelBean.class);
                                     rlist.add(mb);
@@ -463,9 +460,17 @@ public class StoreFragment extends BaseFragment implements PositionAddListener, 
         page += a;
         getData(false);
     }
+    @Override
+    public void notifyAllActivity(boolean net) {
+        if (net) {
+            Log.i(TAG, "   position ====" + tag);
+            getData(true);
+        }
+    }
 
     @Override
-    public void onItemClickListener(int position, String id) {
+    public void onItemClickListener(int position, String id, int pos) {
+        Log.i(TAG, "TypeFlag ===" + position);
         switch (position) {
             case 1002:
                 goHomePage(getActivity(), id);
@@ -478,7 +483,7 @@ public class StoreFragment extends BaseFragment implements PositionAddListener, 
                 break;
             case -3:
                 if (LoginStatusQuery()) {
-                    goPlayerPage(getActivity(), id, -3);
+                    PrivateVideoCheckPay(getActivity(), listView, id, String.valueOf(rlist.get(pos).getPrice()));
                 } else
                     Login(getActivity());
                 break;
@@ -496,23 +501,5 @@ public class StoreFragment extends BaseFragment implements PositionAddListener, 
                     Login(getActivity());
                 break;
         }
-    }
-
-    @Override
-    public void notifyAllActivity(boolean net) {
-        if (net) {
-            Log.i(TAG, "   position ====" + tag);
-            getData(true);
-        }
-    }
-
-    @Override
-    public void onScrollUp() {
-//        onUpTouchListener(1, getRouString(R.string.private1));
-    }
-
-    @Override
-    public void onScrollDown() {
-//        onDownTouchListener(1, getRouString(R.string.private1));
     }
 }

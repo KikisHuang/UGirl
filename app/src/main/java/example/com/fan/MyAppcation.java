@@ -20,13 +20,14 @@ import okhttp3.OkHttpClient;
 
 import static example.com.fan.utils.SynUtils.JpushInit;
 import static example.com.fan.utils.SynUtils.getOverID;
+import static example.com.fan.utils.SynUtils.getTAG;
 
 /**
  * Created by lian on 2017/5/2.
  */
 public class MyAppcation extends MultiDexApplication {
-    //    private static final String TAG = getTAG(MyAppcation.class);
-    private static final String TAG = "MyAppcation";
+
+    private static final String TAG = getTAG(MyAppcation.class);
     public static String CHANNEL;
     public static String myInvitationCode;
     public static String UserIcon;
@@ -37,11 +38,11 @@ public class MyAppcation extends MultiDexApplication {
     public static String WECHATID = "";
     public static String ALIID = "";
 
-
-    /**
+/*
+    *//**
      * 内存泄露检测;
-     */
-/*    private RefWatcher refWatcher;
+     *//*
+    private RefWatcher refWatcher;
 
     public static RefWatcher getRefWatcher(Context context) {
         MyAppcation application = (MyAppcation) context
@@ -55,8 +56,8 @@ public class MyAppcation extends MultiDexApplication {
         /**
          * 全局异常捕获方法;
          */
-//      crashHandler = CrashHandler.getInstance();
-//      crashHandler.init(getApplicationContext());
+//        crashHandler = CrashHandler.getInstance();
+//        crashHandler.init(getApplicationContext());
 
         //支付方式判断(多个马甲包,根据包名判断appid);
         pkName = getOverID(pkName, this);
@@ -76,8 +77,8 @@ public class MyAppcation extends MultiDexApplication {
              * 参数二: key;
              */
             //尤女郎 key;
-           PlatformConfig.setWeixin(WECHATID, "4bcde8ce9e646833395aae492d93bbc8");
-           PlatformConfig.setQQZone(QQID, "63e5c4ab1c476fa9204c8504fa2338bd");
+            PlatformConfig.setWeixin(WECHATID, "4bcde8ce9e646833395aae492d93bbc8");
+            PlatformConfig.setQQZone(QQID, "63e5c4ab1c476fa9204c8504fa2338bd");
 
             //尤女映画 key;
 //            PlatformConfig.setWeixin(WECHATID, "db426a9829e4b49a0dcac7b4162da6b6");
@@ -123,8 +124,8 @@ public class MyAppcation extends MultiDexApplication {
         OkHttpClient okHttpClient = new OkHttpClient.Builder()
                 .addInterceptor(new LoggerInterceptor(TAG))
                 .cookieJar(cookieJar)
-                .connectTimeout(10000L, TimeUnit.MILLISECONDS)
-                .readTimeout(10000L, TimeUnit.MILLISECONDS)
+                .connectTimeout(20000L, TimeUnit.MILLISECONDS)
+                .readTimeout(20000L, TimeUnit.MILLISECONDS)
                 .build();
 
         OkHttpUtils.initClient(okHttpClient);
@@ -133,6 +134,6 @@ public class MyAppcation extends MultiDexApplication {
     @Override
     protected void attachBaseContext(Context base) {
         super.attachBaseContext(base);
-        MultiDex.install(this) ;
+        MultiDex.install(this);
     }
 }

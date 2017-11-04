@@ -19,12 +19,11 @@ import java.util.List;
 
 import example.com.fan.R;
 import example.com.fan.adapter.OverPay2Adapter;
+import example.com.fan.adapter.OverPay3Adapter;
 import example.com.fan.adapter.OverPayAdapter;
-import example.com.fan.adapter.OverPayWxAdapter;
 import example.com.fan.base.sign.save.SPreferences;
 import example.com.fan.bean.OverPayBean;
 import example.com.fan.bean.OverPayVideoVrBean;
-import example.com.fan.bean.OverPayWxBean;
 import example.com.fan.fragment.BaseFragment;
 import example.com.fan.mylistener.ItemClickListener;
 import example.com.fan.mylistener.ShareRequestListener;
@@ -54,7 +53,6 @@ public class OverPayFragment extends BaseFragment implements ItemClickListener, 
     private OverPay2Adapter adapter2;
     private List<OverPayBean> rlist;
     private List<OverPayVideoVrBean> vlist;
-    private List<OverPayWxBean> wxlist;
     private StaggeredGridLayoutManager mLayoutManager;
     private ItemClickListener listener;
     private TwoParamaListener tlistener;
@@ -63,7 +61,7 @@ public class OverPayFragment extends BaseFragment implements ItemClickListener, 
     private FrameLayout no_data;
     private int tag;
     private int pagesize = 999;
-    private OverPayWxAdapter adapter3;
+    private OverPay3Adapter adapter3;
 
     public void setTag(int tag) {
         this.tag = tag;
@@ -78,22 +76,28 @@ public class OverPayFragment extends BaseFragment implements ItemClickListener, 
     public void newInstance() {
         switch (tag) {
             case 0:
-                Create("0");
+                Create(0);
                 break;
             case 1:
-                Create2("4");
+                Create2(4);
                 break;
             case 2:
-                Create2("5");
+                Create2(5);
                 break;
             case 3:
-                wxlist = new ArrayList<>();
-                Create3();
+//                wxlist = new ArrayList<>();
+//                Create3();
+                Create(-3);
+                break;
+            case 4:
+//                wxlist = new ArrayList<>();
+//                Create3();
+                Create(-2);
                 break;
         }
     }
 
-    private void Create3() {
+ /*   private void Create3() {
         OkHttpUtils
                 .get()
                 .url(MzFinal.URl + MzFinal.GETMYMODELWXBYPAGE)
@@ -139,16 +143,21 @@ public class OverPayFragment extends BaseFragment implements ItemClickListener, 
                     }
                 });
 
-    }
+    }*/
 
-    private void Create2(String type) {
+    /**
+     * 视频、VR单独获取接口;
+     *
+     * @param type
+     */
+    private void Create2(int type) {
         OkHttpUtils
                 .get()
                 .url(MzFinal.URl + MzFinal.GETSELLRECORD)
                 .addParams(MzFinal.KEY, SPreferences.getUserToken())
                 .addParams(MzFinal.PAGE, "0")
                 .addParams(MzFinal.SIZE, String.valueOf(pagesize))
-                .addParams(MzFinal.TYPE, type)
+                .addParams(MzFinal.TYPE, String.valueOf(type))
                 .tag(this)
                 .build()
                 .execute(new StringCallback() {
@@ -178,7 +187,7 @@ public class OverPayFragment extends BaseFragment implements ItemClickListener, 
                                 }
                                 listView.setVisibility(View.VISIBLE);
                                 recyclerView.setVisibility(View.GONE);
-
+                                if(ar.length()>0)
                                 no_data.setBackgroundResource(R.color.white);
                             } else
                                 ToastUtil.ToastErrorMsg(getActivity(), response, code);
@@ -189,7 +198,12 @@ public class OverPayFragment extends BaseFragment implements ItemClickListener, 
                 });
     }
 
-    private void Create(String type) {
+    /**
+     * 私密视频、私密照片、专辑获取接口;
+     *
+     * @param type
+     */
+    private void Create(final int type) {
 
         OkHttpUtils
                 .get()
@@ -197,7 +211,7 @@ public class OverPayFragment extends BaseFragment implements ItemClickListener, 
                 .addParams(MzFinal.KEY, SPreferences.getUserToken())
                 .addParams(MzFinal.PAGE, "0")
                 .addParams(MzFinal.SIZE, String.valueOf(pagesize))
-                .addParams(MzFinal.TYPE, type)
+                .addParams(MzFinal.TYPE, String.valueOf(type))
                 .tag(this)
                 .build()
                 .execute(new StringCallback() {
@@ -218,8 +232,21 @@ public class OverPayFragment extends BaseFragment implements ItemClickListener, 
                                     rlist.add(ob);
                                 }
 
-                                Log.i(TAG, "tag=====" + tag);
-                                if (tag < 1) {
+                                if (type == -3) {
+                                    if (adapter3 != null) {
+                                        adapter3.notifyDataSetChanged();
+                                        Log.i(TAG, "notifyDataSetChanged");
+                                    } else {
+                                        adapter3 = new OverPay3Adapter(rlist, getActivity(), listener, tlistener, slistener);
+                                        listView.setAdapter(adapter3);
+                                        Log.i(TAG, "setAdapter");
+                                    }
+                                    listView.setVisibility(View.VISIBLE);
+                                    recyclerView.setVisibility(View.GONE);
+                                    if(ar.length()>0)
+                                    no_data.setBackgroundResource(R.color.white);
+                                } else {
+                                    Log.i(TAG, "tag=====" + tag);
                                     if (adapter != null) {
                                         adapter.notifyDataSetChanged();
                                         Log.i(TAG, "notifyDataSetChanged");
@@ -230,12 +257,17 @@ public class OverPayFragment extends BaseFragment implements ItemClickListener, 
                                     }
                                     recyclerView.setVisibility(View.VISIBLE);
                                     listView.setVisibility(View.GONE);
-                                } else {
+                                    if(ar.length()>0)
+                                        no_data.setBackgroundResource(R.color.white);
                                 }
-                                no_data.setBackgroundResource(R.color.white);
+
+
+
                             } else
                                 ToastUtil.ToastErrorMsg(getActivity(), response, code);
+
                         } catch (JSONException e) {
+                            Log.i(TAG, "解析异常 Error ==" + e);
                             e.printStackTrace();
                         }
                     }
@@ -311,6 +343,6 @@ public class OverPayFragment extends BaseFragment implements ItemClickListener, 
     @Override
     public void onShare(String userid, String name, String info, String id) {
 //        ShareApp(getActivity(), userid, name, info, id);
-        getSystemShare(getActivity(),id);
+        getSystemShare(getActivity(), id);
     }
 }

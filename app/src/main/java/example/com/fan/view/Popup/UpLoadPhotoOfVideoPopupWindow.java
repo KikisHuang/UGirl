@@ -8,9 +8,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.PopupWindow;
+import android.widget.TextView;
 
 import example.com.fan.R;
 
+import static example.com.fan.utils.IntentUtils.goInstructionPage;
 import static example.com.fan.utils.IntentUtils.goSuperPhotoVideoPage;
 import static example.com.fan.utils.SynUtils.getTAG;
 
@@ -24,6 +26,7 @@ public class UpLoadPhotoOfVideoPopupWindow implements View.OnClickListener {
     private ImageView close_img, photo_img, video_img;
     private Context mContext;
     private PopupWindow popupWindow;
+    private TextView instructions_tv;
 
     public UpLoadPhotoOfVideoPopupWindow(Context mContext) {
         this.mContext = mContext;
@@ -60,12 +63,14 @@ public class UpLoadPhotoOfVideoPopupWindow implements View.OnClickListener {
         close_img.setOnClickListener(this);
         photo_img.setOnClickListener(this);
         video_img.setOnClickListener(this);
+        instructions_tv.setOnClickListener(this);
     }
 
     private void init(View contentView) {
         close_img = (ImageView) contentView.findViewById(R.id.close_img);
         photo_img = (ImageView) contentView.findViewById(R.id.photo_img);
         video_img = (ImageView) contentView.findViewById(R.id.video_img);
+        instructions_tv = (TextView) contentView.findViewById(R.id.instructions_tv);
 
     }
 
@@ -76,12 +81,15 @@ public class UpLoadPhotoOfVideoPopupWindow implements View.OnClickListener {
                 popupWindow.dismiss();
                 break;
             case R.id.photo_img:
-                goSuperPhotoVideoPage(mContext,0);
+                goSuperPhotoVideoPage(mContext, 0);
                 popupWindow.dismiss();
                 break;
             case R.id.video_img:
-                goSuperPhotoVideoPage(mContext,1);
+                goSuperPhotoVideoPage(mContext, 1);
                 popupWindow.dismiss();
+                break;
+            case R.id.instructions_tv:
+                goInstructionPage(mContext);
                 break;
         }
     }

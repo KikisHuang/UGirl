@@ -27,6 +27,7 @@ import example.com.fan.base.sign.save.SPreferences;
 import example.com.fan.bean.ModeInfoBean;
 import example.com.fan.bean.ModelBean;
 import example.com.fan.mylistener.ItemClickListener;
+import example.com.fan.mylistener.PrivateVideoListener;
 import example.com.fan.mylistener.ShareRequestListener;
 import example.com.fan.mylistener.TwoParamaListener;
 import example.com.fan.utils.DeviceUtils;
@@ -55,7 +56,7 @@ import static example.com.fan.utils.SynUtils.getTAG;
  * Created by lian on 2017/5/31.
  * 模特个人主页;
  */
-public class HomePage2Activity extends BaseActivity implements ItemClickListener, View.OnClickListener, TwoParamaListener, ShareRequestListener {
+public class HomePage2Activity extends BaseActivity implements ItemClickListener, View.OnClickListener, TwoParamaListener, ShareRequestListener,PrivateVideoListener {
 
     private static final String TAG = getTAG(HomePage2Activity.class);
 
@@ -72,7 +73,7 @@ public class HomePage2Activity extends BaseActivity implements ItemClickListener
     private ShareRequestListener slistener;
     private int page = 999;
     private String cover = "";
-
+    private  PrivateVideoListener plistener;
     protected void click() {
         home_page_finish.setOnClickListener(this);
         attention_tv.setOnClickListener(this);
@@ -212,7 +213,8 @@ public class HomePage2Activity extends BaseActivity implements ItemClickListener
                                     rlist.add(mb);
                                 }
 
-                                adapter = new FindAdapter(HomePage2Activity.this, rlist, listener, tlistener, slistener, true);
+
+                                adapter = new FindAdapter(HomePage2Activity.this, rlist, listener, tlistener, slistener, plistener, true);
                                 Headerinit();
                             } else
                                 ToastUtil.ToastErrorMsg(HomePage2Activity.this, response, code);
@@ -235,6 +237,7 @@ public class HomePage2Activity extends BaseActivity implements ItemClickListener
         listener = this;
         slistener = this;
         tlistener = this;
+        plistener = this;
         LayoutInflater inflater = getLayoutInflater();
         top = inflater.inflate(R.layout.home_page_top, null);
         home_page_icon = (ImageView) top.findViewById(R.id.home_page_icon);
@@ -357,5 +360,10 @@ public class HomePage2Activity extends BaseActivity implements ItemClickListener
     public void onShare(String userid, String name, String info, String id) {
 //        ShareApp(HomePage2Activity.this, userid, name, info, id);
         getSystemShare(HomePage2Activity.this, id);
+    }
+
+    @Override
+    public void onPrivateVideo(int type, String id, String price) {
+
     }
 }

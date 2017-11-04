@@ -32,7 +32,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:layout_marginTop="10dp"
-                android:text="查看需要3币"
+                android:text=""
                 android:textColor="@color/black"
                 android:textSize="12dp" />
             <TextView
@@ -55,7 +55,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="13dp"
-                android:background="@drawable/gray_corner2"
+                android:background="@drawable/gray_corner8"
                 android:gravity="center"
                 android:paddingBottom="10dp"
                 android:paddingTop="10dp"

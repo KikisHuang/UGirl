@@ -215,9 +215,9 @@ public class PlayerActivity extends InitActivity implements UVPlayerCallBack, Pl
 
                                     Glide.with(getApplicationContext()).load(vb.getCoverPath()).apply(options).into(cover_img);
                                     Glide.with(getApplicationContext()).load(vb.getJoinUser().getHeadImgUrl()).apply(options1).into(cover_img);
-                                    Glide.with(getApplicationContext()).load(vb.getCoverPath()).apply(getRequestOptions(false, 350, 350,true)).into(panorama_img);
-                                    Glide.with(getApplicationContext()).load(vb.getCoverPath()).apply(getRequestOptions(true, 350, 350,true)).into(glasses_img1);
-                                    Glide.with(getApplicationContext()).load(vb.getCoverPath()).apply(getRequestOptions(true, 350, 350,true)).into(glasses_img2);
+                                    Glide.with(getApplicationContext()).load(vb.getCoverPath()).apply(getRequestOptions(false, 350, 350,false)).into(panorama_img);
+                                    Glide.with(getApplicationContext()).load(vb.getCoverPath()).apply(getRequestOptions(true, 350, 350,false)).into(glasses_img1);
+                                    Glide.with(getApplicationContext()).load(vb.getCoverPath()).apply(getRequestOptions(true, 350, 350,false)).into(glasses_img2);
                                 } catch (Exception e) {
                                     Log.i(TAG, "Glide You cannot start a load for a destroyed activity");
                                 }
@@ -854,8 +854,8 @@ public class PlayerActivity extends InitActivity implements UVPlayerCallBack, Pl
                 break;
             case R.id.share_fl:
                 if (!userId.isEmpty())
-//                    ShareUtils.ShareApp(PlayerActivity.this, userId, vb.getName(), vb.getInfo(), vb.getId());
-                    getSystemShare(PlayerActivity.this,vb.getId());
+//                    getSystemShare(PlayerActivity.this,vb.getId());
+                    getSystemShare(PlayerActivity.this,"");
                 break;
             case R.id.video_tool_imgFullscreen:
                 if (mCtrl != null) {

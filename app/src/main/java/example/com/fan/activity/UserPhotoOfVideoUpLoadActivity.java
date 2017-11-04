@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
@@ -31,11 +33,11 @@ import example.com.fan.adapter.VideoPhotoAdapter;
 import example.com.fan.base.sign.save.SPreferences;
 import example.com.fan.bean.VideoImgBean;
 import example.com.fan.bean.mcPublishImgUrls;
+import example.com.fan.fragment.sgamer.MyProductionFragment;
 import example.com.fan.mylistener.ItemClickListener;
 import example.com.fan.mylistener.VideoImgSettingListener;
 import example.com.fan.utils.MzFinal;
 import example.com.fan.utils.ToastUtil;
-import example.com.fan.view.EditTextTextImposeView;
 import example.com.fan.view.GlideRoundTransform;
 import example.com.fan.view.RippleView;
 import okhttp3.Call;
@@ -65,7 +67,6 @@ public class UserPhotoOfVideoUpLoadActivity extends InitActivity implements View
     private RippleView save_button;
     private int flag;
     private String FilePath = "";
-    private EditTextTextImposeView eti;
     private List<VideoImgBean> fils;
     private SaveTask task;
     private RecyclerView recyclerView;
@@ -94,9 +95,10 @@ public class UserPhotoOfVideoUpLoadActivity extends InitActivity implements View
     private List<String> videolist;
     //设置价格标识符;
     private boolean PriceFlag = false;
-    private String price = "";
+    private String price = "0";
     private int chargeNumber = 0;
     private String photo_specialId = "";
+    private static int num = 30;
 
     @Override
     protected void click() {
@@ -110,7 +112,6 @@ public class UserPhotoOfVideoUpLoadActivity extends InitActivity implements View
     protected void init() {
 
         setContentView(R.layout.user_photo_video_upload_layout);
-        Receiver();
 
         cover_img = f(R.id.cover_img);
         video_img_layout = f(R.id.video_img_layout);
@@ -135,13 +136,43 @@ public class UserPhotoOfVideoUpLoadActivity extends InitActivity implements View
         mLayoutManager1 = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);//2列，纵向排列
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView1.setLayoutManager(mLayoutManager1);
-
+        Receiver();
         NumberInit();
     }
 
     private void NumberInit() {
-        eti = new EditTextTextImposeView(content_ed, text_number_tv);
-        eti.ImPoseText();
+
+        content_ed.addTextChangedListener(new TextWatcher() {
+            private CharSequence wordNum;//记录输入的字数
+            private int selectionStart;
+            private int selectionEnd;
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                wordNum = s;//实时记录输入的字数
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+//                int number = num - s.length();
+                //TextView显示剩余字数
+                text_number_tv.setText("" + s.length() + "/" + num);
+                selectionStart = content_ed.getSelectionStart();
+                selectionEnd = content_ed.getSelectionEnd();
+                if (wordNum.length() > num) {
+                    //删除多余输入的字（不会显示出来）
+                    s.delete(selectionStart - 1, selectionEnd);
+                    int tempSelection = selectionEnd;
+                    content_ed.setText(s);
+                    content_ed.setSelection(tempSelection);//设置光标在最后
+                }
+            }
+        });
     }
 
     private void PhotoInit() {
@@ -149,12 +180,12 @@ public class UserPhotoOfVideoUpLoadActivity extends InitActivity implements View
         selectList = (ArrayList<LocalMedia>) getIntent().getSerializableExtra("selectLists");
         photolist = new ArrayList<>();
         for (int i = 0; i < selectList.size(); i++) {
-            if (getFileOrFilesSize(selectList.get(i).getPath(), 3) > 1.5) {
+            if (getFileOrFilesSize(selectList.get(i).getPath(), 2) > 300) {
                 photolist.add(selectList.get(i).getCompressPath());
-                Log.i(TAG, "大于1.5m使用压缩图片");
+                Log.i(TAG, "大于300kb使用压缩图片");
             } else {
                 photolist.add(selectList.get(i).getPath());
-                Log.i(TAG, "小于1.5m使用原图");
+                Log.i(TAG, "小于300kb使用原图");
             }
         }
 
@@ -201,6 +232,11 @@ public class UserPhotoOfVideoUpLoadActivity extends InitActivity implements View
 
     private void Receiver() {
         flag = Integer.parseInt(getIntent().getStringExtra("photo_of_video_flag"));
+        if (flag == 1)
+            content_ed.setHint("我的私密视频~");
+        else
+            content_ed.setHint("我的私密照片~");
+
         FilePath = getIntent().getStringExtra("photo_of_video_FilePath");
         if (FilePath == null || FilePath.isEmpty()) {
             finish();
@@ -236,9 +272,9 @@ public class UserPhotoOfVideoUpLoadActivity extends InitActivity implements View
                     ToastUtil.toast2_bottom(this, "已经设置过价格不能再修改了哦~");
                 } else {
                     if (flag == 0 || flag == 3)
-                        goAwardPage(this, 0, photolist);
+                        goAwardPage(this, 0, photolist,"");
                     else
-                        goAwardPage(this, flag, null);
+                        goAwardPage(this, flag, null,price);
                 }
                 break;
             case R.id.confirm_bt:
@@ -335,7 +371,8 @@ public class UserPhotoOfVideoUpLoadActivity extends InitActivity implements View
                         try {
                             int code = getCode(response);
                             if (code == 1) {
-                                Log.i(TAG, "PUBLISHPRIVATEPHOTO" + response);
+                                if (MyProductionFragment.listener != null)
+                                    MyProductionFragment.listener.onUpDataUserInfo();
                                 ToastUtil.toast2_bottom(UserPhotoOfVideoUpLoadActivity.this, "成功提交！审核通过后专辑自动发布！");
                                 finish();
                             } else
@@ -381,6 +418,9 @@ public class UserPhotoOfVideoUpLoadActivity extends InitActivity implements View
                             int code = getCode(response);
                             if (code == 1) {
                                 Log.i(TAG, "PUBLISHPRIVATEPHOTO" + response);
+                                if (MyProductionFragment.listener != null)
+                                    MyProductionFragment.listener.onUpDataUserInfo();
+
                                 ToastUtil.toast2_bottom(UserPhotoOfVideoUpLoadActivity.this, "成功提交！审核通过后专辑自动发布！");
                                 finish();
                             } else
@@ -409,28 +449,27 @@ public class UserPhotoOfVideoUpLoadActivity extends InitActivity implements View
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-            switch (requestCode) {
-                case 7744:
-                    PriceFlag = true;
-
-                    switch (resultCode) {
-                        case 111:
-                            Bundle bundle = data.getExtras();
-                            Log.i(TAG, "Price ===" + bundle.getString("price"));
-                            Log.i(TAG, "SpecialId ===" + bundle.getString("SpecialId"));
-                            Log.i(TAG, "chargeNumber ===" + bundle.getString("chargeNumber"));
-                            price = bundle.getString("price");
-                            photo_specialId = bundle.getString("SpecialId");
-                            chargeNumber = Integer.parseInt(bundle.getString("chargeNumber"));
-                            break;
-                        case 100:
-                            Bundle bundle1 = data.getExtras();
-                            Log.i(TAG, "Price ===" + bundle1.getString("price"));
-                            price = bundle1.getString("price");
-                            break;
-                    }
-                    break;
-            }
+        switch (requestCode) {
+            case 7744:
+                switch (resultCode) {
+                    case 111:
+                        Bundle bundle = data.getExtras();
+                        Log.i(TAG, "Price ===" + bundle.getString("price"));
+                        Log.i(TAG, "SpecialId ===" + bundle.getString("SpecialId"));
+                        Log.i(TAG, "chargeNumber ===" + bundle.getString("chargeNumber"));
+                        price = bundle.getString("price");
+                        photo_specialId = bundle.getString("SpecialId");
+                        chargeNumber = Integer.parseInt(bundle.getString("chargeNumber"));
+                        PriceFlag = true;
+                        break;
+                    case 100:
+                        Bundle bundle1 = data.getExtras();
+                        Log.i(TAG, "Price ===" + bundle1.getString("price"));
+                        price = bundle1.getString("price");
+                        break;
+                }
+                break;
+        }
     }
 
     @Override

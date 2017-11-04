@@ -26,8 +26,4 @@ public class MyGlideModule extends AppGlideModule {
         builder.setDiskCache(new DiskLruCacheFactory(diskCachePath, diskCacheSize));*/
     }
 
-   /* @Override
-    public void registerComponents(Context context, Glide glide) {
-
-    }*/
 }

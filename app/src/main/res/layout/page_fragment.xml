@@ -28,7 +28,7 @@
                 <RelativeLayout
                     android:id="@+id/search_rl"
                     android:layout_width="match_parent"
-                    android:layout_height="25dp"
+                    android:layout_height="35dp"
                     android:layout_marginLeft="5dp"
                     android:layout_marginRight="5dp"
                     android:background="@drawable/search_corners_bk">

@@ -124,6 +124,7 @@ public class PayActivity extends InitActivity implements PayRefreshListener {
                                 if (code == 1) {
                                     String s = getJsonSring(response);
                                     JSONArray ar = new JSONArray(s);
+
                                     switch (finalI) {
                                         case 0:
                                             for (int i = 0; i < ar.length(); i++) {
@@ -365,7 +366,7 @@ public class PayActivity extends InitActivity implements PayRefreshListener {
 
     @Override
     public void onPayRefresh() {
-
+        getData();
         new AlertDialog(PayActivity.this).builder().setTitle("提示").setCancelable(true).setMsg("为了保证赠送的礼品能成功的送到您的手上,请去完善资料。").setPositiveButton("前往", new View.OnClickListener() {
             @Override
             public void onClick(View v) {

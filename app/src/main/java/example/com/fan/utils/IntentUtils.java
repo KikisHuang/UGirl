@@ -26,6 +26,8 @@ import example.com.fan.activity.HelpActivity;
 import example.com.fan.activity.HomePage2Activity;
 import example.com.fan.activity.HomePageActivity;
 import example.com.fan.activity.HostModelActivity;
+import example.com.fan.activity.InstructionsActivity;
+import example.com.fan.activity.InstructionsPhotoActivity;
 import example.com.fan.activity.LoginActivity;
 import example.com.fan.activity.MainActivity;
 import example.com.fan.activity.MyCollectActivity;
@@ -44,6 +46,7 @@ import example.com.fan.activity.PlayerActivity;
 import example.com.fan.activity.PlayerVideoActivity;
 import example.com.fan.activity.PrivatePhotoActivity;
 import example.com.fan.activity.PrivateTypeActivity;
+import example.com.fan.activity.PrivateVideoPlayerActivity;
 import example.com.fan.activity.ProjectIncomeActivity;
 import example.com.fan.activity.RankingActivity;
 import example.com.fan.activity.RegisterActivity;
@@ -159,12 +162,15 @@ public class IntentUtils {
      * 打赏价格设置页面;
      *
      * @param context    上下文;
+     * @param flag       0 私密照 1 私密视频;
      * @param selectList
+     * @param price
      */
-    public static void goAwardPage(Context context, int flag, List<String> selectList) {
+    public static void goAwardPage(Context context, int flag, List<String> selectList, String price) {
 
         Intent intent = new Intent(context, AwardActivity.class);
         intent.putExtra("award_flag", flag + "");
+        intent.putExtra("award_price", price + "");
         if (selectList != null)
             intent.putStringArrayListExtra("award_selectLists", (ArrayList<String>) selectList);
         ((Activity) context).startActivityForResult(intent, 7744);
@@ -271,6 +277,7 @@ public class IntentUtils {
         Intent intent = new Intent(context, SGamerActivity.class);
         startPage(context, intent);
     }
+
     /**
      * 超级用户页面;
      *
@@ -416,6 +423,29 @@ public class IntentUtils {
     }
 
     /**
+     * 操作指南页面;
+     *
+     * @param context 上下文;
+     */
+    public static void goInstructionPage(Context context) {
+
+        Intent intent = new Intent(context, InstructionsActivity.class);
+        startPage(context, intent);
+    }
+
+    /**
+     * 操作指南照片查看器页面;
+     *
+     * @param context 上下文;
+     */
+    public static void goInstructionPhotoPage(Context context, String path) {
+
+        Intent intent = new Intent(context, InstructionsPhotoActivity.class);
+        intent.putExtra("instructions_photo_path", path);
+        startPage(context, intent);
+    }
+
+    /**
      * 修改个人信息页面;
      *
      * @param context 上下文;
@@ -521,14 +551,13 @@ public class IntentUtils {
             case 4:
                 intent.setClass(context, PlayerVideoActivity.class);
                 intent.putExtra("play_id", id);
-                intent.putExtra("type_flag", String.valueOf(flag));
                 startPage(context, intent);
                 break;
             case -3:
-                intent.setClass(context, PlayerVideoActivity.class);
+         /*       intent.setClass(context, PlayerVideoActivity.class);
                 intent.putExtra("play_id", id);
-                intent.putExtra("type_flag", String.valueOf(flag));
-                startPage(context, intent);
+                startPage(context, intent);*/
+                goPrivateVideoPlayerPage(context, id, intent);
                 break;
             case 5:
                 intent.setClass(context, PlayerActivity.class);
@@ -537,6 +566,19 @@ public class IntentUtils {
                 break;
 
         }
+    }
+
+    /**
+     * 私密视频播放器页面;
+     *
+     * @param context 上下文;
+     * @param id
+     * @param intent
+     */
+    public static void goPrivateVideoPlayerPage(Context context, String id, Intent intent) {
+        intent.setClass(context, PrivateVideoPlayerActivity.class);
+        intent.putExtra("private_play_id", id);
+        startPage(context, intent);
     }
 
     /**

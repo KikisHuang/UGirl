@@ -71,7 +71,8 @@
         <activity
             android:name="example.com.fan.activity.MainActivity"
             android:launchMode="singleTask"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.Translucentr">
 
         </activity>
 
@@ -96,6 +97,14 @@
         <!-- 关注页面 -->
         <activity
             android:name="example.com.fan.activity.AttentionActivity"
+            android:screenOrientation="portrait"></activity>
+        <!-- 私密照片、私密视频操作指南页面 -->
+        <activity
+            android:name="example.com.fan.activity.InstructionsActivity"
+            android:screenOrientation="portrait"></activity>
+        <!-- 操作指南照片查看器页面 -->
+        <activity
+            android:name="example.com.fan.activity.InstructionsPhotoActivity"
             android:screenOrientation="portrait"></activity>
         <!-- 会员充值页面 -->
         <activity
@@ -348,6 +357,14 @@
         <!--  Video播放器页面-->
         <activity
             android:name="example.com.fan.activity.PlayerVideoActivity"
+            android:configChanges="orientation|screenSize|smallestScreenSize|keyboard|keyboardHidden|navigation"
+            android:hardwareAccelerated="true"
+            android:launchMode="singleTop"
+            android:theme="@style/Theme.AppCompat.NoActionBar"
+            android:windowSoftInputMode="stateAlwaysHidden" />
+        <!--  私密视频Video播放器页面-->
+        <activity
+            android:name="example.com.fan.activity.PrivateVideoPlayerActivity"
             android:configChanges="orientation|screenSize|smallestScreenSize|keyboard|keyboardHidden|navigation"
             android:hardwareAccelerated="true"
             android:launchMode="singleTop"

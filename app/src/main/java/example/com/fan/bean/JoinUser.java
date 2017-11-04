@@ -9,6 +9,15 @@ public class JoinUser {
     private String id;
 
     private String name;
+    private boolean isFolllw;
+
+    public boolean getIsFolllw() {
+        return isFolllw;
+    }
+
+    public void setIsFolllw(boolean isFolllw) {
+        this.isFolllw = isFolllw;
+    }
 
     public void setHeadImgUrl(String headImgUrl){
         this.headImgUrl = headImgUrl;

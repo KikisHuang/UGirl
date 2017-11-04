@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 
 import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
@@ -40,7 +41,7 @@ import example.com.fan.utils.ListenerManager;
 import example.com.fan.utils.MzFinal;
 import example.com.fan.utils.ToastUtil;
 import example.com.fan.utils.homeViewPageUtils;
-import example.com.fan.view.DirectionListView;
+import example.com.fan.view.ListViewScrollListener;
 import example.com.fan.view.ViewPagerScroller;
 import okhttp3.Call;
 
@@ -63,7 +64,7 @@ import static example.com.fan.utils.SynUtils.stopPlay;
 /**
  * Created by lian on 2017/6/17.
  */
-public class VRFragment extends BaseFragment implements SpringListener, ItemClickListener, View.OnClickListener, OverallRefreshListener, PositionAddListener, ShareRequestListener, TwoParamaListener, DirectionListView.OnScrollDirectionListener {
+public class VRFragment extends BaseFragment implements SpringListener, ItemClickListener, View.OnClickListener, OverallRefreshListener, PositionAddListener, ShareRequestListener, TwoParamaListener {
     private static final String TAG = getTAG(VRFragment.class);
 
     private View top;
@@ -74,7 +75,7 @@ public class VRFragment extends BaseFragment implements SpringListener, ItemClic
     private List<PageTopBannerBean> toplist;
     private LinearLayout dot;
     private ImageView video_cover, vr_cover;
-    private DirectionListView listView;
+    private ListView listView;
     private int currentPosition = 1;
     private int dotPosition = 0;
     private int prePosition = 0;
@@ -160,8 +161,8 @@ public class VRFragment extends BaseFragment implements SpringListener, ItemClic
                             if (code == 1) {
                                 JSONArray ar = getJsonAr(response);
                                 try {
-                                    Glide.with(getActivity().getApplicationContext()).load(ar.get(0)).apply(getRequestOptions(false, 480, 350,false)).into(video_cover);
-                                    Glide.with(getActivity().getApplicationContext()).load(ar.get(1)).apply(getRequestOptions(false, 480, 350,false)).into(vr_cover);
+                                    Glide.with(getActivity().getApplicationContext()).load(ar.get(0)).apply(getRequestOptions(false, 480, 350, false)).into(video_cover);
+                                    Glide.with(getActivity().getApplicationContext()).load(ar.get(1)).apply(getRequestOptions(false, 480, 350, false)).into(vr_cover);
                                 } catch (Exception e) {
                                     Log.i(TAG, "Glide You cannot start a load for a destroyed activity");
                                 }
@@ -180,7 +181,7 @@ public class VRFragment extends BaseFragment implements SpringListener, ItemClic
                 .get()
                 .url(MzFinal.URl + MzFinal.GETALLVIDEO)
                 .addParams(MzFinal.PAGE, String.valueOf(page))
-                .addParams(MzFinal.SIZE, String.valueOf(page+20))
+                .addParams(MzFinal.SIZE, String.valueOf(page + 20))
                 .build()
                 .execute(new StringCallback() {
                     @Override
@@ -252,9 +253,9 @@ public class VRFragment extends BaseFragment implements SpringListener, ItemClic
         polistener = this;
         slistener = this;
         tlistener = this;
-        listView = (DirectionListView) view.findViewById(R.id.listView);
+        listView = (ListView) view.findViewById(R.id.listView);
+        listView.setOnScrollListener(new ListViewScrollListener(this,getRouString(R.string.VR)));
         springView = (SpringView) view.findViewById(R.id.springView);
-        listView.setOnScrollDirectionListener(this);
         //注册观察者监听网络;
         ListenerManager.getInstance().registerListtener(this);
 
@@ -424,22 +425,12 @@ public class VRFragment extends BaseFragment implements SpringListener, ItemClic
 
     @Override
     public void onShare(String userid, String name, String info, String id) {
-//        ShareApp(getActivity(), userid, name, info, id);
-        getSystemShare(getActivity(),id);
+        getSystemShare(getActivity(), "");
+//        getSystemShare(getActivity(),id);
     }
 
     @Override
     public void onGoPlayPage(String id, int typeFlag) {
         goHomePage(getActivity(), id);
-    }
-
-    @Override
-    public void onScrollUp() {
-        onUpTouchListener(1, getRouString(R.string.VR));
-    }
-
-    @Override
-    public void onScrollDown() {
-        onDownTouchListener(1, getRouString(R.string.VR));
     }
 }

@@ -105,7 +105,6 @@ public class LoginPopupWindow implements View.OnClickListener, AccreditListener 
                         sflag = false;
                     }
                     popupWindow.dismiss();
-                    Cancle();
                     listener = null;
                     popupWindow = null;
                     pass_ed = null;
@@ -462,7 +461,7 @@ public class LoginPopupWindow implements View.OnClickListener, AccreditListener 
                                 ToastUtil.ToastErrorMsg(context, response, code);
                             Cancle();
                         } catch (Exception e) {
-
+                            Cancle();
                         }
                     }
                 });
