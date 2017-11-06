@@ -44,7 +44,7 @@ public class PayPopupWindow {
         this.aw = new AliWechatPopupWindow(context, new String[]{MzFinal.ALIPAYPHOTO, MzFinal.WXPAYPHOTO});
     }
 
-    public void ScreenPopupWindow(View vv, PopupWindow p, int tag, View contentView) {
+    public synchronized void ScreenPopupWindow(View vv, PopupWindow p, int tag, View contentView) {
         this.popupWindow = p;
         this.view = contentView;
         this.v = vv;

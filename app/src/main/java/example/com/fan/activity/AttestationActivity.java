@@ -1,6 +1,6 @@
 package example.com.fan.activity;
 
-import android.graphics.Bitmap;
+import android.content.Intent;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
@@ -12,6 +12,9 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.luck.picture.lib.PictureSelector;
+import com.luck.picture.lib.config.PictureConfig;
+import com.luck.picture.lib.entity.LocalMedia;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
 
@@ -24,22 +27,22 @@ import example.com.fan.base.sign.save.SPreferences;
 import example.com.fan.fragment.MyFragment;
 import example.com.fan.fragment.sgamer.WithdrawFragment;
 import example.com.fan.mylistener.AttestationListener;
-import example.com.fan.mylistener.onPhotoCutListener;
 import example.com.fan.utils.MzFinal;
 import example.com.fan.utils.ToastUtil;
 import example.com.fan.view.RippleView;
+import example.com.fan.view.dialog.ActionSheetDialog;
 import okhttp3.Call;
 
 import static example.com.fan.utils.IntentUtils.goSelectPage;
 import static example.com.fan.utils.JsonUtils.getCode;
-import static example.com.fan.utils.SynUtils.PhotoPictureDialog;
+import static example.com.fan.utils.PhotoUtils.onSinglePhotoNoCut;
 import static example.com.fan.utils.SynUtils.getTAG;
 import static example.com.fan.utils.TitleUtils.setTitles;
 
 /**
  * Created by lian on 2017/9/28.
  */
-public class AttestationActivity extends InitActivity implements View.OnClickListener, onPhotoCutListener, AttestationListener {
+public class AttestationActivity extends InitActivity implements View.OnClickListener, AttestationListener {
     private static final String TAG = getTAG(AttestationActivity.class);
 
     private LinearLayout hint_layout, phone_verify_layout, phone_code_layout, fill_in_layout, over_info_layout;
@@ -66,7 +69,6 @@ public class AttestationActivity extends InitActivity implements View.OnClickLis
     private Runnable regisRunnable;
     private boolean sflag;
     public static AttestationListener alistener;
-    public static onPhotoCutListener listener;
 
     @Override
     protected void click() {
@@ -117,7 +119,6 @@ public class AttestationActivity extends InitActivity implements View.OnClickLis
     //完善信息初始化;
     private void OverInfoInit() {
         alistener = this;
-        listener = this;
         commint_button = f(R.id.commint_button);
         upload_layout = f(R.id.upload_layout);
         city_layout = f(R.id.city_layout);
@@ -231,7 +232,20 @@ public class AttestationActivity extends InitActivity implements View.OnClickLis
                 goSelectPage(this, 1);
                 break;
             case R.id.upload_layout:
-                PhotoPictureDialog(this, false, 103);
+//                PhotoPictureDialog(this, false, 103);
+
+                new ActionSheetDialog(this).builder().
+                        addSheetItem("相册", ActionSheetDialog.SheetItemColor.Blue, new ActionSheetDialog.OnSheetItemClickListener() {
+                            @Override
+                            public void onClick(int which) {
+                                onSinglePhotoNoCut(AttestationActivity.this, true);
+                            }
+                        }).addSheetItem("相机", ActionSheetDialog.SheetItemColor.Blue, new ActionSheetDialog.OnSheetItemClickListener() {
+                    @Override
+                    public void onClick(int which) {
+                        onSinglePhotoNoCut(AttestationActivity.this, false);
+                    }
+                }).show();
                 break;
             case R.id.commint_button:
                 if (file != null)
@@ -450,25 +464,26 @@ public class AttestationActivity extends InitActivity implements View.OnClickLis
         }
         if (alistener != null)
             alistener = null;
-        if (listener != null)
-            listener = null;
     }
 
     @Override
-    public void PhotoListener(String path) {
-
-    }
-
-    @Override
-    public void PhotoLBitmapistener(String path, Bitmap bitmap, int page) {
-        bitmap.recycle();
-        if (page == 103) {
-            filePath = path;
-            file = new File(path);
-            Glide.with(this).load(file).into(back_img);
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK) {
+            switch (requestCode) {
+                case PictureConfig.CHOOSE_REQUEST:
+                    // 图片选择结果回调
+                    List<LocalMedia> selectList = PictureSelector.obtainMultipleResult(data);
+                    Log.i(TAG, "压缩后路径===" + selectList.get(0).getCompressPath());
+                    String path = selectList.get(0).getCompressPath();
+                    filePath = path;
+                    file = new File(path);
+                    Glide.with(this).load(file).into(back_img);
+                    break;
+            }
         }
-
     }
+
 
     @Override
     public void onBWHResult(String b, String w, String h) {

@@ -243,8 +243,8 @@ public class ShareUtils {
      * @param context
      * @param id
      */
-    public static void getSystemShare(final Context context, String id) {
-        Show(context, "请稍后", false, null);
+    public static synchronized void getSystemShare(final Context context, String id) {
+        Show(context, "请稍后", true, null);
         if (System.currentTimeMillis() - time > 2000) {
             time = System.currentTimeMillis();
             try {
@@ -276,14 +276,13 @@ public class ShareUtils {
                                 Glide.with(context.getApplicationContext()).asBitmap().load(new JSONObject(response).optString("data")).into(new SimpleTarget<Bitmap>() {
                                     @Override
                                     public void onResourceReady(final Bitmap resource, Transition<? super Bitmap> transition) {
-                                        Cancle();
                                         String path = saveImage(resource);
                                         path = insertImageToSystem(context, path);
                                         Intent imageIntent = new Intent(Intent.ACTION_SEND);
                                         imageIntent.setType("image/jpeg");
                                         imageIntent.putExtra(Intent.EXTRA_STREAM, Uri.parse(path));
                                         context.startActivity(Intent.createChooser(imageIntent, "分享"));
-
+                                        Cancle();
                                     }
                                 });
                             } else

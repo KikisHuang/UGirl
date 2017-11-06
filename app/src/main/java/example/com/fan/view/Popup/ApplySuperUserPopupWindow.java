@@ -30,7 +30,7 @@ public class ApplySuperUserPopupWindow implements View.OnClickListener {
         this.mContext = mContext;
     }
 
-    public void ScreenPopupWindow() {
+    public synchronized void ScreenPopupWindow() {
         if (popupWindow == null) {
             // 一个自定义的布局，作为显示的内容
             View contentView = LayoutInflater.from(mContext).inflate(R.layout.super_popu_layout, null);

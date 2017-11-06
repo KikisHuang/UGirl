@@ -35,7 +35,7 @@ public class AliWechatPopupWindow implements View.OnClickListener {
         this.url = url;
     }
 
-    public void ScreenPopupWindow(View v, String id) {
+    public synchronized void ScreenPopupWindow(View v, String id) {
         if (popupWindow == null) {
             this.id = id;
             // 一个自定义的布局，作为显示的内容

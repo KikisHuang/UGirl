@@ -541,9 +541,13 @@ public class PageFragment extends BaseFragment implements View.OnClickListener, 
 //        LinearLayout.LayoutParams lp1 = new LinearLayout.LayoutParams(DeviceUtils.getWindowWidth(getActivity()) * 6 / 10, (int) (getWindowHeight(getActivity()) / 2.1));
         LinearLayout.LayoutParams lp1 = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         lp1.gravity = Gravity.CENTER;
+
         lp1.setMargins(0, 100, 0, 100);
         bottom_page.setLayoutParams(lp1);
-        bottom_page.setPageMargin(80);
+
+        int margins = (int) this.getResources().getDimension(R.dimen.size50);
+        bottom_page.setPageMargin(margins);
+
         ViewPagerScroller scroller1 = new ViewPagerScroller(getActivity());
         scroller1.setScrollDuration(800);
         scroller1.initViewPagerScroll(bottom_page);

@@ -163,7 +163,6 @@ public class PictureSlideFragment extends BaseFragment implements PayRefreshList
         try {
             RequestOptions op = new RequestOptions();
             op.centerCrop().error(R.drawable.load_fail_img);
-
             Glide.with(getActivity().getApplicationContext())
                     .load(url).listener(new RequestListener<Drawable>() {
                 @Override

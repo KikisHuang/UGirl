@@ -45,7 +45,7 @@ public class WithdrawPopupWindow implements View.OnClickListener {
         this.balance = balance;
     }
 
-    public void ScreenPopupWindow() {
+    public synchronized void ScreenPopupWindow() {
         // 一个自定义的布局，作为显示的内容
         View contentView = LayoutInflater.from(mContext).inflate(R.layout.withdraw_popu_layout, null);
         int w = (int) (DeviceUtils.getWindowWidth(mContext) * 8 / 10);

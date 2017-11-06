@@ -103,8 +103,8 @@ public class PrivateVideoPlayerActivity extends AppCompatActivity {
 
                         } catch (Exception e) {
                             ToastUtil.toast2_bottom(PrivateVideoPlayerActivity.this, "获取不到该视频路径");
-                            if(MyAppcation.crashHandler!=null)
-                            MyAppcation.crashHandler.uncaughtException(new Thread(), e);
+                            if (MyAppcation.crashHandler != null)
+                                MyAppcation.crashHandler.uncaughtException(new Thread(), e);
                             Cancle();
                             finish();
                         }
@@ -174,7 +174,7 @@ public class PrivateVideoPlayerActivity extends AppCompatActivity {
                                     Path = getJsonSring(response);
                                     //设置标题;
                                     mJcVideoPlayerStandard.setUp(getJsonSring(response)
-                                            , JZVideoPlayerStandard.SCREEN_LAYOUT_NORMAL, "");
+                                            , 0, "");
 
                                 }
                             } else if (code == 0)

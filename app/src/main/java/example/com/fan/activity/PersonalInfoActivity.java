@@ -1,7 +1,7 @@
 package example.com.fan.activity;
 
 import android.app.Activity;
-import android.graphics.Bitmap;
+import android.content.Intent;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
@@ -12,7 +12,9 @@ import android.widget.TextView;
 
 import com.balysv.materialmenu.MaterialMenuView;
 import com.bumptech.glide.Glide;
-import com.google.gson.Gson;
+import com.luck.picture.lib.PictureSelector;
+import com.luck.picture.lib.config.PictureConfig;
+import com.luck.picture.lib.entity.LocalMedia;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
 
@@ -20,12 +22,11 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.File;
+import java.util.List;
 
 import example.com.fan.R;
 import example.com.fan.base.sign.save.SPreferences;
-import example.com.fan.bean.UserInfoBean;
 import example.com.fan.fragment.MyFragment;
-import example.com.fan.mylistener.onPhotoCutListener;
 import example.com.fan.utils.JsonUtils;
 import example.com.fan.utils.MzFinal;
 import example.com.fan.utils.ToastUtil;
@@ -36,9 +37,8 @@ import okhttp3.Call;
 import static example.com.fan.utils.GlideImgUtils.getRequestOptions;
 import static example.com.fan.utils.JsonUtils.NullDispose;
 import static example.com.fan.utils.JsonUtils.getCode;
-import static example.com.fan.utils.JsonUtils.getJsonOb;
+import static example.com.fan.utils.PhotoUtils.onSinglePhoto;
 import static example.com.fan.utils.SynUtils.Finish;
-import static example.com.fan.utils.SynUtils.PhotoPictureDialog;
 import static example.com.fan.utils.SynUtils.getRouString;
 import static example.com.fan.utils.SynUtils.getSex;
 import static example.com.fan.utils.SynUtils.getTAG;
@@ -48,13 +48,12 @@ import static example.com.fan.view.dialog.CustomProgress.Show;
 /**
  * Created by lian on 2017/6/12.
  */
-public class PersonalInfoActivity extends InitActivity implements View.OnClickListener, onPhotoCutListener {
+public class PersonalInfoActivity extends InitActivity implements View.OnClickListener {
     private static final String TAG = getTAG(PersonalInfoActivity.class);
     private EditText info_name, phone_tv, wx_tv/*, invite_tv*/;
     private ImageView clear_img, sex_icon, user_icon;
     private TextView info_sex, address_tv;
     private RippleView submit_info;
-    public static onPhotoCutListener listener;
     private String receiveSex, receiveName, receiveAdd, addressPhone, wechat;
 //    private LinearLayout invite_ll;
 
@@ -63,8 +62,6 @@ public class PersonalInfoActivity extends InitActivity implements View.OnClickLi
     protected void onDestroy() {
         super.onDestroy();
         OkHttpUtils.getInstance().cancelTag(this);
-        if (listener != null)
-            listener = null;
     }
 
     @Override
@@ -128,7 +125,6 @@ public class PersonalInfoActivity extends InitActivity implements View.OnClickLi
     protected void init() {
         setContentView(R.layout.person_info_activity_layout);
         MYsetTitles(this, getRouString(R.string.my));
-        listener = this;
         address_tv = f(R.id.address_tv);
         submit_info = f(R.id.submit_info);
         user_icon = f(R.id.user_icon);
@@ -227,7 +223,18 @@ public class PersonalInfoActivity extends InitActivity implements View.OnClickLi
                 }).show();
                 break;
             case R.id.user_icon:
-                PhotoPictureDialog(this, true, 101);
+                new ActionSheetDialog(this).builder().
+                        addSheetItem("相册", ActionSheetDialog.SheetItemColor.Blue, new ActionSheetDialog.OnSheetItemClickListener() {
+                            @Override
+                            public void onClick(int which) {
+                                onSinglePhoto(PersonalInfoActivity.this, true);
+                            }
+                        }).addSheetItem("相机", ActionSheetDialog.SheetItemColor.Blue, new ActionSheetDialog.OnSheetItemClickListener() {
+                    @Override
+                    public void onClick(int which) {
+                        onSinglePhoto(PersonalInfoActivity.this, false);
+                    }
+                }).show();
                 break;
             case R.id.clear_img:
                 info_name.setText("");
@@ -239,9 +246,6 @@ public class PersonalInfoActivity extends InitActivity implements View.OnClickLi
                 String addphone = phone_tv.getText().toString().trim();
                 String wx = wx_tv.getText().toString().trim();
 
-            /*    if (!invite_tv.getText().toString().trim().isEmpty() && getInViCode() && invite_ll.getVisibility() == View.VISIBLE)
-                    submitInVite();*/
-
                 if (add.equals(receiveAdd) && name.equals(receiveName) && sex.equals(receiveSex) && addphone.equals(addressPhone) && wx.equals(wechat)) {
                     Finish(this);
                     Log.i(TAG, "没有任何修改");
@@ -250,40 +254,6 @@ public class PersonalInfoActivity extends InitActivity implements View.OnClickLi
 
                 break;
         }
-    }
-
-    private void submitInVite() {
-        OkHttpUtils
-                .get()
-                .url(MzFinal.URl + MzFinal.USEINVITATIONCODE)
-                .addParams(MzFinal.KEY, SPreferences.getUserToken())
-//                .addParams("useInvitationCode", invite_tv.getText().toString().trim())
-                .tag(this)
-                .build()
-                .execute(new StringCallback() {
-                    @Override
-                    public void onError(Call call, Exception e, int id) {
-                        ToastUtil.toast2_bottom(PersonalInfoActivity.this, "网络不顺畅...");
-                    }
-
-                    @Override
-                    public void onResponse(String response, int id) {
-                        try {
-                            int code = getCode(response);
-                            if (code == 1) {
-                                JSONObject ob = getJsonOb(response);
-                                UserInfoBean ub = new Gson().fromJson(String.valueOf(ob), UserInfoBean.class);
-                                if (ub.getUseInvitationCode() == null)
-                                    ToastUtil.toast2_bottom(PersonalInfoActivity.this, "邀请码不正确");
-                                else
-                                    ToastUtil.toast2_bottom(PersonalInfoActivity.this, "成功提交邀请码");
-                            } else
-                                ToastUtil.ToastErrorMsg(PersonalInfoActivity.this, response, code);
-                        } catch (Exception e) {
-
-                        }
-                    }
-                });
     }
 
     private void ChangeUserInfo(final String add, final String sex, final String name, String addphone, String wx) {
@@ -361,18 +331,23 @@ public class PersonalInfoActivity extends InitActivity implements View.OnClickLi
                 });
     }
 
-    @Override
-    public void PhotoListener(String path) {
-
-    }
 
     @Override
-    public void PhotoLBitmapistener(String path, Bitmap bitmap, int page) {
-        bitmap.recycle();
-        if (page == 101)
-            UploadIcon(path);
-
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK) {
+            switch (requestCode) {
+                case PictureConfig.CHOOSE_REQUEST:
+                    // 图片选择结果回调
+                    List<LocalMedia> selectList = PictureSelector.obtainMultipleResult(data);
+                    Log.i(TAG, "压缩后路径===" + selectList.get(0).getCompressPath());
+                    String path = selectList.get(0).getCompressPath();
+                    UploadIcon(path);
+                    break;
+            }
+        }
     }
+
 
     private void UploadIcon(final String path) {
         /**

@@ -332,7 +332,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
                 setSelected(page_img);
                 one();
                 title.setVisibility(View.VISIBLE);
-                TitleUtils.ChangeTitleLayout(this, false, 0, "");
+                TitleUtils.ChangeTitleLayout(this, false, 3, "");
                 BaseFragment.UpTouch = true;
                 break;
             case R.id.two_img:
@@ -365,7 +365,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
 
     private void TitleInit(String title) {
         TitleUtils.hideImagTitle(this, title);
-        TitleUtils.ChangeTitleLayout(this, false, 1, title);
+        TitleUtils.ChangeTitleLayout(this, false, 4, title);
         BaseFragment.UpTouch = true;
     }
 

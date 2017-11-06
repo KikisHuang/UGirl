@@ -254,8 +254,10 @@ public class PlayerVideoActivity extends AppCompatActivity implements View.OnCli
                                             }
                                         } else {
                                             //设置标题;
+//                                            mJcVideoPlayerStandard.setUp(vb.getMcPublishVideoUrls().get(0).getPath()
+//                                                    , JZVideoPlayerStandard.SCREEN_LAYOUT_NORMAL, "");
                                             mJcVideoPlayerStandard.setUp(vb.getMcPublishVideoUrls().get(0).getPath()
-                                                    , JZVideoPlayerStandard.SCREEN_LAYOUT_NORMAL, "");
+                                                    , 0, "");
                                             Path = vb.getMcPublishVideoUrls().get(0).getPath();
                                         }
                                     }
@@ -360,7 +362,7 @@ public class PlayerVideoActivity extends AppCompatActivity implements View.OnCli
                                         Path = getJsonSring(response);
                                         //设置标题;
                                         mJcVideoPlayerStandard.setUp(getJsonSring(response)
-                                                , JZVideoPlayerStandard.SCREEN_LAYOUT_NORMAL, "");
+                                                , 0, "");
                                     }
                                 } else if (code == 0) {
                                     PaytwoPopupWindow pyp = new PaytwoPopupWindow(PlayerVideoActivity.this, String.valueOf(vb.getPrice()), vb.getId(), 1, null);
@@ -372,7 +374,7 @@ public class PlayerVideoActivity extends AppCompatActivity implements View.OnCli
                                     Path = getJsonSring(response);
                                     //设置标题;
                                     mJcVideoPlayerStandard.setUp(getJsonSring(response)
-                                            , JZVideoPlayerStandard.SCREEN_LAYOUT_NORMAL, "");
+                                            , 0, "");
                                 } else
                                     ToastUtil.ToastErrorMsg(PlayerVideoActivity.this, response, code);
                             }

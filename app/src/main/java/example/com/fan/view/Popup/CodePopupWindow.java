@@ -49,7 +49,7 @@ public class CodePopupWindow {
         this.mContext = mContext;
     }
 
-    public void ScreenPopupWindow() {
+    public synchronized void ScreenPopupWindow() {
         // 一个自定义的布局，作为显示的内容
         View contentView = LayoutInflater.from(mContext).inflate(R.layout.code_popup_layout, null);
         popupWindow = new PopupWindow(contentView, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);

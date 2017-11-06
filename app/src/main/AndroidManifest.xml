@@ -65,7 +65,7 @@
         android:label="@string/app_name"
         android:largeHeap="true"
         android:supportsRtl="true"
-        android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+        android:theme="@style/ThemeNoActionBar">
 
         <!-- 主页面 -->
         <activity
@@ -102,7 +102,7 @@
         <activity
             android:name="example.com.fan.activity.InstructionsActivity"
             android:screenOrientation="portrait"></activity>
-        <!-- 操作指南照片查看器页面 -->
+        <!-- 单图预览查看器页面 -->
         <activity
             android:name="example.com.fan.activity.InstructionsPhotoActivity"
             android:screenOrientation="portrait"></activity>
@@ -129,10 +129,11 @@
         <!-- 个人信息修改页面 -->
         <activity
             android:name="example.com.fan.activity.PersonalInfoActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/Theme.Translucentr">
+            android:screenOrientation="portrait">
+            <!--android:theme="@style/Theme.Translucentr"-->
 
         </activity>
+
         <!-- Vip页面 -->
         <activity
             android:name="example.com.fan.activity.VipActivity"
@@ -180,9 +181,8 @@
         <!-- 测试页面 -->
         <activity
             android:name="example.com.fan.activity.TestActivity"
-            android:configChanges="orientation|screenSize|keyboardHidden"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar">
+            >
 
         </activity>
         <!-- 选择器页面 -->
@@ -211,11 +211,7 @@
             android:windowSoftInputMode="adjustPan|stateHidden">
 
         </activity>
-        <!-- 任务页面 -->
-        <activity
-            android:name="example.com.fan.activity.TaskActivity"
-            android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan|stateHidden"></activity>
+
         <!-- 帮助页面 -->
         <activity
             android:name="example.com.fan.activity.HelpActivity"
@@ -277,41 +273,18 @@
         <activity
             android:name="example.com.fan.activity.StoreActivity"
             android:screenOrientation="portrait"></activity>
-        <!-- 上传微信页面 -->
-        <activity
-            android:name="example.com.fan.activity.UploadWeChatActivity"
-            android:screenOrientation="portrait"></activity>
-        <!-- 上传私照页面 -->
-        <activity
-            android:name="example.com.fan.activity.UploadPrivatePhotoActivity"
-            android:screenOrientation="portrait"></activity>
-        <!-- 私密提问页面 -->
-        <activity
-            android:name="example.com.fan.activity.UploadQuizActivity"
-            android:screenOrientation="portrait"></activity>
-        <!-- 问题选择页面 -->
-        <activity
-            android:name="example.com.fan.activity.IssueSelectActivity"
-            android:screenOrientation="portrait"></activity>
-        <!-- 我的视频页面 -->
-        <activity
-            android:name="example.com.fan.activity.MyVideoActivity"
-            android:screenOrientation="portrait"></activity>
-        <!-- 我的私照页面 -->
-        <activity
-            android:name="example.com.fan.activity.MyPrivatePhotoActivity"
-            android:screenOrientation="portrait"></activity>
+
         <!-- 外链页面 -->
         <activity
             android:name="example.com.fan.activity.OutSideActivity"
             android:screenOrientation="portrait"></activity>
-        <!-- 超级玩家页面 -->
+        <!-- 超级玩家主页 -->
         <activity
             android:name="example.com.fan.activity.SGamerActivity"
             android:screenOrientation="portrait">
 
         </activity>
-        <!-- 超级玩家页面 -->
+        <!-- 超级玩家视频、图片页面 -->
         <activity
             android:name=".activity.SuperUserPhotoOfVideoActivity"
             android:screenOrientation="portrait"></activity>
@@ -424,6 +397,7 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_paths" />
         </provider>
+
 
         <provider
             android:name=".MyFileProvider"

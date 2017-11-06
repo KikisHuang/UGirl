@@ -65,7 +65,7 @@ public class SlidePopupWindow implements View.OnClickListener {
     }
 
 
-    public void ScreenPopupWindow() {
+    public synchronized void ScreenPopupWindow() {
         if (popupWindow == null) {
 
             // 一个自定义的布局，作为显示的内容
@@ -199,7 +199,6 @@ public class SlidePopupWindow implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.login_ll:
-                if (info != null)
                     login();
                 break;
             case R.id.layout_1:
@@ -276,6 +275,7 @@ public class SlidePopupWindow implements View.OnClickListener {
     private void login() {
         if (!LoginStatusQuery()) {
             goLoginPage(mContext);
+            popupWindow.dismiss();
 //            backgroundAlpha(1f, mContext);
 
         } else {

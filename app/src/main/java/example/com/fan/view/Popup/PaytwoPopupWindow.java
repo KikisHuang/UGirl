@@ -60,7 +60,7 @@ public class PaytwoPopupWindow implements View.OnClickListener {
         this.payListener = payListener;
     }
 
-    public void ScreenPopupWindow(View vv) {
+    public synchronized void ScreenPopupWindow(View vv) {
         if (popupWindow == null) {
             this.v = vv;
             view = LayoutInflater.from(context).inflate(R.layout.pay_two_pp_layout, null);

@@ -32,6 +32,7 @@ import static example.com.fan.utils.photo.KitKatPhoto.selectImage;
 
 /**
  * Created by lian on 2017/6/12.
+ * 手写相册单选;
  */
 public class UploadPhotoActivity extends Activity implements CutPhotoListener, DestroyListener {
     private static final String TAG = getTAG(UploadPhotoActivity.class);
@@ -231,12 +232,6 @@ public class UploadPhotoActivity extends Activity implements CutPhotoListener, D
     @Override
     public void onSucceed(String url, Bitmap bitmap) {
         setResult(1012);
-        if (PersonalInfoActivity.listener != null)
-            PersonalInfoActivity.listener.PhotoLBitmapistener(url, bitmap,page);
-        if (UploadPrivatePhotoActivity.listener != null)
-            UploadPrivatePhotoActivity.listener.PhotoLBitmapistener(url, bitmap,page);
-        if (AttestationActivity.listener != null)
-            AttestationActivity.listener.PhotoLBitmapistener(url, bitmap,page);
         finish();
     }
 

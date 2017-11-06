@@ -41,7 +41,6 @@ import static example.com.fan.utils.IntentUtils.goMainPage;
 import static example.com.fan.utils.JsonUtils.getCode;
 import static example.com.fan.utils.SynUtils.getIMEI;
 import static example.com.fan.utils.SynUtils.getTAG;
-import static example.com.fan.utils.SynUtils.getVersionName;
 
 
 /**
@@ -178,15 +177,30 @@ public class WelcomeActivity extends InitActivity implements PositionAddListener
     }
 
     private void getData() {
+        OkHttpUtils.get()
+                .url(MzFinal.URl + MzFinal.INSTALL)
+                .addParams("deviceNumber", getIMEI(this))
+//                .addParams("deviceName", android.os.Build.BRAND)
+                .addParams("deviceName", android.os.Build.MODEL)
+//                .addParams("Android_Version", android.os.Build.VERSION.RELEASE)
+//                .addParams("VersionName", getVersionName(this))
+                .tag(this)
+                .build()
+                .execute(new StringCallback() {
+                    @Override
+                    public void onError(Call call, Exception e, int id) {
+
+                    }
+
+                    @Override
+                    public void onResponse(String response, int id) {
+                        Log.i(TAG, "提交设备信息成功");
+                    }
+                });
 
         OkHttpUtils
                 .post()
                 .url(MzFinal.URl + MzFinal.GETWELCOMEIMGURL)
-                .addParams("IMEI", getIMEI(this))
-                .addParams("Phone", android.os.Build.BRAND)
-                .addParams("Molde", android.os.Build.MODEL)
-                .addParams("Android_Version", android.os.Build.VERSION.RELEASE)
-                .addParams("VersionName", getVersionName(this))
                 .tag(this)
                 .build()
                 .execute(new StringCallback() {

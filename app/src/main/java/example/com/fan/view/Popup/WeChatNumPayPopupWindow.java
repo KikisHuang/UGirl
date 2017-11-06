@@ -41,7 +41,7 @@ public class WeChatNumPayPopupWindow implements View.OnClickListener {
         this.aw = new AliWechatPopupWindow(context, new String[]{MzFinal.ALIPAYMODELWX, MzFinal.WXPAYMODELWX});
     }
 
-    public void ScreenPopupWindow(View v, String id, String iconUrl, String price, String name) {
+    public synchronized void ScreenPopupWindow(View v, String id, String iconUrl, String price, String name) {
         if (popupWindow == null) {
             this.id = id;
             // 一个自定义的布局，作为显示的内容

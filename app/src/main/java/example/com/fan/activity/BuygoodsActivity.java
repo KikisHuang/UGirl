@@ -45,6 +45,7 @@ import example.com.fan.view.BuyGoodsScrollView;
 import example.com.fan.view.Popup.ServerPopupWindow;
 import okhttp3.Call;
 
+import static example.com.fan.utils.IntentUtils.goInstructionPhotoPage;
 import static example.com.fan.utils.IntentUtils.goOrderPage;
 import static example.com.fan.utils.JsonUtils.getCode;
 import static example.com.fan.utils.JsonUtils.getJsonOb;
@@ -151,7 +152,7 @@ public class BuygoodsActivity extends InitActivity implements View.OnClickListen
 
     private void setGoodsDetails() {
 //        bottom_details_layout
-        for (McOfficialSellImgUrls str : detailist) {
+        for (final McOfficialSellImgUrls msi : detailist) {
             LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
             lp.topMargin = DeviceUtils.dip2px(this, 5);
             lp.bottomMargin = DeviceUtils.dip2px(this, 10);
@@ -173,25 +174,24 @@ public class BuygoodsActivity extends InitActivity implements View.OnClickListen
             try {
                 //下载图片保存到本地
                 Glide.with(getApplicationContext())
-                        .load(str.getPath()).downloadOnly(new SimpleTarget<File>() {
+                        .load(msi.getPath()).downloadOnly(new SimpleTarget<File>() {
                     @Override
                     public void onResourceReady(File resource, Transition<? super File> transition) {
                         // 将保存的图片地址给SubsamplingScaleImageView,这里注意设置ImageViewState设置初始显示比例
                         im.setImage(ImageSource.uri(Uri.fromFile(resource)), new ImageViewState(0F, new PointF(0, 0), 0));
                     }
-
-                  /*  @Override
-                    public void onResourceReady(File resource, GlideAnimation<? super File> glideAnimation) {
-                        // 将保存的图片地址给SubsamplingScaleImageView,这里注意设置ImageViewState设置初始显示比例
-                        im.setImage(ImageSource.uri(Uri.fromFile(resource)), new ImageViewState(0F, new PointF(0, 0), 0));
-
-                    }*/
                 });
             } catch (Exception e) {
                 Log.i(TAG, "Glide You cannot start a load for a destroyed activity");
             }
             im.setLayoutParams(lp);
             bottom_details_layout.addView(im);
+            im.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    goInstructionPhotoPage(BuygoodsActivity.this, msi.getPath());
+                }
+            });
         }
     }
 

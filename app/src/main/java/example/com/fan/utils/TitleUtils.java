@@ -1,7 +1,9 @@
 package example.com.fan.utils;
 
 import android.app.Activity;
+import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -160,23 +162,48 @@ public class TitleUtils {
         MaterialMenuView slide = (MaterialMenuView) ac.findViewById(R.id.material_menu_button);
         ImageView search = (ImageView) ac.findViewById(R.id.search_img);
         TextView mtv = (TextView) ac.findViewById(R.id.title_tv);
-            if (flag) {
-                TitleAnima(ac, title, flag, mtv, slide, search);
-                if (tag == 0) {
-                    mimg.setVisibility(View.VISIBLE);
-                    mtv.setVisibility(View.GONE);
-                }
-                if (tag == 1) {
-                    mtv.setVisibility(View.VISIBLE);
-                    mimg.setVisibility(View.GONE);
-                    mtv.setText(name);
-                }
+        if (flag) {
+            TitleAnima(ac, title, flag, mtv, slide, search);
+            //文字标题;
+            if (tag == 0) {
+                mimg.setVisibility(View.VISIBLE);
+                mtv.setVisibility(View.GONE);
+            }
+            //动画标题;
+            if (tag == 1) {
+                mtv.setVisibility(View.VISIBLE);
+                mimg.setVisibility(View.GONE);
+                mtv.setText(name);
+            }
+        } else {
+            if (tag == 3) {
+                ViewGroup.LayoutParams lp =  title.getLayoutParams();
+                lp.height = DeviceUtils.dip2px(ac,50);
+                title.setLayoutParams(lp);
+                //无动画放大方法,图片标题;
+                slide.setVisibility(View.VISIBLE);
+                search.setVisibility(View.VISIBLE);
+                mimg.setVisibility(View.VISIBLE);
+                mtv.setVisibility(View.GONE);
+
+            } else if (tag == 4) {
+                ViewGroup.LayoutParams lp = title.getLayoutParams();
+                lp.height = DeviceUtils.dip2px(ac,50);
+                title.setLayoutParams(lp);
+                //无动画放大方法,文字标题;
+                slide.setVisibility(View.VISIBLE);
+                search.setVisibility(View.VISIBLE);
+                mtv.setVisibility(View.VISIBLE);
+                mimg.setVisibility(View.GONE);
             } else {
+                //动画放大方法;
                 TitleAnima(ac, title, flag, mtv, slide, search);
+                //图片标题;
                 if (tag == 0) {
                     mimg.setVisibility(View.VISIBLE);
                     mtv.setVisibility(View.GONE);
                 }
+                //文字标题;
                 if (tag == 1) {
                     mtv.setVisibility(View.VISIBLE);
                     mimg.setVisibility(View.GONE);
@@ -184,4 +211,5 @@ public class TitleUtils {
                 }
             }
         }
+    }
 }

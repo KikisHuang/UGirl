@@ -1,10 +1,13 @@
 package example.com.fan.receiver;
 
+import android.app.Notification;
+import android.app.NotificationManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.content.LocalBroadcastManager;
+import android.support.v7.app.NotificationCompat;
 import android.text.TextUtils;
 import android.util.Log;
 
@@ -16,6 +19,7 @@ import org.json.JSONObject;
 import java.util.Iterator;
 
 import cn.jpush.android.api.JPushInterface;
+import example.com.fan.R;
 import example.com.fan.activity.MainActivity;
 import example.com.fan.activity.WelcomeActivity;
 import example.com.fan.bean.JpshTypeBean;
@@ -52,7 +56,7 @@ public class JpushReceiver extends BroadcastReceiver {
             Log.d(TAG, "[MyReceiver] 接收到推送下来的通知");
             int notifactionId = bundle.getInt(JPushInterface.EXTRA_NOTIFICATION_ID);
             Log.d(TAG, "[MyReceiver] 接收到推送下来的通知的ID: " + notifactionId);
-
+            receivingNotification(context, bundle);
 //                androidNotification extras key -
 
         } else if (JPushInterface.ACTION_NOTIFICATION_OPENED.equals(intent.getAction())) {
@@ -125,6 +129,35 @@ public class JpushReceiver extends BroadcastReceiver {
             Log.d(TAG, "[MyReceiver] Unhandled intent - " + intent.getAction());
         }
     }
+
+
+
+
+    //自定义通知栏;
+    private void receivingNotification(Context context, Bundle bundle) {
+        NotificationManager manager = (NotificationManager) context
+                .getSystemService(Context.NOTIFICATION_SERVICE);
+        String message = bundle.getString(JPushInterface.EXTRA_MESSAGE);
+        String extras = bundle.getString(JPushInterface.EXTRA_EXTRA);
+        // 使用notification
+        // 使用广播或者通知进行内容的显示
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(
+                context);
+        try {
+            JSONObject ob = new JSONObject(extras);
+            String id = ob.optString("id");
+            int type = ob.optInt("type");
+            String titile = ob.optString("title");
+            String content = ob.optString("content");
+
+            builder.setContentText(content).setSmallIcon(R.mipmap.logo).setContentTitle(titile);
+            builder.setDefaults(Notification.DEFAULT_SOUND);
+            manager.notify(1, builder.build());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
 
     // 打印所有的 intent extra 数据
     private static String printBundle(Bundle bundle) {

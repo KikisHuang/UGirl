@@ -127,12 +127,14 @@ public class PayActivity extends InitActivity implements PayRefreshListener {
 
                                     switch (finalI) {
                                         case 0:
+                                            bottom_ll.removeAllViews();
                                             for (int i = 0; i < ar.length(); i++) {
                                                 PayBean pb = new Gson().fromJson(String.valueOf(ar.getJSONObject(i)), PayBean.class);
                                                 CreateLayouts(finalI, pb);
                                             }
                                             break;
                                         case 1:
+                                            top_ll.removeAllViews();
                                             for (int i = 0; i < ar.length(); i++) {
                                                 PayBean pb = new Gson().fromJson(String.valueOf(ar.getJSONObject(i)), PayBean.class);
                                                 CreateLayouts(finalI, pb);
@@ -167,6 +169,7 @@ public class PayActivity extends InitActivity implements PayRefreshListener {
                         try {
                             int code = getCode(response);
                             if (code == 1) {
+                                virtual_layout.removeAllViews();
                                 JSONArray ar = getJsonAr(response);
                                 for (int i = 0; i < ar.length(); i++) {
                                     VirtualBean ub = new Gson().fromJson(String.valueOf(ar.optJSONObject(i)), VirtualBean.class);

@@ -63,14 +63,12 @@ import example.com.fan.R;
 import example.com.fan.base.sign.save.SPreferences;
 import example.com.fan.view.Popup.LoginPopupWindow;
 import example.com.fan.view.Popup.PaytwoPopupWindow;
-import example.com.fan.view.dialog.ActionSheetDialog;
 import okhttp3.Call;
 
 import static example.com.fan.base.sign.save.SPreferences.getUserUUID;
 import static example.com.fan.base.sign.save.SPreferences.saveLoginWay;
 import static example.com.fan.base.sign.save.SPreferences.saveUserUUID;
 import static example.com.fan.utils.IntentUtils.goPlayerPage;
-import static example.com.fan.utils.IntentUtils.goUploadPhotoPage;
 import static example.com.fan.utils.JsonUtils.getCode;
 import static example.com.fan.utils.MzFinal.getAPPID;
 
@@ -772,25 +770,6 @@ public class SynUtils {
         }
     }
 
-    /**
-     * 相片弹窗共用方法;
-     *
-     * @param context
-     */
-    public static void PhotoPictureDialog(final Context context, final boolean Cut, final int page) {
-        new ActionSheetDialog(context).builder().
-                addSheetItem("相册", ActionSheetDialog.SheetItemColor.Blue, new ActionSheetDialog.OnSheetItemClickListener() {
-                    @Override
-                    public void onClick(int which) {
-                        goUploadPhotoPage(context, "0", Cut, page);
-                    }
-                }).addSheetItem("相机", ActionSheetDialog.SheetItemColor.Blue, new ActionSheetDialog.OnSheetItemClickListener() {
-            @Override
-            public void onClick(int which) {
-                goUploadPhotoPage(context, "1", Cut, page);
-            }
-        }).show();
-    }
 
     public static void Finish(Activity activity) {
     /*    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)

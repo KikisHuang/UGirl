@@ -78,7 +78,7 @@ public class LoginPopupWindow implements View.OnClickListener, AccreditListener 
 
     public static PopupWindow popupWindow;
 
-    public void ScreenPopupWindow(View view) {
+    public synchronized void ScreenPopupWindow(View view) {
         if (popupWindow == null && handler == null) {
             // 一个自定义的布局，作为显示的内容
             View contentView = LayoutInflater.from(context).inflate(R.layout.login_popu_layout, null);

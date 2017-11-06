@@ -18,10 +18,9 @@
     <!--<style name="AppTheme" parent="AppBaseTheme"></style>-->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar"></style>
 
-    <style name="Theme.AppCompat.Light.NoActionBar" parent="@style/Theme.AppCompat.Light">
+    <style name="ThemeNoActionBar" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="android:windowNoTitle">true</item>
         <item name="windowActionBar">false</item>
-        <item name="android:windowIsTranslucent">false</item>
     </style>
     <style name="Theme.Translucentr" parent="@style/Theme.AppCompat.Light">
         <item name="android:windowNoTitle">true</item>

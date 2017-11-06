@@ -30,7 +30,7 @@ public class CommentEditPopupWindow {
     private static PopupWindow popupWindow;
     private static  editeListener elistener;
 
-    public static void ScreenPopupWindow(View view, final Context mContext, editeListener listener) {
+    public static synchronized void ScreenPopupWindow(View view, final Context mContext, editeListener listener) {
         if (popupWindow == null) {
             // 一个自定义的布局，作为显示的内容
             elistener = listener;

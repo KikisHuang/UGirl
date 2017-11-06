@@ -33,8 +33,6 @@ import example.com.fan.activity.MainActivity;
 import example.com.fan.activity.MyCollectActivity;
 import example.com.fan.activity.MyOrderActivity;
 import example.com.fan.activity.MyOrderDetailsActivity;
-import example.com.fan.activity.MyPrivatePhotoActivity;
-import example.com.fan.activity.MyVideoActivity;
 import example.com.fan.activity.NewestActivity;
 import example.com.fan.activity.OrderActivity;
 import example.com.fan.activity.OutSideActivity;
@@ -55,12 +53,9 @@ import example.com.fan.activity.SearchActivity;
 import example.com.fan.activity.SettingActivity;
 import example.com.fan.activity.StoreActivity;
 import example.com.fan.activity.SuperUserPhotoOfVideoActivity;
-import example.com.fan.activity.TaskActivity;
 import example.com.fan.activity.TimeSelectActivity;
 import example.com.fan.activity.UnReadActivity;
 import example.com.fan.activity.UploadPhotoActivity;
-import example.com.fan.activity.UploadPrivatePhotoActivity;
-import example.com.fan.activity.UploadWeChatActivity;
 import example.com.fan.activity.UserPhotoOfVideoUpLoadActivity;
 import example.com.fan.activity.VideoAndVrSonActivity;
 import example.com.fan.activity.VipActivity;
@@ -434,7 +429,7 @@ public class IntentUtils {
     }
 
     /**
-     * 操作指南照片查看器页面;
+     * 单图预览照片查看器页面;
      *
      * @param context 上下文;
      */
@@ -603,47 +598,6 @@ public class IntentUtils {
         startPage(context, intent);
     }
 
-    /**
-     * 我的视频页面;
-     *
-     * @param context 上下文;
-     */
-    public static void goMyVideoPage(Context context) {
-        Intent intent = new Intent(context, MyVideoActivity.class);
-        startPage(context, intent);
-    }
-
-    /**
-     * 我的微信页面;
-     *
-     * @param context 上下文;
-     */
-    public static void goWeChatPage(Context context) {
-        Intent intent = new Intent(context, UploadWeChatActivity.class);
-        startPage(context, intent);
-    }
-
-    /**
-     * 上传私照页面;
-     *
-     * @param context 上下文;
-     */
-    public static void goUpPrivatePhotoPage(Context context) {
-        Intent intent = new Intent(context, UploadPrivatePhotoActivity.class);
-        startPage(context, intent);
-    }
-
-    /**
-     * 我的私照页面;
-     *
-     * @param context 上下文;
-     * @param MYID
-     */
-    public static void goMyPrivatePhotoPage(Context context, String MYID) {
-        Intent intent = new Intent(context, MyPrivatePhotoActivity.class);
-        intent.putExtra("MyPrivate_ID", MYID);
-        startPage(context, intent);
-    }
 
     /**
      * 我的订单页面;
@@ -666,16 +620,6 @@ public class IntentUtils {
         Bundle bundle = new Bundle();
         bundle.putSerializable("MyOrderBean", mb);
         intent.putExtras(bundle);
-        startPage(context, intent);
-    }
-
-    /**
-     * 任务页面;
-     *
-     * @param context 上下文;
-     */
-    public static void goTaskPage(Context context) {
-        Intent intent = new Intent(context, TaskActivity.class);
         startPage(context, intent);
     }
 
@@ -754,19 +698,6 @@ public class IntentUtils {
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP)
 //            context.startActivity(intent, ActivityOptions.makeSceneTransitionAnimation((Activity) context).toBundle());
             context.startActivity(intent);
-        else
-            context.startActivity(intent);
-    }
-
-    /**
-     * 跳转通用方法;
-     *
-     * @param context
-     * @param intent
-     */
-    private static void startPage2(Context context, Intent intent) {
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP)
-            context.startActivity(intent, ActivityOptions.makeSceneTransitionAnimation((Activity) context).toBundle());
         else
             context.startActivity(intent);
     }

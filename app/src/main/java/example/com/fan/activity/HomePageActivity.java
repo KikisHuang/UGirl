@@ -180,10 +180,10 @@ public class HomePageActivity extends BaseActivity implements ItemClickListener,
                                 if (cleanNull(mib.getMcUser().getResidentCity())) {
                                     Random ra = new Random();
                                     int a = ra.nextInt(MzFinal.FAKECITY.length);
-                                    city_tv.setText(MzFinal.FAKECITY[a]);
+                                    city_tv.setText("城市\n" + MzFinal.FAKECITY[a]);
 
                                 } else
-                                    city_tv.setText("城市\n" + mib.getMcUser().getResidentCity());
+                                    city_tv.setText("城市\n" + mib.getMcUser().getResidentCity().trim());
 
                                 model_name.setText(mib.getRealName());
                                 cover = checkNull(mib.getCoverPath());
@@ -383,31 +383,34 @@ public class HomePageActivity extends BaseActivity implements ItemClickListener,
 
                 break;
             case R.id.fake_layout:
-                if (MyAppcation.VipFlag) {
-                    Show(HomePageActivity.this, "连线中...", false, null);
-                    fake_layout.postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            ToastUtil.toast2_bottom(HomePageActivity.this, "该模特不在线！！");
-                            Cancle();
-                        }
-                    }, 3000);
-                } else {
+                if (LoginStatusQuery()) {
 
-                    new ActionSheetDialog(HomePageActivity.this).builder().
-                            addSheetItem("音频", ActionSheetDialog.SheetItemColor.Blue, new ActionSheetDialog.OnSheetItemClickListener() {
-                                @Override
-                                public void onClick(int which) {
-                                    Pop();
-                                }
-                            }).addSheetItem("视频", ActionSheetDialog.SheetItemColor.Blue, new ActionSheetDialog.OnSheetItemClickListener() {
-                        @Override
-                        public void onClick(int which) {
-                            Pop();
-                        }
-                    }).show();
 
-                }
+                    if (MyAppcation.VipFlag) {
+                        Show(HomePageActivity.this, "连线中...", false, null);
+                        fake_layout.postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                ToastUtil.toast2_bottom(HomePageActivity.this, "该模特不在线！！");
+                                Cancle();
+                            }
+                        }, 3000);
+                    } else {
+                        new ActionSheetDialog(HomePageActivity.this).builder().
+                                addSheetItem("音频", ActionSheetDialog.SheetItemColor.Blue, new ActionSheetDialog.OnSheetItemClickListener() {
+                                    @Override
+                                    public void onClick(int which) {
+                                        Pop();
+                                    }
+                                }).addSheetItem("视频", ActionSheetDialog.SheetItemColor.Blue, new ActionSheetDialog.OnSheetItemClickListener() {
+                            @Override
+                            public void onClick(int which) {
+                                Pop();
+                            }
+                        }).show();
+                    }
+                } else
+                    Login(HomePageActivity.this);
                 break;
         }
 

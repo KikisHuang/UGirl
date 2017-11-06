@@ -29,7 +29,7 @@ public class ChangeAddressPopupWindow {
     private static PopupWindow popupWindow;
 
     //附近的人地区筛选;
-    public static void ScreenPopupWindow(final Context mContext, String wx, String phone, String address, AddressListener listener) {
+    public static synchronized void ScreenPopupWindow(final Context mContext, String wx, String phone, String address, AddressListener listener) {
         // 一个自定义的布局，作为显示的内容
         View contentView = LayoutInflater.from(mContext).inflate(R.layout.address_popu_layout, null);
         int h = (int) (DeviceUtils.getWindowHeight(mContext) * 4.5 / 10);

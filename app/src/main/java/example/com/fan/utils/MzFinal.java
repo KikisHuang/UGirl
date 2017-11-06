@@ -596,5 +596,11 @@ public class MzFinal {
      *
      */
     public static final String SHAREQCIMAGEJPG = "share/shareQCImage.jpg";
+    /**
+     * 发送安装信息;
+     */
+    public static final String INSTALL = "common/install.app";
+
+
 
 }

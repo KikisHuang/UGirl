@@ -53,7 +53,7 @@ public class SharePopupWindow implements ShareListener, View.OnClickListener, Sh
         this.mContext = mContext;
     }
 
-    public void ScreenPopupWindow(View view) {
+    public synchronized void ScreenPopupWindow(View view) {
         if (popupWindow == null) {
             // 一个自定义的布局，作为显示的内容
             View contentView = LayoutInflater.from(mContext).inflate(R.layout.share_popup_layout, null);
