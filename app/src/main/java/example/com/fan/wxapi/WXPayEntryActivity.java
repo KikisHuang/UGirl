@@ -21,6 +21,7 @@ import example.com.fan.fragment.son.PictureSlideFragment2;
 import example.com.fan.utils.MzFinal;
 import example.com.fan.utils.ToastUtil;
 
+import static example.com.fan.fragment.StoreFragment.StoreInstance;
 import static example.com.fan.utils.SynUtils.getTAG;
 import static example.com.fan.utils.SynUtils.getUserVip;
 
@@ -52,24 +53,28 @@ public class WXPayEntryActivity extends Activity implements IWXAPIEventHandler {
             case 0:
                 ToastUtil.toast2_bottom(this, "支付成功");
                 try {
+                    getUserVip();
+
                     if (PictureSlideFragment.PayListener != null && PhotoActivity.tlistener != null) {
                         MzFinal.isPay = true;
                         PictureSlideFragment.PayListener.onPayRefresh();
                     }
-                    if (PictureSlideFragment2.PayListener != null ) {
+                    if (PictureSlideFragment2.PayListener != null) {
                         MzFinal.isPay = true;
                         PictureSlideFragment2.PayListener.onPayRefresh();
                     }
-                    if(PayActivity.paylistener!=null)
+                    if (PayActivity.paylistener != null)
                         PayActivity.paylistener.onPayRefresh();
 
-                    if(PlayerVideoActivity.infoListener!=null)
+                    if (PlayerVideoActivity.infoListener != null)
                         PlayerVideoActivity.infoListener.onUpDataUserInfo();
 
                     if (MyFragment.fragment != null)
                         MyFragment.fragment.onUpDataUserInfo();
 
-                    getUserVip();
+                    if (StoreInstance() != null)
+                        StoreInstance().CheckJurisdiction();
+
                 } catch (Exception e) {
                     Log.i(TAG, "Error ==== " + e);
                 }

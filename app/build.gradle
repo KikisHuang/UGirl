@@ -35,14 +35,16 @@ android {
     compileSdkVersion 24
     buildToolsVersion "24.0.0"
     defaultConfig {
+
         applicationId "example.com.fan"
-//        minSdkVersion 17
-        minSdkVersion 21
-//        targetSdkVersion 20
-        targetSdkVersion 22
-        versionCode 38
-        versionName "1.3.7"
+        minSdkVersion 18
+//        minSdkVersion 21
+        targetSdkVersion 20
+//        targetSdkVersion 22
+        versionCode 39
+        versionName "1.3.8"
         multiDexEnabled true
+
         ndk {
             //选择要添加的对应cpu类型的.so库（不需要的删除即可）。
             abiFilters 'armeabi', 'armeabi-v7a', 'armeabi-v8a', 'x86', 'x86_64', 'mips', 'mips64'
@@ -89,6 +91,9 @@ android {
         }
         s360 {
             manifestPlaceholders = [UMENG_CHANNEL_VALUE: "705fd562e242"]
+        }
+        sotuijianwei360 {
+            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "c3cc4212c5e8"]
         }
 
         //尤女映画市场渠道;
@@ -150,18 +155,19 @@ android {
             manifestPlaceholders = [UMENG_CHANNEL_VALUE: "098a0f981725"]
         }
 
-        /*     aaa1 {
-                 manifestPlaceholders = [UMENG_CHANNEL_VALUE: "3ceafb99478c"]
-             }
-             aaa2 {
-                 manifestPlaceholders = [UMENG_CHANNEL_VALUE: "8ed92cb4c3fe"]
-             }
-             ceshi1 {
-                 manifestPlaceholders = [UMENG_CHANNEL_VALUE: "758a30c71003"]
-             }
-             ceshi2 {
-                 manifestPlaceholders = [UMENG_CHANNEL_VALUE: "80d756003b97"]
-             }*/
+        //百度信息流
+        baiduxinxiliu {
+            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "3e8e28bb914b"]
+        }
+        //百度分发联盟
+        baidufenfa {
+            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "06a5d78d4b36"]
+        }
+        //百度移动搜索
+        baiduyidong {
+            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "c9758d52f0b3"]
+        }
+
         //应用宝微下载渠道;
         wuyi {
             manifestPlaceholders = [UMENG_CHANNEL_VALUE: "d7ac947753cd"]
@@ -306,6 +312,7 @@ dependencies {
     compile 'com.android.support:support-v4:24.2.0'
     compile 'com.android.support:appcompat-v7:24.2.0'
 
+
     /*   compile 'com.squareup.okio:okio:1.8.0'
                     compile 'com.squareup.okhttp3:okhttp:3.3.1'*/
     //    compile files('libs/okhttp-3.3.1.jar')
@@ -334,8 +341,8 @@ dependencies {
     //本地图片、视频选择框架;
     compile 'com.github.LuckSiege.PictureSelector:picture_library:v2.1.1'
 
-    /*//鲁班压缩
-    compile 'top.zibin:Luban:1.1.3'*/
+    /*//鲁班压缩*/
+//    compile 'top.zibin:Luban:1.1.3'
     //内存检测工具
     debugCompile 'com.squareup.leakcanary:leakcanary-android:1.3'
     releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.3'
@@ -343,6 +350,12 @@ dependencies {
     //    compile 'com.github.mcxtzhang:ZLayoutManager:V1.1.0'
     //(测试)tablayout扩展效果compile;
     //compile 'com.ogaclejapan.smarttablayout:library:1.6.1@aar'
+
+    /*    //fresco 图片加载框架
+    compile'com.facebook.fresco:fresco:1.5.0'
+    //fresco Photoview;
+    compile 'me.relex:photodraweeview:1.1.3'*/
+
     //热更新;
     //    compile 'com.aliyun.ams:alicloud-android-hotfix:3.0.5'
     /*    compile files('libs/utovr_player_1.0.5513.jar')

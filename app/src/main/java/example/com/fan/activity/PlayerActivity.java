@@ -436,7 +436,6 @@ public class PlayerActivity extends InitActivity implements UVPlayerCallBack, Pl
             //初始化播放器
             RelativeLayout rlPlayView = f(R.id.activity_rlPlayView);
             mMediaplayer = new UVMediaPlayer(PlayerActivity.this, rlPlayView);
-
             //将工具条的显示或隐藏交个SDK管理，也可自己管理
             RelativeLayout rlToolbar = f(R.id.activity_rlToolbar);
             RelativeLayout video_play_top_tools = f(R.id.video_play_top_tools);

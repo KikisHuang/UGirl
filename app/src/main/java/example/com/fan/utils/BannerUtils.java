@@ -2,6 +2,17 @@ package example.com.fan.utils;
 
 import android.content.Context;
 import android.util.Log;
+import android.view.LayoutInflater;
+
+import com.zhy.http.okhttp.OkHttpUtils;
+import com.zhy.http.okhttp.callback.StringCallback;
+
+import example.com.fan.MyAppcation;
+import example.com.fan.R;
+import example.com.fan.base.sign.save.SPreferences;
+import example.com.fan.view.Popup.ApplySuperUserPopupWindow;
+import example.com.fan.view.Popup.SharePopupWindow;
+import okhttp3.Call;
 
 import static example.com.fan.utils.IntentUtils.goBuyGoodsPage;
 import static example.com.fan.utils.IntentUtils.goOutsidePage;
@@ -9,7 +20,10 @@ import static example.com.fan.utils.IntentUtils.goPayPage;
 import static example.com.fan.utils.IntentUtils.goPhotoPage;
 import static example.com.fan.utils.IntentUtils.goPlayerPage;
 import static example.com.fan.utils.IntentUtils.goPrivatePhotoPage;
+import static example.com.fan.utils.IntentUtils.goSGamerPage;
 import static example.com.fan.utils.IntentUtils.goStorePage;
+import static example.com.fan.utils.JsonUtils.getCode;
+import static example.com.fan.utils.JsonUtils.getJsonSring;
 import static example.com.fan.utils.SynUtils.Login;
 import static example.com.fan.utils.SynUtils.LoginStatusQuery;
 import static example.com.fan.utils.SynUtils.getTAG;
@@ -34,6 +48,8 @@ public class BannerUtils {
      *                type  -3 私密视频
      *                type  100 商城
      *                type  1000 充值
+     *                type  1100 申请超级玩家
+     *                type  1200 分享
      */
     public static void goBannerPage(Context context, int type, String path, String id) {
         Log.i(TAG, "Banner Type ===" + type);
@@ -56,8 +72,65 @@ public class BannerUtils {
                 goStorePage(context);
             if (type == 1000)
                 goPayPage(context);
+            if(type ==1100){
+                if (LoginStatusQuery()) {
+                    if (MzFinal.MODELFLAG)
+                        goSGamerPage(context);
+                    else
+                        getAuditStatus(context);
+                } else
+                    Login(context);
+            }
+            if(type ==1200){
+                if (LoginStatusQuery()) {
+                    try {
+                        //分享popup;
+                        SharePopupWindow sp = new SharePopupWindow(context, MyAppcation.myInvitationCode);
+                        sp.ScreenPopupWindow(LayoutInflater.from(context).inflate(R.layout.page_fragment, null));
+                    } catch (Exception e) {
+
+                    }
+                } else
+                    Login(context);
+            }
 
         } else
             Login(context);
+    }
+
+
+    private static void getAuditStatus(final Context context) {
+        /**
+         * 审核状态判断;
+         */
+        OkHttpUtils
+                .get()
+                .url(MzFinal.URl + MzFinal.CHECKAPPLY)
+                .addParams(MzFinal.KEY, SPreferences.getUserToken())
+                .build()
+                .execute(new StringCallback() {
+                    @Override
+                    public void onError(Call call, Exception e, int id) {
+                        ToastUtil.toast2_bottom(context, "网络不顺畅...");
+                    }
+
+                    @Override
+                    public void onResponse(String response, int id) {
+                        try {
+                            int code = getCode(response);
+                            int data = Integer.parseInt(getJsonSring(response));
+                            if (data == 1) {
+                                ApplySuperUserPopupWindow aps = new ApplySuperUserPopupWindow(context);
+                                aps.ScreenPopupWindow();
+                            } else if (data == 0)
+                                ToastUtil.toast2_bottom(context, "正在审核中...");
+                            else
+                                ToastUtil.ToastErrorMsg(context, response, code);
+                        } catch (Exception e) {
+
+                        }
+                    }
+                });
+
     }
 }

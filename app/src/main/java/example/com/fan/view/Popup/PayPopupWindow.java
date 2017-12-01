@@ -124,10 +124,11 @@ public class PayPopupWindow {
             vip_tv.setVisibility(View.GONE);
             introduce_tv.setText(getRouString(R.string.pay2_introduce) + price + "元");
         } else {
-            if (!price.isEmpty())
-                introduce_tv.setText(getRouString(R.string.pay_introduce) + price + "元");
-            else
-                introduce_tv.setText(getRouString(R.string.pay_introduce2));
+
+//            if (!price.isEmpty())
+//                introduce_tv.setText(getRouString(R.string.pay_introduce) + price + "元");
+//            else
+//                introduce_tv.setText(getRouString(R.string.pay_introduce2));
         }
     }
 

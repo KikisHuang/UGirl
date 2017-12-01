@@ -12,12 +12,12 @@ public class MzFinal {
 //  public static final String URl = "http://192.168.1.224:8080/mcFnsInterface/";
 //  public static final String URl = "http://101.37.86.15:8080/mcFnsInterface/";
 
-//  public static final String URl = "http://fns.mozu123.com:8080/mcFnsInterface/";
+    public static final String URl = "http://fns.mozu123.com:8080/mcFnsInterface/";
 
 //  public static final String URl = "http://fnsandroid.mozu123.com/mcFnsInterface/";
 //  public static final String URl = "http://fnsandroid2.mozu123.com/mcFnsInterface/";
 //  public static final String URl = "http://fnsandroid3.mozu123.com/mcFnsInterface/";
-    public static final String URl = "http://fnsandroid4.mozu123.com/mcFnsInterface/";
+//  public static final String URl = "http://fnsandroid4.mozu123.com/mcFnsInterface/";
 //  public static final String URl = "http://fnsandroid5.mozu123.com/mcFnsInterface/";
 
 

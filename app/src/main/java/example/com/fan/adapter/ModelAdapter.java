@@ -15,6 +15,7 @@ import com.bumptech.glide.Glide;
 
 import java.util.List;
 
+import example.com.fan.MyAppcation;
 import example.com.fan.R;
 import example.com.fan.bean.ModelBean;
 import example.com.fan.mylistener.StoreItemClickListener;
@@ -120,7 +121,10 @@ public class ModelAdapter extends BaseAdapter {
                 share_img.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        listener.onItemClickListener(112, blist.get(position).getId(), position);
+                        if (MyAppcation.VipFlag){
+                            listener.onItemClickListener(112, blist.get(position).getId(), position);
+                        }
+
                     }
                 });
                 break;
@@ -131,14 +135,18 @@ public class ModelAdapter extends BaseAdapter {
                 video_layout.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        listener.onItemClickListener(-3, blist.get(position).getId(), position);
+                        if (MyAppcation.VipFlag) {
+                            listener.onItemClickListener(-3, blist.get(position).getId(), position);
+                        }
                     }
                 });
                 Glide.with(context).load(blist.get(position).getCoverPath()).apply(getRequestOptions(false, 0, 0, false)).into(video_img);
                 share_img.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        listener.onItemClickListener(113, blist.get(position).getId(), position);
+                        if (MyAppcation.VipFlag) {
+                            listener.onItemClickListener(113, blist.get(position).getId(), position);
+                        }
                     }
                 });
                 break;
@@ -146,7 +154,9 @@ public class ModelAdapter extends BaseAdapter {
         user_icon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                listener.onItemClickListener(1002, blist.get(position).getModelId(), position);
+                if (MyAppcation.VipFlag) {
+                    listener.onItemClickListener(1002, blist.get(position).getModelId(), position);
+                }
             }
         });
         try {
@@ -163,7 +173,9 @@ public class ModelAdapter extends BaseAdapter {
             item_topic_image_layout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    listener.onItemClickListener(-2, blist.get(position).getId(), position);
+                    if (MyAppcation.VipFlag) {
+                        listener.onItemClickListener(-2, blist.get(position).getId(), position);
+                    }
                 }
             });
         }

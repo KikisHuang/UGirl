@@ -120,6 +120,7 @@ public class PlayerVideoActivity extends AppCompatActivity implements View.OnCli
         listView = (ListView) findViewById(R.id.listView);
         FrameLayout.LayoutParams lp = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, DeviceUtils.getWindowWidth(this) * 9 / 16);
         mJcVideoPlayerStandard = (JZVideoPlayerStandard) findViewById(R.id.jc_video);
+
         mJcVideoPlayerStandard.setLayoutParams(lp);
         comment_ed = (TextView) findViewById(R.id.comment_ed);
         commentlist = new ArrayList<>();

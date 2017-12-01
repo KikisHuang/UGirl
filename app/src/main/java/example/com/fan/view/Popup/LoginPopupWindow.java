@@ -46,6 +46,7 @@ import static example.com.fan.utils.JsonUtils.getCode;
 import static example.com.fan.utils.SynUtils.SaveLoginWay;
 import static example.com.fan.utils.SynUtils.getRouString;
 import static example.com.fan.utils.SynUtils.getTAG;
+import static example.com.fan.utils.SynUtils.getUserVip;
 import static example.com.fan.utils.tpartyLoginUtils.getUMAuthListener;
 import static example.com.fan.view.dialog.CustomProgress.Cancle;
 import static example.com.fan.view.dialog.CustomProgress.Show;
@@ -371,6 +372,7 @@ public class LoginPopupWindow implements View.OnClickListener, AccreditListener 
                                     MyFragment.fragment.onUpDataUserInfo();
                                 if (HomePageActivity.uplistener != null)
                                     HomePageActivity.uplistener.onUpDataUserInfo();
+                                getUserVip();
 
                                 popupWindow.dismiss();
                             } else
@@ -455,6 +457,8 @@ public class LoginPopupWindow implements View.OnClickListener, AccreditListener 
                                     MyFragment.fragment.onUpDataUserInfo();
                                 if (HomePageActivity.uplistener != null)
                                     HomePageActivity.uplistener.onUpDataUserInfo();
+
+                                getUserVip();
 
                                 popupWindow.dismiss();
                             } else

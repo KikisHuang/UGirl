@@ -31,9 +31,17 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="充会员更优惠还送豪礼，单期购买需要0元"
+                android:text="充会员更优惠还送豪礼"
                 android:textColor="@color/black"
                 android:textSize="12dp" />
+            <!--<TextView-->
+                <!--android:id="@+id/introduce_tv"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:gravity="center"-->
+                <!--android:text="充会员更优惠还送豪礼，单期购买需要0元"-->
+                <!--android:textColor="@color/black"-->
+                <!--android:textSize="12dp" />-->
 
             <TextView
                 android:id="@+id/pay_tv"
@@ -46,6 +54,8 @@
                 android:paddingBottom="10dp"
                 android:paddingTop="10dp"
                 android:text="购买单张专辑"
+                android:enabled="false"
+                android:visibility="gone"
                 android:textColor="@color/white"
                 android:textSize="13dp" />
 

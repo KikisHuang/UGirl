@@ -307,7 +307,7 @@ public class PageFragment extends BaseFragment implements View.OnClickListener, 
         OkHttpUtils
                 .get()
                 .url(MzFinal.URl + MzFinal.GETHOMEBANNERPHOTOBYTYPE)
-                .addParams("versionCode","2")
+                .addParams("versionCode", "2")
                 .build()
                 .execute(new StringCallback() {
                     @Override
@@ -388,6 +388,48 @@ public class PageFragment extends BaseFragment implements View.OnClickListener, 
                         }
                     }
                 });
+
+
+        /**
+         * 获取超级玩家标识符;
+         */
+        if (LoginStatusQuery()) {
+            OkHttpUtils
+                    .get()
+                    .url(MzFinal.URl + MzFinal.GETMYDETAILS)
+                    .addParams(MzFinal.KEY, SPreferences.getUserToken())
+                    .tag(this)
+                    .build()
+                    .execute(new StringCallback() {
+                        @Override
+                        public void onError(Call call, Exception e, int id) {
+                            ToastUtil.toast2_bottom(getActivity(), "网络不顺畅...");
+                        }
+
+                        @Override
+                        public void onResponse(String response, int id) {
+                            try {
+                                int code = getCode(response);
+                                if (code == 1) {
+                                    JSONObject ob = getJsonOb(response);
+                                    UserInfoBean ub = new Gson().fromJson(String.valueOf(ob), UserInfoBean.class);
+
+                                    if (ub.getModelFlag() == 1)
+                                        MzFinal.MODELFLAG = true;
+                                    else
+                                        MzFinal.MODELFLAG = false;
+
+                                    MzFinal.MYID = ub.getId();
+
+                                } else
+                                    ToastUtil.ToastErrorMsg(getActivity(), response, code);
+                            } catch (Exception e) {
+                                Log.i(TAG, "Error ===" + e);
+                            }
+                        }
+                    });
+        }
+
     }
 
     private void setRankingIcon() {
@@ -398,17 +440,17 @@ public class PageFragment extends BaseFragment implements View.OnClickListener, 
                 switch (i) {
                     case 0:
                         im = ranking_img0;
-                        Glide.with(getActivity().getApplicationContext()).load(rklist.get(i).getHeadImgUrl()).apply(getRequestOptions(true, 0, 0,true)).into(im);
+                        Glide.with(getActivity().getApplicationContext()).load(rklist.get(i).getHeadImgUrl()).apply(getRequestOptions(true, 0, 0, true)).into(im);
 
                         break;
                     case 1:
                         im = ranking_img1;
-                        Glide.with(getActivity().getApplicationContext()).load(rklist.get(i).getHeadImgUrl()).apply(getRequestOptions(true, 0, 0,true)).into(im);
+                        Glide.with(getActivity().getApplicationContext()).load(rklist.get(i).getHeadImgUrl()).apply(getRequestOptions(true, 0, 0, true)).into(im);
 
                         break;
                     case 2:
                         im = ranking_img2;
-                        Glide.with(getActivity().getApplicationContext()).load(rklist.get(i).getHeadImgUrl()).apply(getRequestOptions(true, 0, 0,true)).into(im);
+                        Glide.with(getActivity().getApplicationContext()).load(rklist.get(i).getHeadImgUrl()).apply(getRequestOptions(true, 0, 0, true)).into(im);
 
                         break;
                 }
@@ -580,10 +622,8 @@ public class PageFragment extends BaseFragment implements View.OnClickListener, 
         MyPagerButtomAdapter adapter1 = new MyPagerButtomAdapter(bottomList, getActivity());
         bottom_page.setAdapter(adapter1);
         bottom_page.setOffscreenPageLimit(bottomList.size());
-        if (bottomList.size() > 3)
-            bottom_page.setCurrentItem(2);
-        else
-            bottom_page.setCurrentItem(1);
+
+        bottom_page.setCurrentItem(1);
 
         //页面改变监听
         bottom_page.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {

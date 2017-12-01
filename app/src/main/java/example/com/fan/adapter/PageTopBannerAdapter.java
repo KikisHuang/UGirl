@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 
 import java.util.List;
 
+import example.com.fan.MyAppcation;
 import example.com.fan.bean.PageTopBannerBean;
 
 import static example.com.fan.utils.BannerUtils.goBannerPage;
@@ -51,6 +52,8 @@ public class PageTopBannerAdapter extends PagerAdapter {
                             goBannerPage(context,list.get(position).getType(),list.get(position).getHttpUrl(),list.get(position).getValue());
                             break;
                         case 1:
+                            if (MyAppcation.VipFlag)
+                                goBannerPage(context,list.get(position).getType(),list.get(position).getHttpUrl(),list.get(position).getValue());
 
                             break;
 

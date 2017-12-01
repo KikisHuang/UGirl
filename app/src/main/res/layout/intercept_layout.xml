@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/pink_corners"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center|top"
+        android:layout_marginTop="10dp"
+        android:text="青铜会员尊享视频、私照"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="40dp"
+        android:gravity="center"
+        android:text="成为青铜会员即可鉴赏到火爆视频\n快去释放你的天性吧"
+        android:textColor="@color/white" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="230dp"
+        android:layout_marginTop="40dp"
+        android:background="@drawable/white_bottom_corners"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/price_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center|left"
+            android:layout_marginLeft="10dp"
+            android:text="青铜会员价格：￥198"
+            android:layout_marginTop="20dp"
+            android:textColor="@color/cherry2"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center|left"
+            android:layout_marginLeft="10dp"
+            android:text="青铜会员福利："
+            android:layout_marginTop="20dp"
+            android:textColor="@color/cherry2"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center|left"
+            android:layout_marginLeft="10dp"
+            android:text="1、 3个月内解锁私密视频、私密照片版块"
+            android:layout_marginTop="10dp"
+            android:textSize="13sp"
+            android:textColor="@color/cherry2"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center|left"
+            android:layout_marginLeft="10dp"
+            android:textSize="13sp"
+            android:text="2、 3个月内无限制观看所有模特专辑"
+            android:layout_marginTop="10dp"
+            android:textColor="@color/cherry2"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center|left"
+            android:layout_marginLeft="10dp"
+            android:textSize="13sp"
+            android:text="3、 3个月内解锁女神会所所有专区模特权限！（价值500元）"
+            android:layout_marginTop="10dp"
+            android:textColor="@color/cherry2"
+            />
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <Button
+                android:id="@+id/pay_bt"
+                android:layout_width="80dp"
+                android:layout_height="30dp"
+                android:layout_gravity="center|bottom"
+                android:layout_marginBottom="20dp"
+                android:background="@drawable/pink_corners"
+                android:text="释放天性"
+                android:textSize="13sp"
+                android:textColor="@color/white" />
+        </FrameLayout>
+    </LinearLayout>
+</LinearLayout>

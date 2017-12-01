@@ -57,6 +57,11 @@ import java.util.UUID;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import javax.microedition.khronos.egl.EGL10;
+import javax.microedition.khronos.egl.EGLConfig;
+import javax.microedition.khronos.egl.EGLContext;
+import javax.microedition.khronos.egl.EGLDisplay;
+
 import cn.jpush.android.api.JPushInterface;
 import example.com.fan.MyAppcation;
 import example.com.fan.R;
@@ -728,7 +733,7 @@ public class SynUtils {
      * @param tabs     TabLayout
      * @param leftDip  左边距
      * @param rightDip 右边距
-     *                 <p>
+     *                 <p/>
      *                 使用方法
      * @Override public void onStart() {
      * super.onStart();
@@ -775,7 +780,7 @@ public class SynUtils {
     /*    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
             activity.finishAfterTransition();
         else*/
-            activity.finish();
+        activity.finish();
     }
 
     public static void ChangeTextViewColors(String content, String color, int start, int end, TextView tv) {
@@ -915,5 +920,44 @@ public class SynUtils {
         return appDir + "/" + fileName;
     }
 
+    public static int getMaximumTextureSize()
+    {
+        EGL10 egl = (EGL10) EGLContext.getEGL();
+        EGLDisplay display = egl.eglGetDisplay(EGL10.EGL_DEFAULT_DISPLAY);
+
+        // Initialise
+        int[] version = new int[2];
+        egl.eglInitialize(display, version);
+
+        // Query total number of configurations
+        int[] totalConfigurations = new int[1];
+        egl.eglGetConfigs(display, null, 0, totalConfigurations);
+
+        // Query actual list configurations
+        EGLConfig[] configurationsList = new EGLConfig[totalConfigurations[0]];
+        egl.eglGetConfigs(display, configurationsList, totalConfigurations[0], totalConfigurations);
+
+        int[] textureSize = new int[1];
+        int maximumTextureSize = 0;
+
+        // Iterate through all the configurations to located the maximum texture size
+        for (int i = 0; i < totalConfigurations[0]; i++)
+        {
+            // Only need to check for width since opengl textures are always squared
+            egl.eglGetConfigAttrib(display, configurationsList[i], EGL10.EGL_MAX_PBUFFER_WIDTH, textureSize);
+
+            // Keep track of the maximum texture size
+            if (maximumTextureSize < textureSize[0])
+            {
+                maximumTextureSize = textureSize[0];
+            }
+        }
+
+        // Release
+        egl.eglTerminate(display);
+        Log.i("GLHelper", "Maximum GL texture size: " + Integer.toString(maximumTextureSize));
+
+        return maximumTextureSize;
+    }
 
 }

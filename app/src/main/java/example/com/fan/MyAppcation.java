@@ -38,11 +38,11 @@ public class MyAppcation extends MultiDexApplication {
     public static String WECHATID = "";
     public static String ALIID = "";
 
-/*
-    *//**
+
+    /**
      * 内存泄露检测;
-     *//*
-    private RefWatcher refWatcher;
+     */
+/*    private RefWatcher refWatcher;
 
     public static RefWatcher getRefWatcher(Context context) {
         MyAppcation application = (MyAppcation) context

@@ -2,6 +2,7 @@ package example.com.fan.view.Popup;
 
 import android.content.Context;
 import android.graphics.drawable.ColorDrawable;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -125,7 +126,9 @@ public class PaytwoPopupWindow implements View.OnClickListener {
                                 }
                             } else
                                 ToastUtil.ToastErrorMsg(context, response, code);
-                        } catch (JSONException e) {
+                        } catch (Exception e) {
+                            Log.e(TAG, "Json Error ==" + e);
+                            popupWindow.dismiss();
                             e.printStackTrace();
                         }
                     }

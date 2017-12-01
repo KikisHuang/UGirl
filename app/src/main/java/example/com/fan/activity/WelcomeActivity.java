@@ -1,8 +1,9 @@
 package example.com.fan.activity;
 
-import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
 import android.os.Handler;
 import android.os.Message;
+import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
@@ -15,9 +16,11 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.GlideBuilder;
+import com.bumptech.glide.load.DataSource;
 import com.bumptech.glide.load.DecodeFormat;
-import com.bumptech.glide.request.target.SimpleTarget;
-import com.bumptech.glide.request.transition.Transition;
+import com.bumptech.glide.load.engine.GlideException;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.target.Target;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
 
@@ -57,9 +60,7 @@ public class WelcomeActivity extends InitActivity implements PositionAddListener
     private Handler handler;
     private int time = 3;
     private Timer tm;
-    private Bitmap bitmap = null;
     public static PositionAddListener plistener;
-    private Runnable mrunnable;
 
     private void Hand() {
         handler = new Handler() {
@@ -81,8 +82,8 @@ public class WelcomeActivity extends InitActivity implements PositionAddListener
                         break;
                     case 99:
                         welcome_img2.setVisibility(View.GONE);
-                        bitmap = (Bitmap) msg.obj;    //在handler中接受从子线程发回来的数据
-                        welcome_img.setImageBitmap(bitmap);
+//                        bitmap = (Bitmap) msg.obj;    //在handler中接受从子线程发回来的数据
+//                        welcome_img.setImageBitmap(bitmap);
                         login_img.setEnabled(true);
                         startAnima2();
                         break;
@@ -199,7 +200,7 @@ public class WelcomeActivity extends InitActivity implements PositionAddListener
                 });
 
         OkHttpUtils
-                .post()
+                .get()
                 .url(MzFinal.URl + MzFinal.GETWELCOMEIMGURL)
                 .tag(this)
                 .build()
@@ -215,7 +216,30 @@ public class WelcomeActivity extends InitActivity implements PositionAddListener
                             int code = getCode(response);
                             if (code == 1) {
 
-                                Glide.with(getApplicationContext()).asBitmap().load(new JSONObject(response).optString("data")).into(new SimpleTarget<Bitmap>() {
+                                Glide.with(getApplicationContext()).load(new JSONObject(response).optString("data")).listener(new RequestListener<Drawable>() {
+                                    @Override
+                                    public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
+
+                                        Message message = new Message();
+                                        message.what = 99;
+                                        handler.sendMessage(message);
+
+                                        return false;
+                                    }
+
+                                    @Override
+                                    public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
+                                        Message message = new Message();
+                                        message.what = 99;
+//                                        message.obj = resource;
+                                        handler.sendMessage(message);
+
+                                        return false;
+                                    }
+
+                                }).into(welcome_img);
+
+                         /*       Glide.with(getApplicationContext()).asBitmap().load(new JSONObject(response).optString("data")).into(new SimpleTarget<Bitmap>() {
                                     @Override
                                     public void onResourceReady(final Bitmap resource, Transition<? super Bitmap> transition) {
                                         handler.post(mrunnable = new Runnable() {
@@ -228,7 +252,8 @@ public class WelcomeActivity extends InitActivity implements PositionAddListener
                                             }
                                         });
                                     }
-                                });
+                                });*/
+
                             } else {
                                 ToastUtil.toast2_bottom(WelcomeActivity.this, getCodeStatusMsg(code));
                             }
@@ -285,13 +310,13 @@ public class WelcomeActivity extends InitActivity implements PositionAddListener
         OkHttpUtils.getInstance().cancelTag(this);
         plistener = null;
 
-        if (bitmap != null && !bitmap.isRecycled()) {
+        if (handler != null) {
             welcome_img.setImageBitmap(null);
-            handler.removeCallbacks(mrunnable);
+//            handler.removeCallbacks(mrunnable);
             handler.removeCallbacksAndMessages(null);
             handler = null;
-            bitmap.recycle();
-            bitmap = null;
+//            bitmap.recycle();
+//            bitmap = null;
             if (tm != null) {
                 tm.cancel();
                 tm = null;

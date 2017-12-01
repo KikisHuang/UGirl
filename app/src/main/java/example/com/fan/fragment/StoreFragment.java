@@ -25,6 +25,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
+import example.com.fan.MyAppcation;
 import example.com.fan.R;
 import example.com.fan.adapter.ModelAdapter;
 import example.com.fan.adapter.PageTopBannerAdapter;
@@ -45,6 +46,7 @@ import example.com.fan.utils.ToastUtil;
 import example.com.fan.utils.homeViewPageUtils;
 import example.com.fan.view.FakePopupWindow;
 import example.com.fan.view.ListViewScrollListener;
+import example.com.fan.view.Popup.InterceptPopupWindow;
 import example.com.fan.view.ViewPagerScroller;
 import okhttp3.Call;
 
@@ -92,11 +94,14 @@ public class StoreFragment extends BaseFragment implements PositionAddListener, 
     private SpringListener slistener;
     private StoreItemClickListener hlistener;
     public static PositionAddListener polistener;
+
     private int page = 0;
 
     private Handler handler;
 
     private LinearLayout private_type_layout;
+    private InterceptPopupWindow intercept;
+    private static StoreFragment fragment;
 
     @Override
     protected int initContentView() {
@@ -106,6 +111,10 @@ public class StoreFragment extends BaseFragment implements PositionAddListener, 
     @Override
     protected void click() {
 
+    }
+
+    public static StoreFragment StoreInstance() {
+        return fragment;
     }
 
     @Override
@@ -120,8 +129,8 @@ public class StoreFragment extends BaseFragment implements PositionAddListener, 
         SpringViewInit(springview1, getActivity(), slistener);
         rlist = new ArrayList<>();
         toplist = new ArrayList<>();
-
-        listView.setOnScrollListener(new ListViewScrollListener(this,getRouString(R.string.privacy)));
+        fragment = this;
+        listView.setOnScrollListener(new ListViewScrollListener(this, getRouString(R.string.privacy)));
         top = getActivity().getLayoutInflater().inflate(R.layout.private_top, null);
         mViewPager = (ViewPager) top.findViewById(R.id.viewPager);
         private_type_layout = (LinearLayout) top.findViewById(R.id.private_type_layout);
@@ -132,9 +141,21 @@ public class StoreFragment extends BaseFragment implements PositionAddListener, 
         dot = (LinearLayout) top.findViewById(R.id.ll_dot);
         mImageViewList = new ArrayList<>();
         mImageViewDotList = new ArrayList();
+        CheckJurisdiction();
 
         handInit();
     }
+
+    public void CheckJurisdiction() {
+        if (!MyAppcation.VipFlag) {
+            intercept = new InterceptPopupWindow(getActivity());
+            intercept.ScreenPopupWindow(view);
+        } else {
+            if (intercept != null)
+                intercept.onMyDismiss();
+        }
+    }
+
 
     private void handInit() {
         handler = new Handler() {
@@ -205,7 +226,9 @@ public class StoreFragment extends BaseFragment implements PositionAddListener, 
             @Override
             public void onClick(View v) {
                 if (LoginStatusQuery()) {
-                    getJurisdiction(ptb.getId(), ptb.getTypeName());
+                    if (MyAppcation.VipFlag) {
+                        getJurisdiction(ptb.getId(), ptb.getTypeName());
+                    }
                 } else
                     Login(getActivity());
             }
@@ -345,7 +368,7 @@ public class StoreFragment extends BaseFragment implements PositionAddListener, 
                         try {
                             int code = getCode(response);
                             if (code == 1) {
-                                if (b){
+                                if (b) {
                                     rlist.clear();
                                 }
 
@@ -376,7 +399,7 @@ public class StoreFragment extends BaseFragment implements PositionAddListener, 
         LayoutInflater inflater = getActivity().getLayoutInflater();
         mImageViewList = homeViewPageUtils.getTopImg(toplist, getActivity().getApplicationContext(), mImageViewList, 1, inflater);
         homeViewPageUtils.setDot(toplist.size(), getActivity().getApplicationContext(), mImageViewDotList, dot, dotPosition);
-        PageTopBannerAdapter adapter = new PageTopBannerAdapter(mImageViewList, getActivity(), 0);
+        PageTopBannerAdapter adapter = new PageTopBannerAdapter(mImageViewList, getActivity(), 1);
 
         mViewPager.setAdapter(adapter);
         mViewPager.setCurrentItem(currentPosition);
@@ -430,6 +453,7 @@ public class StoreFragment extends BaseFragment implements PositionAddListener, 
         });
     }
 
+
     @Override
     public void onHiddenChanged(boolean hidden) {
         super.onHiddenChanged(hidden);
@@ -437,8 +461,12 @@ public class StoreFragment extends BaseFragment implements PositionAddListener, 
             polistener = this;
             startPlay(handler, mViewPager, 4);
             Log.i(TAG, "onResume");
+            CheckJurisdiction();
         } else {
             stopPlay();
+            if (intercept != null)
+                intercept.onMyDismiss();
+
             polistener = null;
             Log.i(TAG, "onPause");
         }
@@ -460,6 +488,7 @@ public class StoreFragment extends BaseFragment implements PositionAddListener, 
         page += a;
         getData(false);
     }
+
     @Override
     public void notifyAllActivity(boolean net) {
         if (net) {

@@ -352,6 +352,7 @@ public class PhotoActivity extends InitActivity implements View.OnClickListener,
 
     @Override
     protected void init() {
+
         setContentView(R.layout.photo_activity_layout);
         // 隐藏状态栏
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
