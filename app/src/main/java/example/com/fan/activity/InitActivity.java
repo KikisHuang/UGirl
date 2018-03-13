@@ -62,13 +62,13 @@ public abstract class InitActivity extends FragmentActivity implements alipayToo
     private void CheckLoginToken() {
         if (LoginStatusQuery() && SPreferences.getUserToken().length() <= 31) {
             if (able != null)
-                if(MyAppcation.crashHandler!=null)
-                MyAppcation.crashHandler.uncaughtException(new Thread(), able);
-            else {
-                able = new Throwable("手动抛出TOKEN异常信息。。。");
-                    if(MyAppcation.crashHandler!=null)
-                MyAppcation.crashHandler.uncaughtException(new Thread(), able);
-            }
+                if (MyAppcation.crashHandler != null)
+                    MyAppcation.crashHandler.uncaughtException(new Thread(), able);
+                else {
+                    able = new Throwable("手动抛出TOKEN异常信息。。。");
+                    if (MyAppcation.crashHandler != null)
+                        MyAppcation.crashHandler.uncaughtException(new Thread(), able);
+                }
         }
     }
 
@@ -148,6 +148,8 @@ public abstract class InitActivity extends FragmentActivity implements alipayToo
     @Override
     public void result(int result) {
         try {
+            getUserVip();
+
             if (PictureSlideFragment.PayListener != null && PhotoActivity.tlistener != null) {
                 MzFinal.isPay = true;
                 PictureSlideFragment.PayListener.onPayRefresh();
@@ -165,7 +167,6 @@ public abstract class InitActivity extends FragmentActivity implements alipayToo
             if (MyFragment.fragment != null)
                 MyFragment.fragment.onUpDataUserInfo();
 
-            getUserVip();
         } catch (Exception e) {
             Log.i(TAG, "Error ==== " + e);
         }

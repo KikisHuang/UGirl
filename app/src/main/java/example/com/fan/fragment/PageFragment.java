@@ -536,7 +536,6 @@ public class PageFragment extends BaseFragment implements View.OnClickListener, 
         mImageViewDotList = new ArrayList();
         gdlist = new ArrayList<>();
         blist = new ArrayList<>();
-
         //注册观察者监听网络;
         ListenerManager.getInstance().registerListtener(this);
         mViewPager = (ViewPager) view.findViewById(R.id.vp_main);
@@ -622,8 +621,12 @@ public class PageFragment extends BaseFragment implements View.OnClickListener, 
         MyPagerButtomAdapter adapter1 = new MyPagerButtomAdapter(bottomList, getActivity());
         bottom_page.setAdapter(adapter1);
         bottom_page.setOffscreenPageLimit(bottomList.size());
-
-        bottom_page.setCurrentItem(1);
+        int a = 0;
+        for (int i = 0; i < bottomList.size(); i++) {
+            if (bottomList.get(i).getId() == 1)
+                a = i;
+        }
+        bottom_page.setCurrentItem(a);
 
         //页面改变监听
         bottom_page.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {

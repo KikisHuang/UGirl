@@ -36,6 +36,7 @@ import example.com.fan.bean.MirrorBean;
 import example.com.fan.fragment.son.CommentFragment;
 import example.com.fan.mylistener.CollectListener;
 import example.com.fan.mylistener.PhotoBarListener;
+import example.com.fan.mylistener.TouchCloseListener;
 import example.com.fan.mylistener.editeListener;
 import example.com.fan.utils.AnimationUtil;
 import example.com.fan.utils.DeviceUtils;
@@ -64,7 +65,7 @@ import static example.com.fan.utils.SynUtils.getTAG;
  * Created by lian on 2017/5/5.
  * 照片查看器页面;
  */
-public class PrivatePhotoActivity extends InitActivity implements View.OnClickListener, editeListener, CollectListener, PhotoBarListener {
+public class PrivatePhotoActivity extends InitActivity implements View.OnClickListener, editeListener, CollectListener, PhotoBarListener, TouchCloseListener {
     private static final String TAG = getTAG(PrivatePhotoActivity.class);
     private boolean SCRENNFLAG;
     private BigPhotoViewPager viewPager;
@@ -106,6 +107,9 @@ public class PrivatePhotoActivity extends InitActivity implements View.OnClickLi
     public static CollectListener clistener;
 
     private List<View> CommentView;
+
+    public static TouchCloseListener tlistener;
+    private PayPopupWindow p;
 
     /**
      * 添加弹幕数据;
@@ -356,7 +360,7 @@ public class PrivatePhotoActivity extends InitActivity implements View.OnClickLi
         elistener = this;
         clistener = this;
         slistener = this;
-
+        tlistener = this;
         commentlist = new ArrayList<>();
         CommentView = new ArrayList<>();
         urlList = new ArrayList<>();
@@ -472,7 +476,7 @@ public class PrivatePhotoActivity extends InitActivity implements View.OnClickLi
                             }
 
                         } catch (Exception e) {
-                        Log.e(TAG,"Error ==="+e);
+                            Log.e(TAG, "Error ===" + e);
                         }
                     }
                 });
@@ -723,13 +727,15 @@ public class PrivatePhotoActivity extends InitActivity implements View.OnClickLi
             Log.i(TAG, "popunShow");
         } else {
             Log.i(TAG, "popShow");
-            PayPopupWindow p = new PayPopupWindow(PrivatePhotoActivity.this, String.valueOf(urlList.get(0).getPrice()), id);
+            if (p == null)
+                p = new PayPopupWindow(PrivatePhotoActivity.this, String.valueOf(urlList.get(0).getPrice()), id);
+
             // 一个自定义的布局，作为显示的内容
             View contentView = LayoutInflater.from(PrivatePhotoActivity.this).inflate(R.layout.pay_pp_layout, null);
             int width = DeviceUtils.getWindowWidth(PrivatePhotoActivity.this) * 8 / 10;
             int h = (int) (DeviceUtils.getWindowHeight(PrivatePhotoActivity.this) * 6 / 10);
             pay = new PopupWindow(contentView, width, h);
-            p.ScreenPopupWindow(LayoutInflater.from(PrivatePhotoActivity.this).inflate(R.layout.photo_activity_layout, null), pay, 2, contentView);
+            p.ScreenPopupWindow(LayoutInflater.from(PrivatePhotoActivity.this).inflate(R.layout.photo_activity_layout, null), pay, 0, contentView);
         }
     }
 
@@ -757,13 +763,13 @@ public class PrivatePhotoActivity extends InitActivity implements View.OnClickLi
         HideofShow();
     }
 
-  /*  *//**
+
+    /**
      * 关闭滑动回调方法;
-     *
-     * @param flag
-     *//*
+     */
+
     @Override
     public void CloseOfOpenTouch(boolean flag) {
         viewPager.setScrollble(flag, PrivatePhotoActivity.clistener);
-    }*/
+    }
 }

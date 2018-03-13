@@ -66,6 +66,7 @@ import cn.jpush.android.api.JPushInterface;
 import example.com.fan.MyAppcation;
 import example.com.fan.R;
 import example.com.fan.base.sign.save.SPreferences;
+import example.com.fan.mylistener.NoticeListener;
 import example.com.fan.view.Popup.LoginPopupWindow;
 import example.com.fan.view.Popup.PaytwoPopupWindow;
 import okhttp3.Call;
@@ -73,6 +74,7 @@ import okhttp3.Call;
 import static example.com.fan.base.sign.save.SPreferences.getUserUUID;
 import static example.com.fan.base.sign.save.SPreferences.saveLoginWay;
 import static example.com.fan.base.sign.save.SPreferences.saveUserUUID;
+import static example.com.fan.fragment.StoreFragment.StoreInstance;
 import static example.com.fan.utils.IntentUtils.goPlayerPage;
 import static example.com.fan.utils.JsonUtils.getCode;
 import static example.com.fan.utils.MzFinal.getAPPID;
@@ -84,6 +86,7 @@ import static example.com.fan.utils.MzFinal.getAPPID;
 public class SynUtils {
     private static final String TAG = getTAG(SynUtils.class);
     public static Timer timer;
+    public static Timer Noticetimer;
     private static String[] Sex = {"女", "男"};
     private static final String CHECK_OP_NO_THROW = "checkOpNoThrow";
     private static final String OP_POST_NOTIFICATION = "OP_POST_NOTIFICATION";
@@ -202,7 +205,26 @@ public class SynUtils {
             timer = null;
         }
     }
+    /**
+     * 公告栏隐藏显示定时器;
+     */
+    private static NoticeTask notask;
 
+    public static void NoticeStart(NoticeListener listener) {
+
+        if (Noticetimer != null) {
+            Noticetimer.cancel();
+        }
+        Noticetimer = new Timer();
+        Noticetimer.schedule(notask = new NoticeTask(listener), 1000, 1000);
+    }
+    public static void NoticeStop() {
+        if (Noticetimer != null && notask != null) {
+            Noticetimer.cancel();
+            notask = null;
+            Noticetimer = null;
+        }
+    }
 
     public static Object getSex(Object object) {
         if (object instanceof Integer) {
@@ -254,6 +276,8 @@ public class SynUtils {
                                 int code = getCode(response);
                                 if (code == 1) {
                                     MyAppcation.VipFlag = true;
+                                    if (StoreInstance() != null)
+                                        StoreInstance().CheckJurisdiction();
                                 }
                                 if (code == 0)
                                     MyAppcation.VipFlag = false;

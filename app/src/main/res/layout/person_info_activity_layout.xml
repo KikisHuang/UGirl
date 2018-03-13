@@ -230,6 +230,22 @@
                     android:textSize="13dp" />
 
             </LinearLayout>-->
+            <example.com.fan.view.RippleView
+                android:id="@+id/wx_bt"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:background="@drawable/green_bt_normal"
+                android:gravity="center"
+                android:textSize="13sp"
+                android:text="联系微信客服发货"
+                android:textColor="@color/white"
+                ripple:alphaFactor="0.5"
+                ripple:hover="false"
+                ripple:rippleColor="@color/white" />
 
             <example.com.fan.view.RippleView
                 android:id="@+id/submit_info"
@@ -237,14 +253,17 @@
                 android:layout_height="50dp"
                 android:layout_marginLeft="15dp"
                 android:layout_marginRight="15dp"
-                android:layout_marginTop="10dp"
                 android:background="@drawable/green_bt_normal"
                 android:gravity="center"
                 android:text="完成"
                 android:textColor="@color/white"
                 ripple:alphaFactor="0.5"
                 ripple:hover="false"
+                android:textSize="13sp"
                 ripple:rippleColor="@color/white" />
+
+
+
         </LinearLayout>
 
     </ScrollView>

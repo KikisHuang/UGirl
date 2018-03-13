@@ -67,7 +67,7 @@
         android:supportsRtl="true"
         android:theme="@style/ThemeNoActionBar">
 
-        <!-- 主页面 -->
+        <!-- 主页面  -->
         <activity
             android:name="example.com.fan.activity.MainActivity"
             android:launchMode="singleTask"

@@ -12,13 +12,22 @@
         android:layout_width="match_parent"
         android:layout_height="50dp"></include>
 
-    <LinearLayout
-        android:id="@+id/main_ll"
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@+id/bottom_menu"
         android:layout_below="@+id/title"
-        android:orientation="vertical"></LinearLayout>
+        >
+        <FrameLayout
+            android:id="@+id/main_ll"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+           >
+        </FrameLayout>
+        <include
+            android:id="@+id/notice_layout"
+            layout="@layout/notice_layout_include"></include>
+    </FrameLayout>
 
     <LinearLayout
         android:id="@+id/bottom_menu"
@@ -26,8 +35,8 @@
         android:layout_height="50dp"
         android:layout_alignParentBottom="true"
         android:background="@color/white"
-        android:padding="3dp"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:padding="3dp">
         <!--
                 <TextView
                     android:id="@+id/page_img"

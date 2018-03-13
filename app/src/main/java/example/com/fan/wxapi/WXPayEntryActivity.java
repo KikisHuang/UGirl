@@ -21,7 +21,6 @@ import example.com.fan.fragment.son.PictureSlideFragment2;
 import example.com.fan.utils.MzFinal;
 import example.com.fan.utils.ToastUtil;
 
-import static example.com.fan.fragment.StoreFragment.StoreInstance;
 import static example.com.fan.utils.SynUtils.getTAG;
 import static example.com.fan.utils.SynUtils.getUserVip;
 
@@ -71,9 +70,6 @@ public class WXPayEntryActivity extends Activity implements IWXAPIEventHandler {
 
                     if (MyFragment.fragment != null)
                         MyFragment.fragment.onUpDataUserInfo();
-
-                    if (StoreInstance() != null)
-                        StoreInstance().CheckJurisdiction();
 
                 } catch (Exception e) {
                     Log.i(TAG, "Error ==== " + e);

@@ -23,6 +23,7 @@ import android.widget.TextView;
 import com.balysv.materialmenu.MaterialMenuDrawable;
 import com.balysv.materialmenu.MaterialMenuView;
 import com.google.gson.Gson;
+import com.sunfusheng.marqueeview.MarqueeView;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
 
@@ -41,11 +42,13 @@ import example.com.fan.fragment.PageFragment;
 import example.com.fan.fragment.PrivateFragment;
 import example.com.fan.fragment.StoreFragment;
 import example.com.fan.fragment.VRFragment;
+import example.com.fan.mylistener.NoticeListener;
 import example.com.fan.mylistener.PushRefreshListener;
 import example.com.fan.receiver.MyNetworkReceiver;
 import example.com.fan.server.MyJobService;
 import example.com.fan.utils.AnimationUtil;
 import example.com.fan.utils.MzFinal;
+import example.com.fan.utils.NoticeTask;
 import example.com.fan.utils.SynUtils;
 import example.com.fan.utils.TitleUtils;
 import example.com.fan.utils.ToastUtil;
@@ -62,6 +65,8 @@ import static example.com.fan.utils.JsonUtils.getCode;
 import static example.com.fan.utils.JsonUtils.getJsonOb;
 import static example.com.fan.utils.SynUtils.Login;
 import static example.com.fan.utils.SynUtils.LoginStatusQuery;
+import static example.com.fan.utils.SynUtils.NoticeStart;
+import static example.com.fan.utils.SynUtils.NoticeStop;
 import static example.com.fan.utils.SynUtils.getRouColors;
 import static example.com.fan.utils.SynUtils.getRouString;
 import static example.com.fan.utils.SynUtils.getTAG;
@@ -73,8 +78,9 @@ import static example.com.fan.view.dialog.PhotoProgress.LoadingCancle;
  * Created by lian on 2017/5/15.
  * Activity主页面;
  */
-public class MainActivity extends BaseActivity implements View.OnClickListener, PushRefreshListener {
+public class MainActivity extends BaseActivity implements View.OnClickListener, PushRefreshListener, MarqueeView.OnItemClickListener, NoticeListener {
     private static final String TAG = getTAG(MainActivity.class);
+
     private PageFragment pageFragment = null;
     private PrivateFragment twoFragment = null;
     private VRFragment threeFragment = null;
@@ -94,6 +100,10 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
     private MyNetworkReceiver receiver;
     public static PushRefreshListener listener;
     public static MaterialMenuView materialMenuView;
+    public FrameLayout notice_layout;
+    private TextView marqueeView;
+
+
     /**
      * JPush;
      */
@@ -237,6 +247,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
         ft = fm.beginTransaction();
         setSelected(page_img);
         one();
+        HideOfShowNotice(false);
     }
 
     public void init() {
@@ -250,6 +261,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
         search_img = f(R.id.search_img);
         findViewById(R.id.back_img).setVisibility(View.INVISIBLE);
         main_rl = f(R.id.main_rl);
+        notice_layout = f(R.id.notice_layout);
+        marqueeView = f(R.id.simpleMarqueeView);
 
         imglist.add(page_img = f(R.id.page_img));
         imglist.add(two_img = f(R.id.two_img));
@@ -407,6 +420,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
      * 页面切换实物提交;
      */
     private void one() {
+
         ObjectAnimator anima = ShakeAnima(img1);
         anima.start();
         // 提交事务
@@ -486,11 +500,39 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
     }
 
     @Override
+    public void onStart() {
+        super.onStart();
+//        marqueeView.startFlipping();
+    }
+
+    @Override
     protected void onResume() {
         super.onResume();
         isForeground = true;
+//        NoticeInit();
+        NoticeStart(this);
         Log.i(TAG, "Main onResume");
+
 //        GlideCacheUtil.clearImageAllCache(this);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        Log.i(TAG, "Main onStop");
+        NoticeStop();
+        NoticeTask.open = false;
+        HideOfShowNotice(false);
+//        marqueeView.stopFlipping();
+    }
+
+    /**
+     * 公告栏数据初始化;
+     */
+    private void NoticeInit() {
+//      final List<String> datas = MzFinal.getRandownName();
+//      marqueeView.setText(MzFinal.getRandownName());
+//      marqueeView.startWithList(datas);
     }
 
     @Override
@@ -498,6 +540,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
         super.onPause();
         isForeground = false;
         Log.i(TAG, "onPauser");
+
     }
 
     @Override
@@ -546,4 +589,29 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
             Login(this);
     }
 
+    public void HideOfShowNotice(final boolean f) {
+        notice_layout.post(new Runnable() {
+            @Override
+            public void run() {
+                marqueeView.setText(MzFinal.getRandownName());
+                notice_layout.setVisibility(!f ? View.GONE : View.VISIBLE);
+            }
+        });
+
+    }
+
+
+    @Override
+    public void onNoticeMsg(boolean b) {
+        NoticeTask.open = b;
+        HideOfShowNotice(b);
+    }
+
+    /**
+     * 通知栏点击事件处理;
+     */
+    @Override
+    public void onItemClick(int position, TextView textView) {
+
+    }
 }

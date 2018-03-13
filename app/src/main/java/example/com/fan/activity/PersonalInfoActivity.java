@@ -30,6 +30,7 @@ import example.com.fan.fragment.MyFragment;
 import example.com.fan.utils.JsonUtils;
 import example.com.fan.utils.MzFinal;
 import example.com.fan.utils.ToastUtil;
+import example.com.fan.view.Popup.ServerPopupWindow;
 import example.com.fan.view.RippleView;
 import example.com.fan.view.dialog.ActionSheetDialog;
 import okhttp3.Call;
@@ -53,7 +54,7 @@ public class PersonalInfoActivity extends InitActivity implements View.OnClickLi
     private EditText info_name, phone_tv, wx_tv/*, invite_tv*/;
     private ImageView clear_img, sex_icon, user_icon;
     private TextView info_sex, address_tv;
-    private RippleView submit_info;
+    private RippleView submit_info,wx_bt;
     private String receiveSex, receiveName, receiveAdd, addressPhone, wechat;
 //    private LinearLayout invite_ll;
 
@@ -119,6 +120,7 @@ public class PersonalInfoActivity extends InitActivity implements View.OnClickLi
         submit_info.setOnClickListener(this);
         user_icon.setOnClickListener(this);
         clear_img.setOnClickListener(this);
+        wx_bt.setOnClickListener(this);
     }
 
     @Override
@@ -135,6 +137,7 @@ public class PersonalInfoActivity extends InitActivity implements View.OnClickLi
         sex_icon = f(R.id.sex_icon);
         info_name = f(R.id.info_name);
         phone_tv = f(R.id.phone_tv);
+        wx_bt = f(R.id.wx_bt);
         wx_tv = f(R.id.wx_tv);
         //第一次进入不弹出软键盘;
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
@@ -252,6 +255,10 @@ public class PersonalInfoActivity extends InitActivity implements View.OnClickLi
                 } else
                     ChangeUserInfo(add, sex, name, addphone, wx);
 
+                break;
+            case R.id.wx_bt:
+                ServerPopupWindow sp = new ServerPopupWindow(this);
+                sp.ScreenPopupWindow();
                 break;
         }
     }

@@ -2,6 +2,7 @@ package example.com.fan.view.dialog;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -90,6 +91,11 @@ public class AlertDialog {
 
     public AlertDialog setCancelable(boolean cancel) {
         dialog.setCancelable(cancel);
+        return this;
+    }
+
+    public AlertDialog onCanceListener(DialogInterface.OnCancelListener listener) {
+        dialog.setOnCancelListener(listener);
         return this;
     }
 

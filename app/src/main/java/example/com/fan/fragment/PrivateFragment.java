@@ -79,7 +79,8 @@ public class PrivateFragment extends BaseFragment implements OverallRefreshListe
 
                     @Override
                     public void onResponse(String response, int id) {
-                        try { int code = getCode(response);
+                        try {
+                            int code = getCode(response);
                             if (code == 1) {
                                 list.clear();
                                 JSONArray ar = getJsonAr(response);
@@ -113,8 +114,10 @@ public class PrivateFragment extends BaseFragment implements OverallRefreshListe
     protected void click() {
 
     }
+
     @Override
     public void init() {
+
         //初始化标题;
         onDownTouchListener(1, getResources().getString(R.string.private_photo));
         list = new ArrayList<>();
@@ -143,6 +146,7 @@ public class PrivateFragment extends BaseFragment implements OverallRefreshListe
         super.onDestroy();
         ListenerManager.getInstance().unRegisterListener(this);
     }
+
     @Override
     public void notifyAllActivity(boolean net) {
         if (net)

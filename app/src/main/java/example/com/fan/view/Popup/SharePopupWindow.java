@@ -46,7 +46,7 @@ public class SharePopupWindow implements ShareListener, View.OnClickListener, Sh
     private PopupWindow popupWindow;
     private LinearLayout qq_layout, wx_layout, find_layout;
     private String ShareUrl = "";
-    private ImageView wechat_img, qq_img,friend;
+    private ImageView wechat_img, qq_img, friend;
 
     public SharePopupWindow(Context mContext, String myInvitationCode) {
         this.myInvitationCode = myInvitationCode;
@@ -178,28 +178,28 @@ public class SharePopupWindow implements ShareListener, View.OnClickListener, Sh
 
     @Override
     public void onClick(View v) {
-            switch (v.getId()) {
-                case R.id.friend:
-                    ShareUtils.getSystemShare(mContext, "");
-                    break;
-                case R.id.qq_img:
-                    ShareUtils.getSystemShare(mContext, "");
-                    break;
-                case R.id.wechat_img:
-                    ShareUtils.getSystemShare(mContext, "");
-                    break;
-                case R.id.qq_layout:
+        switch (v.getId()) {
+            case R.id.friend:
+                ShareUtils.getSystemShare(mContext, "");
+                break;
+            case R.id.qq_img:
+                ShareUtils.getSystemShare(mContext, "");
+                break;
+            case R.id.wechat_img:
+                ShareUtils.getSystemShare(mContext, "");
+                break;
+            case R.id.qq_layout:
 //                    share(SHARE_MEDIA.QQ);
-                    ShareUtils.getSystemShare(mContext, "");
-                    break;
-                case R.id.wx_layout:
-                    ShareUtils.getSystemShare(mContext, "");
-                    break;
-                case R.id.find_layout:
+                ShareUtils.getSystemShare(mContext, "");
+                break;
+            case R.id.wx_layout:
+                ShareUtils.getSystemShare(mContext, "");
+                break;
+            case R.id.find_layout:
 //                    share(SHARE_MEDIA.WEIXIN_CIRCLE);
-                    ShareUtils.getSystemShare(mContext, "");
-                    break;
-            }
+                ShareUtils.getSystemShare(mContext, "");
+                break;
+        }
     }
 
     private void share(SHARE_MEDIA md) {
@@ -221,13 +221,14 @@ public class SharePopupWindow implements ShareListener, View.OnClickListener, Sh
     public void onQRCode(Bitmap bm) {
         if (bm != null) {
             bitmap = bm;
-            code_img.setImageBitmap(bitmap);
+            if (code_img != null)
+                code_img.setImageBitmap(bitmap);
         }
     }
 
     @Override
     public void onError(Exception e) {
-        if(MyAppcation.crashHandler!=null)
-        MyAppcation.crashHandler.uncaughtException(new Thread(), e);
+        if (MyAppcation.crashHandler != null)
+            MyAppcation.crashHandler.uncaughtException(new Thread(), e);
     }
 }

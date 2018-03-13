@@ -1,11 +1,13 @@
 package example.com.fan.view;
 
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.drawable.ColorDrawable;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
@@ -40,6 +42,7 @@ public class FakePopupWindow implements View.OnClickListener {
             this.v = vv;
             view = LayoutInflater.from(context).inflate(R.layout.pay_two_pp_layout, null);
             init();
+            backgroundAlpha(0.7f, context);
             click();
             int width = DeviceUtils.getWindowWidth(context) * 7 / 10;
             popupWindow = new PopupWindow(view, width, ViewGroup.LayoutParams.WRAP_CONTENT);
@@ -52,6 +55,7 @@ public class FakePopupWindow implements View.OnClickListener {
             popupWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
                 @Override
                 public void onDismiss() {
+                    backgroundAlpha(1.0f, context);
                     popupWindow.dismiss();
                     popupWindow = null;
                     v = null;
@@ -75,6 +79,17 @@ public class FakePopupWindow implements View.OnClickListener {
         pay_tv = (TextView) view.findViewById(R.id.pay_tv);
         cancle_tv = (TextView) view.findViewById(R.id.cancle_tv);
         info_tv.setText(title);
+    }
+    /**
+     * 设置添加屏幕的背景透明度
+     *
+     * @param bgAlpha
+     * @param mContext
+     */
+    public void backgroundAlpha(float bgAlpha, Context mContext) {
+        WindowManager.LayoutParams lp = ((Activity) mContext).getWindow().getAttributes();
+        lp.alpha = bgAlpha; //0.0-1.0
+        ((Activity) mContext).getWindow().setAttributes(lp);
     }
 
     @Override

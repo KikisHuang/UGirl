@@ -3,6 +3,7 @@ package example.com.fan.view.Popup;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.drawable.ColorDrawable;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -29,6 +30,8 @@ import okhttp3.Call;
 
 import static example.com.fan.utils.JsonUtils.getCode;
 import static example.com.fan.utils.JsonUtils.getJsonSring;
+import static example.com.fan.utils.SynUtils.Login;
+import static example.com.fan.utils.SynUtils.LoginStatusQuery;
 import static example.com.fan.utils.SynUtils.getTAG;
 
 
@@ -70,10 +73,14 @@ public class InterceptPopupWindow implements View.OnClickListener {
             popupWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
                 @Override
                 public void onDismiss() {
-                    backgroundAlpha(1.0f, context);
                     if (MyAppcation.VipFlag) {
+                        backgroundAlpha(1.0f, context);
                         popupWindow.dismiss();
                         popupWindow = null;
+                        price_tv = null;
+                        pay_bt = null;
+                        view = null;
+                        aw = null;
                         v = null;
                     }
                 }
@@ -85,8 +92,14 @@ public class InterceptPopupWindow implements View.OnClickListener {
 
     public void onMyDismiss() {
         if (popupWindow != null) {
+            Log.i(TAG,"onMyDismiss");
+            backgroundAlpha(1.0f, context);
             popupWindow.dismiss();
             popupWindow = null;
+            price_tv = null;
+            pay_bt = null;
+            view = null;
+            aw = null;
             v = null;
         }
     }
@@ -153,9 +166,11 @@ public class InterceptPopupWindow implements View.OnClickListener {
         switch (v.getId()) {
             case R.id.pay_bt:
                 if (!payid.isEmpty()) {
-//                    onMyDismiss();
-                    aw = new AliWechatPopupWindow(context, new String[]{MzFinal.ALIPAYVIP, MzFinal.WXPAYVIP});
-                    aw.ScreenPopupWindow(LayoutInflater.from(context).inflate(R.layout.store_fragment2, null), payid);
+                    if (LoginStatusQuery()) {
+                        aw = new AliWechatPopupWindow(context, new String[]{MzFinal.ALIPAYVIP, MzFinal.WXPAYVIP});
+                        aw.ScreenPopupWindow(LayoutInflater.from(context).inflate(R.layout.store_fragment2, null), payid);
+                    } else
+                        Login(context);
                 }
 
                 break;

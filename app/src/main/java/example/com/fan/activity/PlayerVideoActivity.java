@@ -12,6 +12,7 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -41,13 +42,12 @@ import example.com.fan.utils.DeviceUtils;
 import example.com.fan.utils.MzFinal;
 import example.com.fan.utils.ToastUtil;
 import example.com.fan.view.Popup.CommentEditPopupWindow;
+import example.com.fan.view.Popup.PayPopupWindow;
 import example.com.fan.view.Popup.PaytwoPopupWindow;
-import example.com.fan.view.dialog.AlertDialog;
 import okhttp3.Call;
 
 import static example.com.fan.utils.GlideImgUtils.getRequestOptions;
 import static example.com.fan.utils.IntentUtils.goHomePage;
-import static example.com.fan.utils.IntentUtils.goPayPage;
 import static example.com.fan.utils.JsonUtils.getCode;
 import static example.com.fan.utils.JsonUtils.getJsonAr;
 import static example.com.fan.utils.JsonUtils.getJsonInt;
@@ -239,9 +239,18 @@ public class PlayerVideoActivity extends AppCompatActivity implements View.OnCli
                                                 getAccredit(vb.getMcPublishVideoUrls().get(0).getPath(), MzFinal.VIDEOAUTHENTICATION, vb.getMcSettingPublishType().getTypeFlag());
                                             else {
 
-                                                new AlertDialog(PlayerVideoActivity.this).builder().setTitle("提示").setCancelable(false).setMsg("成为会员才能看哦，更多精彩细节等着你!\n\n").setNegativeButton("下次再说", new View.OnClickListener() {
+                                                PayPopupWindow   p = new PayPopupWindow(PlayerVideoActivity.this, "", "");
+
+                                                // 一个自定义的布局，作为显示的内容
+                                                View contentView = LayoutInflater.from(PlayerVideoActivity.this).inflate(R.layout.pay_pp_layout, null);
+                                                int width = DeviceUtils.getWindowWidth(PlayerVideoActivity.this) * 8 / 10;
+                                                int h = (int) (DeviceUtils.getWindowHeight(PlayerVideoActivity.this)) * 6 / 10;
+                                                PopupWindow pay = new PopupWindow(contentView, width, h);
+                                                p.ScreenPopupWindow(LayoutInflater.from(PlayerVideoActivity.this).inflate(R.layout.photo_activity_layout, null), pay, -1, contentView);
+
+                                                /*new AlertDialog(PlayerVideoActivity.this).builder().setTitle("提示").setCancelable(true).setMsg("成为会员才能看哦，更多精彩细节等着你!\n\n").onCanceListener(new DialogInterface.OnCancelListener() {
                                                     @Override
-                                                    public void onClick(View v) {
+                                                    public void onCancel(DialogInterface dialog) {
                                                         finish();
                                                     }
                                                 }).setPositiveButton("成为会员", new View.OnClickListener() {
@@ -251,7 +260,7 @@ public class PlayerVideoActivity extends AppCompatActivity implements View.OnCli
                                                         goPayPage(PlayerVideoActivity.this);
                                                         finish();
                                                     }
-                                                }).show();
+                                                }).show();*/
                                             }
                                         } else {
                                             //设置标题;

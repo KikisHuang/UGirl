@@ -52,7 +52,8 @@ public class MyAppcation extends MultiDexApplication {
     @Override
     public void onCreate() {
         super.onCreate();
-//        refWatcher = LeakCanary.install(this);
+
+//      refWatcher = LeakCanary.install(this);
         /**
          * 全局异常捕获方法;
          */
@@ -65,8 +66,7 @@ public class MyAppcation extends MultiDexApplication {
         Log.i(TAG, "pk ===========" + pkName);
         OkHttpInit();
         JpushInit(this);
-//        SophixInit();
-
+//      SophixInit();
         CHANNEL = AnalyticsConfig.getChannel(getApplicationContext());
 
         Log.i(TAG, "CHANNEL ====" + CHANNEL);

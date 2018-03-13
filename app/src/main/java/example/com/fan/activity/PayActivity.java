@@ -29,8 +29,10 @@ import example.com.fan.bean.McVipDescribes;
 import example.com.fan.bean.PayBean;
 import example.com.fan.bean.PayDetailBean;
 import example.com.fan.bean.UserInfoBean;
+import example.com.fan.bean.VersionBean;
 import example.com.fan.bean.VirtualBean;
 import example.com.fan.mylistener.PayRefreshListener;
+import example.com.fan.mylistener.VersionCheckListener;
 import example.com.fan.utils.DeviceUtils;
 import example.com.fan.utils.MzFinal;
 import example.com.fan.utils.TitleUtils;
@@ -48,11 +50,12 @@ import static example.com.fan.utils.JsonUtils.getJsonSring;
 import static example.com.fan.utils.SynUtils.getRouColors;
 import static example.com.fan.utils.SynUtils.getSex;
 import static example.com.fan.utils.SynUtils.getTAG;
+import static example.com.fan.utils.getVersionUtils.getVersionInfo;
 
 /**
  * Created by lian on 2017/6/10.
  */
-public class PayActivity extends InitActivity implements PayRefreshListener {
+public class PayActivity extends InitActivity implements PayRefreshListener, View.OnClickListener, VersionCheckListener {
     private static final String TAG = getTAG(PayActivity.class);
     //布局list;
     private List<PayDetailBean> dlist;
@@ -61,13 +64,16 @@ public class PayActivity extends InitActivity implements PayRefreshListener {
     private AliWechatPopupWindow aw;
     public static PayRefreshListener paylistener;
     private List<UserInfoBean> info;
+    private String wx = "";
 
     @Override
     protected void click() {
-
     }
 
     private void getData() {
+
+        getVersionInfo(getApplicationContext(), this);
+
         /**
          * 获取个人信息;
          */
@@ -378,5 +384,19 @@ public class PayActivity extends InitActivity implements PayRefreshListener {
                 finish();
             }
         }).show();
+    }
+
+    @Override
+    public void onClick(View v) {
+    }
+
+    @Override
+    public void onVersion(VersionBean vb) {
+        wx = vb.getKfWx();
+    }
+
+    @Override
+    public void onFail() {
+
     }
 }

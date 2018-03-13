@@ -12,6 +12,7 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.PopupWindow;
 
 import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
@@ -47,6 +48,7 @@ import example.com.fan.utils.homeViewPageUtils;
 import example.com.fan.view.FakePopupWindow;
 import example.com.fan.view.ListViewScrollListener;
 import example.com.fan.view.Popup.InterceptPopupWindow;
+import example.com.fan.view.Popup.PayPopupWindow;
 import example.com.fan.view.ViewPagerScroller;
 import okhttp3.Call;
 
@@ -102,6 +104,8 @@ public class StoreFragment extends BaseFragment implements PositionAddListener, 
     private LinearLayout private_type_layout;
     private InterceptPopupWindow intercept;
     private static StoreFragment fragment;
+    private PayPopupWindow p;
+    private PopupWindow pay;
 
     @Override
     protected int initContentView() {
@@ -141,14 +145,19 @@ public class StoreFragment extends BaseFragment implements PositionAddListener, 
         dot = (LinearLayout) top.findViewById(R.id.ll_dot);
         mImageViewList = new ArrayList<>();
         mImageViewDotList = new ArrayList();
-        CheckJurisdiction();
+//        CheckJurisdiction();
 
         handInit();
     }
 
+    /**
+     * 拦截页面;
+     */
     public void CheckJurisdiction() {
         if (!MyAppcation.VipFlag) {
-            intercept = new InterceptPopupWindow(getActivity());
+            if (intercept == null)
+                intercept = new InterceptPopupWindow(getActivity());
+
             intercept.ScreenPopupWindow(view);
         } else {
             if (intercept != null)
@@ -226,9 +235,7 @@ public class StoreFragment extends BaseFragment implements PositionAddListener, 
             @Override
             public void onClick(View v) {
                 if (LoginStatusQuery()) {
-                    if (MyAppcation.VipFlag) {
-                        getJurisdiction(ptb.getId(), ptb.getTypeName());
-                    }
+                    getJurisdiction(ptb.getId(), ptb.getTypeName());
                 } else
                     Login(getActivity());
             }
@@ -461,7 +468,7 @@ public class StoreFragment extends BaseFragment implements PositionAddListener, 
             polistener = this;
             startPlay(handler, mViewPager, 4);
             Log.i(TAG, "onResume");
-            CheckJurisdiction();
+//            CheckJurisdiction();
         } else {
             stopPlay();
             if (intercept != null)
@@ -512,7 +519,21 @@ public class StoreFragment extends BaseFragment implements PositionAddListener, 
                 break;
             case -3:
                 if (LoginStatusQuery()) {
-                    PrivateVideoCheckPay(getActivity(), listView, id, String.valueOf(rlist.get(pos).getPrice()));
+                    if (MyAppcation.VipFlag)
+                        PrivateVideoCheckPay(getActivity(), listView, id, String.valueOf(rlist.get(pos).getPrice()));
+                    else {
+                        if (p == null)
+                            p = new PayPopupWindow(getActivity(), "", id);
+
+                        // 一个自定义的布局，作为显示的内容
+                        View contentView = LayoutInflater.from(getActivity()).inflate(R.layout.pay_pp_layout, null);
+                        int width = DeviceUtils.getWindowWidth(getActivity()) * 8 / 10;
+                        int h = (int) (DeviceUtils.getWindowHeight(getActivity()) * 6 / 10);
+                        pay = new PopupWindow(contentView, width, h);
+                        p.ScreenPopupWindow(LayoutInflater.from(getActivity()).inflate(R.layout.activity_main, null), pay, 0, contentView);
+
+                    }
+
                 } else
                     Login(getActivity());
                 break;

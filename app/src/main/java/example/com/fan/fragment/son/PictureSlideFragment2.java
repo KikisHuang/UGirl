@@ -21,6 +21,7 @@ import com.bumptech.glide.request.target.Target;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
 
+import example.com.fan.MyAppcation;
 import example.com.fan.R;
 import example.com.fan.activity.PrivatePhotoActivity;
 import example.com.fan.base.sign.save.SPreferences;
@@ -73,10 +74,13 @@ public class PictureSlideFragment2 extends BaseFragment implements PayRefreshLis
      */
     public static PictureSlideFragment2 newInstance(String path, String base, boolean needMoney, String id, String price, int size) {
 
-//        if (!MzFinal.isPay && needMoney) {
-//            if (PrivatePhotoActivity.tlistener != null)
-//                PrivatePhotoActivity.tlistener.CloseOfOpenTouch(false);
-//        }
+        if (!MzFinal.isPay && needMoney && !MyAppcation.VipFlag) {
+            if (PrivatePhotoActivity.tlistener != null)
+                PrivatePhotoActivity.tlistener.CloseOfOpenTouch(false);
+        } else {
+            if (PrivatePhotoActivity.tlistener != null)
+                PrivatePhotoActivity.tlistener.CloseOfOpenTouch(true);
+        }
 
         PictureSlideFragment2 f = new PictureSlideFragment2();
         Bundle args = new Bundle();
@@ -154,11 +158,16 @@ public class PictureSlideFragment2 extends BaseFragment implements PayRefreshLis
                                     ReadImg(getJsonSring(response));
                                     Log.i(TAG, "Pay path == " + getJsonSring(response));
                                     buy_layout.setVisibility(View.GONE);
-                                } else if (code == 0) {
 
-                                    buy_title.setText("查看全部内容共（" + size + "）张");
-                                    buy_bt.setText(price + "尤币");
-                                    buy_layout.setVisibility(View.VISIBLE);
+                                    if (PrivatePhotoActivity.tlistener != null)
+                                        PrivatePhotoActivity.tlistener.CloseOfOpenTouch(true);
+
+                                } else if (code == 0) {
+                                    if (PrivatePhotoActivity.tlistener != null)
+                                        PrivatePhotoActivity.tlistener.CloseOfOpenTouch(false);
+//                                    buy_title.setText("查看全部内容共（" + size + "）张");
+//                                    buy_bt.setText(price + "尤币");
+//                                    buy_layout.setVisibility(View.VISIBLE);
                                     ReadImg(base);
                                     Log.i(TAG, "base path == " + base);
 
@@ -171,8 +180,8 @@ public class PictureSlideFragment2 extends BaseFragment implements PayRefreshLis
                     });
 
         } else {
-            /*if (PrivatePhotoActivity.tlistener != null)
-                PrivatePhotoActivity.tlistener.CloseOfOpenTouch(true);*/
+            if (PrivatePhotoActivity.tlistener != null)
+                PrivatePhotoActivity.tlistener.CloseOfOpenTouch(true);
             ReadImg(url);
         }
     }

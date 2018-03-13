@@ -58,7 +58,8 @@ public class ToastUtil {
             return;
         }
         if (str.isEmpty()) {
-            str = "错误";
+//            str = "错误";
+            return;
         }
         Toast ts = Toast.makeText(context, str, 3000);
         ts.show();

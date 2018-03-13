@@ -1,5 +1,6 @@
 package example.com.fan.activity;
 
+import android.content.DialogInterface;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
 import android.text.TextUtils;
@@ -171,7 +172,7 @@ public class PlayerActivity extends InitActivity implements UVPlayerCallBack, Pl
                                 video_title.setText(vb.getName());
                                 player_number.setText("已播放" + vb.getSeeCount() + "次");
                                 try {
-                                    Glide.with(PlayerActivity.this).load(vb.getJoinUser().getHeadImgUrl()).apply(getRequestOptions(true, 150, 150,true)).into(video_icon);
+                                    Glide.with(PlayerActivity.this).load(vb.getJoinUser().getHeadImgUrl()).apply(getRequestOptions(true, 150, 150, true)).into(video_icon);
                                 } catch (Exception e) {
                                     Log.i(TAG, "Glide You cannot start a load for a destroyed activity");
                                 }
@@ -181,12 +182,12 @@ public class PlayerActivity extends InitActivity implements UVPlayerCallBack, Pl
                                         if (MyAppcation.VipFlag)
                                             getAccredit(vb.getMcPublishVideoUrls().get(0).getPath());
                                         else {
-                                            new AlertDialog(PlayerActivity.this).builder().setTitle("提示").setCancelable(false).setMsg("成为会员才能看哦，更多精彩细节等着你!").setNegativeButton("下次再说", new View.OnClickListener() {
+                                            new AlertDialog(PlayerActivity.this).builder().setTitle("提示").setCancelable(true).setMsg("成为会员才能看哦，更多精彩细节等着你!\n\n").onCanceListener(new DialogInterface.OnCancelListener() {
                                                 @Override
-                                                public void onClick(View v) {
+                                                public void onCancel(DialogInterface dialog) {
                                                     finish();
                                                 }
-                                            }).setPositiveButton("成为会员", new View.OnClickListener() {
+                                            }).setMsg("成为会员才能看哦，更多精彩细节等着你!").setPositiveButton("成为会员", new View.OnClickListener() {
                                                 @Override
                                                 public void onClick(View v) {
 
@@ -211,13 +212,13 @@ public class PlayerActivity extends InitActivity implements UVPlayerCallBack, Pl
                                     options.bitmapTransform(new BlurTransformation(PlayerActivity.this, 25));
 
                                     RequestOptions options1 = new RequestOptions();
-                                    options1.bitmapTransform(new BlurTransformation(PlayerActivity.this, 25)).centerCrop().override(250,250);
+                                    options1.bitmapTransform(new BlurTransformation(PlayerActivity.this, 25)).centerCrop().override(250, 250);
 
                                     Glide.with(getApplicationContext()).load(vb.getCoverPath()).apply(options).into(cover_img);
                                     Glide.with(getApplicationContext()).load(vb.getJoinUser().getHeadImgUrl()).apply(options1).into(cover_img);
-                                    Glide.with(getApplicationContext()).load(vb.getCoverPath()).apply(getRequestOptions(false, 350, 350,false)).into(panorama_img);
-                                    Glide.with(getApplicationContext()).load(vb.getCoverPath()).apply(getRequestOptions(true, 350, 350,false)).into(glasses_img1);
-                                    Glide.with(getApplicationContext()).load(vb.getCoverPath()).apply(getRequestOptions(true, 350, 350,false)).into(glasses_img2);
+                                    Glide.with(getApplicationContext()).load(vb.getCoverPath()).apply(getRequestOptions(false, 350, 350, false)).into(panorama_img);
+                                    Glide.with(getApplicationContext()).load(vb.getCoverPath()).apply(getRequestOptions(true, 350, 350, false)).into(glasses_img1);
+                                    Glide.with(getApplicationContext()).load(vb.getCoverPath()).apply(getRequestOptions(true, 350, 350, false)).into(glasses_img2);
                                 } catch (Exception e) {
                                     Log.i(TAG, "Glide You cannot start a load for a destroyed activity");
                                 }
@@ -377,7 +378,7 @@ public class PlayerActivity extends InitActivity implements UVPlayerCallBack, Pl
         lp1.rightMargin = DeviceUtils.dip2px(this, 5);
         ImageView im = new ImageView(this);
         try {
-            Glide.with(getApplicationContext()).load(rb.getCoverPath()).apply(getRequestOptions(true, 600, 360,false)).into(im);
+            Glide.with(getApplicationContext()).load(rb.getCoverPath()).apply(getRequestOptions(true, 600, 360, false)).into(im);
         } catch (Exception e) {
             Log.i(TAG, "Glide You cannot start a load for a destroyed activity");
         }
@@ -472,6 +473,7 @@ public class PlayerActivity extends InitActivity implements UVPlayerCallBack, Pl
         releasePlayer();
         super.onDestroy();
     }
+
     @Override
     public boolean onKeyUp(int keyCode, KeyEvent event) {
 
@@ -854,7 +856,7 @@ public class PlayerActivity extends InitActivity implements UVPlayerCallBack, Pl
             case R.id.share_fl:
                 if (!userId.isEmpty())
 //                    getSystemShare(PlayerActivity.this,vb.getId());
-                    getSystemShare(PlayerActivity.this,"");
+                    getSystemShare(PlayerActivity.this, "");
                 break;
             case R.id.video_tool_imgFullscreen:
                 if (mCtrl != null) {

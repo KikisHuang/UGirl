@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="5dp">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="20dp"
+        android:layout_gravity="left|bottom"
+        android:background="@drawable/notice_corners"
+        android:orientation="horizontal"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp">
+
+        <ImageView
+            android:layout_width="13dp"
+            android:layout_height="match_parent"
+            android:src="@mipmap/notice_icon" />
+
+        <TextView
+            android:id="@+id/simpleMarqueeView"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="充值了200"
+            android:paddingLeft="5dp"
+            android:textColor="@color/white"
+            android:textSize="10sp" />
+        <!--    <com.sunfusheng.marqueeview.MarqueeView
+                android:id="@+id/simpleMarqueeView"
+                app:mvAnimDuration="5500"
+                app:mvInterval="6000"
+                app:mvTextColor="@color/white"
+                app:mvGravity="center"
+                app:mvTextSize="10sp"
+                app:mvDirection="right_to_left"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"></com.sunfusheng.marqueeview.MarqueeView>-->
+    </LinearLayout>
+</FrameLayout>

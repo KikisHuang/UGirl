@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:ripple="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
@@ -8,8 +9,9 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:orientation="horizontal"
         android:gravity="center|left"
+        android:orientation="horizontal"
+        android:visibility="gone"
         android:padding="10dp">
 
         <TextView
@@ -38,33 +40,32 @@
     <TextView
         style="@style/pay_style"
         android:text="VIP会员" />
+
     <LinearLayout
         android:id="@+id/top_ll"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        >
+        android:orientation="vertical">
 
     </LinearLayout>
 
     <TextView
         style="@style/pay_style"
         android:text="包月套餐" />
+
     <LinearLayout
         android:id="@+id/bottom_ll"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        >
-    </LinearLayout>
+        android:orientation="vertical"></LinearLayout>
+
     <TextView
         style="@style/pay_style"
         android:text="尤币充值" />
+
     <LinearLayout
         android:id="@+id/virtual_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        >
-    </LinearLayout>
+        android:orientation="vertical"></LinearLayout>
 </LinearLayout>
