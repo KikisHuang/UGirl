@@ -9,6 +9,7 @@ import java.util.List;
 import example.com.fan.bean.MirrorBean;
 import example.com.fan.bean.mcPublishImgUrls;
 import example.com.fan.fragment.son.PictureSlideFragment2;
+import example.com.fan.utils.MzFinal;
 
 /**
  * Created by lian on 2017/7/17.
@@ -27,7 +28,7 @@ public class PhotoPagerAdapter2 extends FragmentStatePagerAdapter {
     public Fragment getItem(int position) {
 
         List<mcPublishImgUrls> list = urlList.get(0).getMcPublishImgUrls();
-        return PictureSlideFragment2.newInstance(list.get(position).getPath(), list.get(position).getBasePath(), list.get(position).getNeedMoney(), id, String.valueOf(urlList.get(0).getPrice()),list.size());//返回展示不同网络图片的PictureSlideFragment
+        return PictureSlideFragment2.newInstance(list.get(position).getPath(), list.get(position).getBasePath(), list.get(position).getNeedMoney(), id, String.valueOf(urlList.get(0).getPrice()),list.size(), MzFinal.AdvertisementIsShow && position == list.size() - 1 ? true : false);//返回展示不同网络图片的PictureSlideFragment
     }
 
     @Override

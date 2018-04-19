@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -27,12 +28,15 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import example.com.fan.R;
 import example.com.fan.adapter.PhotoPagerAdapter2;
 import example.com.fan.base.sign.save.SPreferences;
 import example.com.fan.bean.CommentBean;
 import example.com.fan.bean.MirrorBean;
+import example.com.fan.bean.mcPublishImgUrls;
 import example.com.fan.fragment.son.CommentFragment;
 import example.com.fan.mylistener.CollectListener;
 import example.com.fan.mylistener.PhotoBarListener;
@@ -72,7 +76,7 @@ public class PrivatePhotoActivity extends InitActivity implements View.OnClickLi
     private List<MirrorBean> urlList;
     private int oldposition;
     public RelativeLayout photo_top_rl/*, lead_rl*/;
-    public LinearLayout photo_bottom_ll;
+    private FrameLayout bottom_layout;
     public TextView num_tv;
     private FrameLayout share_fl, admire_fl, collect_fl, comment_fl;
     private TextView comment_ed;
@@ -98,6 +102,15 @@ public class PrivatePhotoActivity extends InitActivity implements View.OnClickLi
     //vip标识符;
     private PopupWindow pay;
     private Thread comThread;
+
+
+    private TextView adver_close_tv;
+    private ImageView bottom_Advertisement_bar;
+    private FrameLayout bottom_Advertisement_bar_layout;
+
+    private boolean AdverShow = true;
+
+
 
     /**
      * 回调方法;
@@ -319,6 +332,8 @@ public class PrivatePhotoActivity extends InitActivity implements View.OnClickLi
         screnn_img.setOnClickListener(this);
         viewPager.setOnClickListener(this);
         title_right_icon.setOnClickListener(this);
+        bottom_Advertisement_bar.setOnClickListener(this);
+        adver_close_tv.setOnClickListener(this);
     }
 
     /**
@@ -366,7 +381,7 @@ public class PrivatePhotoActivity extends InitActivity implements View.OnClickLi
         urlList = new ArrayList<>();
         photo_top_rl = f(R.id.photo_top_rl);
 //        lead_rl = f(R.id.lead_rl);
-        photo_bottom_ll = f(R.id.photo_bottom_ll);
+        bottom_layout = f(R.id.bottom_layout);
         rt_tv = f(R.id.rt_tv);
         num_tv = f(R.id.num_tv);
         bullet_ll = f(R.id.bullet_ll);
@@ -378,6 +393,12 @@ public class PrivatePhotoActivity extends InitActivity implements View.OnClickLi
         admire_num = f(R.id.admire_num);
         collect_num = f(R.id.collect_num);
         comment_num = f(R.id.comment_num);
+
+        adver_close_tv = f(R.id.adver_close_tv);
+        bottom_Advertisement_bar = f(R.id.bottom_Advertisement_bar);
+        bottom_Advertisement_bar_layout = f(R.id.bottom_Advertisement_bar_layout);
+        FrameLayout.LayoutParams fl = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, DeviceUtils.getWindowWidth(this) * 2 / 14);
+        bottom_Advertisement_bar_layout.setLayoutParams(fl);
 
         fragment_ll = f(R.id.fragment_ll);
 
@@ -391,7 +412,7 @@ public class PrivatePhotoActivity extends InitActivity implements View.OnClickLi
         comment_ed = f(R.id.comment_ed);
 
 //        lead_rl.setVisibility(View.VISIBLE);
-        photo_bottom_ll.setVisibility(View.GONE);
+        bottom_layout.setVisibility(View.GONE);
         photo_top_rl.setVisibility(View.GONE);
         screnn_img.setVisibility(View.GONE);
         viewPager.setOffscreenPageLimit(1);
@@ -402,6 +423,7 @@ public class PrivatePhotoActivity extends InitActivity implements View.OnClickLi
     protected void initData() {
         getIntents();
     }
+
 
     /**
      * pamars photo_list(获取传递过来的照片数据)
@@ -466,8 +488,14 @@ public class PrivatePhotoActivity extends InitActivity implements View.OnClickLi
                                 }
 
                                 TextViewColorUtils.setTextColor(num_tv, String.valueOf(oldposition + 1), "/" + String.valueOf(urlList.get(0).getMcPublishImgUrls().size()), "#eb030d");
-                                if (urlList.get(0).getMcPublishImgUrls().size() > 0)
+                                if (urlList.get(0).getMcPublishImgUrls().size() > 0) {
+                                    mcPublishImgUrls mcp = new mcPublishImgUrls();
+                                    mcp.setPath("https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=2168965408,2316223666&fm=200&gp=0.jpg");
+                                    mcp.setBasePath("https://www.baidu.com");
+                                    urlList.get(0).getMcPublishImgUrls().add(mcp);
                                     setPage();
+                                }
+
 //                        createFragment();
 
                             } else {
@@ -546,6 +574,14 @@ public class PrivatePhotoActivity extends InitActivity implements View.OnClickLi
             case R.id.viewPager:
                 HideofShow();
                 break;
+            case R.id.bottom_Advertisement_bar:
+//                goOutsidePage(this, "", "");
+                break;
+            case R.id.adver_close_tv:
+                AdverShow = false;
+                bottom_Advertisement_bar_layout.setVisibility(View.GONE);
+                break;
+
         }
 
     }
@@ -691,6 +727,7 @@ public class PrivatePhotoActivity extends InitActivity implements View.OnClickLi
 //        MyAppcation.getRefWatcher(this).watch(this);
 
         try {
+
             fragment_ll.removeAllViews();
             Log.i(TAG, "remove fragment");
             commentFragment = null;
@@ -739,21 +776,32 @@ public class PrivatePhotoActivity extends InitActivity implements View.OnClickLi
         }
     }
 
+
     /**
      * 上下bar隐藏显示方法;
      */
     private void HideofShow() {
-        if (photo_bottom_ll.getVisibility() == View.VISIBLE) {
-            photo_bottom_ll.startAnimation(AnimationUtil.moveToViewBottom());
-            photo_top_rl.startAnimation(AnimationUtil.moveToViewTop());
-            photo_top_rl.setVisibility(View.GONE);
-            photo_bottom_ll.setVisibility(View.GONE);
+        if (bottom_layout.getVisibility() == View.VISIBLE) {
+            bottom_layout.startAnimation(AnimationUtil.moveToViewBottom());
+
+
+            if (photo_top_rl.getVisibility() == View.VISIBLE) {
+                photo_top_rl.startAnimation(AnimationUtil.moveToViewTop());
+                photo_top_rl.setVisibility(View.GONE);
+            }
+         /*   if (AdverShow)
+                bottom_Advertisement_bar_layout.setVisibility(View.GONE);*/
+            bottom_layout.setVisibility(View.GONE);
             screnn_img.setVisibility(View.GONE);
         } else {
-            photo_bottom_ll.startAnimation(AnimationUtil.moveToViewLocation());
+            bottom_layout.startAnimation(AnimationUtil.moveToViewLocation());
+
+            if (AdverShow)
+                bottom_Advertisement_bar_layout.setVisibility(View.VISIBLE);
+
             photo_top_rl.startAnimation(AnimationUtil.moveToViewLocation1());
             photo_top_rl.setVisibility(View.VISIBLE);
-            photo_bottom_ll.setVisibility(View.VISIBLE);
+            bottom_layout.setVisibility(View.VISIBLE);
             screnn_img.setVisibility(View.VISIBLE);
         }
     }
@@ -762,6 +810,7 @@ public class PrivatePhotoActivity extends InitActivity implements View.OnClickLi
     public void onShowOfHide() {
         HideofShow();
     }
+
 
 
     /**

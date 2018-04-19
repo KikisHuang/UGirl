@@ -1,9 +1,14 @@
 package example.com.fan.activity;
 
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
+import android.widget.FrameLayout;
+import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
@@ -13,6 +18,8 @@ import com.zhy.http.okhttp.callback.StringCallback;
 import org.json.JSONObject;
 
 import java.util.Map;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import cn.jzvd.JZVideoPlayer;
 import cn.jzvd.JZVideoPlayerStandard;
@@ -20,12 +27,14 @@ import example.com.fan.MyAppcation;
 import example.com.fan.R;
 import example.com.fan.base.sign.save.SPreferences;
 import example.com.fan.bean.VideoPlayBean;
+import example.com.fan.utils.DeviceUtils;
 import example.com.fan.utils.MzFinal;
 import example.com.fan.utils.ToastUtil;
 import example.com.fan.view.Popup.PaytwoPopupWindow;
 import okhttp3.Call;
 
 import static example.com.fan.utils.GlideImgUtils.getRequestOptions;
+import static example.com.fan.utils.IntentUtils.goOutsidePage;
 import static example.com.fan.utils.JsonUtils.getCode;
 import static example.com.fan.utils.JsonUtils.getJsonOb;
 import static example.com.fan.utils.JsonUtils.getJsonSring;
@@ -38,13 +47,19 @@ import static example.com.fan.view.dialog.CustomProgress.Show;
 /**
  * Created by lian on 2017/10/23.
  */
-public class PrivateVideoPlayerActivity extends AppCompatActivity {
+public class PrivateVideoPlayerActivity extends AppCompatActivity implements View.OnClickListener {
 
     private JZVideoPlayerStandard mJcVideoPlayerStandard;
     private VideoPlayBean vb;
     private String Path = "";
     private String id = "";
+    private FrameLayout adv_layout;
+    private ImageView adv_img;
+    private ImageView close_img;
     private static final String TAG = getTAG(PrivateVideoPlayerActivity.class);
+    private Handler handler;
+    private int time = 5;
+    private Timer tm;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -57,7 +72,36 @@ public class PrivateVideoPlayerActivity extends AppCompatActivity {
     private void init() {
 
         mJcVideoPlayerStandard = (JZVideoPlayerStandard) findViewById(R.id.jc_video);
+        adv_layout = (FrameLayout) findViewById(R.id.adv_layout);
+        adv_img = (ImageView) findViewById(R.id.adv_img);
+        int w = (int) (DeviceUtils.getWindowWidth(this) * 1.5 / 2);
+        FrameLayout.LayoutParams fl = new FrameLayout.LayoutParams(w, w);
+        adv_img.setLayoutParams(fl);
+        close_img = (ImageView) findViewById(R.id.close_img);
+        close_img.setOnClickListener(this);
+        adv_img.setOnClickListener(this);
         id = getIntent().getStringExtra("private_play_id");
+        Hand();
+    }
+
+    private void Hand() {
+        handler = new Handler() {
+            @Override
+            public void handleMessage(Message msg) {
+                switch (msg.what) {
+                    case 0:
+                        if (!Path.isEmpty()) {
+                            adv_layout.setVisibility(View.GONE);
+                            mJcVideoPlayerStandard.startVideo();
+                            if (tm != null) {
+                                tm.cancel();
+                                tm = null;
+                            }
+                        }
+                        break;
+                }
+            }
+        };
     }
 
     private void getVideoData() {
@@ -89,6 +133,7 @@ public class PrivateVideoPlayerActivity extends AppCompatActivity {
                                     if (vb.getMcSettingPublishType().getTypeFlag() == -3)
                                         getAccredit(vb.getMcPublishVideoUrls().get(0).getPath(), MzFinal.PRIVATEVIDEOAUTHENTICATION);
 
+                                    TimerInit();
                                     try {
                                         Glide.with(getApplicationContext()).load(vb.getCoverPath()).apply(getRequestOptions(false, 1920, 1080, false)).into(mJcVideoPlayerStandard.thumbImageView);
                                     } catch (Exception e) {
@@ -112,6 +157,22 @@ public class PrivateVideoPlayerActivity extends AppCompatActivity {
                 });
     }
 
+    private void TimerInit() {
+
+        tm = new Timer();
+        tm.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                if (time == 0) {
+
+                } else {
+                    time--;
+                    handler.sendEmptyMessage(time);
+                }
+            }
+        }, 1000, 1000);
+    }
+
     @Override
     public void onBackPressed() {
         if (JZVideoPlayer.backPress()) {
@@ -127,6 +188,15 @@ public class PrivateVideoPlayerActivity extends AppCompatActivity {
         JZVideoPlayer.clearSavedProgress(this, Path);
         if (mJcVideoPlayerStandard != null) {
             mJcVideoPlayerStandard.removeAllViews();
+        }
+
+        if (handler != null) {
+            handler.removeCallbacksAndMessages(null);
+            handler = null;
+            if (tm != null) {
+                tm.cancel();
+                tm = null;
+            }
         }
     }
 
@@ -192,5 +262,26 @@ public class PrivateVideoPlayerActivity extends AppCompatActivity {
     private void Pay() {
         PaytwoPopupWindow pyp = new PaytwoPopupWindow(PrivateVideoPlayerActivity.this, String.valueOf(vb.getPrice()), vb.getId(), 1, null);
         pyp.ScreenPopupWindow(mJcVideoPlayerStandard);
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.close_img:
+                if (!Path.isEmpty()) {
+                    adv_layout.setVisibility(View.GONE);
+                    mJcVideoPlayerStandard.startVideo();
+                    if (tm != null) {
+                        tm.cancel();
+                        tm = null;
+                    }
+                }
+
+                break;
+            case R.id.adv_img:
+                goOutsidePage(this, "", "");
+                break;
+
+        }
     }
 }

@@ -896,7 +896,7 @@ public class PlayerActivity extends InitActivity implements UVPlayerCallBack, Pl
                                 switch (getJsonInt(response)) {
                                     case 0:
                                         ToastUtil.toast2_bottom(PlayerActivity.this, "成功取消关注");
-                                        attention_tv.setText(getRouString(R.string.attention_she));
+                                        attention_tv.setText(getRouString(R.string.attention));
                                         break;
                                     case 1:
                                         ToastUtil.toast2_bottom(PlayerActivity.this, "关注成功!");

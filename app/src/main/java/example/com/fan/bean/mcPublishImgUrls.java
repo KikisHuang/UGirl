@@ -22,8 +22,8 @@ public class mcPublishImgUrls implements Serializable {
         this.needMoney = needMoney;
     }
 
-    private String path;
-    private boolean needMoney;
+    private String path = "";
+    private boolean needMoney = false;
 
     public String getBasePath() {
         return basePath;
@@ -41,9 +41,9 @@ public class mcPublishImgUrls implements Serializable {
         this.id = id;
     }
 
-    private String basePath;
-    private String id;
-    private String publishRecordId;
+    private String basePath = "";
+    private String id = "";
+    private String publishRecordId = "";
 
     public String getPublishRecordId() {
         return publishRecordId;

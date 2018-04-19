@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -27,6 +28,8 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import example.com.fan.MyAppcation;
 import example.com.fan.R;
@@ -34,6 +37,7 @@ import example.com.fan.adapter.PhotoPagerAdapter;
 import example.com.fan.base.sign.save.SPreferences;
 import example.com.fan.bean.CommentBean;
 import example.com.fan.bean.MirrorBean;
+import example.com.fan.bean.mcPublishImgUrls;
 import example.com.fan.fragment.son.CommentFragment;
 import example.com.fan.mylistener.CollectListener;
 import example.com.fan.mylistener.PhotoBarListener;
@@ -52,6 +56,7 @@ import okhttp3.Call;
 
 import static example.com.fan.utils.GlideImgUtils.getRequestOptions;
 import static example.com.fan.utils.IntentUtils.goHomePage;
+import static example.com.fan.utils.IntentUtils.goOutsidePage;
 import static example.com.fan.utils.JsonUtils.getCode;
 import static example.com.fan.utils.JsonUtils.getJsonAr;
 import static example.com.fan.utils.JsonUtils.getJsonOb;
@@ -73,7 +78,6 @@ public class PhotoActivity extends InitActivity implements View.OnClickListener,
     private List<MirrorBean> urlList;
     private int oldposition;
     public RelativeLayout photo_top_rl, lead_rl;
-    public LinearLayout photo_bottom_ll;
     public TextView num_tv;
     private FrameLayout share_fl, admire_fl, collect_fl, comment_fl;
     private TextView comment_ed;
@@ -85,6 +89,7 @@ public class PhotoActivity extends InitActivity implements View.OnClickListener,
     private ImageView screnn_img;
 
     private LinearLayout fragment_ll;
+    private FrameLayout bottom_layout;
     private FragmentManager fm = getSupportFragmentManager();
     private FragmentTransaction ft;
     private CommentFragment commentFragment;
@@ -99,6 +104,13 @@ public class PhotoActivity extends InitActivity implements View.OnClickListener,
     //vip标识符;
     private PopupWindow pay;
     private Thread comThread;
+
+
+    private TextView adver_close_tv;
+    private ImageView bottom_Advertisement_bar;
+    private FrameLayout bottom_Advertisement_bar_layout;
+
+    private boolean AdverShow = true;
 
     /**
      * 回调方法;
@@ -127,7 +139,7 @@ public class PhotoActivity extends InitActivity implements View.OnClickListener,
             CommentView.add(view);
             tv.setText(commentlist.get(i).getInfo());
             try {
-                Glide.with(getApplicationContext()).load(commentlist.get(i).getUserHeadImgUrl()).apply(getRequestOptions(false, 60, 60,true)).into(im);
+                Glide.with(getApplicationContext()).load(commentlist.get(i).getUserHeadImgUrl()).apply(getRequestOptions(false, 60, 60, true)).into(im);
             } catch (Exception e) {
                 Log.i(TAG, "Glide You cannot start a load for a destroyed activity");
             }
@@ -282,7 +294,6 @@ public class PhotoActivity extends InitActivity implements View.OnClickListener,
 
     private void initHandler() {
         if (handler == null) {
-
             handler = new Handler() {
                 @Override
                 public void handleMessage(Message msg) {
@@ -318,12 +329,15 @@ public class PhotoActivity extends InitActivity implements View.OnClickListener,
         screnn_img.setOnClickListener(this);
         viewPager.setOnClickListener(this);
         title_right_icon.setOnClickListener(this);
+        bottom_Advertisement_bar.setOnClickListener(this);
+        adver_close_tv.setOnClickListener(this);
     }
 
     /**
      * ViewPager初始化设置;
      */
     private void setPage() {
+        Log.i(TAG, " sizie sieieiei ===" + urlList.get(0).getMcPublishImgUrls().size());
         viewPager.setAdapter(new PhotoPagerAdapter(getSupportFragmentManager(), urlList, id));
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
@@ -367,7 +381,6 @@ public class PhotoActivity extends InitActivity implements View.OnClickListener,
         urlList = new ArrayList<>();
         photo_top_rl = f(R.id.photo_top_rl);
         lead_rl = f(R.id.lead_rl);
-        photo_bottom_ll = f(R.id.photo_bottom_ll);
         rt_tv = f(R.id.rt_tv);
         num_tv = f(R.id.num_tv);
         bullet_ll = f(R.id.bullet_ll);
@@ -380,8 +393,14 @@ public class PhotoActivity extends InitActivity implements View.OnClickListener,
         collect_num = f(R.id.collect_num);
         comment_num = f(R.id.comment_num);
 
-        fragment_ll = f(R.id.fragment_ll);
+        adver_close_tv = f(R.id.adver_close_tv);
+        bottom_Advertisement_bar = f(R.id.bottom_Advertisement_bar);
+        bottom_Advertisement_bar_layout = f(R.id.bottom_Advertisement_bar_layout);
+        FrameLayout.LayoutParams fl = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, DeviceUtils.getWindowWidth(this) * 2 / 14);
+        bottom_Advertisement_bar_layout.setLayoutParams(fl);
 
+        fragment_ll = f(R.id.fragment_ll);
+        bottom_layout = f(R.id.bottom_layout);
         title_right_icon = f(R.id.title_right_icon);
         viewPager = f(R.id.viewpager);
 
@@ -392,7 +411,7 @@ public class PhotoActivity extends InitActivity implements View.OnClickListener,
         comment_ed = f(R.id.comment_ed);
 
         lead_rl.setVisibility(View.VISIBLE);
-        photo_bottom_ll.setVisibility(View.GONE);
+        bottom_layout.setVisibility(View.GONE);
         photo_top_rl.setVisibility(View.GONE);
         screnn_img.setVisibility(View.GONE);
         viewPager.setOffscreenPageLimit(1);
@@ -461,14 +480,19 @@ public class PhotoActivity extends InitActivity implements View.OnClickListener,
                                 admire_num.setText(KswitchWay(urlList.get(0).getLikesCount()));
                                 share_num.setText(KswitchWay(urlList.get(0).getShareCount()));
                                 try {
-                                    Glide.with(getApplicationContext()).load(urlList.get(0).getJoinUser().getHeadImgUrl()).apply(getRequestOptions(false, 50, 50,true)).into(title_right_icon);
+                                    Glide.with(getApplicationContext()).load(urlList.get(0).getJoinUser().getHeadImgUrl()).apply(getRequestOptions(false, 50, 50, true)).into(title_right_icon);
                                 } catch (Exception e) {
                                     Log.i(TAG, "Glide You cannot start a load for a destroyed activity");
                                 }
-
-                                TextViewColorUtils.setTextColor(num_tv, String.valueOf(oldposition + 1), "/" + String.valueOf(urlList.get(0).getMcPublishImgUrls().size()), "#eb030d");
-                                if (urlList.get(0).getMcPublishImgUrls().size() > 0)
+                                if (urlList.get(0).getMcPublishImgUrls().size() > 0) {
+                                    mcPublishImgUrls mcp = new mcPublishImgUrls();
+                                    mcp.setPath("https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=2168965408,2316223666&fm=200&gp=0.jpg");
+                                    mcp.setBasePath("https://www.baidu.com");
+                                    urlList.get(0).getMcPublishImgUrls().add(mcp);
                                     setPage();
+                                }
+                                TextViewColorUtils.setTextColor(num_tv, String.valueOf(oldposition + 1), "/" + String.valueOf(urlList.get(0).getMcPublishImgUrls().size()), "#eb030d");
+
 //                        createFragment();
 
                             } else {
@@ -491,8 +515,8 @@ public class PhotoActivity extends InitActivity implements View.OnClickListener,
             case R.id.share_fl:
                 if (urlList.size() > 0)
 //                    ShareApp(this, urlList.get(0).getJoinUser().getId(), urlList.get(0).getJoinUser().getName(), urlList.get(0).getInfo(), urlList.get(0).getId());
-                    getSystemShare(PhotoActivity.this,id);
-                    break;
+                    getSystemShare(PhotoActivity.this, id);
+                break;
             case R.id.admire_fl:
                 likePhoto();
                 break;
@@ -546,6 +570,13 @@ public class PhotoActivity extends InitActivity implements View.OnClickListener,
                 break;
             case R.id.viewPager:
                 HideofShow();
+                break;
+            case R.id.bottom_Advertisement_bar:
+//                goOutsidePage(this, "", "");
+                break;
+            case R.id.adver_close_tv:
+                AdverShow = false;
+                bottom_Advertisement_bar_layout.setVisibility(View.GONE);
                 break;
         }
 
@@ -743,20 +774,31 @@ public class PhotoActivity extends InitActivity implements View.OnClickListener,
      * 上下bar隐藏显示方法;
      */
     private void HideofShow() {
-        if (photo_bottom_ll.getVisibility() == View.VISIBLE) {
-            photo_bottom_ll.startAnimation(AnimationUtil.moveToViewBottom());
-            photo_top_rl.startAnimation(AnimationUtil.moveToViewTop());
-            photo_top_rl.setVisibility(View.GONE);
-            photo_bottom_ll.setVisibility(View.GONE);
+        if (bottom_layout.getVisibility() == View.VISIBLE) {
+            bottom_layout.startAnimation(AnimationUtil.moveToViewBottom());
+
+            if (photo_top_rl.getVisibility() == View.VISIBLE) {
+                photo_top_rl.startAnimation(AnimationUtil.moveToViewTop());
+                photo_top_rl.setVisibility(View.GONE);
+            }
+
+            bottom_layout.setVisibility(View.GONE);
             screnn_img.setVisibility(View.GONE);
+//            if (AdverShow)
+//                bottom_Advertisement_bar_layout.setVisibility(View.GONE);
         } else {
-            photo_bottom_ll.startAnimation(AnimationUtil.moveToViewLocation());
+            bottom_layout.startAnimation(AnimationUtil.moveToViewLocation());
+
+            if (AdverShow)
+                bottom_Advertisement_bar_layout.setVisibility(View.VISIBLE);
+
             photo_top_rl.startAnimation(AnimationUtil.moveToViewLocation1());
             photo_top_rl.setVisibility(View.VISIBLE);
-            photo_bottom_ll.setVisibility(View.VISIBLE);
+            bottom_layout.setVisibility(View.VISIBLE);
             screnn_img.setVisibility(View.VISIBLE);
         }
     }
+
 
     @Override
     public void onShowOfHide() {

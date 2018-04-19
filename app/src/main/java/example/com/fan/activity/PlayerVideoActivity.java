@@ -48,6 +48,7 @@ import okhttp3.Call;
 
 import static example.com.fan.utils.GlideImgUtils.getRequestOptions;
 import static example.com.fan.utils.IntentUtils.goHomePage;
+import static example.com.fan.utils.IntentUtils.goOutsidePage;
 import static example.com.fan.utils.JsonUtils.getCode;
 import static example.com.fan.utils.JsonUtils.getJsonAr;
 import static example.com.fan.utils.JsonUtils.getJsonInt;
@@ -78,7 +79,7 @@ public class PlayerVideoActivity extends AppCompatActivity implements View.OnCli
     private PlayerCommentAdapter adapter;
     private View top;
     private TextView video_title, player_number, video_name, attention_tv, collect_num, admire_num;
-    private ImageView video_icon, activity_imgBack;
+    private ImageView video_icon, activity_imgBack,video_adv_img;
     private LinearLayout more_content_ll;
     private List<CommentBean> commentlist;
     private String Path = "";
@@ -105,6 +106,7 @@ public class PlayerVideoActivity extends AppCompatActivity implements View.OnCli
         activity_imgBack.setOnClickListener(this);
         video_icon.setOnClickListener(this);
         attention_tv.setOnClickListener(this);
+        video_adv_img.setOnClickListener(this);
     }
 
     private void getData() {
@@ -127,6 +129,7 @@ public class PlayerVideoActivity extends AppCompatActivity implements View.OnCli
         collect_num = (TextView) findViewById(R.id.collect_num);
         share_num = (TextView) findViewById(R.id.share_num);
         activity_imgBack = (ImageView) findViewById(R.id.activity_imgBack);
+
         admire_num = (TextView) findViewById(R.id.admire_num);
         top = LayoutInflater.from(this).inflate(R.layout.player_top_layout, null);
 
@@ -135,7 +138,7 @@ public class PlayerVideoActivity extends AppCompatActivity implements View.OnCli
         player_number = (TextView) top.findViewById(R.id.player_number);
         video_name = (TextView) top.findViewById(R.id.video_name);
         video_icon = (ImageView) top.findViewById(R.id.video_icon);
-
+        video_adv_img = (ImageView) top.findViewById(R.id.video_adv_img);
         attention_tv = (TextView) top.findViewById(R.id.attention_tv);
 
     }
@@ -504,6 +507,9 @@ public class PlayerVideoActivity extends AppCompatActivity implements View.OnCli
 //                    getSystemShare(this, vb.getId());
                     getSystemShare(this, "");
 //                    ShareUtils.ShareApp(this, userId, vb.getName(), vb.getInfo(), vb.getId());
+                break;
+            case R.id.video_adv_img:
+                goOutsidePage(this,"","");
                 break;
         }
     }

@@ -7,7 +7,9 @@ import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.DataSource;
@@ -17,6 +19,8 @@ import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.Target;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
+
+import org.w3c.dom.Text;
 
 import example.com.fan.MyAppcation;
 import example.com.fan.R;
@@ -30,6 +34,7 @@ import okhttp3.Call;
 import uk.co.senab.photoview.PhotoView;
 import uk.co.senab.photoview.PhotoViewAttacher;
 
+import static example.com.fan.utils.IntentUtils.goOutsidePage;
 import static example.com.fan.utils.JsonUtils.getCode;
 import static example.com.fan.utils.JsonUtils.getJsonSring;
 import static example.com.fan.utils.SynUtils.getTAG;
@@ -37,10 +42,14 @@ import static example.com.fan.utils.SynUtils.getTAG;
 /**
  * Created by lian on 2017/5/5.
  */
-public class PictureSlideFragment extends BaseFragment implements PayRefreshListener {
+public class PictureSlideFragment extends BaseFragment implements PayRefreshListener ,View.OnClickListener{
     private static final String TAG = getTAG(PictureSlideFragment.class);
     private String url;
+    private String adv_url;
     private PhotoView imageView;
+    private FrameLayout bottom_Advertisement_bar_layout;
+    private ImageView bottom_Advertisement_bar;
+    private TextView adver_close_tv;
     private PhotoViewAttacher photoViewAttacher;
     private boolean need;
     private String id = "";
@@ -55,9 +64,10 @@ public class PictureSlideFragment extends BaseFragment implements PayRefreshList
      * @param base      OSS路径
      * @param needMoney 收费标识符
      * @param id        专辑id
+     * @param isadv
      * @return
      */
-    public static PictureSlideFragment newInstance(String path, String base, boolean needMoney, String id) {
+    public static PictureSlideFragment newInstance(String path, String base, boolean needMoney, String id, boolean isadv) {
 
         if (!MzFinal.isPay && needMoney && !MyAppcation.VipFlag) {
             if (PhotoActivity.tlistener != null)
@@ -74,11 +84,16 @@ public class PictureSlideFragment extends BaseFragment implements PayRefreshList
         else
             args.putString("url", path);
 
+        if (isadv)
+            args.putString("adv_url", base);
+        else
+            args.putString("adv_url", "");
+
         args.putString("id", id);
         args.putBoolean("needMoney", needMoney);
 
         f.setArguments(args);
-        Log.i(TAG, "getNeedMoney ======" + needMoney);
+
 
         return f;
     }
@@ -87,6 +102,7 @@ public class PictureSlideFragment extends BaseFragment implements PayRefreshList
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         url = getArguments() != null ? getArguments().getString("url") : "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1494050810732&di=12648ae1cfe05df8bf586bd65c60961f&imgtype=0&src=http%3A%2F%2Fres2.esf.leju.com%2Fesf_www%2Fstatics%2Fimages%2Fdefault-img%2Fdetail.png";
+        adv_url = getArguments() != null ? getArguments().getString("adv_url") : "https://www.baidu.com";
         need = getArguments() != null ? getArguments().getBoolean("needMoney") : false;
         id = getArguments() != null ? getArguments().getString("id") : "";
     }
@@ -162,7 +178,7 @@ public class PictureSlideFragment extends BaseFragment implements PayRefreshList
     private void ReadImg(String url) {
         try {
             RequestOptions op = new RequestOptions();
-            op.centerCrop().error(R.drawable.load_fail_img);
+            op.fitCenter().error(R.drawable.load_fail_img);
             Glide.with(getActivity().getApplicationContext())
                     .load(url).listener(new RequestListener<Drawable>() {
                 @Override
@@ -199,16 +215,33 @@ public class PictureSlideFragment extends BaseFragment implements PayRefreshList
     @Override
     protected void init() {
         imageView = (PhotoView) view.findViewById(R.id.iv_main_pic);
+        bottom_Advertisement_bar_layout = (FrameLayout) view.findViewById(R.id.bottom_Advertisement_bar_layout);
+        bottom_Advertisement_bar = (ImageView) view.findViewById(R.id.bottom_Advertisement_bar);
+        adver_close_tv = (TextView) view.findViewById(R.id.adver_close_tv);
+
         load_img = (ImageView) view.findViewById(R.id.load_img);
         photoViewAttacher = new PhotoViewAttacher(imageView);
         PayListener = this;
 
+        if (!adv_url.isEmpty()){
+            bottom_Advertisement_bar_layout.setVisibility(view.VISIBLE);
+            adver_close_tv.setOnClickListener(this);
+            bottom_Advertisement_bar.setOnClickListener(this);
+        }
+        else bottom_Advertisement_bar_layout.setVisibility(view.GONE);
+
+
         photoViewAttacher.setOnDoubleTapListener(gest = new GestureDetector.OnDoubleTapListener() {
             @Override
             public boolean onSingleTapConfirmed(MotionEvent e) {
-                Log.i(TAG, "onSingleTapConfirmed");
-                if (PhotoActivity.slistener != null)
+                Log.i(TAG, "onSingleTapConfirmed  id ==" + id);
+                Log.i(TAG, "adv_url   ==" + adv_url);
+                if (PhotoActivity.slistener != null && !adv_url.isEmpty())
+                    goOutsidePage(getActivity(), adv_url, "");
+
+                if (PhotoActivity.slistener != null && adv_url.isEmpty())
                     PhotoActivity.slistener.onShowOfHide();
+
                 return false;
             }
 
@@ -266,5 +299,18 @@ public class PictureSlideFragment extends BaseFragment implements PayRefreshList
     @Override
     public void onPayRefresh() {
         getData();
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.adver_close_tv:
+                bottom_Advertisement_bar_layout.setVisibility(view.GONE);
+                break;
+            case R.id.bottom_Advertisement_bar:
+                goOutsidePage(getActivity(), adv_url, "");
+                break;
+
+        }
     }
 }

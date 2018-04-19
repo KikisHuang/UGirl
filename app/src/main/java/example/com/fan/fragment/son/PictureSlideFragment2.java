@@ -8,6 +8,7 @@ import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -23,6 +24,7 @@ import com.zhy.http.okhttp.callback.StringCallback;
 
 import example.com.fan.MyAppcation;
 import example.com.fan.R;
+import example.com.fan.activity.PhotoActivity;
 import example.com.fan.activity.PrivatePhotoActivity;
 import example.com.fan.base.sign.save.SPreferences;
 import example.com.fan.fragment.BaseFragment;
@@ -35,6 +37,7 @@ import okhttp3.Call;
 import uk.co.senab.photoview.PhotoView;
 import uk.co.senab.photoview.PhotoViewAttacher;
 
+import static example.com.fan.utils.IntentUtils.goOutsidePage;
 import static example.com.fan.utils.JsonUtils.getCode;
 import static example.com.fan.utils.JsonUtils.getJsonSring;
 import static example.com.fan.utils.SynUtils.getTAG;
@@ -42,11 +45,16 @@ import static example.com.fan.utils.SynUtils.getTAG;
 /**
  * Created by lian on 2017/5/5.
  */
-public class PictureSlideFragment2 extends BaseFragment implements PayRefreshListener, PrivatePhotoTwoListener {
+public class PictureSlideFragment2 extends BaseFragment implements PayRefreshListener, PrivatePhotoTwoListener ,View.OnClickListener{
     private static final String TAG = getTAG(PictureSlideFragment2.class);
     private String url;
+    private String adv_url;
     private PhotoView imageView;
     private PhotoViewAttacher photoViewAttacher;
+    private FrameLayout bottom_Advertisement_bar_layout;
+    private ImageView bottom_Advertisement_bar;
+    private TextView adver_close_tv;
+
     private boolean need;
     private String id = "";
     //    private ImageView load_img;
@@ -70,9 +78,10 @@ public class PictureSlideFragment2 extends BaseFragment implements PayRefreshLis
      * @param id        专辑id
      * @param price
      * @param size
+     * @param isadv
      * @return
      */
-    public static PictureSlideFragment2 newInstance(String path, String base, boolean needMoney, String id, String price, int size) {
+    public static PictureSlideFragment2 newInstance(String path, String base, boolean needMoney, String id, String price, int size, boolean isadv) {
 
         if (!MzFinal.isPay && needMoney && !MyAppcation.VipFlag) {
             if (PrivatePhotoActivity.tlistener != null)
@@ -93,6 +102,10 @@ public class PictureSlideFragment2 extends BaseFragment implements PayRefreshLis
         else
             args.putString("url", path);
 
+        if(isadv)
+            args.putString("adv_url", base);
+        else
+            args.putString("adv_url", "");
 
         args.putString("id", id);
         args.putString("size", String.valueOf(size));
@@ -111,6 +124,7 @@ public class PictureSlideFragment2 extends BaseFragment implements PayRefreshLis
         super.onCreate(savedInstanceState);
         url = getArguments() != null ? getArguments().getString("url") : "";
         need = getArguments() != null ? getArguments().getBoolean("needMoney") : false;
+        adv_url = getArguments() != null ? getArguments().getString("adv_url") : "https://www.baidu.com";
         id = getArguments() != null ? getArguments().getString("id") : "";
         base = getArguments() != null ? getArguments().getString("base") : "";
         price = getArguments() != null ? getArguments().getString("price") : "";
@@ -247,11 +261,28 @@ public class PictureSlideFragment2 extends BaseFragment implements PayRefreshLis
         photoViewAttacher = new PhotoViewAttacher(imageView);
         PayListener = this;
 
+        bottom_Advertisement_bar_layout = (FrameLayout) view.findViewById(R.id.bottom_Advertisement_bar_layout);
+        bottom_Advertisement_bar = (ImageView) view.findViewById(R.id.bottom_Advertisement_bar);
+        adver_close_tv = (TextView) view.findViewById(R.id.adver_close_tv);
+
+
+        if (!adv_url.isEmpty()){
+            bottom_Advertisement_bar_layout.setVisibility(view.VISIBLE);
+            adver_close_tv.setOnClickListener(this);
+            bottom_Advertisement_bar.setOnClickListener(this);
+        }
+        else bottom_Advertisement_bar_layout.setVisibility(view.GONE);
+
+
         photoViewAttacher.setOnDoubleTapListener(gest = new GestureDetector.OnDoubleTapListener() {
             @Override
             public boolean onSingleTapConfirmed(MotionEvent e) {
                 Log.i(TAG, "onSingleTapConfirmed");
-                if (PrivatePhotoActivity.slistener != null)
+
+                if (PrivatePhotoActivity.slistener != null && !adv_url.isEmpty())
+                    goOutsidePage(getActivity(), adv_url, "");
+
+                if (PrivatePhotoActivity.slistener != null&& adv_url.isEmpty())
                     PrivatePhotoActivity.slistener.onShowOfHide();
                 return false;
             }
@@ -317,4 +348,18 @@ public class PictureSlideFragment2 extends BaseFragment implements PayRefreshLis
         Log.i(TAG, "购买成功，刷新");
         getData();
     }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.adver_close_tv:
+                bottom_Advertisement_bar_layout.setVisibility(view.GONE);
+                break;
+            case R.id.bottom_Advertisement_bar:
+                goOutsidePage(getActivity(), adv_url, "");
+                break;
+
+        }
+    }
+
 }

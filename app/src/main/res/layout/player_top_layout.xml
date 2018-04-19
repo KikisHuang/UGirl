@@ -5,51 +5,96 @@
     android:background="@color/white"
     android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/video_title"
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="10dp"
-        android:text=""
-        android:textColor="@color/black"
-        android:textSize="15dp" />
+        android:layout_height="wrap_content">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:paddingBottom="10dp"
-        android:paddingLeft="10dp"
-        android:orientation="horizontal">
-
-        <ImageView
-            android:layout_width="18dp"
-            android:layout_height="18dp"
-            android:src="@mipmap/play_img2" />
-
-        <TextView
-            android:id="@+id/player_number"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:text="已播放"
-            android:textColor="@color/content10"
-            android:textSize="11dp" />
-    </LinearLayout>
+            android:orientation="vertical">
 
-    <TextView style="@style/line_styles_10" />
+            <TextView
+                android:id="@+id/video_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:text=""
+                android:textColor="@color/black"
+                android:textSize="15dp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:paddingBottom="10dp"
+                android:paddingLeft="10dp">
+
+                <ImageView
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"
+                    android:src="@mipmap/play_img2" />
+
+                <TextView
+                    android:id="@+id/player_number"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:layout_weight="1"
+                    android:text="已播放"
+                    android:textColor="@color/content10"
+                    android:textSize="11dp" />
+
+
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center|right"
+            android:layout_marginRight="10dp"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/video_icon"
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/test_icon2" />
+
+            <TextView
+                android:id="@+id/attention_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center|right"
+                android:layout_marginTop="6dp"
+                android:background="@drawable/blue_corner3"
+                android:gravity="right"
+                android:paddingBottom="2dp"
+                android:paddingLeft="6dp"
+                android:paddingRight="6dp"
+                android:paddingTop="2dp"
+                android:text="@string/attention"
+                android:textColor="#000000"
+                android:textSize="9dp" />
+        </LinearLayout>
+    </FrameLayout>
+
 
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:padding="10dp">
+        android:orientation="horizontal">
 
         <ImageView
-            android:id="@+id/video_icon"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-            android:scaleType="centerCrop" />
+            android:id="@+id/video_adv_img"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/test_icon2" />
 
         <TextView
             android:id="@+id/video_name"
@@ -59,22 +104,10 @@
             android:layout_marginLeft="45dp"
             android:text=""
             android:textColor="@color/black"
-            android:textSize="13dp" />
+            android:textSize="13dp"
+            android:visibility="gone" />
 
-        <TextView
-            android:id="@+id/attention_tv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center|right"
-            android:background="@drawable/blue_corner3"
-            android:gravity="right"
-            android:paddingBottom="4dp"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp"
-            android:paddingTop="4dp"
-            android:text="@string/attention_she"
-            android:textColor="@color/blue_gps"
-            android:textSize="10dp" />
+
     </FrameLayout>
 
     <TextView

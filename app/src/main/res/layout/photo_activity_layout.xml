@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/container"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -46,165 +46,206 @@
             android:layout_height="match_parent"
             android:layout_alignParentRight="true"
             android:padding="10dp"
-            android:scaleType="centerCrop"
-             />
+            android:scaleType="centerCrop" />
     </RelativeLayout>
 
     <!-- Bottom -->
-    <LinearLayout
-        android:id="@+id/photo_bottom_ll"
+    <FrameLayout
+        android:id="@+id/bottom_layout"
         android:layout_width="match_parent"
-        android:layout_height="45dp"
+        android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_gravity="bottom"
-        android:background="@color/white"
-        android:gravity="center"
-        android:orientation="horizontal"
-        android:paddingBottom="5dp"
-        android:paddingLeft="4dp"
-        android:paddingRight="7dp"
-        android:paddingTop="4dp">
-
-        <TextView
-            android:id="@+id/comment_ed"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginBottom="2dp"
-            android:layout_marginLeft="6dp"
-            android:layout_marginRight="6dp"
-            android:layout_marginTop="3dp"
-            android:layout_weight="0.6"
-            android:background="@drawable/comment_ed2"
-            android:gravity="left|center"
-            android:hint="评论吧"
-            android:paddingLeft="5dp"
-            android:textSize="12dp" />
+        android:layout_gravity="bottom">
 
         <LinearLayout
+            android:id="@+id/photo_bottom_ll"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:padding="3dp">
+            android:layout_height="45dp"
+            android:background="@color/white"
+            android:gravity="center"
+            android:layout_gravity="bottom"
+            android:orientation="horizontal"
+            android:paddingBottom="5dp"
+            android:paddingLeft="4dp"
+            android:paddingRight="7dp"
+            android:paddingTop="4dp">
 
-            <FrameLayout
-                android:id="@+id/comment_fl"
+            <TextView
+                android:id="@+id/comment_ed"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="1">
+                android:layout_marginBottom="2dp"
+                android:layout_marginLeft="6dp"
+                android:layout_marginRight="6dp"
+                android:layout_marginTop="3dp"
+                android:layout_weight="0.6"
+                android:background="@drawable/comment_ed2"
+                android:gravity="left|center"
+                android:hint="评论吧"
+                android:paddingLeft="5dp"
+                android:textSize="12dp" />
 
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:padding="5dp"
-                    android:src="@mipmap/comment_img2" />
-
-                <TextView
-                    android:id="@+id/comment_num"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="bottom|center"
-                    android:layout_marginBottom="4dp"
-                    android:layout_marginLeft="8dp"
-                    android:text="0"
-                    android:textColor="@color/gray3"
-                    android:textSize="6dp" />
-
-            </FrameLayout>
-
-            <FrameLayout
-                android:id="@+id/collect_fl"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="1">
+                android:layout_weight="1"
+                android:padding="3dp">
 
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:padding="5dp"
-                    android:src="@mipmap/collect_img" />
+                <FrameLayout
+                    android:id="@+id/comment_fl"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1">
 
-                <TextView
-                    android:id="@+id/collect_num"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="bottom|center"
-                    android:layout_marginBottom="4dp"
-                    android:layout_marginLeft="8dp"
-                    android:text="0"
-                    android:textColor="@color/gray3"
-                    android:textSize="6dp" />
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="5dp"
+                        android:src="@mipmap/comment_img2" />
 
-            </FrameLayout>
+                    <TextView
+                        android:id="@+id/comment_num"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="bottom|center"
+                        android:layout_marginBottom="4dp"
+                        android:layout_marginLeft="8dp"
+                        android:text="0"
+                        android:textColor="@color/gray3"
+                        android:textSize="6dp" />
 
-            <FrameLayout
-                android:id="@+id/admire_fl"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1">
+                </FrameLayout>
 
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:padding="5dp"
-                    android:src="@mipmap/zan_img" />
+                <FrameLayout
+                    android:id="@+id/collect_fl"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1">
 
-                <TextView
-                    android:id="@+id/admire_num"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="bottom|center"
-                    android:layout_marginBottom="4dp"
-                    android:layout_marginLeft="8dp"
-                    android:text="0"
-                    android:textColor="@color/gray3"
-                    android:textSize="6dp" />
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="5dp"
+                        android:src="@mipmap/collect_img" />
 
-            </FrameLayout>
+                    <TextView
+                        android:id="@+id/collect_num"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="bottom|center"
+                        android:layout_marginBottom="4dp"
+                        android:layout_marginLeft="8dp"
+                        android:text="0"
+                        android:textColor="@color/gray3"
+                        android:textSize="6dp" />
 
-            <FrameLayout
-                android:id="@+id/share_fl"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1">
+                </FrameLayout>
 
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:padding="5dp"
-                    android:src="@mipmap/shared_img" />
+                <FrameLayout
+                    android:id="@+id/admire_fl"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1">
 
-                <TextView
-                    android:id="@+id/share_num"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="bottom|center"
-                    android:layout_marginBottom="4dp"
-                    android:layout_marginLeft="8dp"
-                    android:text="0"
-                    android:textColor="@color/gray3"
-                    android:textSize="6dp" />
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="5dp"
+                        android:src="@mipmap/zan_img" />
 
-            </FrameLayout>
+                    <TextView
+                        android:id="@+id/admire_num"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="bottom|center"
+                        android:layout_marginBottom="4dp"
+                        android:layout_marginLeft="8dp"
+                        android:text="0"
+                        android:textColor="@color/gray3"
+                        android:textSize="6dp" />
 
+                </FrameLayout>
+
+                <FrameLayout
+                    android:id="@+id/share_fl"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="5dp"
+                        android:src="@mipmap/shared_img" />
+
+                    <TextView
+                        android:id="@+id/share_num"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="bottom|center"
+                        android:layout_marginBottom="4dp"
+                        android:layout_marginLeft="8dp"
+                        android:text="0"
+                        android:textColor="@color/gray3"
+                        android:textSize="6dp" />
+
+                </FrameLayout>
+
+
+            </LinearLayout>
 
         </LinearLayout>
 
-    </LinearLayout>
-     <!--遮盖导航布局-->
+        <FrameLayout
+            android:id="@+id/bottom_Advertisement_bar_layout"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:visibility="gone"
+            >
+
+            <ImageView
+                android:id="@+id/bottom_Advertisement_bar"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"
+                android:src="@drawable/test_icon2"
+                 />
+
+            <TextView
+                android:id="@+id/adver_close_tv"
+                android:layout_width="40dp"
+                android:layout_height="15dp"
+                android:layout_gravity="right|top"
+                android:background="#fdfafb"
+                android:gravity="center"
+                android:paddingRight="4dp"
+                android:text="关闭"
+                android:textColor="@color/black"
+                android:textSize="8sp" />
+
+            <ImageView
+                android:layout_width="8dp"
+                android:layout_height="8dp"
+                android:layout_gravity="right|top"
+                android:layout_marginRight="1dp"
+                android:layout_marginTop="3dp"
+                android:src="@mipmap/adv_close_icon" />
+        </FrameLayout>
+    </FrameLayout>
+
+    <!--遮盖导航布局-->
     <RelativeLayout
         android:id="@+id/lead_rl"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@drawable/photo_shape"
-        android:visibility="gone"
-        >
+        android:visibility="gone">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="180dp"
             android:layout_alignParentBottom="true"
-            android:orientation="horizontal"
-            >
+            android:orientation="horizontal">
 
             <ImageView
                 android:id="@+id/curtain_img"
@@ -213,8 +254,7 @@
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
                 android:layout_weight="2"
-                android:src="@mipmap/photo_icon"
-                />
+                android:src="@mipmap/photo_icon" />
 
             <TextView
                 android:layout_width="1dp"

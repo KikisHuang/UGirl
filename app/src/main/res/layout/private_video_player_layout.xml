@@ -7,4 +7,26 @@
         android:id="@+id/jc_video"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
+
+    <FrameLayout
+        android:id="@+id/adv_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center">
+
+        <ImageView
+            android:id="@+id/adv_img"
+            android:layout_width="250dp"
+            android:layout_height="250dp"
+            android:layout_gravity="center"
+            android:layout_margin="12dp"
+            android:src="@drawable/logo_back" />
+
+        <ImageView
+            android:id="@+id/close_img"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_gravity="right|top"
+            android:src="@mipmap/close_icon" />
+    </FrameLayout>
 </FrameLayout>

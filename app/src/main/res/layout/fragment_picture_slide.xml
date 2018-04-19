@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/photo_frame_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -9,8 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_centerVertical="true"
-        android:scaleType="fitXY"
-        />
+        android:scaleType="fitCenter" />
 
     <ImageView
         android:id="@+id/load_img"
@@ -18,4 +18,41 @@
         android:layout_height="40dp"
         android:layout_gravity="center"
         android:visibility="gone" />
+
+    <FrameLayout
+        android:id="@+id/bottom_Advertisement_bar_layout"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_gravity="bottom"
+        android:visibility="gone"
+        >
+
+        <ImageView
+            android:id="@+id/bottom_Advertisement_bar"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            android:src="@drawable/test_icon2"
+            />
+
+        <TextView
+            android:id="@+id/adver_close_tv"
+            android:layout_width="40dp"
+            android:layout_height="15dp"
+            android:layout_gravity="right|top"
+            android:background="#fdfafb"
+            android:gravity="center"
+            android:paddingRight="4dp"
+            android:text="关闭"
+            android:textColor="@color/black"
+            android:textSize="8sp" />
+
+        <ImageView
+            android:layout_width="8dp"
+            android:layout_height="8dp"
+            android:layout_gravity="right|top"
+            android:layout_marginRight="1dp"
+            android:layout_marginTop="3dp"
+            android:src="@mipmap/adv_close_icon" />
+    </FrameLayout>
 </FrameLayout>
