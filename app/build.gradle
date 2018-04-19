@@ -41,8 +41,8 @@ android {
 //        minSdkVersion 21
         targetSdkVersion 20
 //        targetSdkVersion 22
-        versionCode 45
-        versionName "1.4.4"
+        versionCode 46
+        versionName "1.4.5"
         multiDexEnabled true
 
         ndk {
