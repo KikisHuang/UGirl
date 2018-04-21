@@ -38,7 +38,8 @@ public class MzFinal {
     public static final String typeFlag = "typeFlag";
 
     public static String MYID = "";
-    public static boolean AdvertisementIsShow = true;
+    public static boolean AdvertisementIsShow = false;
+    public static boolean AlbumENDAdvertShow= false;
 
     public static final String br = "<br />";
     //支付宝支付接口存放数组;

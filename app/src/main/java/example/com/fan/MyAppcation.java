@@ -57,8 +57,8 @@ public class MyAppcation extends MultiDexApplication {
         /**
          * 全局异常捕获方法;
          */
-//        crashHandler = CrashHandler.getInstance();
-//        crashHandler.init(getApplicationContext());
+        crashHandler = CrashHandler.getInstance();
+        crashHandler.init(getApplicationContext());
 
         //支付方式判断(多个马甲包,根据包名判断appid);
         pkName = getOverID(pkName, this);

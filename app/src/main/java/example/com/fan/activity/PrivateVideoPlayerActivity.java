@@ -15,6 +15,7 @@ import com.google.gson.Gson;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.Map;
@@ -26,6 +27,7 @@ import cn.jzvd.JZVideoPlayerStandard;
 import example.com.fan.MyAppcation;
 import example.com.fan.R;
 import example.com.fan.base.sign.save.SPreferences;
+import example.com.fan.bean.PageTopBean;
 import example.com.fan.bean.VideoPlayBean;
 import example.com.fan.utils.DeviceUtils;
 import example.com.fan.utils.MzFinal;
@@ -33,9 +35,11 @@ import example.com.fan.utils.ToastUtil;
 import example.com.fan.view.Popup.PaytwoPopupWindow;
 import okhttp3.Call;
 
+import static example.com.fan.utils.BannerUtils.goBannerPage;
 import static example.com.fan.utils.GlideImgUtils.getRequestOptions;
 import static example.com.fan.utils.IntentUtils.goOutsidePage;
 import static example.com.fan.utils.JsonUtils.getCode;
+import static example.com.fan.utils.JsonUtils.getJsonAr;
 import static example.com.fan.utils.JsonUtils.getJsonOb;
 import static example.com.fan.utils.JsonUtils.getJsonSring;
 import static example.com.fan.utils.JsonUtils.getKeyMap;
@@ -60,13 +64,60 @@ public class PrivateVideoPlayerActivity extends AppCompatActivity implements Vie
     private Handler handler;
     private int time = 5;
     private Timer tm;
+    private boolean adShow = false;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.private_video_player_layout);
         init();
-        getVideoData();
+        getAdv();
+    }
+
+    private void getAdv() {
+        /**
+         * 底部广告接口;
+         */
+        OkHttpUtils
+                .get()
+                .url(MzFinal.URl + MzFinal.GETBANNER)
+                .addParams("showPosition", "9")
+                .tag(this)
+                .build()
+                .execute(new StringCallback() {
+                    @Override
+                    public void onError(Call call, Exception e, int id) {
+                        ToastUtil.toast2_bottom(PrivateVideoPlayerActivity.this, "网络不顺畅...");
+                    }
+
+                    @Override
+                    public void onResponse(String response, int id) {
+                        try {
+                            int code = getCode(response);
+                            if (code == 1) {
+                                JSONArray ar = getJsonAr(response);
+                                if (ar.length() > 0) {
+                                    Hand();
+                                    adShow = true;
+                                    adv_layout.setVisibility(View.VISIBLE);
+                                    final PageTopBean rb = new Gson().fromJson(String.valueOf(ar.getJSONObject(0)), PageTopBean.class);
+                                    Glide.with(PrivateVideoPlayerActivity.this).load(rb.getImgUrl()).into(adv_img);
+                                    adv_img.setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View v) {
+                                            goBannerPage(PrivateVideoPlayerActivity.this, rb.getType(), rb.getHttpUrl(), rb.getValue());
+                                        }
+                                    });
+
+                                }
+                                getVideoData();
+                            }
+                        } catch (Exception e) {
+                            getVideoData();
+                        }
+                    }
+                });
     }
 
     private void init() {
@@ -76,12 +127,11 @@ public class PrivateVideoPlayerActivity extends AppCompatActivity implements Vie
         adv_img = (ImageView) findViewById(R.id.adv_img);
         int w = (int) (DeviceUtils.getWindowWidth(this) * 1.5 / 2);
         FrameLayout.LayoutParams fl = new FrameLayout.LayoutParams(w, w);
+        fl.setMargins(0,12,12,0);
         adv_img.setLayoutParams(fl);
         close_img = (ImageView) findViewById(R.id.close_img);
         close_img.setOnClickListener(this);
-        adv_img.setOnClickListener(this);
         id = getIntent().getStringExtra("private_play_id");
-        Hand();
     }
 
     private void Hand() {
@@ -132,8 +182,8 @@ public class PrivateVideoPlayerActivity extends AppCompatActivity implements Vie
 
                                     if (vb.getMcSettingPublishType().getTypeFlag() == -3)
                                         getAccredit(vb.getMcPublishVideoUrls().get(0).getPath(), MzFinal.PRIVATEVIDEOAUTHENTICATION);
-
-                                    TimerInit();
+                                    if (adShow)
+                                        TimerInit();
                                     try {
                                         Glide.with(getApplicationContext()).load(vb.getCoverPath()).apply(getRequestOptions(false, 1920, 1080, false)).into(mJcVideoPlayerStandard.thumbImageView);
                                     } catch (Exception e) {
@@ -276,10 +326,6 @@ public class PrivateVideoPlayerActivity extends AppCompatActivity implements Vie
                         tm = null;
                     }
                 }
-
-                break;
-            case R.id.adv_img:
-                goOutsidePage(this, "", "");
                 break;
 
         }

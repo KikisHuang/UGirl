@@ -205,7 +205,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:scaleType="centerCrop"
-                android:src="@drawable/test_icon2" />
+                />
 
             <TextView
                 android:id="@+id/adver_close_tv"
@@ -280,7 +280,7 @@
         android:layout_width="35dp"
         android:layout_height="35dp"
         android:layout_gravity="right|bottom"
-        android:layout_marginBottom="50dp"
+        android:layout_marginBottom="60dp"
         android:layout_marginRight="7dp"
         android:src="@mipmap/unscreen_img" />
     <!-- 弹幕布局 -->

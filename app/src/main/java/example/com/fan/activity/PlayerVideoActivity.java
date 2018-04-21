@@ -34,6 +34,7 @@ import example.com.fan.R;
 import example.com.fan.adapter.PlayerCommentAdapter;
 import example.com.fan.base.sign.save.SPreferences;
 import example.com.fan.bean.CommentBean;
+import example.com.fan.bean.PageTopBean;
 import example.com.fan.bean.RandomBean;
 import example.com.fan.bean.VideoPlayBean;
 import example.com.fan.mylistener.ChangeUserInfoListener;
@@ -46,6 +47,7 @@ import example.com.fan.view.Popup.PayPopupWindow;
 import example.com.fan.view.Popup.PaytwoPopupWindow;
 import okhttp3.Call;
 
+import static example.com.fan.utils.BannerUtils.goBannerPage;
 import static example.com.fan.utils.GlideImgUtils.getRequestOptions;
 import static example.com.fan.utils.IntentUtils.goHomePage;
 import static example.com.fan.utils.IntentUtils.goOutsidePage;
@@ -110,6 +112,7 @@ public class PlayerVideoActivity extends AppCompatActivity implements View.OnCli
     }
 
     private void getData() {
+        getAdv();
         getVideoData(MzFinal.GETRANDOMVIDEOBYPAGE);
     }
 
@@ -146,6 +149,48 @@ public class PlayerVideoActivity extends AppCompatActivity implements View.OnCli
     private void receive() {
         id = getIntent().getStringExtra("play_id");
     }
+
+    private void getAdv() {
+        /**
+         * 底部广告接口;
+         */
+        OkHttpUtils
+                .get()
+                .url(MzFinal.URl + MzFinal.GETBANNER)
+                .addParams("showPosition", "10")
+                .tag(this)
+                .build()
+                .execute(new StringCallback() {
+                    @Override
+                    public void onError(Call call, Exception e, int id) {
+                        ToastUtil.toast2_bottom(PlayerVideoActivity.this, "网络不顺畅...");
+                    }
+
+                    @Override
+                    public void onResponse(String response, int id) {
+                        try {
+                            int code = getCode(response);
+                            if (code == 1) {
+                                JSONArray ar = getJsonAr(response);
+                                if (ar.length() > 0) {
+                                    video_adv_img.setVisibility(View.VISIBLE);
+                                    final PageTopBean rb = new Gson().fromJson(String.valueOf(ar.getJSONObject(0)), PageTopBean.class);
+                                    Glide.with(PlayerVideoActivity.this).load(rb.getImgUrl()).into(video_adv_img);
+                                    video_adv_img.setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View v) {
+                                            goBannerPage(PlayerVideoActivity.this, rb.getType(), rb.getHttpUrl(), rb.getValue());
+                                        }
+                                    });
+                                }
+                            }
+                        } catch (Exception e) {
+                        }
+                    }
+                });
+    }
+
+
 
     private void getComment(String type) {
 

@@ -55,7 +55,7 @@ public class BannerUtils {
         Log.i(TAG, "Banner Type ===" + type);
         if (LoginStatusQuery()) {
             if (type == -1)
-                goOutsidePage(context, path, "活动");
+                goOutsidePage(context, path, "");
             if (type == 0)
                 goPhotoPage(context, id, 0);
             if (type == 1)

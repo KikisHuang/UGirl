@@ -1,9 +1,11 @@
 package example.com.fan.bean;
 
+import java.io.Serializable;
+
 /**
  * Created by lian on 2017/6/15.
  */
-public class PageTopBean {
+public class PageTopBean implements Serializable{
     public String getHttpUrl() {
         return httpUrl;
     }

@@ -36,6 +36,7 @@ import example.com.fan.adapter.PhotoPagerAdapter2;
 import example.com.fan.base.sign.save.SPreferences;
 import example.com.fan.bean.CommentBean;
 import example.com.fan.bean.MirrorBean;
+import example.com.fan.bean.PageTopBean;
 import example.com.fan.bean.mcPublishImgUrls;
 import example.com.fan.fragment.son.CommentFragment;
 import example.com.fan.mylistener.CollectListener;
@@ -53,6 +54,7 @@ import example.com.fan.view.Popup.PayPopupWindow;
 import example.com.fan.view.SmartScrollView;
 import okhttp3.Call;
 
+import static example.com.fan.utils.BannerUtils.goBannerPage;
 import static example.com.fan.utils.GlideImgUtils.getRequestOptions;
 import static example.com.fan.utils.IntentUtils.goHomePage;
 import static example.com.fan.utils.JsonUtils.getCode;
@@ -111,7 +113,7 @@ public class PrivatePhotoActivity extends InitActivity implements View.OnClickLi
     private boolean AdverShow = true;
 
 
-
+    private PageTopBean pageTopBean = null;
     /**
      * 回调方法;
      */
@@ -340,7 +342,7 @@ public class PrivatePhotoActivity extends InitActivity implements View.OnClickLi
      * ViewPager初始化设置;
      */
     private void setPage() {
-        viewPager.setAdapter(new PhotoPagerAdapter2(getSupportFragmentManager(), urlList, id));
+        viewPager.setAdapter(new PhotoPagerAdapter2(getSupportFragmentManager(), urlList, id,pageTopBean));
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -437,7 +439,7 @@ public class PrivatePhotoActivity extends InitActivity implements View.OnClickLi
             id = getIntent().getStringExtra("photo_id");
             Log.i(TAG, "Photo_ID ====" + id);
             if (!id.isEmpty())
-                getData(id);
+                getData();
             else
                 finish();
 
@@ -447,7 +449,90 @@ public class PrivatePhotoActivity extends InitActivity implements View.OnClickLi
         }
     }
 
-    private void getData(String id) {
+    private void getData() {
+
+
+
+        /**
+         * 底部广告接口;
+         */
+        OkHttpUtils
+                .get()
+                .url(MzFinal.URl + MzFinal.GETBANNER)
+                .addParams("showPosition", "7")
+                .tag(this)
+                .build()
+                .execute(new StringCallback() {
+                    @Override
+                    public void onError(Call call, Exception e, int id) {
+                        ToastUtil.toast2_bottom(PrivatePhotoActivity.this, "网络不顺畅...");
+                    }
+
+                    @Override
+                    public void onResponse(String response, int id) {
+                        try {
+                            int code = getCode(response);
+                            if (code == 1) {
+                                JSONArray ar = getJsonAr(response);
+                                if (ar.length() > 0) {
+                                    final PageTopBean rb = new Gson().fromJson(String.valueOf(ar.getJSONObject(0)), PageTopBean.class);
+                                    Glide.with(PrivatePhotoActivity.this).load(rb.getImgUrl()).into(bottom_Advertisement_bar);
+                                    MzFinal.AdvertisementIsShow = true;
+                                    bottom_Advertisement_bar.setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View v) {
+                                            goBannerPage(PrivatePhotoActivity.this, rb.getType(), rb.getHttpUrl(), rb.getValue());
+                                        }
+                                    });
+                                } else
+                                    MzFinal.AdvertisementIsShow = false;
+                            }
+                        } catch (Exception e) {
+                            MzFinal.AdvertisementIsShow = false;
+                        }
+                    }
+                });
+        /**
+         * 专辑最后一页广告接口;
+         */
+        OkHttpUtils
+                .get()
+                .url(MzFinal.URl + MzFinal.GETBANNER)
+                .addParams("showPosition", "8")
+                .tag(this)
+                .build()
+                .execute(new StringCallback() {
+                    @Override
+                    public void onError(Call call, Exception e, int id) {
+                        ToastUtil.toast2_bottom(PrivatePhotoActivity.this, "网络不顺畅...");
+                    }
+
+                    @Override
+                    public void onResponse(String response, int id) {
+                        try {
+                            int code = getCode(response);
+                            if (code == 1) {
+                                JSONArray ar = getJsonAr(response);
+                                if (ar.length() > 0) {
+                                    MzFinal.AlbumENDAdvertShow = true;
+                                    pageTopBean = new Gson().fromJson(String.valueOf(ar.getJSONObject(0)), PageTopBean.class);
+
+                                } else
+                                    MzFinal.AlbumENDAdvertShow = false;
+
+                                getAlbumData();
+                            }
+
+                        } catch (Exception e) {
+                            getAlbumData();
+                        }
+                    }
+                });
+
+
+    }
+
+    private void getAlbumData() {
         /**
          * 写真专辑数据;
          */
@@ -488,14 +573,11 @@ public class PrivatePhotoActivity extends InitActivity implements View.OnClickLi
                                 }
 
                                 TextViewColorUtils.setTextColor(num_tv, String.valueOf(oldposition + 1), "/" + String.valueOf(urlList.get(0).getMcPublishImgUrls().size()), "#eb030d");
-                                if (urlList.get(0).getMcPublishImgUrls().size() > 0) {
+                                if (urlList.get(0).getMcPublishImgUrls().size() > 0 && MzFinal.AlbumENDAdvertShow) {
                                     mcPublishImgUrls mcp = new mcPublishImgUrls();
-                                    mcp.setPath("https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=2168965408,2316223666&fm=200&gp=0.jpg");
-                                    mcp.setBasePath("https://www.baidu.com");
                                     urlList.get(0).getMcPublishImgUrls().add(mcp);
-                                    setPage();
                                 }
-
+                                setPage();
 //                        createFragment();
 
                             } else {
@@ -796,7 +878,7 @@ public class PrivatePhotoActivity extends InitActivity implements View.OnClickLi
         } else {
             bottom_layout.startAnimation(AnimationUtil.moveToViewLocation());
 
-            if (AdverShow)
+            if (AdverShow&&MzFinal.AdvertisementIsShow)
                 bottom_Advertisement_bar_layout.setVisibility(View.VISIBLE);
 
             photo_top_rl.startAnimation(AnimationUtil.moveToViewLocation1());

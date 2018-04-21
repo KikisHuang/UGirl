@@ -17,15 +17,18 @@ import com.bumptech.glide.load.engine.GlideException;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.Target;
+import com.google.gson.Gson;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
 
+import org.json.JSONArray;
 import org.w3c.dom.Text;
 
 import example.com.fan.MyAppcation;
 import example.com.fan.R;
 import example.com.fan.activity.PhotoActivity;
 import example.com.fan.base.sign.save.SPreferences;
+import example.com.fan.bean.PageTopBean;
 import example.com.fan.fragment.BaseFragment;
 import example.com.fan.mylistener.PayRefreshListener;
 import example.com.fan.utils.MzFinal;
@@ -34,18 +37,20 @@ import okhttp3.Call;
 import uk.co.senab.photoview.PhotoView;
 import uk.co.senab.photoview.PhotoViewAttacher;
 
+import static example.com.fan.utils.BannerUtils.goBannerPage;
 import static example.com.fan.utils.IntentUtils.goOutsidePage;
 import static example.com.fan.utils.JsonUtils.getCode;
+import static example.com.fan.utils.JsonUtils.getJsonAr;
 import static example.com.fan.utils.JsonUtils.getJsonSring;
 import static example.com.fan.utils.SynUtils.getTAG;
 
 /**
  * Created by lian on 2017/5/5.
  */
-public class PictureSlideFragment extends BaseFragment implements PayRefreshListener ,View.OnClickListener{
+public class PictureSlideFragment extends BaseFragment implements PayRefreshListener, View.OnClickListener {
     private static final String TAG = getTAG(PictureSlideFragment.class);
     private String url;
-    private String adv_url;
+    private PageTopBean adv_url;
     private PhotoView imageView;
     private FrameLayout bottom_Advertisement_bar_layout;
     private ImageView bottom_Advertisement_bar;
@@ -67,7 +72,7 @@ public class PictureSlideFragment extends BaseFragment implements PayRefreshList
      * @param isadv
      * @return
      */
-    public static PictureSlideFragment newInstance(String path, String base, boolean needMoney, String id, boolean isadv) {
+    public static PictureSlideFragment newInstance(String path, String base, boolean needMoney, String id, PageTopBean isadv) {
 
         if (!MzFinal.isPay && needMoney && !MyAppcation.VipFlag) {
             if (PhotoActivity.tlistener != null)
@@ -84,10 +89,10 @@ public class PictureSlideFragment extends BaseFragment implements PayRefreshList
         else
             args.putString("url", path);
 
-        if (isadv)
-            args.putString("adv_url", base);
+        if (isadv != null && MzFinal.AlbumENDAdvertShow)
+            args.putSerializable("adv_url", isadv);
         else
-            args.putString("adv_url", "");
+            args.putSerializable("adv_url", null);
 
         args.putString("id", id);
         args.putBoolean("needMoney", needMoney);
@@ -102,7 +107,7 @@ public class PictureSlideFragment extends BaseFragment implements PayRefreshList
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         url = getArguments() != null ? getArguments().getString("url") : "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1494050810732&di=12648ae1cfe05df8bf586bd65c60961f&imgtype=0&src=http%3A%2F%2Fres2.esf.leju.com%2Fesf_www%2Fstatics%2Fimages%2Fdefault-img%2Fdetail.png";
-        adv_url = getArguments() != null ? getArguments().getString("adv_url") : "https://www.baidu.com";
+        adv_url = getArguments() != null ? (PageTopBean) getArguments().getSerializable("adv_url") : null;
         need = getArguments() != null ? getArguments().getBoolean("needMoney") : false;
         id = getArguments() != null ? getArguments().getString("id") : "";
     }
@@ -223,12 +228,11 @@ public class PictureSlideFragment extends BaseFragment implements PayRefreshList
         photoViewAttacher = new PhotoViewAttacher(imageView);
         PayListener = this;
 
-        if (!adv_url.isEmpty()){
-            bottom_Advertisement_bar_layout.setVisibility(view.VISIBLE);
+        if (adv_url != null) {
+            url = adv_url.getImgUrl();
+            getBottomBanner();
             adver_close_tv.setOnClickListener(this);
-            bottom_Advertisement_bar.setOnClickListener(this);
-        }
-        else bottom_Advertisement_bar_layout.setVisibility(view.GONE);
+        } else bottom_Advertisement_bar_layout.setVisibility(view.GONE);
 
 
         photoViewAttacher.setOnDoubleTapListener(gest = new GestureDetector.OnDoubleTapListener() {
@@ -236,10 +240,10 @@ public class PictureSlideFragment extends BaseFragment implements PayRefreshList
             public boolean onSingleTapConfirmed(MotionEvent e) {
                 Log.i(TAG, "onSingleTapConfirmed  id ==" + id);
                 Log.i(TAG, "adv_url   ==" + adv_url);
-                if (PhotoActivity.slistener != null && !adv_url.isEmpty())
-                    goOutsidePage(getActivity(), adv_url, "");
+                if (PhotoActivity.slistener != null && adv_url != null)
+                    goBannerPage(getActivity(), adv_url.getType(), adv_url.getHttpUrl(), adv_url.getValue());
 
-                if (PhotoActivity.slistener != null && adv_url.isEmpty())
+                if (PhotoActivity.slistener != null && adv_url == null)
                     PhotoActivity.slistener.onShowOfHide();
 
                 return false;
@@ -278,6 +282,49 @@ public class PictureSlideFragment extends BaseFragment implements PayRefreshList
 
     }
 
+    private void getBottomBanner() {
+        /**
+         * 底部广告接口;
+         */
+        OkHttpUtils
+                .get()
+                .url(MzFinal.URl + MzFinal.GETBANNER)
+                .addParams("showPosition", "7")
+                .tag(this)
+                .build()
+                .execute(new StringCallback() {
+                    @Override
+                    public void onError(Call call, Exception e, int id) {
+                        ToastUtil.toast2_bottom(getActivity(), "网络不顺畅...");
+                    }
+
+                    @Override
+                    public void onResponse(String response, int id) {
+                        try {
+                            int code = getCode(response);
+                            if (code == 1) {
+                                JSONArray ar = getJsonAr(response);
+                                if (ar.length() > 0) {
+                                    bottom_Advertisement_bar_layout.setVisibility(view.VISIBLE);
+                                    final PageTopBean rb = new Gson().fromJson(String.valueOf(ar.getJSONObject(0)), PageTopBean.class);
+                                    Glide.with(getActivity()).load(rb.getImgUrl()).into(bottom_Advertisement_bar);
+                                    MzFinal.AdvertisementIsShow = true;
+                                    bottom_Advertisement_bar.setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View v) {
+                                            goBannerPage(getActivity(), rb.getType(), rb.getHttpUrl(), rb.getValue());
+                                        }
+                                    });
+                                } else
+                                    MzFinal.AdvertisementIsShow = false;
+                            }
+                        } catch (Exception e) {
+                            MzFinal.AdvertisementIsShow = false;
+                        }
+                    }
+                });
+    }
+
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
@@ -293,6 +340,7 @@ public class PictureSlideFragment extends BaseFragment implements PayRefreshList
 
     @Override
     protected void initData() {
+
         getData();
     }
 
@@ -303,12 +351,9 @@ public class PictureSlideFragment extends BaseFragment implements PayRefreshList
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.adver_close_tv:
                 bottom_Advertisement_bar_layout.setVisibility(view.GONE);
-                break;
-            case R.id.bottom_Advertisement_bar:
-                goOutsidePage(getActivity(), adv_url, "");
                 break;
 
         }
