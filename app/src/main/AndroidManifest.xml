@@ -61,7 +61,7 @@
     <application
         android:name=".MyAppcation"
         android:allowBackup="true"
-        android:icon="@mipmap/yinhua_logo"
+        android:icon="@mipmap/news_logo"
         android:label="@string/app_name"
         android:largeHeap="true"
         android:supportsRtl="true"
