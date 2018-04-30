@@ -22,6 +22,7 @@ import java.util.List;
 
 import example.com.fan.MyAppcation;
 import example.com.fan.R;
+import example.com.fan.activity.HomePageActivity;
 import example.com.fan.base.sign.save.SPreferences;
 import example.com.fan.bean.PageTopBean;
 import example.com.fan.bean.UserInfoBean;
@@ -382,7 +383,8 @@ public class MyFragment extends BaseFragment implements View.OnClickListener, Ch
                     goPersonInfoPage(getActivity(), info.get(0).getHeadImgUrl(), info.get(0).getName(), String.valueOf(getSex(info.get(0).getSex())), info.get(0).getWx());
                 break;
             case R.id.login_tv:
-                goLoginPage(getActivity());
+//                goLoginPage(getActivity());
+                Login(getActivity());
                 break;
             case R.id.register_tv:
                 goRegisterPage(getActivity());

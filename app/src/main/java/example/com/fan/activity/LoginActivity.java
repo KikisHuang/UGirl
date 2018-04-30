@@ -238,7 +238,7 @@ public class LoginActivity extends InitActivity implements View.OnClickListener,
 
     private void Login(String use, String pass) {
         OkHttpUtils
-                .get()
+                .post()
                 .url(MzFinal.URl + MzFinal.DEFAULT)
                 .addParams("account", use)
                 .addParams("code", pass)
@@ -302,7 +302,7 @@ public class LoginActivity extends InitActivity implements View.OnClickListener,
 
     private void getPhoneCode() {
         OkHttpUtils
-                .get()
+                .post()
                 .url(MzFinal.URl + MzFinal.CREATECODE)
                 .addParams("account", user_ed.getText().toString())
                 .tag(this)

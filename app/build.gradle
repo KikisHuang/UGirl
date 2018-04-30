@@ -41,8 +41,8 @@ android {
 //        minSdkVersion 21
         targetSdkVersion 20
 //        targetSdkVersion 22
-        versionCode 48
-        versionName "1.4.7"
+        versionCode 50
+        versionName "1.5"
 
         multiDexEnabled true
 
@@ -68,6 +68,9 @@ android {
         }
         yingyongbao {
             manifestPlaceholders = [UMENG_CHANNEL_VALUE: "993d98d7b680"]
+        }
+        yingyongbao2 {
+            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "2aefde85db5f"]
         }
         lenovo {
             manifestPlaceholders = [UMENG_CHANNEL_VALUE: "e2b57507ec83"]

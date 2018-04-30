@@ -23,6 +23,7 @@ import org.json.JSONObject;
 
 import example.com.fan.MyAppcation;
 import example.com.fan.R;
+import example.com.fan.activity.HomePageActivity;
 import example.com.fan.activity.MainActivity;
 import example.com.fan.base.sign.save.SPreferences;
 import example.com.fan.bean.UserInfoBean;
@@ -274,7 +275,8 @@ public class SlidePopupWindow implements View.OnClickListener {
      */
     private void login() {
         if (!LoginStatusQuery()) {
-            goLoginPage(mContext);
+//            goLoginPage(mContext);
+            Login(mContext);
             popupWindow.dismiss();
 //            backgroundAlpha(1f, mContext);
 

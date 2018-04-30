@@ -585,8 +585,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
                     goPlayerPage(this, id, -3);
                     break;
             }
-        } else
-            Login(this);
+        }
     }
 
     public void HideOfShowNotice(final boolean f) {

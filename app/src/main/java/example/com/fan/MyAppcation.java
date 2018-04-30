@@ -12,6 +12,7 @@ import com.zhy.http.okhttp.cookie.CookieJarImpl;
 import com.zhy.http.okhttp.cookie.store.PersistentCookieStore;
 import com.zhy.http.okhttp.log.LoggerInterceptor;
 
+import java.net.Proxy;
 import java.util.concurrent.TimeUnit;
 
 import example.com.fan.base.sign.CrashHandler;

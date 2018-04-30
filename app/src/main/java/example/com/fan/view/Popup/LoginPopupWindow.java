@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -84,8 +85,8 @@ public class LoginPopupWindow implements View.OnClickListener, AccreditListener 
             // 一个自定义的布局，作为显示的内容
             View contentView = LayoutInflater.from(context).inflate(R.layout.login_popu_layout, null);
             int width = DeviceUtils.getWindowWidth(context) * 8 / 10;
-            int h = (int) (DeviceUtils.getWindowHeight(context) * 8.5 / 10);
-            popupWindow = new PopupWindow(contentView, width, h);
+//            int h = (int) (DeviceUtils.getWindowHeight(context) * 8.5 / 10);
+            popupWindow = new PopupWindow(contentView, width, ViewGroup.LayoutParams.WRAP_CONTENT);
             popupWindow.setAnimationStyle(R.style.AnimationPreview);
             init(contentView);
             click();
@@ -312,7 +313,7 @@ public class LoginPopupWindow implements View.OnClickListener, AccreditListener 
     private void getPhoneCode() {
 
         OkHttpUtils
-                .get()
+                .post()
                 .url(MzFinal.URl + MzFinal.CREATECODE)
                 .addParams("account", user_ed.getText().toString())
                 .build()
