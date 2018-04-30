@@ -78,12 +78,12 @@ public class MyAppcation extends MultiDexApplication {
              * 参数二: key;
              */
             //尤女郎 key;
-            PlatformConfig.setWeixin(WECHATID, "4bcde8ce9e646833395aae492d93bbc8");
-            PlatformConfig.setQQZone(QQID, "63e5c4ab1c476fa9204c8504fa2338bd");
+//            PlatformConfig.setWeixin(WECHATID, "4bcde8ce9e646833395aae492d93bbc8");
+//            PlatformConfig.setQQZone(QQID, "63e5c4ab1c476fa9204c8504fa2338bd");
 
             //尤女映画 key;
-//            PlatformConfig.setWeixin(WECHATID, "db426a9829e4b49a0dcac7b4162da6b6");
-//            PlatformConfig.setQQZone(QQID, "5021f5bba7807a82e424d47a3190720b");
+            PlatformConfig.setWeixin(WECHATID, "db426a9829e4b49a0dcac7b4162da6b6");
+            PlatformConfig.setQQZone(QQID, "5021f5bba7807a82e424d47a3190720b");
 
         }
     }
