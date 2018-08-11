@@ -1,11 +1,13 @@
 package example.com.fan.activity;
 
 import android.content.Context;
+import android.view.KeyEvent;
 import android.view.View;
 import android.webkit.CookieManager;
 import android.webkit.CookieSyncManager;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
+import android.widget.ImageView;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
@@ -21,11 +23,12 @@ import static example.com.fan.view.dialog.CustomProgress.Show;
 /**
  * Created by lian on 2017/7/8.
  */
-public class OutSideActivity extends InitActivity {
+public class OutSideActivity extends InitActivity implements View.OnClickListener {
     private String url = "";
     private WebView webView;
     private TextView statement_tv;
     private ScrollView statement_scroll;
+    private ImageView back_img;
 
     @Override
     protected void click() {
@@ -36,7 +39,7 @@ public class OutSideActivity extends InitActivity {
         webView.setInitialScale(50);//这里一定要设置，数值可以根据各人的需求而定，我这里设置的是50%的缩放
 
         WebSettings webSettings = webView.getSettings();
-
+        back_img = (ImageView) findViewById(R.id.back_img);
         webSettings.setJavaScriptEnabled(true);
         webSettings.setJavaScriptCanOpenWindowsAutomatically(true);
         webSettings.setDomStorageEnabled(true);
@@ -44,7 +47,7 @@ public class OutSideActivity extends InitActivity {
         webSettings.setUseWideViewPort(true);// 这个很关键
         webSettings.setLoadWithOverviewMode(true);
         webView.goBack();
-
+        back_img.setOnClickListener(this);
     }
 
 
@@ -74,7 +77,7 @@ public class OutSideActivity extends InitActivity {
                 statement_tv.setText(getRouString(R.string.statement));
             } else {
 
-                synCookies(this, url);
+//               synCookies(this, url);
                 Show(this, "加载中", true, null);
                 webView.loadUrl(url);
 
@@ -123,4 +126,28 @@ public class OutSideActivity extends InitActivity {
         CookieSyncManager.getInstance().sync();
     }
 
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            if (webView.canGoBack()) {
+                webView.goBack();
+                return true;
+            } else
+                finish();
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.back_img:
+                if (webView.canGoBack())
+                    webView.goBack();
+                else
+                    finish();
+                break;
+        }
+
+    }
 }

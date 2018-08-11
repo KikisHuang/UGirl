@@ -150,7 +150,7 @@ public class JpushReceiver extends BroadcastReceiver {
             String titile = ob.optString("title");
             String content = ob.optString("content");
 
-            builder.setContentText(content).setSmallIcon(R.mipmap.logo).setContentTitle(titile);
+            builder.setContentText(content).setSmallIcon(R.mipmap.yinghua_logo).setContentTitle(titile);
             builder.setDefaults(Notification.DEFAULT_SOUND);
             manager.notify(1, builder.build());
         } catch (JSONException e) {

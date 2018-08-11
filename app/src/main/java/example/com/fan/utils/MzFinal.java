@@ -58,6 +58,8 @@ public class MzFinal {
     public static final String AliAPPID2 = "2017082508371443";
     //尤女映画、微信APPID;
     public static final String WECHATAPPID2 = "wxc5790f30f6da0d43";
+    //映画微信支付
+    public static final String YINHUAWECHATPAY = "wx16258856fb255f4b";
 
     //尤女郎、支付宝APPID;
     public static final String AliAPPID1 = "2017061207472579";

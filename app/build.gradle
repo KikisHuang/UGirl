@@ -129,6 +129,14 @@ android {
         baiduyidong {
             manifestPlaceholders = [UMENG_CHANNEL_VALUE: "c9758d52f0b3"]
         }
+        //尤女映画-应用宝
+        yinghuayingyongbao {
+            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "0772c164d365"]
+        }
+        //尤女映画-百度
+        yinghuabaidu {
+            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "1060a2dc0e5e"]
+        }
 
         //应用宝微下载渠道;
         wuyi {

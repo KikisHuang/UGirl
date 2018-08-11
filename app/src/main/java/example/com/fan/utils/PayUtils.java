@@ -47,7 +47,8 @@ public class PayUtils {
             appid = MyAppcation.ALIID;
         else {
             if (getAPPID(MyAppcation.pkName))
-                appid = MyAppcation.WECHATID;
+                appid = MzFinal.YINHUAWECHATPAY;
+//                appid = MyAppcation.WECHATID;
             else
                 appid = MzFinal.xiaoketang;
         }
