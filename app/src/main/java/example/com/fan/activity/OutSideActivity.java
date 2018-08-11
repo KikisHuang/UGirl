@@ -42,10 +42,21 @@ public class OutSideActivity extends InitActivity implements View.OnClickListene
         back_img = (ImageView) findViewById(R.id.back_img);
         webSettings.setJavaScriptEnabled(true);
         webSettings.setJavaScriptCanOpenWindowsAutomatically(true);
+        webSettings.setCacheMode(WebSettings.LOAD_NO_CACHE);
         webSettings.setDomStorageEnabled(true);
+        webSettings.setDatabaseEnabled(true);
 //        webSettings.setBuiltInZoomControls(true);// support zoom
         webSettings.setUseWideViewPort(true);// 这个很关键
         webSettings.setLoadWithOverviewMode(true);
+
+        webSettings.setAppCacheEnabled(true);
+        webSettings.setAllowFileAccess(true);
+        webSettings.setSavePassword(true);
+        webSettings.setSupportZoom(true);
+        webSettings.setBuiltInZoomControls(true);
+        webSettings.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.NARROW_COLUMNS);
+        webSettings.setUseWideViewPort(true);
+
         webView.goBack();
         back_img.setOnClickListener(this);
     }
