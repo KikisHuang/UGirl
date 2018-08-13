@@ -18,7 +18,12 @@ public class OutSideWebViewClient extends WebViewClient {
     private static final String TAG = getTAG(OutSideWebViewClient.class);
 
     public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
-        view.loadUrl(request.toString());
+         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            view.loadUrl(request.getUrl().toString());
+        } else {
+            view.loadUrl(request.toString());
+
+        }
         return true;
     }
 
