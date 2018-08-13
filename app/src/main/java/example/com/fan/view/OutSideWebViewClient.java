@@ -22,7 +22,6 @@ public class OutSideWebViewClient extends WebViewClient {
             view.loadUrl(request.getUrl().toString());
         } else {
             view.loadUrl(request.toString());
-
         }
         return true;
     }
